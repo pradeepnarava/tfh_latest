@@ -1,0 +1,37 @@
+//
+// Prefix header for all source files of the 'Välkommen till TFH-appen' target in the 'Välkommen till TFH-appen' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+
+
+
+//  identifie  the device domain......
+//
+
+#define deviceIdiom ([[UIDevice currentDevice] userInterfaceIdiom])
+#define iPhone (UIUserInterfaceIdiomPhone)
+#define iPad (UIUserInterfaceIdiomPad)
+
+// identifie the device OS version.....
+//
+
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+// To find the main screen height to make the app compatible with iPhone 5.
+//
+#define screenHeight ((CGRectGetHeight([UIScreen mainScreen].applicationFrame)))
