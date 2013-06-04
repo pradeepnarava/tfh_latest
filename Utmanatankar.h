@@ -16,15 +16,15 @@
     UILabel *c3;
     sqlite3 *exerciseDB;
     NSString *databasePath;
-     IBOutlet UISlider *slider;
-   
-     IBOutlet UIScrollView *scroll;
+    IBOutlet UISlider *slider;
+    
+    IBOutlet UIScrollView *scroll;
     UIAlertView *alert;
     
-     IBOutlet UIView *listofdates;
+    IBOutlet UIView *listofdates;
     UITableView *tableView;
     NSMutableArray *listexercise3;
-    EditUtmana *eu;
+    
     sqlite3_stmt    *statement;
     NSString *SelectedDate;
     UITableViewCell *cell;
@@ -53,7 +53,7 @@
 -(IBAction)newbutton:(id)sender;
 -(IBAction)nextbutton:(id)sender;
 -(IBAction)labelalert:(id)sender;
--(IBAction)raderabutton:(id)sender;
+
 -(IBAction)Closelistofdates:(id)sender;
 
 -(IBAction)SelectChekBoxs:(id)sender;
@@ -61,3 +61,4 @@
 @property(nonatomic,retain)IBOutlet UITableView *tableView;
 @property(nonatomic, retain)NSMutableArray *listexercise3;
 @end
+

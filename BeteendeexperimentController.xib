@@ -160,7 +160,7 @@
 								<string key="NSFrame">{{117, 80}, {118, 30}}</string>
 								<reference key="NSSuperview" ref="38758801"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="149518364"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -210,7 +210,7 @@
 								<string key="NSFrame">{{25, 147}, {280, 64}}</string>
 								<reference key="NSSuperview" ref="38758801"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="1057869359"/>
+								<reference key="NSNextKeyView" ref="857080864"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="270620174"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -749,6 +749,7 @@
 								<string key="NSFrame">{{23, 1233}, {274, 34}}</string>
 								<reference key="NSSuperview" ref="38758801"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -801,6 +802,7 @@
 										<string key="NSFrameSize">{320, 304}</string>
 										<reference key="NSSuperview" ref="857080864"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="397064263"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -812,6 +814,7 @@
 										<string key="NSFrame">{{20, 13}, {280, 168}}</string>
 										<reference key="NSSuperview" ref="857080864"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="1035597761"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="313994300"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -830,6 +833,7 @@
 										<string key="NSFrame">{{40, 196}, {241, 32}}</string>
 										<reference key="NSSuperview" ref="857080864"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="1057869359"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -850,6 +854,7 @@
 								<string key="NSFrame">{{0, 244}, {320, 304}}</string>
 								<reference key="NSSuperview" ref="38758801"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="510220033"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -1450,7 +1455,6 @@
 						<string key="RaderaButton:">id</string>
 						<string key="changeSlider1:">id</string>
 						<string key="changeSlider:">id</string>
-						<string key="l1alert:">id</string>
 						<string key="mainlabelalert:">id</string>
 						<string key="newButton:">id</string>
 						<string key="nextButton:">id</string>
@@ -1472,10 +1476,6 @@
 						</object>
 						<object class="IBActionInfo" key="changeSlider:">
 							<string key="name">changeSlider:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="l1alert:">
-							<string key="name">l1alert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="mainlabelalert:">

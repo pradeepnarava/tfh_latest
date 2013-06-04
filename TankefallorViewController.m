@@ -8,7 +8,7 @@
 
 #import "TankefallorViewController.h"
 #import "MTPopupWindow.h"
-int s=0;
+int x=0;
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 @interface TankefallorViewController ()
@@ -38,13 +38,18 @@ int s=0;
     
     self.navigationItem.title=@"Tankefällor";
     [self.view addSubview:listofdates];
-    listofdates.hidden=YES;
-    raderaButton.hidden=YES;
-    scroll.scrollEnabled = YES;
     listexercise2=[[NSMutableArray alloc]init];
     [listexercise2 addObject:@"Null"];
+    listofdates.hidden=YES;
+    scroll.scrollEnabled = YES;
+    raderaButton.hidden=YES;
     [scroll setContentSize:CGSizeMake(320, 3000)];
-
+    //    label.userInteractionEnabled = YES;
+    //    UITapGestureRecognizer *tapGesture =
+    //    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mainlabelalert:)] autorelease];
+    //    [label addGestureRecognizer:tapGesture];
+    
+    // Do any additional setup after loading the view from its nib.
     
     NSString *docsDir;
     NSArray *dirPaths;
@@ -64,7 +69,7 @@ int s=0;
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
-    
+            
             char *errMsg;
             const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISETWO (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  STAGC1 TEXT ,STAGC2 TEXT,OVERC1 TEXT,OVERC2 TEXT,TANKEC1 TEXT,TANKEC2 TEXT,PERC1 TEXT,PERC2 TEXT,DISKC1 TEXT,DISKC2 TEXT, FORC1 TEXT,FORC2 TEXT,KATAC1 TEXT, KATAC2 TEXT,ALLC1 TEXT,ALLC2 TEXT,PLIKTC1 TEXT,PLIKTC2 TEXT,SELEKTC1 TEXT, SELEKTC2 TEXT,KANSLC1 TEXT,KANSLC2 TEXT,ETIKEC1 TEXT,ETIKEC2 TEXT)";
             
@@ -83,7 +88,7 @@ int s=0;
     }
     
     [filemgr release];
-[super viewDidLoad];
+    [super viewDidLoad];
     
 }
 -(IBAction)mainlabelalert:(id)sender{
@@ -101,101 +106,116 @@ int s=0;
     
     //Set the required date format
     
-    [formatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     
     //Get the string date
     
     NSString* str = [formatter stringFromDate:date];
     
     NSLog(@"date%@",str);
-    
+    raderaButton.hidden=YES;
     sqlite3_stmt    *statement;
     
     const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {if([[listexercise2 objectAtIndex:s] isEqualToString:@"Null"]){
-             NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISETWO (date,stagc1,stagc2,overc1,overc2,tankec1,tankec2,perc1,perc2,diskc1,diskc2,forc1,forc2,katac1,katac2,allc1,allc2,pliktc1,pliktc2,selektc1,selektc2,kanslc1,kanslc2,etikec1,etikec2) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\")", str, StagC1.text,StagC2.text,StagC1.text,overC2.text,TankeC1.text,TankeC2.text,PerC1.text,PerC2.text,DiskC1.text,DiskC2.text,ForC1.text,ForC2.text,KataC1.text,KataC2.text,AllC1.text,AllC2.text,PliktC1.text,PliktC2.text,SelektC1.text,SelektC2.text,KanslC1.text,KanslC2.text,EtikeC1.text,EtikeC2.text];
-        					
-        const char *insert_stmt = [insertSQL UTF8String];
+    if([StagC1.text isEqualToString:@""] && [StagC2.text isEqualToString:@""] && [TankeC1.text isEqualToString:@""] && [AllC1.text isEqualToString:@""]&& [AllC2.text isEqualToString:@""] && [PerC1.text isEqualToString:@""] && [PerC2.text isEqualToString:@""]&& [overC1.text isEqualToString:@""] && [overC2.text isEqualToString:@""] && [KanslC1.text isEqualToString:@""]&& [KanslC2.text isEqualToString:@""] && [KataC1.text isEqualToString:@""] && [KataC2.text isEqualToString:@""]&& [DiskC1.text isEqualToString:@""] && [DiskC1.text isEqualToString:@""] && [SelektC1.text isEqualToString:@""]&& [SelektC2.text isEqualToString:@""] && [EtikeC1.text isEqualToString:@""] && [EtikeC2.text isEqualToString:@""]&& [ForC1.text isEqualToString:@""] && [ForC2.text isEqualToString:@""] && [PliktC1.text isEqualToString:@""]&& [PliktC1.text isEqualToString:@""] && [TankeC2.text isEqualToString:@""] ){
+        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
+                                        delegate:self
+                               cancelButtonTitle:@"Cancel"
+                               otherButtonTitles:nil, nil];
         
-        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
-        if (sqlite3_step(statement) == SQLITE_DONE)
-        {
-            
-           [self clearAllTexts];            
-             NSLog(@"Save");
-        } else {
-            NSLog(@"no");
-        }
-        sqlite3_finalize(statement);
-        sqlite3_close(exerciseDB);
+        [alert show];
+        [alert release];
     }else{
-        NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET stagc1='%@',stagc2='%@', overc1='%@', overc2='%@',tankec1='%@',tankec2='%@', perc1='%@', perc2='%@',diskc1='%@',diskc2='%@', forc1='%@', forc2='%@',katac1='%@',katac2='%@', allc1='%@', allc2='%@',pliktc1='%@',pliktc2='%@', selektc1='%@', selektc2='%@',kanslc1='%@',kanslc2='%@', etikec1='%@', etikec2='%@'  WHERE date='%@'",StagC1.text,StagC2.text, overC1.text,overC2.text,TankeC1.text,TankeC2.text,PerC1.text,PerC2.text,DiskC1.text,DiskC2.text,ForC1.text,ForC2.text,KataC1.text,KataC2.text,AllC1.text,AllC2.text,PliktC1.text,PliktC2.text,SelektC1.text,SelektC2.text,KanslC1.text,KanslC2.text,EtikeC1.text,EtikeC2.text, [listexercise2 objectAtIndex:s] ];
-        const char *del_stmt = [query UTF8String];
-        
-        if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
-            if(SQLITE_DONE != sqlite3_step(statement))
-                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
-            NSLog(@"sss");
-            [self clearAllTexts];
+        if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+        {
+            if([[listexercise2 objectAtIndex:x] isEqualToString:@"Null"]){
+                NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISETWO (date,stagc1,stagc2,overc1,overc2,tankec1,tankec2,perc1,perc2,diskc1,diskc2,forc1,forc2,katac1,katac2,allc1,allc2,pliktc1,pliktc2,selektc1,selektc2,kanslc1,kanslc2,etikec1,etikec2) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\")", str, StagC1.text,StagC2.text,StagC1.text,overC2.text,TankeC1.text,TankeC2.text,PerC1.text,PerC2.text,DiskC1.text,DiskC2.text,ForC1.text,ForC2.text,KataC1.text,KataC2.text,AllC1.text,AllC2.text,PliktC1.text,PliktC2.text,SelektC1.text,SelektC2.text,KanslC1.text,KanslC2.text,EtikeC1.text,EtikeC2.text];
+                
+                const char *insert_stmt = [insertSQL UTF8String];
+                
+                sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+                if (sqlite3_step(statement) == SQLITE_DONE)
+                {
+                    
+                    [self clearalltexts];
+                    NSLog(@"Save");
+                } else {
+                    NSLog(@"no");
+                }
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+            }else{
+                NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET stagc1='%@',stagc2='%@', overc1='%@', overc2='%@',tankec1='%@',tankec2='%@', perc1='%@', perc2='%@',diskc1='%@',diskc2='%@', forc1='%@', forc2='%@',katac1='%@',katac2='%@', allc1='%@', allc2='%@',pliktc1='%@',pliktc2='%@', selektc1='%@', selektc2='%@',kanslc1='%@',kanslc2='%@', etikec1='%@', etikec2='%@'  WHERE date='%@'",StagC1.text,StagC2.text, overC1.text,overC2.text,TankeC1.text,TankeC2.text,PerC1.text,PerC2.text,DiskC1.text,DiskC2.text,ForC1.text,ForC2.text,KataC1.text,KataC2.text,AllC1.text,AllC2.text,PliktC1.text,PliktC2.text,SelektC1.text,SelektC2.text,KanslC1.text,KanslC2.text,EtikeC1.text,EtikeC2.text, [listexercise2 objectAtIndex:x]];
+                const char *del_stmt = [query UTF8String];
+                
+                if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
+                    if(SQLITE_DONE != sqlite3_step(statement))
+                        NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+                    NSLog(@"sss");
+                    [self clearalltexts];
+                    [listexercise2 removeAllObjects];
+                    x=0;
+                    [listexercise2 addObject:@"Null"];
+                    
+                }
+                
+                
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+                
+                
+            }
         }
-        
-        
-        sqlite3_finalize(statement);
-        sqlite3_close(exerciseDB);
-        
-
     }
-    }
-
-
-
+    
+    
 }
 -(IBAction)Nyttbutton:(id)sender{
-    if([StagC1.text isEqualToString:@""] && [StagC2.text isEqualToString:@""] && [TankeC1.text isEqualToString:@""] && [AllC1.text isEqualToString:@""]){
+    if([StagC1.text isEqualToString:@""] && [StagC2.text isEqualToString:@""] && [TankeC1.text isEqualToString:@""] && [AllC1.text isEqualToString:@""]&& [AllC2.text isEqualToString:@""] && [PerC1.text isEqualToString:@""] && [PerC2.text isEqualToString:@""]&& [overC1.text isEqualToString:@""] && [overC2.text isEqualToString:@""] && [KanslC1.text isEqualToString:@""]&& [KanslC2.text isEqualToString:@""] && [KataC1.text isEqualToString:@""] && [KataC2.text isEqualToString:@""]&& [DiskC1.text isEqualToString:@""] && [DiskC1.text isEqualToString:@""] && [SelektC1.text isEqualToString:@""]&& [SelektC2.text isEqualToString:@""] && [EtikeC1.text isEqualToString:@""] && [EtikeC2.text isEqualToString:@""]&& [ForC1.text isEqualToString:@""] && [ForC2.text isEqualToString:@""] && [PliktC1.text isEqualToString:@""]&& [PliktC1.text isEqualToString:@""] && [TankeC2.text isEqualToString:@""] ){
         
     }else{
-    alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
+        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
                                         delegate:self
                                cancelButtonTitle:@"Cancel"
                                otherButtonTitles:@"without saving", nil];
-            alert.tag=kAlertViewOne;
+        alert.tag=kAlertViewOne;
         [alert show];
         [alert release];
     }
-
+    
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSLog(@"ok");
     //  DATE TEXT,  STAGC1 TEXT ,STAGC2 TEXT,OVERC1 TEXT,OVERC2 TEXT,TANKEC1 TEXT,TANKEC2 TEXT,PERC1 TEXT,PERC2 TEXT,DISKC1 TEXT,DISKC2 TEXT, FORC1 TEXT,FORC2 TEXT,KATAC1 TEXT, KATAC2 TEXT,ALLC1 TEXT,ALLC2 TEXT,PLIKTC1 TEXT,PLIKTC2 TEXT,SELEKTC1 TEXT, SELEKTC2 TEXT,KANSLC1 TEXT,KANSLC2 TEXT,ETIKEC1 TEXT,ETIKEC2 TEXT
     
- if(alert.tag  == kAlertViewOne) {
+    if(alert.tag  == kAlertViewOne) {
         if (buttonIndex == 1) {
             NSLog(@"new form");
-          [self clearAllTexts];
-            
-            
+            [self clearalltexts];
+            raderaButton.hidden=YES;
+            [listexercise2  removeAllObjects];
+            x=0;
+            [listexercise2 addObject:@"Null"];
             
         }else{
             
         }
- }else{
-     }
+    }else{
+    }
     
 }
 -(IBAction)nextbutton:(id)sender{
- 
+    //  etdl=[[ExerciseTwoDateList alloc]initWithNibName:@"ExerciseTwoDateList" bundle:nil];
+    //  [self.navigationController pushViewController:etdl animated:YES];
     scroll.scrollEnabled = NO;
-   listexercise2=[[NSMutableArray alloc]init];
-   [listexercise2 removeAllObjects];
+    
+    [listexercise2 removeAllObjects];
     [self.view bringSubviewToFront:listofdates];
     listofdates.hidden = NO;
     [UIView beginAnimations:@"curlInView" context:nil];
     [UIView setAnimationDuration:1.0];
     [UIView commitAnimations];
     [self getlistofDates];
-    //[self.navigationController pushViewController:eevc animated:YES];
 }
 -(void)getlistofDates{
     const char *dbpath = [databasePath UTF8String];
@@ -229,14 +249,12 @@ int s=0;
                     scroll.scrollEnabled=YES;
                 }
                 
+                sqlite3_finalize(statement);
             }
-            sqlite3_finalize(statement);
+            sqlite3_close(exerciseDB);
         }
-        sqlite3_close(exerciseDB);
     }
     [self.tableView reloadData];
-    // Do any additional setup after loading the view from its nib.
-
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.listexercise2 count];
@@ -263,7 +281,7 @@ int s=0;
 	// Upon selecting an event, create an EKEventViewController to display the event.
 	NSDictionary *dictionary = [self.listexercise2 objectAtIndex:indexPath.row];
     NSLog(@"%@",dictionary);
-    s=indexPath.row;
+    x=indexPath.row;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
     raderaButton.hidden=NO;
@@ -452,14 +470,13 @@ int s=0;
         
     }
     
-
+    
 }
 -(IBAction)aMethod:(id)sender{
- 
     sqlite3_stmt    *statement;
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
         
-        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISETWO WHERE date='%@'", [listexercise2 objectAtIndex:s]];
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISETWO WHERE date='%@'", [listexercise2 objectAtIndex:x]];
         
         const char *del_stmt = [sql UTF8String];
         
@@ -472,16 +489,20 @@ int s=0;
         sqlite3_finalize(statement);
         sqlite3_close(exerciseDB);
         
-        [self clearAllTexts];
+        
     }
-    [listexercise2 removeAllObjects];
-    [self getlistofDates];
+    [listexercise2  removeAllObjects];
+    x=0;
+    [listexercise2 addObject:@"Null"];
+    raderaButton.hidden=YES;
+    [self clearalltexts];
+    
 }
 -(IBAction)CloseButton:(id)sender{
-      listofdates.hidden = YES;
-      scroll.scrollEnabled = YES;
+    listofdates.hidden = YES;
+    scroll.scrollEnabled = YES;
 }
--(void)clearAllTexts{
+-(void)clearalltexts{
     StagC1.text = @"";
     StagC2.text  = @"";
     overC1.text = @"";
