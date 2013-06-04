@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
-#import "ExerciseTwoDateList.h"
-@interface TankefallorViewController : UIViewController{
+
+@interface TankefallorViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>{
     
     sqlite3 *exerciseDB;
     NSString *databasePath;
-    ExerciseTwoDateList *etdl;
+    
     UILabel *label;
     UITextView *StagC1;
     UITextView *StagC2;
@@ -40,13 +40,27 @@
     UITextView *EtikeC1;
     UITextView *EtikeC2;
       IBOutlet UIScrollView *scroll;
+    UIAlertView  *alert;
+    
+     IBOutlet UIView *listofdates;
+    UITableView *tableView;
+    NSMutableArray *listexercise2;
+    UITableViewCell *cell ;
+    NSString *SelectedDate;
+    
+    
+    IBOutlet UIButton *raderaButton;
 }
-@property(nonatomic, retain)IBOutlet UILabel *label;
+
+@property(nonatomic,retain)IBOutlet UITableView *tableView;
+@property(nonatomic, retain)NSMutableArray *listexercise2;
+
 -(IBAction)Sparabutton:(id)sender;
 -(IBAction)Nyttbutton:(id)sender;
 -(IBAction)nextbutton:(id)sender;
 -(IBAction)mainlabelalert:(id)sender;
 
+-(IBAction)CloseButton:(id)sender;
 @property(nonatomic, retain)IBOutlet UITextView *StagC1;
 @property(nonatomic, retain)IBOutlet UITextView *StagC2;
 @property(nonatomic, retain)IBOutlet UITextView *overC1;
@@ -71,4 +85,7 @@
 @property(nonatomic, retain)IBOutlet UITextView *KanslC2;
 @property(nonatomic, retain)IBOutlet UITextView *EtikeC1;
 @property(nonatomic, retain)IBOutlet UITextView *EtikeC2;
+
+
+-(IBAction)aMethod:(id)sender;
 @end

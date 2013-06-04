@@ -17,7 +17,8 @@
     UITextView *c1,*c2,*c4,*c5,*c6;
     UILabel *c3;
        IBOutlet UISlider *slider;
-    
+    IBOutlet UIScrollView *scroll;
+     UILabel *label2,*strategier,*negative,*din,*motavis,*tanke,*alltanke;
 }
 
 @property(nonatomic, retain)NSString *datefrome3;
@@ -30,4 +31,13 @@
 -(IBAction)updatebutton:(id)sender;
 -(IBAction)deletebutton:(id)sender;
 -(IBAction)chSlider:(id)sender ;
+
+@property(nonatomic, retain)IBOutlet UILabel *label1;
+@property(nonatomic, retain)IBOutlet UILabel *strategier;
+@property(nonatomic, retain)IBOutlet UILabel *negative;
+@property(nonatomic, retain)IBOutlet UILabel *din;
+@property(nonatomic, retain)IBOutlet UILabel *motavis;
+@property(nonatomic, retain)IBOutlet UILabel *tanke;
+@property(nonatomic, retain)IBOutlet UILabel *alltanke;
+
 @end

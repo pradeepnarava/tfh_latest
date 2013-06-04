@@ -41,7 +41,11 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
                                                                    style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
-
+    
+    [self.view addSubview:listofdates];
+    listofdates.hidden=YES;
+    scroll.scrollEnabled = YES;
+    [scroll setContentSize:CGSizeMake(320, 1300)];
     
 //    label.userInteractionEnabled = YES;
 //    UITapGestureRecognizer *tapGesture =
@@ -196,10 +200,22 @@
    
 }
 -(IBAction)nextButton:(id)sender{
-    bdl=[[BeteendeDateList alloc]initWithNibName:@"BeteendeDateList" bundle:nil];
-    [self.navigationController pushViewController:bdl animated:YES];
+   // bdl=[[BeteendeDateList alloc]initWithNibName:@"BeteendeDateList" bundle:nil];
+   // [self.navigationController pushViewController:bdl animated:YES];
+    
+    scroll.scrollEnabled = NO;
+    //listexercise1=[[NSMutableArray alloc]init];
+    //[listexercise1 removeAllObjects];
+    [self.view bringSubviewToFront:listofdates];
+    listofdates.hidden = NO;
+    [UIView beginAnimations:@"curlInView" context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView commitAnimations];
 }
-
+-(IBAction)CloseButton:(id)sender{
+    scroll.scrollEnabled = YES;
+     listofdates.hidden = YES;
+}
     - (IBAction)showCalendar:(id)sender
     {
         self.pmCC = [[PMCalendarController alloc] init];
@@ -229,7 +245,9 @@
                             , [newPeriod.startDate dateStringWithFormat:@"dd-MM-yyyy"]
                            ];
     }
+- (IBAction)RaderaButton:(id)sender{
     
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

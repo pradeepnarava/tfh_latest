@@ -26,9 +26,17 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        mainObj = [[[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone" bundle:nil] autorelease];
-        
-          nav = [[UINavigationController alloc]initWithRootViewController:mainObj];
+        if ([[UIScreen mainScreen] bounds].size.height == 568) {
+            
+            mainObj = [[[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone" bundle:nil] autorelease];
+            
+            nav = [[UINavigationController alloc]initWithRootViewController:mainObj];
+        } else {
+            
+            mainObj = [[[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone4" bundle:nil] autorelease];
+            
+            nav = [[UINavigationController alloc]initWithRootViewController:mainObj];        }
+       
         
     } else {
       mainObj = [[[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPad" bundle:nil] autorelease];
@@ -88,5 +96,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 @end

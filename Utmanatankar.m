@@ -8,13 +8,16 @@
 
 #import "Utmanatankar.h"
 #import "MTPopupWindow.h"
+#define kAlertViewOne 1
+#define kAlertViewTwo 2
 NSArray *pArray;
 @interface Utmanatankar ()
 
 @end
 
 @implementation Utmanatankar
-@synthesize  label,label1,strategier,negative,din,motavis,tanke,alltanke,c1,c2,c3,c4,c5,c6;
+@synthesize  label1,strategier,negative,din,motavis,tanke,alltanke,c1,c2,c3,c4,c5,c6;
+@synthesize listexercise3,tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,10 +44,7 @@ NSArray *pArray;
                                                                    style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     
-//    label.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tapGesture =
-//    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelalert:)] autorelease];
-//    [label addGestureRecognizer:tapGesture];
+
     
     label1.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture2 =
@@ -119,8 +119,10 @@ NSArray *pArray;
     }
     
     [filemgr release];
-
-    
+    [self.view addSubview:listofdates];
+    listofdates.hidden=YES;
+    [self.view addSubview:Label1Popup];
+    Label1Popup.hidden=YES;
  [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -129,7 +131,13 @@ NSArray *pArray;
 }
 
 -(IBAction)label1alert:(id)sender{
-     [MTPopupWindow showWindowWithHTMLFile:@"om.html" insideView:self.view];
+     //[MTPopupWindow showWindowWithHTMLFile:@"om.html" insideView:self.view];
+     scroll.scrollEnabled = NO;
+    [self.view bringSubviewToFront:Label1Popup];
+    Label1Popup.hidden = NO;
+    [UIView beginAnimations:@"curlInView" context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView commitAnimations];
 }
 -(IBAction)strategieralert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"tankefallar.html" insideView:self.view];
@@ -175,11 +183,17 @@ NSArray *pArray;
     NSString* str1 = [formatter stringFromDate:date];
     
     NSLog(@"date%@",str1);
-    if ([c1.text isEqualToString:@""]||[c2.text isEqualToString:@""]||[c4.text isEqualToString:@""]
-        ||[c5.text isEqualToString:@""]||[c6.text isEqualToString:@""]) {
+    if ([c1.text isEqualToString:@""]&&[c2.text isEqualToString:@""]&&[c4.text isEqualToString:@""]
+        &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
+        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
+                                        delegate:self
+                               cancelButtonTitle:@"Cancel"
+                               otherButtonTitles:nil, nil];
         
+        [alert show];
+        [alert release];
     }else{
-    sqlite3_stmt    *statement;
+  
     
     const char *dbpath = [databasePath UTF8String];
     
@@ -219,17 +233,33 @@ NSArray *pArray;
         &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
         
     }else{
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
+    alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
                                     delegate:self
                            cancelButtonTitle:@"Cancel"
                            otherButtonTitles:@"without saving", nil];
-   
+     alert.tag=kAlertViewOne;
     [alert show];
     [alert release];
     }
 }
+-(IBAction)raderabutton:(id)sender{
+    if ([c1.text isEqualToString:@""]&&[c2.text isEqualToString:@""]&&[c4.text isEqualToString:@""]
+        &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
+        
+    }else{
+        alert=[[UIAlertView alloc] initWithTitle:@"Are you sure?" message:nil
+                                        delegate:self
+                               cancelButtonTitle:@"Cancel"
+                               otherButtonTitles:@"Delete", nil];
+        alert.tag=kAlertViewTwo;
+        [alert show];
+        [alert release];
+    }
+    
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-  
+    if( alert.tag==kAlertViewOne){
         if (buttonIndex == 1) {
             NSLog(@"new form");
            
@@ -242,12 +272,219 @@ NSArray *pArray;
         }else{
             
         }
-    
+    }else{
+        if (buttonIndex == 1) {
+            NSLog(@"new form");
+            
+            c1.text=@"";
+            c2.text=@"";
+            c3.text=@"0%";
+            c4.text=@"";
+            c5.text=@"";
+            c6.text=@"";
+        }else{
+            
+        }
+
+    }
 }
 
 -(IBAction)nextbutton:(id)sender{
-    udv=[[UtmanaDateView alloc]initWithNibName:@"UtmanaDateView" bundle:nil];
-    [self.navigationController pushViewController:udv animated:YES];
+   // udv=[[UtmanaDateView alloc]initWithNibName:@"UtmanaDateView" bundle:nil];
+   // [self.navigationController pushViewController:udv animated:YES];
+    scroll.scrollEnabled = NO;
+  listexercise3=[[NSMutableArray alloc]init];
+   [listexercise3 removeAllObjects];
+    [self.view bringSubviewToFront:listofdates];
+    listofdates.hidden = NO;
+    [UIView beginAnimations:@"curlInView" context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView commitAnimations];
+    [self getlistofDates3];
+}
+-(void)getlistofDates3{
+    const char *dbpath = [databasePath UTF8String];
+    
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:
+                              @"SELECT date FROM EXERCISE3"
+                              ];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB,
+                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                
+                char* date = (char*) sqlite3_column_text(statement,0);
+                NSString *tmp;
+                if (date != NULL){
+                    tmp = [NSString stringWithUTF8String:date];
+                    NSLog(@"value form db :%@",tmp);
+                    [listexercise3 addObject:tmp];
+                }
+            }
+            if (sqlite3_step(statement) != SQLITE_ROW) {
+                NSLog(@"%u",listexercise3.count);
+
+            if (listexercise3.count==0) {
+                listofdates.hidden = YES;
+                scroll.scrollEnabled=YES;
+            }
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(exerciseDB);
+    }
+    [self.tableView reloadData];
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.listexercise3 count];
+}
+
+// This will tell your UITableView what data to put in which cells in your table.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifer = @"CellIdentifier";
+    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer];
+    
+    // Using a cell identifier will allow your app to reuse cells as they come and go from the screen.
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifer];
+    }
+    
+    // Deciding which data to put into this particular cell.
+    // If it the first row, the data input will be "Data1" from the array.
+    NSUInteger row = [indexPath row];
+    cell.textLabel.text = [listexercise3 objectAtIndex:row];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    
+    [button addTarget:self
+               action:@selector(aMethod:)
+     forControlEvents:UIControlEventTouchDown];
+    
+    
+    button.frame = CGRectMake(240.0,6.0,30.0, 30.0);
+    [button setImage:[UIImage imageNamed:@"delete.png"]  forState:UIControlStateNormal];
+    [cell.contentView addSubview:button];
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	// Upon selecting an event, create an EKEventViewController to display the event.
+	NSDictionary *dictionary = [self.listexercise3 objectAtIndex:indexPath.row];
+    NSLog(@"%@",dictionary);
+   SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
+    NSLog(@"%@",SelectedDate);
+    eu=[[EditUtmana alloc]initWithNibName:@"EditUtmana" bundle:nil];
+    eu.datefrome3=SelectedDate;
+    NSLog(@"eu.dateforme3%@",eu.datefrome3);
+    [self.navigationController pushViewController:eu animated:YES];
+    
+}
+-(IBAction)aMethod:(id)sender{
+    NSLog(@"Delete.");
+    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
+    NSLog(@"%@",indexPath);
+    NSDictionary *dictionary = [self.listexercise3 objectAtIndex:indexPath.row];
+    NSLog(@"%@",dictionary);
+    SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
+    NSLog(@"%@",SelectedDate);
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE3 WHERE date='%@'", SelectedDate];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+        
+        
+    }
+    [listexercise3 removeAllObjects];
+    [self getlistofDates3];
+}
+-(IBAction)Closelistofdates:(id)sender{
+    listofdates.hidden = YES;
+    scroll.scrollEnabled = YES;
+    Label1Popup.hidden=YES;
+}
+-(IBAction)SelectChekBoxs:(id)sender{
+   UIButton *btn=(UIButton *)sender;
+    switch (btn.tag) {
+        case 1:
+            if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                
+            }else{
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            }
+            break;
+        case 2:
+            if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                
+            }else{
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            }
+            break;
+        case 3:
+            if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                
+            }else{
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            }
+            break;
+        case 4:
+            if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                
+            }else{
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            }
+            break;
+        case 5:
+            if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                
+            }else{
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            }
+            break;
+        case 6:
+            if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                
+            }else{
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            }
+            break;case 7:
+            if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                
+            }else{
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            }
+            break;case 8:
+            if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                
+            }else{
+                [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            }
+            break;
+        
+        default:
+            break;
+    }
 }
 - (void)didReceiveMemoryWarning
 {

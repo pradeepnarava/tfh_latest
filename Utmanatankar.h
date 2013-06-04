@@ -8,18 +8,31 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
-#import "UtmanaDateView.h"
-@interface Utmanatankar : UIViewController{
-    UILabel *label,*label2,*strategier,*negative,*din,*motavis,*tanke,*alltanke;
+
+#import "EditUtmana.h"
+@interface Utmanatankar : UIViewController<UITableViewDelegate, UITableViewDataSource>{
+    UILabel *label2,*strategier,*negative,*din,*motavis,*tanke,*alltanke;
     UITextView *c1,*c2,*c4,*c5,*c6;
     UILabel *c3;
     sqlite3 *exerciseDB;
     NSString *databasePath;
      IBOutlet UISlider *slider;
-    UtmanaDateView *udv;
+   
      IBOutlet UIScrollView *scroll;
+    UIAlertView *alert;
+    
+     IBOutlet UIView *listofdates;
+    UITableView *tableView;
+    NSMutableArray *listexercise3;
+    EditUtmana *eu;
+    sqlite3_stmt    *statement;
+    NSString *SelectedDate;
+    UITableViewCell *cell;
+    
+    IBOutlet UIView *Label1Popup;
+    IBOutlet UIButton *raderaButton;
 }
-@property(nonatomic, retain)IBOutlet UILabel *label;
+
 @property(nonatomic, retain)IBOutlet UILabel *label1;
 @property(nonatomic, retain)IBOutlet UILabel *strategier;
 @property(nonatomic, retain)IBOutlet UILabel *negative;
@@ -40,4 +53,11 @@
 -(IBAction)newbutton:(id)sender;
 -(IBAction)nextbutton:(id)sender;
 -(IBAction)labelalert:(id)sender;
+-(IBAction)raderabutton:(id)sender;
+-(IBAction)Closelistofdates:(id)sender;
+
+-(IBAction)SelectChekBoxs:(id)sender;
+-(IBAction)aMethod:(id)sender;
+@property(nonatomic,retain)IBOutlet UITableView *tableView;
+@property(nonatomic, retain)NSMutableArray *listexercise3;
 @end

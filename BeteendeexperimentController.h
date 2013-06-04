@@ -19,6 +19,9 @@
     sqlite3 *exerciseDB;
        NSString        *databasePath;
     BeteendeDateList *bdl;
+      IBOutlet UIScrollView *scroll;
+    
+     IBOutlet UIView *listofdates;
 }
 @property(nonatomic, retain)IBOutlet UILabel *label;
 @property(nonatomic, retain)IBOutlet UILabel *label1;
@@ -39,4 +42,8 @@
 -(IBAction)nextButton:(id)sender;
 -(IBAction)mainlabelalert:(id)sender;
    - (IBAction)showCalendar:(id)sender;
+- (IBAction)RaderaButton:(id)sender;
+
+
+-(IBAction)CloseButton:(id)sender;
 @end

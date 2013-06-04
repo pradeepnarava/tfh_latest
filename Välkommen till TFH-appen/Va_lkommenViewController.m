@@ -18,20 +18,43 @@
 {
     [super viewDidLoad];
     self.navigationItem.title=@"KBT Appen";
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                                   style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backButton;
-    ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController" bundle:nil];
+//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka"
+//                                                                   style:UIBarButtonItemStyleBordered target:nil action:nil];
+//    
+//   UIImage *image = [UIImage imageNamed:@"backbutton.png"];
+//    [backButton setBackgroundImage:image forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+//    self.navigationItem.backBarButtonItem = backButton;
+//    
+    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
+   // [btnDone setTintColor:[UIColor Color]];
+    UIImage *stretchable = [UIImage imageNamed:@"tillbaka.png"] ;
+[btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.navigationItem setBackBarButtonItem:btnDone];
 	// Do any additional setup after loading the view, typically from a nib.
     
   
     UINavigationBar *navBar = self.navigationController.navigationBar;
+      if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
     UIImage *image = [UIImage imageNamed:@"topbar2.png"];
-    [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+          [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+      }else{
+       //   UIImage *image = [UIImage imageNamed:@"topbar3.png"];
+       //  [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+      }
+    
 }
 
 
 -(IBAction)oveningarbutton:(id)sender{
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+             if ([[UIScreen mainScreen] bounds].size.height == 548) {
+             ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController" bundle:nil];
+             }else{
+                 ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController_iPhone4" bundle:nil];
+             }
+        }else{
+             ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController_iPad" bundle:nil];
+        }
     [self.navigationController pushViewController:ovc animated:YES];
 }
 
@@ -50,17 +73,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
-
-
- - (void )didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    
-}
-
 @end

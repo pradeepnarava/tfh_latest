@@ -7,12 +7,13 @@
 //
 
 #import "EditUtmana.h"
-
+#import "MTPopupWindow.h"
 @interface EditUtmana ()
 
 @end
 
 @implementation EditUtmana
+@synthesize  label1,strategier,negative,din,motavis,tanke,alltanke;
 @synthesize datefrome3,c1,c2,c3,c4,c5,c6;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,10 +35,52 @@
 {
     self.navigationItem.title=@"Exercise-3";
     NSLog(@"datefrome3%@",datefrome3);
-    
+    scroll.scrollEnabled = YES;
+    [scroll setContentSize:CGSizeMake(320, 1400)];
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Dela"
                                                                     style:UIBarButtonItemStylePlain target:self action:@selector(shareb:)];
     self.navigationItem.rightBarButtonItem = rightButton;
+    
+    
+    label1.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture2 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(label1alert:)] autorelease];
+    [label1 addGestureRecognizer:tapGesture2];
+    
+    
+    strategier.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture3 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(strategieralert:)] autorelease];
+    [strategier addGestureRecognizer:tapGesture3];
+    
+    
+    negative.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture4 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(negativealert:)] autorelease];
+    [negative addGestureRecognizer:tapGesture4];
+    
+    
+    din.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture5 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dinalert:)] autorelease];
+    [din addGestureRecognizer:tapGesture5];
+    
+    motavis.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture6 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(motavisalert:)] autorelease];
+    [motavis addGestureRecognizer:tapGesture6];
+    
+    tanke.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture7 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tankealert:)] autorelease];
+    [tanke addGestureRecognizer:tapGesture7];
+    
+    alltanke.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture8 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alltankealert:)] autorelease];
+    [alltanke addGestureRecognizer:tapGesture8];
+
+    
     NSString *docsDir;
     NSArray *dirPaths;
     
@@ -119,6 +162,35 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+-(IBAction)labelalert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"Utmanatankar.html" insideView:self.view];
+}
+
+-(IBAction)label1alert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"om.html" insideView:self.view];
+}
+-(IBAction)strategieralert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"tankefallar.html" insideView:self.view];
+}
+-(IBAction)negativealert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"tanke.html" insideView:self.view];
+}
+
+-(IBAction)dinalert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"Minabevis.html" insideView:self.view];
+}
+-(IBAction)motavisalert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"Motbevis.html" insideView:self.view];
+}
+-(IBAction)tankealert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"tanefallor.html" insideView:self.view];
+}
+-(IBAction)alltankealert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"Alternativtanke.html" insideView:self.view];
+}
+
+
 -(IBAction)shareb:(id)sender{
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Share"
                                                       message:@""

@@ -8,17 +8,18 @@
 
 #import "Registreratankar.h"
 #import "MTPopupWindow.h"
-
+int s=0;
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
-NSMutableString *firstString;
+//NSMutableString *firstString;
 @interface Registreratankar ()
 
 @end
 
 @implementation Registreratankar
-@synthesize label,flykt,tanke,tabellen,nat;
-@synthesize negative,situation,beteenden,overiga,alert;
+@synthesize flykt,tanke,tabellen,nat;
+@synthesize negative,situation,beteenden,overiga;
+@synthesize listexercise1,tableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,18 +36,17 @@ NSMutableString *firstString;
 }
 - (void)viewDidLoad
 {
-    firstString=[[NSMutableString alloc]init];
+    
     self.navigationItem.title=@"Registrera tankar";
-    eevc=[[EditExerciseViewController alloc]initWithNibName:@"EditExerciseViewController" bundle:nil];
+   // eevc=[[EditExerciseViewController alloc]initWithNibName:@"EditExerciseViewController" bundle:nil];
     UIBarButtonItem *bButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                                   style:UIBarButtonItemStylePlain target:nil action:nil];
+                                                                style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = bButton;
     
-    
-//    label.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tapGesture =
-//    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mainlabelalert:)] autorelease];
-//    [label addGestureRecognizer:tapGesture];
+    kanslor.allstrings=[[NSString alloc]init];
+      listexercise1=[[NSMutableArray alloc]init];
+    [listexercise1 addObject:@"Null" ];
+    raderabutton.hidden=YES;
     
     nat.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture2 =
@@ -104,13 +104,23 @@ NSMutableString *firstString;
     
     [filemgr release];
 
-    [self.view addSubview:tabellenView];
-    tabellenView.hidden=YES;
+    [self.view addSubview:listofdates];
+    listofdates.hidden=YES;
+    [self.view addSubview:PopupView1];
+    PopupView1.hidden=YES;
+    [self.view addSubview:PopupView2];
+    PopupView2.hidden=YES;
+    
+    [self.view addSubview:PopupView4];
+    PopupView4.hidden=YES;
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1100)];
     
-    scroll1.scrollEnabled = YES;
-    [scroll1 setContentSize:CGSizeMake(320, 700)];
+   scroll2.scrollEnabled = YES;
+[scroll2 setContentSize:CGSizeMake(768, 1200)];
+    
+    //scroll1.scrollEnabled = YES;
+   // [scroll1 setContentSize:CGSizeMake(320, 700)];
     [super viewDidLoad]; 
     // Do any additional setup after loading the view from its nib.
 }
@@ -119,569 +129,59 @@ NSMutableString *firstString;
 }
 
 -(IBAction)natalert:(id)sender{
-    [MTPopupWindow showWindowWithHTMLFile:@"tanke.html" insideView:self.view];
-}
--(IBAction)tabellenalert:(id)sender{
-  //  [MTPopupWindow showWindowWithHTMLFile:@"lashorna.html" insideView:self.view];
-  // self.view.hidden=YES;
+  
     
-    [self.view bringSubviewToFront:tabellenView];
-    tabellenView.hidden = NO;
-   
-    
+    [self.view bringSubviewToFront:PopupView2];
+    PopupView2.hidden = NO;
     [UIView beginAnimations:@"curlInView" context:nil];
-    
-    [UIView setAnimationDuration:3.0];
-    
+    [UIView setAnimationDuration:1.0];
     [UIView commitAnimations];
 }
+-(IBAction)tabellenalert:(id)sender{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+       
+               kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController" bundle:nil];
+       
+    }
+    else{
+         kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController_iPad" bundle:nil];
+    }
+   
+
+    [self. navigationController pushViewController:kanslor animated:YES];
+
+}
 -(IBAction)tankealert:(id)sender{
-    [MTPopupWindow showWindowWithHTMLFile:@"tanke.html" insideView:self.view];
+    
+   
+    [self.view bringSubviewToFront:PopupView1];
+    PopupView1.hidden = NO;
+    [UIView beginAnimations:@"curlInView" context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView commitAnimations];
 }
 -(IBAction)flyktalert:(id)sender{
-    [MTPopupWindow showWindowWithHTMLFile:@"flykt.html" insideView:self.view];
-}
-
--(IBAction)closebutton:(id)sender{
-    NSString *string = [NSString stringWithString:firstString];
-    NSLog(@"%@",string);
-    beteenden.text=string;
-    tabellenView.hidden=YES;
-}
--(IBAction)tabellencheck:(id)sender{
-    UIButton *btn=(UIButton *)sender;
    
-    NSLog(@"%u",btn.tag) ;
-    switch (btn.tag) {
-        case 1:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-             [firstString appendString:@"Glad"];
-                 NSLog(@"%@",firstString);
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-              
-            }
+    
+    [self.view bringSubviewToFront:PopupView4];
+    PopupView4.hidden = NO;
+    [UIView beginAnimations:@"curlInView" context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView commitAnimations];
+}
 
-            break;
-        case 2:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                 [firstString appendString:@", Rädsla"];
-                   NSLog(@"%@",firstString);
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                         }
-            
-            break;
-        case 3:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Hat"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-               // beteenden.text=@"";
-            }
-            
-            break;
-        case 4:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                 [firstString appendString:@" , intresserad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 5:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                 [firstString appendString:@", Nöjd"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-               // beteenden.text=@"";
-            }
-            
-            break;
-        case 6:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                 [firstString appendString:@" , Skräckslagen"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 7:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Motvilja"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 8:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Nyfiken"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 9:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Lycklig"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 10:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Ängslig"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 11:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Ovilja"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;case 12:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Inspirerad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 13:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Överlycklig"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 14:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Nervös"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 15:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Avsky"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 16:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Ivrig"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 17:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Bekymrad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 18:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Äckel"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 19:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Generad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 20:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Förtjust"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 21:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Orolig"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-
-        case 22:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Avsmak"];
-                NSLog(@"%@",firstString);
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                
-            }
-            
-            break;
-        case 23:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@", Skamsen"];
-                NSLog(@"%@",firstString);
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-            }
-            
-            break;
-        case 24:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Stolt"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                // beteenden.text=@"";
-            }
-            
-            break;
-        case 25:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Spänd"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 26:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@", Osäker"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                // beteenden.text=@"";
-            }
-            
-            break;
-        case 27:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Euforisk"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 28:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Skärrad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 29:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Förvånad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 30:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Upprymd"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 31:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Vettskrämd"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 32:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Häpen"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;case 33:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Munter"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 34:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Uppskrämd"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 35:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Förbluffad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 36:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Lättad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 37:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Överraskad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 38:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Ledsen"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 39:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Nedstämd"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 40:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Ilsken"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 41:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Uppretac"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 42:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Plågad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-
-        case 43:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Lidande"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 44:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Upprörd"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 45:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Irriterad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 46:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Deprimerad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 47:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Hatisk"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 48:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Rasande"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 49:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Prövad"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 50:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Vrede"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 51:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Ursining"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        case 52:
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@" , Arg"];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
-            }
-            
-            break;
-        
-      
-            
-        default:
-            break;
+-(void) viewWillAppear: (BOOL) animated {
+   
+    if(kanslor.allstrings==NULL){
+       
+       
+    }else{
+        NSLog(@"%@",kanslor.allstrings);
+        beteenden.text=kanslor.allstrings;
     }
- }
+    [super viewWillAppear:animated];
+    
+}
 -(IBAction)Sparabutton:(id)sender{
     NSDate* date = [NSDate date];
     
@@ -691,7 +191,7 @@ NSMutableString *firstString;
     
     //Set the required date format
     
-    [formatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     
     //Get the string date
     
@@ -699,23 +199,27 @@ NSMutableString *firstString;
     
     NSLog(@"date%@",str);
     
-    if([negative.text isEqualToString:@""]){
+    if([negative.text isEqualToString:@""] &&[situation.text isEqualToString:@""] &&[beteenden.text isEqualToString:@""] && [overiga.text isEqualToString:@""]){
        
-        
-    }else if([situation.text isEqualToString:@""]){
-       
-    }else if([beteenden.text isEqualToString:@""]){
+        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
+                                        delegate:self
+                               cancelButtonTitle:@"Cancel"
+                               otherButtonTitles:nil, nil];
       
-    }else if([overiga.text isEqualToString:@""]){
+        [alert show];
+        [alert release];
+    }
        
-    }else{
+  else{
         NSLog(@"yes");
-        sqlite3_stmt    *statement;
+   
         
         const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
+            //NSLog(@"%@",[listexercise1 objectAtIndex:s] );
+               if([[listexercise1 objectAtIndex:s] isEqualToString:@"Null"]){
             NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISEONE (date,negative,situation,beteenden,overiga) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\")", str, negative.text,situation.text, beteenden.text , overiga.text];
             
             const char *insert_stmt = [insertSQL UTF8String];
@@ -735,10 +239,32 @@ NSMutableString *firstString;
             }
             sqlite3_finalize(statement);
             sqlite3_close(exerciseDB);
-        }
+               }else{
+                   
+                   NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISEONE SET negative='%@', situation='%@' , beteenden='%@', overiga='%@' WHERE date='%@' ",negative.text,situation.text, beteenden.text,overiga.text, [listexercise1 objectAtIndex:s]];
+                   const char *del_stmt = [query UTF8String];
+                   
+                   if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK){
+                       if(SQLITE_DONE != sqlite3_step(statement))
+                           NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+                       NSLog(@"sss");
+                       situation.text = @"";
+                       negative.text = @"";
+                       overiga.text = @"";
+                       beteenden.text=@"";
+                   }
+                   
+                   
+                   sqlite3_finalize(statement);
+                   sqlite3_close(exerciseDB);
+                   
+                   
+                   
+                   
+               }
 
-    }
-            
+
+      }  }
 
     
 }
@@ -759,37 +285,7 @@ NSMutableString *firstString;
     
     
 }
--(IBAction)retrivebutton:(id)sender{
-   /* const char *dbpath = [databasePath UTF8String];
-    sqlite3_stmt    *statement;
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT negative FROM EXERCISEONE"
-                              ];
-        
-        const char *query_stmt = [querySQL UTF8String];
-        
-        if (sqlite3_prepare_v2(exerciseDB,
-                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
-        {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                
-                char* date = (char*) sqlite3_column_text(statement,0);
-                NSString *tmp;
-                if (date != NULL){
-                    tmp = [NSString stringWithUTF8String:date];
-                    NSLog(@"value form db :%@",tmp);
-                    
-                }
-            } 
-            sqlite3_finalize(statement);
-        }
-        sqlite3_close(exerciseDB);
-    }
-*/
-}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
      NSLog(@"ok");
     if(alert.tag  == kAlertViewOne) {
@@ -808,12 +304,179 @@ NSMutableString *firstString;
     }
 }
 -(IBAction)Editbutton:(id)sender{
-    [self.navigationController pushViewController:eevc animated:YES];
+    scroll.scrollEnabled = NO;
+  
+    [listexercise1 removeAllObjects];
+    [self.view bringSubviewToFront:listofdates];
+    listofdates.hidden = NO;
+    [UIView beginAnimations:@"curlInView" context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView commitAnimations];
+    [self getlistofDates];
+        //[self.navigationController pushViewController:eevc animated:YES];
 }
+-(void)getlistofDates{
+    const char *dbpath = [databasePath UTF8String];
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:
+                              @"SELECT date FROM EXERCISEONE"
+                              ];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB,
+                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            NSLog(@"%u",SQLITE_ROW);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+             
+                char* date = (char*) sqlite3_column_text(statement,0);
+                NSString *tmp;
+                if (date != NULL){
+                    tmp = [NSString stringWithUTF8String:date];
+                    NSLog(@"value form db :%@",tmp);
+                    [listexercise1 addObject:tmp];
+                }
+            }
+            if (sqlite3_step(statement) != SQLITE_ROW) {
+                NSLog(@"%u",listexercise1.count);
+                if (listexercise1.count==0) {
+                    listofdates.hidden = YES;
+                    scroll.scrollEnabled=YES;
+                }
+               
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(exerciseDB);
+    }
+    
+    [self.tableView reloadData];
+    
+
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.listexercise1 count];
+}
+
+// This will tell your UITableView what data to put in which cells in your table.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifer = @"CellIdentifier";
+    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer];
+    
+    // Using a cell identifier will allow your app to reuse cells as they come and go from the screen.
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifer];
+    }
+    
+    // Deciding which data to put into this particular cell.
+    // If it the first row, the data input will be "Data1" from the array.
+    NSUInteger row = [indexPath row];
+    cell.textLabel.text = [listexercise1 objectAtIndex:row];
+
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	// Upon selecting an event, create an EKEventViewController to display the event.
+	NSDictionary *dictionary = [self.listexercise1 objectAtIndex:indexPath.row];
+    NSLog(@"%@",dictionary);
+    s=indexPath.row;
+    NSLog(@"ssss%u",s);
+    SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
+    NSLog(@"%@",SelectedDate);
+    raderabutton.hidden=NO;
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISEONE WHERE date='%@'", SelectedDate];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            char* c1 = (char*) sqlite3_column_text(statement,2);
+            NSString *tmp1;
+            if (c1 != NULL){
+                tmp1 = [NSString stringWithUTF8String:c1];
+                NSLog(@"value form db :%@",tmp1);
+                negative.text=tmp1;
+            }
+            char* c2 = (char*) sqlite3_column_text(statement,3);
+            NSString *tmp2;
+            if (c2 != NULL){
+                tmp2 = [NSString stringWithUTF8String:c2];
+                NSLog(@"value form db :%@",tmp2);
+                situation.text=tmp2;
+            }
+            
+            char* c3 = (char*) sqlite3_column_text(statement,4);
+            NSString *tmp3;
+            if (c3!= NULL){
+                tmp3= [NSString stringWithUTF8String:c3];
+                NSLog(@"value form db :%@",tmp3);
+                beteenden.text=tmp3;
+            }
+            
+            char* c4 = (char*) sqlite3_column_text(statement,5);
+            NSString *tmp4;
+            if (c4 != NULL){
+                tmp4= [NSString stringWithUTF8String:c4];
+                NSLog(@"value form db :%@",tmp4);
+                overiga.text=tmp4;
+            }
+            
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+        
+    }
+}
+-(IBAction)aMethod:(id)sender{
+    
+    
+    
+    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISEONE WHERE date='%@'", [listexercise1 objectAtIndex:s]];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+            
+        }
+        raderabutton.hidden=YES;
+        situation.text = @"";
+        negative.text = @"";
+        overiga.text = @"";
+        beteenden.text=@"";
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+        
+        
+    }
+    //[listexercise1 removeAllObjects];
+   // [self getlistofDates];
+    
+     [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(IBAction)Closelistofdates:(id)sender{
+    listofdates.hidden = YES;
+      scroll.scrollEnabled = YES;
+    PopupView1.hidden=YES;
+     PopupView4.hidden=YES;
+     PopupView2.hidden=YES;
+    NSLog(@"value of s%@",[listexercise1 objectAtIndex:s]);
+}
 @end
