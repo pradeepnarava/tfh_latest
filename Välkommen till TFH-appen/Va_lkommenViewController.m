@@ -27,7 +27,7 @@
 //    
     UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
    // [btnDone setTintColor:[UIColor Color]];
-    UIImage *stretchable = [UIImage imageNamed:@"tillbaka.png"] ;
+    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
 [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.navigationItem setBackBarButtonItem:btnDone];
 	// Do any additional setup after loading the view, typically from a nib.
@@ -38,8 +38,8 @@
     UIImage *image = [UIImage imageNamed:@"topbar2.png"];
           [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
       }else{
-       //   UIImage *image = [UIImage imageNamed:@"topbar3.png"];
-       //  [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+         UIImage *image = [UIImage imageNamed:@"topbar4.png"];
+        [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
       }
     
 }

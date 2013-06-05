@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     self.navigationItem.title=@"Kanslor";
+    NSArray* inputArray = [NSArray arrayWithObjects:@"Glad", @"Nöjd", @"Lycklig", @"Förtjust",@"lvrig",@"Exalterad",@"Stolt",@"Belåten",@"Upprymd",@"Munter",@"Livad",@"Euforisk",@"Hänförd",@"Lättad",@"Hat",@"Motvilja",@"Ovilja",@"Avsky",@"Äckel",@"Avsmak",@"Ledsen",@"Plågad",@"Deprimerad",@"Nedstämd",@"Lidande",@"Förvånad",@"Häpen",@"Förbluffad",@"Överraskad",nil];
      firstString=[[NSMutableString alloc]init];
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1350)];
@@ -36,12 +37,16 @@
     }else{
         
         NSArray* myArray = [selectedstrings  componentsSeparatedByString:@","];
-        
+        for(int i=0;i<myArray.count;i++){
         NSString* firstStrings = [myArray objectAtIndex:0];
         NSLog(@"%@",firstStrings);
-        NSString* secondString = [myArray objectAtIndex:1];
-        NSLog(@"%@",secondString);
-    }
+        NSUInteger index = [inputArray indexOfObject:firstStrings];
+            NSLog(@"%u",index);
+            if(index==0){
+             [first setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
+            }
+        }
+            }
     // Do any additional setup after loading the view from its nib.
 }
 -(IBAction)tabellencheck:(id)sender{

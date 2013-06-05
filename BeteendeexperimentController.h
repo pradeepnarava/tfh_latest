@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
-#import "BeteendeDateList.h"
-#import "PMCalendar.h"
-@interface BeteendeexperimentController : UIViewController<PMCalendarControllerDelegate>{
+
+
+@interface BeteendeexperimentController : UIViewController<UITableViewDelegate, UITableViewDataSource>{
     UILabel *label,*label1;
      IBOutlet UISlider *slider,*slider1;
     UITextView *ex3c2,*ex3c3,*ex3c4,*ex3c5;
@@ -18,12 +18,23 @@
     UILabel *slabel1,*slabel2;
     sqlite3 *exerciseDB;
        NSString        *databasePath;
-    BeteendeDateList *bdl;
+   
       IBOutlet UIScrollView *scroll;
     
      IBOutlet UIView *listofdates;
+    
+    UITableView *tableview;
+ NSMutableArray *listexercise4;
+    NSString *SelectedDate;
+     sqlite3_stmt    *statement;
+    IBOutlet UIButton *raderabutton;
+    IBOutlet UIDatePicker *picker;
 }
-@property(nonatomic, retain)IBOutlet UILabel *label;
+-(IBAction)displayDate:(id)sender;
+
+@property(nonatomic,retain)IBOutlet UITableView *tableview;
+
+@property(nonatomic,retain)NSMutableArray *listexercise4;
 @property(nonatomic, retain)IBOutlet UILabel *label1;
 @property(nonatomic, retain)IBOutlet UILabel *slabel1;
 @property(nonatomic, retain)IBOutlet UILabel *slabel2;
@@ -41,7 +52,7 @@
 -(IBAction)newButton:(id)sender;
 -(IBAction)nextButton:(id)sender;
 -(IBAction)mainlabelalert:(id)sender;
-   - (IBAction)showCalendar:(id)sender;
+  
 - (IBAction)RaderaButton:(id)sender;
 
 

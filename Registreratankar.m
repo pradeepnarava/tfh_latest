@@ -17,7 +17,7 @@ int s=0;
 @end
 
 @implementation Registreratankar
-@synthesize flykt,tanke,tabellen,nat;
+@synthesize flykt,tanke,tabellen,nat,exercise1_list;
 @synthesize negative,situation,beteenden,overiga;
 @synthesize listexercise1,tableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -41,11 +41,13 @@ int s=0;
    // eevc=[[EditExerciseViewController alloc]initWithNibName:@"EditExerciseViewController" bundle:nil];
     UIBarButtonItem *bButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
                                                                 style:UIBarButtonItemStylePlain target:nil action:nil];
+    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
+    [bButton setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     self.navigationItem.backBarButtonItem = bButton;
     
     kanslor.allstrings=[[NSString alloc]init];
-      listexercise1=[[NSMutableArray alloc]init];
-    [listexercise1 addObject:@"Null" ];
+      exercise1_list=[[NSMutableArray alloc]init];
+    [exercise1_list addObject:@"Null" ];
     raderabutton.hidden=YES;
     
     nat.userInteractionEnabled = YES;
@@ -141,12 +143,19 @@ int s=0;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
        
                kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController" bundle:nil];
-       
-    }
+           }
     else{
          kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController_iPad" bundle:nil];
     }
    
+    if([beteenden.text isEqualToString:@""]){
+        
+    }else{
+        kanslor.selectedstrings=[[NSString alloc]init];
+        kanslor.selectedstrings=beteenden.text;
+        NSLog(@"%@",kanslor.selectedstrings);
+    }
+    
 
     [self. navigationController pushViewController:kanslor animated:YES];
 
@@ -198,16 +207,11 @@ int s=0;
     NSString* str = [formatter stringFromDate:date];
     
     NSLog(@"date%@",str);
+    raderabutton.hidden=YES;
     
     if([negative.text isEqualToString:@""] &&[situation.text isEqualToString:@""] &&[beteenden.text isEqualToString:@""] && [overiga.text isEqualToString:@""]){
        
-        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
-                                        delegate:self
-                               cancelButtonTitle:@"Cancel"
-                               otherButtonTitles:nil, nil];
       
-        [alert show];
-        [alert release];
     }
        
   else{
@@ -219,7 +223,7 @@ int s=0;
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
             //NSLog(@"%@",[listexercise1 objectAtIndex:s] );
-               if([[listexercise1 objectAtIndex:s] isEqualToString:@"Null"]){
+               if([[exercise1_list objectAtIndex:0] isEqualToString:@"Null"]){
             NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISEONE (date,negative,situation,beteenden,overiga) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\")", str, negative.text,situation.text, beteenden.text , overiga.text];
             
             const char *insert_stmt = [insertSQL UTF8String];
@@ -252,6 +256,9 @@ int s=0;
                        negative.text = @"";
                        overiga.text = @"";
                        beteenden.text=@"";
+                       [listexercise1 removeAllObjects];
+                       s=0;
+                       [listexercise1 addObject:@"Null"];
                    }
                    
                    
@@ -295,7 +302,10 @@ int s=0;
             negative.text = @"";
             overiga.text = @"";
             beteenden.text=@"";
-            
+            raderabutton.hidden=YES;
+            [exercise1_list removeAllObjects];
+            s=0;
+            [exercise1_list addObject:@"Null"];
         }else{
            
         }
@@ -305,7 +315,7 @@ int s=0;
 }
 -(IBAction)Editbutton:(id)sender{
     scroll.scrollEnabled = NO;
-  
+    listexercise1 =[[NSMutableArray alloc]init];
     [listexercise1 removeAllObjects];
     [self.view bringSubviewToFront:listofdates];
     listofdates.hidden = NO;
@@ -386,6 +396,8 @@ int s=0;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
     raderabutton.hidden=NO;
+    [exercise1_list removeAllObjects];
+    [exercise1_list addObject:SelectedDate];
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
         
         NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISEONE WHERE date='%@'", SelectedDate];
@@ -455,6 +467,9 @@ int s=0;
         negative.text = @"";
         overiga.text = @"";
         beteenden.text=@"";
+        [exercise1_list removeAllObjects];
+        s=0;
+        [exercise1_list addObject:@"Null"];
         sqlite3_finalize(statement);
         sqlite3_close(exerciseDB);
         

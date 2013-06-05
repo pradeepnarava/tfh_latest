@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
-#import "EditUtmana.h"
+
 @interface Utmanatankar : UIViewController<UITableViewDelegate, UITableViewDataSource>{
     UILabel *label2,*strategier,*negative,*din,*motavis,*tanke,*alltanke;
     UITextView *c1,*c2,*c4,*c5,*c6;
@@ -24,6 +24,8 @@
     IBOutlet UIView *listofdates;
     UITableView *tableView;
     NSMutableArray *listexercise3;
+    NSMutableArray *list_exercise3;
+
     
     sqlite3_stmt    *statement;
     NSString *SelectedDate;
@@ -60,5 +62,6 @@
 -(IBAction)aMethod:(id)sender;
 @property(nonatomic,retain)IBOutlet UITableView *tableView;
 @property(nonatomic, retain)NSMutableArray *listexercise3;
+@property(nonatomic, retain)NSMutableArray *list_exercise3;
 @end
 

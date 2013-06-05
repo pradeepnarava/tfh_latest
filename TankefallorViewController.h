@@ -39,12 +39,13 @@
     UITextView *KanslC2;
     UITextView *EtikeC1;
     UITextView *EtikeC2;
-      IBOutlet UIScrollView *scroll;
+      IBOutlet UIScrollView *scroll,*scroll1;
     UIAlertView  *alert;
     
      IBOutlet UIView *listofdates;
     UITableView *tableView;
     NSMutableArray *listexercise2;
+    NSMutableArray *list_exercise2;
     UITableViewCell *cell ;
     NSString *SelectedDate;
     
@@ -54,7 +55,7 @@
 
 @property(nonatomic,retain)IBOutlet UITableView *tableView;
 @property(nonatomic, retain)NSMutableArray *listexercise2;
-
+@property(nonatomic, retain)NSMutableArray *list_exercise2;
 -(IBAction)Sparabutton:(id)sender;
 -(IBAction)Nyttbutton:(id)sender;
 -(IBAction)nextbutton:(id)sender;

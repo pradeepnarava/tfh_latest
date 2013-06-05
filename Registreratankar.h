@@ -32,10 +32,11 @@
      IBOutlet UIView *PopupView1,*PopupView2;
     IBOutlet UIView *PopupView4;
     IBOutlet UIButton *raderabutton;
+    NSMutableArray *exercise1_list;
 }
 @property(nonatomic,retain)IBOutlet UITableView *tableView;
 @property(nonatomic,retain)NSMutableArray *listexercise1;
-
+@property(nonatomic,retain)NSMutableArray *exercise1_list;
 
 
 

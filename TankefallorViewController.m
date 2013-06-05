@@ -16,7 +16,7 @@ int x=0;
 @end
 
 @implementation TankefallorViewController
-@synthesize StagC2,StagC1,SelektC2,SelektC1,overC1,overC2,TankeC2,TankeC1,PerC1,PerC2,PliktC1,PliktC2,DiskC1,DiskC2,ForC1,ForC2,KanslC1,KanslC2,KataC1,KataC2,AllC1,AllC2,EtikeC1,EtikeC2,tableView,listexercise2;
+@synthesize StagC2,StagC1,SelektC2,SelektC1,overC1,overC2,TankeC2,TankeC1,PerC1,PerC2,PliktC1,PliktC2,DiskC1,DiskC2,ForC1,ForC2,KanslC1,KanslC2,KataC1,KataC2,AllC1,AllC2,EtikeC1,EtikeC2,tableView,listexercise2,list_exercise2;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,12 +38,15 @@ int x=0;
     
     self.navigationItem.title=@"Tankefällor";
     [self.view addSubview:listofdates];
-    listexercise2=[[NSMutableArray alloc]init];
-    [listexercise2 addObject:@"Null"];
+    list_exercise2=[[NSMutableArray alloc]init];
+    [list_exercise2 addObject:@"Null"];
     listofdates.hidden=YES;
     scroll.scrollEnabled = YES;
     raderaButton.hidden=YES;
     [scroll setContentSize:CGSizeMake(320, 3000)];
+    scroll1.scrollEnabled = YES;
+    
+    [scroll1 setContentSize:CGSizeMake(320, 3300)];
     //    label.userInteractionEnabled = YES;
     //    UITapGestureRecognizer *tapGesture =
     //    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mainlabelalert:)] autorelease];
@@ -118,17 +121,11 @@ int x=0;
     
     const char *dbpath = [databasePath UTF8String];
     if([StagC1.text isEqualToString:@""] && [StagC2.text isEqualToString:@""] && [TankeC1.text isEqualToString:@""] && [AllC1.text isEqualToString:@""]&& [AllC2.text isEqualToString:@""] && [PerC1.text isEqualToString:@""] && [PerC2.text isEqualToString:@""]&& [overC1.text isEqualToString:@""] && [overC2.text isEqualToString:@""] && [KanslC1.text isEqualToString:@""]&& [KanslC2.text isEqualToString:@""] && [KataC1.text isEqualToString:@""] && [KataC2.text isEqualToString:@""]&& [DiskC1.text isEqualToString:@""] && [DiskC1.text isEqualToString:@""] && [SelektC1.text isEqualToString:@""]&& [SelektC2.text isEqualToString:@""] && [EtikeC1.text isEqualToString:@""] && [EtikeC2.text isEqualToString:@""]&& [ForC1.text isEqualToString:@""] && [ForC2.text isEqualToString:@""] && [PliktC1.text isEqualToString:@""]&& [PliktC1.text isEqualToString:@""] && [TankeC2.text isEqualToString:@""] ){
-        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
-                                        delegate:self
-                               cancelButtonTitle:@"Cancel"
-                               otherButtonTitles:nil, nil];
-        
-        [alert show];
-        [alert release];
+       
     }else{
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
-            if([[listexercise2 objectAtIndex:x] isEqualToString:@"Null"]){
+            if([[list_exercise2 objectAtIndex:0] isEqualToString:@"Null"]){
                 NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISETWO (date,stagc1,stagc2,overc1,overc2,tankec1,tankec2,perc1,perc2,diskc1,diskc2,forc1,forc2,katac1,katac2,allc1,allc2,pliktc1,pliktc2,selektc1,selektc2,kanslc1,kanslc2,etikec1,etikec2) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\")", str, StagC1.text,StagC2.text,StagC1.text,overC2.text,TankeC1.text,TankeC2.text,PerC1.text,PerC2.text,DiskC1.text,DiskC2.text,ForC1.text,ForC2.text,KataC1.text,KataC2.text,AllC1.text,AllC2.text,PliktC1.text,PliktC2.text,SelektC1.text,SelektC2.text,KanslC1.text,KanslC2.text,EtikeC1.text,EtikeC2.text];
                 
                 const char *insert_stmt = [insertSQL UTF8String];
@@ -193,9 +190,9 @@ int x=0;
             NSLog(@"new form");
             [self clearalltexts];
             raderaButton.hidden=YES;
-            [listexercise2  removeAllObjects];
+            [list_exercise2  removeAllObjects];
             x=0;
-            [listexercise2 addObject:@"Null"];
+            [list_exercise2 addObject:@"Null"];
             
         }else{
             
@@ -208,7 +205,7 @@ int x=0;
     //  etdl=[[ExerciseTwoDateList alloc]initWithNibName:@"ExerciseTwoDateList" bundle:nil];
     //  [self.navigationController pushViewController:etdl animated:YES];
     scroll.scrollEnabled = NO;
-    
+    listexercise2=[[NSMutableArray alloc]init];
     [listexercise2 removeAllObjects];
     [self.view bringSubviewToFront:listofdates];
     listofdates.hidden = NO;
@@ -285,6 +282,8 @@ int x=0;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
     raderaButton.hidden=NO;
+    [listexercise2 removeAllObjects];
+    [list_exercise2 addObject:SelectedDate];
     sqlite3_stmt    *statement;
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
         
@@ -491,9 +490,9 @@ int x=0;
         
         
     }
-    [listexercise2  removeAllObjects];
+    [list_exercise2  removeAllObjects];
     x=0;
-    [listexercise2 addObject:@"Null"];
+    [list_exercise2 addObject:@"Null"];
     raderaButton.hidden=YES;
     [self clearalltexts];
     

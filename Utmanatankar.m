@@ -18,7 +18,7 @@ NSArray *pArray;
 
 @implementation Utmanatankar
 @synthesize  label1,strategier,negative,din,motavis,tanke,alltanke,c1,c2,c3,c4,c5,c6;
-@synthesize listexercise3,tableView;
+@synthesize listexercise3,tableView,list_exercise3;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,8 +40,8 @@ NSArray *pArray;
     self.navigationItem.title=@"Utmana tankar";
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1400)];
-    listexercise3=[[NSMutableArray alloc]init];
-    [listexercise3 addObject:@"Null"];
+    list_exercise3=[[NSMutableArray alloc]init];
+    [list_exercise3 addObject:@"Null"];
     raderaButton.hidden=YES;
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
                                                                    style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -188,21 +188,14 @@ NSArray *pArray;
     NSLog(@"date%@",str1);
     if ([c1.text isEqualToString:@""]&&[c2.text isEqualToString:@""]&&[c4.text isEqualToString:@""]
         &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
-        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
-                                        delegate:self
-                               cancelButtonTitle:@"Cancel"
-                               otherButtonTitles:nil, nil];
-        
-        [alert show];
-        [alert release];
-    }else{
+            }else{
         
         
         const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
-            if([[listexercise3 objectAtIndex:y] isEqualToString:@"Null"]){
+            if([[list_exercise3 objectAtIndex:0] isEqualToString:@"Null"]){
                 NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE3 (date,negative,dina,hur,motbevis,tankefalla,alternativ) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\",\"%@\")", str1, c1.text,c2.text, c3.text ,c4.text,c5.text,c6.text];
                 
                 const char *insert_stmt = [insertSQL UTF8String];
@@ -291,9 +284,9 @@ NSArray *pArray;
             c6.text=@"";
             slider.value=0.0;
             raderaButton.hidden=YES;
-            [listexercise3 removeAllObjects];
+            [list_exercise3 removeAllObjects];
             y=0;
-            [listexercise3 addObject:@"Null"];
+            [list_exercise3 addObject:@"Null"];
         }else{
             
         }
@@ -306,7 +299,7 @@ NSArray *pArray;
     // udv=[[UtmanaDateView alloc]initWithNibName:@"UtmanaDateView" bundle:nil];
     // [self.navigationController pushViewController:udv animated:YES];
     scroll.scrollEnabled = NO;
-    
+    listexercise3=[[NSMutableArray alloc]init];
     [listexercise3 removeAllObjects];
     [self.view bringSubviewToFront:listofdates];
     listofdates.hidden = NO;
@@ -384,6 +377,8 @@ NSArray *pArray;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
     raderaButton.hidden=NO;
+    [list_exercise3 removeAllObjects];
+    [list_exercise3 addObject:SelectedDate];
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
         
         NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE3 WHERE date='%@'", SelectedDate];
@@ -478,9 +473,9 @@ NSArray *pArray;
     c5.text=@"";
     c6.text=@"";
     raderaButton.hidden=YES;
-    [listexercise3 removeAllObjects];
+    [list_exercise3 removeAllObjects];
     y=0;
-    [listexercise3 addObject:@"Null"];
+    [list_exercise3 addObject:@"Null"];
     [self getlistofDates3];
 }
 -(IBAction)Closelistofdates:(id)sender{

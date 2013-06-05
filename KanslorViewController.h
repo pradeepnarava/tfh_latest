@@ -14,8 +14,10 @@
 
     NSString *allstrings;
     NSString *selectedstrings;
+    IBOutlet UIButton *first;
 }
 @property(nonatomic,retain)NSMutableString *firstString;
 @property(nonatomic,retain)NSString *allstrings;
+
 @property(nonatomic,retain)NSString *selectedstrings;
 @end

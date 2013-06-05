@@ -36,10 +36,11 @@
     
  
     
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:self action:nil];
-    UIImage *stretchable = [[UIImage imageNamed:@"backbutton.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:16];
-    [btnDone setBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.navigationItem setBackBarButtonItem:btnDone];    // Do any additional setup after loading the view from its nib.
+    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    // [btnDone setTintColor:[UIColor Color]];
+    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
+    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.navigationItem setBackBarButtonItem:btnDone];  // Do any additional setup after loading the view from its nib.
     
    
 }
@@ -71,7 +72,7 @@
                 }
          }else
          {
-              // tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController_iPad" bundle:nil];
+            tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController_iPad" bundle:nil];
          }
     [self.navigationController pushViewController:tfvc animated:YES];
 }
