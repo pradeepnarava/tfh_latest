@@ -2,35 +2,34 @@
 //  ListOfKompass.m
 //  Välkommen till TFH-appen
 //
-//  Created by Mohammed Abdul Majeed on 5/13/13.
+//  Created by Sai Jithendra Gogineni on 06/06/13.
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
 #import "ListOfKompass.h"
+#import "EditLivskompass.h"
+#import <sqlite3.h>
 
 @interface ListOfKompass ()
 
 @end
 
 @implementation ListOfKompass
-@synthesize table;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
     }
     return self;
 }
-- (void)viewWillAppear:(BOOL)animated {
-    [self.table reloadData];
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     listexercise7=[[NSMutableArray alloc]init];
-    [listexercise7 removeAllObjects];
     // Do any additional setup after loading the view from its nib.
     NSString *docsDir;
     NSArray *dirPaths;
@@ -40,10 +39,12 @@
     
     docsDir = [dirPaths objectAtIndex:0];
     
+    sqlite3 *exerciseDB;
+    
     // Build the path to the database file
-    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    NSString *databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     const char *dbpath = [databasePath UTF8String];
-    sqlite3_stmt    *statement;
+    sqlite3_stmt  *statement;
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
@@ -71,15 +72,36 @@
         }
         sqlite3_close(exerciseDB);
     }
-    
-
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
     return [listexercise7 count];
 }
 
-// This will tell your UITableView what data to put in which cells in your table.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifer = @"CellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer];
     
@@ -95,21 +117,64 @@
     
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	// Upon selecting an event, create an EKEventViewController to display the event.
-	NSDictionary *dictionary = [listexercise7 objectAtIndex:indexPath.row];
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }   
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dictionary = [listexercise7 objectAtIndex:indexPath.row];
     NSLog(@"%@",dictionary);
     NSString *SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
-    elk=[[EditLivskompass alloc]initWithNibName:@"EditLivskompass" bundle:nil];
+    EditLivskompass *elk = [[[EditLivskompass alloc]initWithNibName:@"EditLivskompass" bundle:nil] autorelease];
     elk.dateoflivskompass=[[NSString alloc]init];
     elk.dateoflivskompass=SelectedDate;
     [self.navigationController pushViewController:elk animated:YES];
 }
-- (void)didReceiveMemoryWarning
+
+- (void)dealloc
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [listexercise7 release];
+    [super dealloc];
 }
 
 @end

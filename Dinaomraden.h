@@ -21,7 +21,8 @@
     IBOutlet UIButton *cb1,*cb2,*cb3,*cb4,*cb5,*cb6,*cb7,*cb8,*cb9,*cb10;
     sqlite3 *exerciseDB;
     NSString        *databasePath;
-    ListOfKompass *lok;
+//    ListOfKompass *lok;
+    IBOutlet UIScrollView *scrollView;
 }
 @property (nonatomic,retain)IBOutlet UITextView *textview;
 -(IBAction)averagevalue;
