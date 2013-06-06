@@ -312,6 +312,7 @@
 								<string key="NSFrame">{{17, 116}, {287, 34}}</string>
 								<reference key="NSSuperview" ref="820300651"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="697033427"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -11730,10 +11731,8 @@
 						<string key="NewBtn:">id</string>
 						<string key="SaveBtn:">id</string>
 						<string key="averagevalue">id</string>
-						<string key="labelalert:">id</string>
 						<string key="listofvalues:">id</string>
 						<string key="selectedcheckbox:">id</string>
-						<string key="settingsbutton:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="CloseBtn:">
@@ -11760,20 +11759,12 @@
 							<string key="name">averagevalue</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="labelalert:">
-							<string key="name">labelalert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="listofvalues:">
 							<string key="name">listofvalues:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="selectedcheckbox:">
 							<string key="name">selectedcheckbox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="settingsbutton:">
-							<string key="name">settingsbutton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
