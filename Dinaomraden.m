@@ -99,6 +99,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [scrollView setContentOffset:CGPointZero animated:YES];
+}
+
 -(IBAction)labelalert:(id)sender{
     [self.view bringSubviewToFront:subView];
     subView.hidden = NO;
@@ -390,7 +397,7 @@ NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
         }
 }
 -(IBAction)listofvalues:(id)sender{
-    lok=[[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
+    ListOfKompass *lok=[[[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil] autorelease];
     [self.navigationController pushViewController:lok animated:YES];
 }
 
@@ -601,4 +608,9 @@ else if(btn.tag==10){
         }
     }
    }
+
+- (void)dealloc {
+    [scrollView release];
+    [super dealloc];
+}
 @end
