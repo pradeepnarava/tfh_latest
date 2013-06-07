@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ListOfKompassDelegate;
+
 @interface ListOfKompass : UITableViewController
 {
     NSMutableArray *listexercise7;
 }
+
+@property (nonatomic, retain) id<ListOfKompassDelegate> delegate;
+
+@end
+
+@protocol ListOfKompassDelegate <NSObject>
+
+- (void)didSelectDate:(NSString *)date;
 
 @end

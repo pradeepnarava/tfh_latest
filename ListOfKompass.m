@@ -15,6 +15,7 @@
 @end
 
 @implementation ListOfKompass
+@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -165,10 +166,16 @@
     NSLog(@"%@",dictionary);
     NSString *SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
-    EditLivskompass *elk = [[[EditLivskompass alloc]initWithNibName:@"EditLivskompass" bundle:nil] autorelease];
-    elk.dateoflivskompass=[[NSString alloc]init];
-    elk.dateoflivskompass=SelectedDate;
-    [self.navigationController pushViewController:elk animated:YES];
+    
+    if ([delegate respondsToSelector:@selector(didSelectDate:)])
+    {
+        [delegate didSelectDate:SelectedDate];
+    }
+    
+//    EditLivskompass *elk = [[[EditLivskompass alloc]initWithNibName:@"EditLivskompass" bundle:nil] autorelease];
+//    elk.dateoflivskompass=[[NSString alloc]init];
+//    elk.dateoflivskompass=SelectedDate;
+//    [self.navigationController pushViewController:elk animated:YES];
 }
 
 - (void)dealloc

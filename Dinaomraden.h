@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 #import "ListOfKompass.h"
-@interface Dinaomraden : UIViewController{
+
+@interface Dinaomraden : UIViewController <ListOfKompassDelegate, UIAlertViewDelegate>
+{
         IBOutlet UIView *subView;
      IBOutlet UIView *settingsView;
     IBOutlet UITextField *text1,*text2,*text3,*text4,*text5,*text6,*text7,*text8,*text9,*text10;
@@ -23,7 +25,11 @@
     NSString        *databasePath;
 //    ListOfKompass *lok;
     IBOutlet UIScrollView *scrollView;
+    
+    NSString *dateOfCurrentItem;
+    ListOfKompass *lok;
 }
+
 @property (nonatomic,retain)IBOutlet UITextView *textview;
 -(IBAction)averagevalue;
 -(IBAction)selectedcheckbox:(id)sender;
@@ -33,4 +39,5 @@
 -(IBAction)listofvalues:(id)sender;
 -(IBAction)Increase:(id)sender;
 -(IBAction)Decrease:(id)sender;
+- (IBAction)deleteEntry:(id)sender;
 @end

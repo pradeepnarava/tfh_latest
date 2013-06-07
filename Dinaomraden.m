@@ -7,6 +7,7 @@
 //
 
 #import "Dinaomraden.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface Dinaomraden ()
 
@@ -35,12 +36,14 @@
 //}
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-            [textField resignFirstResponder];
-   
+    [textField resignFirstResponder];
 }
+
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     self.navigationItem.title=@"Dina områden";
+    dateOfCurrentItem = nil;
     
     //CGRect frame = CGRectMake(10, 270, 350, 50);
    // subView = [[UIView alloc] initWithFrame:frame];
@@ -78,7 +81,7 @@
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
             char *errMsg;
-            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE7 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  OMRADE TEXT ,AKTIVITET TEXT,AVERAGE TEXT)";
+            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE7 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  OMRADE TEXT ,AKTIVITET TEXT,AVERAGE TEXT,FAMILJ TEXT,VANNER TEXT,KARLEK TEXT,ARBETE TEXT,EKONOMI TEXT,KOST TEXT,MOTION TEXT,VILA TEXT,FRITID TEXT,SOMN TEXT)";
             
             if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
             {
@@ -95,9 +98,158 @@
     [filemgr release];
     
     [self averagevalue];
-    
-    [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)updateCurrentItem
+{
+    if (dateOfCurrentItem)
+    {
+        NSString *docsDir;
+        NSArray *dirPaths;
+        
+        // Get the documents directory
+        dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        
+        docsDir = [dirPaths objectAtIndex:0];
+        
+        // Build the path to the database file
+        databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+        // const char *dbpath = [databasePath UTF8String];
+        sqlite3_stmt    *statement;
+        if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+            
+            NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE7 WHERE date='%@'", dateOfCurrentItem];
+            
+            const char *del_stmt = [sql UTF8String];
+            
+            sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                
+                char* c1 = (char*) sqlite3_column_text(statement,2);
+                NSString *tmp1;
+                if (c1 != NULL){
+                    tmp1 = [NSString stringWithUTF8String:c1];
+                    NSLog(@"value form db :%@",tmp1);
+                    label.text=tmp1;
+                }
+                char* c2 = (char*) sqlite3_column_text(statement,3);
+                NSString *tmp2;
+                if (c2 != NULL){
+                    tmp2 = [NSString stringWithUTF8String:c2];
+                    NSLog(@"value form db :%@",tmp2);
+                    textview.text=tmp2;
+                }
+                
+                char* c3 = (char*) sqlite3_column_text(statement,4);
+                NSString *tmp3;
+                if (c3!= NULL){
+                    tmp3= [NSString stringWithUTF8String:c3];
+                    NSLog(@"value form db :%@",tmp3);
+                    [averageBt setTitle:tmp3 forState:UIControlStateNormal];
+                }
+                
+                char* c4 = (char*) sqlite3_column_text(statement,5);
+                NSString *tmp4;
+                if (c4!= NULL){
+                    tmp4= [NSString stringWithUTF8String:c4];
+                    NSLog(@"value form db :%@",tmp4);
+                    tf1.text = tmp4;
+                }
+                
+                char* c5 = (char*) sqlite3_column_text(statement,6);
+                NSString *tmp5;
+                if (c5!= NULL){
+                    tmp5= [NSString stringWithUTF8String:c5];
+                    NSLog(@"value form db :%@",tmp5);
+                    tf2.text = tmp5;
+                }
+                
+                char* c6 = (char*) sqlite3_column_text(statement,7);
+                NSString *tmp6;
+                if (c6!= NULL){
+                    tmp6= [NSString stringWithUTF8String:c6];
+                    NSLog(@"value form db :%@",tmp6);
+                    tf3.text = tmp6;
+                }
+                
+                char* c7 = (char*) sqlite3_column_text(statement,8);
+                NSString *tmp7;
+                if (c7!= NULL){
+                    tmp7= [NSString stringWithUTF8String:c7];
+                    NSLog(@"value form db :%@",tmp7);
+                    tf4.text = tmp7;
+                }
+                
+                char* c8 = (char*) sqlite3_column_text(statement,9);
+                NSString *tmp8;
+                if (c8!= NULL){
+                    tmp8= [NSString stringWithUTF8String:c8];
+                    NSLog(@"value form db :%@",tmp8);
+                    tf5.text = tmp8;
+                }
+                
+                char* c9 = (char*) sqlite3_column_text(statement,10);
+                NSString *tmp9;
+                if (c9!= NULL){
+                    tmp9= [NSString stringWithUTF8String:c9];
+                    NSLog(@"value form db :%@",tmp9);
+                    tf6.text = tmp9;
+                }
+                
+                char* c10 = (char*) sqlite3_column_text(statement,11);
+                NSString *tmp10;
+                if (c10!= NULL){
+                    tmp10= [NSString stringWithUTF8String:c10];
+                    NSLog(@"value form db :%@",tmp10);
+                    tf7.text = tmp10;
+                }
+                
+                char* c11 = (char*) sqlite3_column_text(statement,12);
+                NSString *tmp11;
+                if (c11!= NULL){
+                    tmp11= [NSString stringWithUTF8String:c11];
+                    NSLog(@"value form db :%@",tmp11);
+                   tf8.text = tmp11;
+                }
+                
+                char* c12 = (char*) sqlite3_column_text(statement,13);
+                NSString *tmp12;
+                if (c12!= NULL){
+                    tmp12= [NSString stringWithUTF8String:c12];
+                    NSLog(@"value form db :%@",tmp12);
+                    tf9.text = tmp12;
+                }
+                
+                char* c13 = (char*) sqlite3_column_text(statement,14);
+                NSString *tmp13;
+                if (c13!= NULL){
+                    tmp13= [NSString stringWithUTF8String:c13];
+                    NSLog(@"value form db :%@",tmp13);
+                    tf10.text = tmp13;
+                }
+             }
+            
+            sqlite3_finalize(statement);
+            sqlite3_close(exerciseDB);
+        }
+//        dateOfCurrentItem = nil;
+    }
+    else
+    {
+        label.text=@"";
+        textview.text=@"";
+        [averageBt setTitle:@"" forState:UIControlStateNormal];
+        tf1.text=@"";
+        tf2.text=@"";
+        tf3.text=@"";  tf4.text=@"";
+        tf5.text=@"";
+        tf6.text=@"";
+        tf7.text=@"";
+        tf8.text=@"";
+        tf9.text=@"";
+        tf10.text=@"";
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,7 +258,8 @@
     [scrollView setContentOffset:CGPointZero animated:YES];
 }
 
--(IBAction)labelalert:(id)sender{
+-(IBAction)labelalert:(id)sender
+{
     [self.view bringSubviewToFront:subView];
     subView.hidden = NO;
     label1.text=text1.text;
@@ -118,9 +271,7 @@
     label7.text=text7.text;
     label8.text=text8.text;
     label9.text=text9.text;
-    label10.text=text10.text;
-
-    
+    label10.text=text10.text;    
  
     
     [UIView beginAnimations:@"curlInView" context:nil];
@@ -129,12 +280,15 @@
     
     [UIView commitAnimations];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(IBAction)selectedcheckbox:(id)sender{
+
+-(IBAction)selectedcheckbox:(id)sender
+{
     UIButton *btn = (UIButton *)sender;
     
     if (btn.tag == 1)
@@ -275,7 +429,8 @@
     subView.hidden = YES;
     settingsView.hidden=YES;
 }
--(IBAction)averagevalue{
+-(IBAction)averagevalue
+{
     int box1=[tf1.text intValue];
     NSLog(@"%d",box1);
      int box2=[tf2.text intValue];
@@ -291,11 +446,13 @@
     float sumValue=box1+box2+box3+box4+box5+box6+box7+box8+box9+box10;
     float avgValue=sumValue/10;
      //NSLog(@"%.1f",avgValue);
-NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
+    NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
     [averageBt setTitle:str forState:UIControlStateNormal];
     
 }
--(IBAction)settingsbutton:(id)sender{
+
+-(IBAction)settingsbutton:(id)sender
+{
     [self.view bringSubviewToFront:settingsView];
     settingsView.hidden = NO;
     
@@ -307,7 +464,9 @@ NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
     
     [UIView commitAnimations];
 }
--(IBAction)SaveBtn:(id)sender{
+
+-(IBAction)SaveBtn:(id)sender
+{
     
     NSDate* date = [NSDate date];
     
@@ -317,7 +476,7 @@ NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
     
     //Set the required date format
     
-    [formatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
     
     //Get the string date
     
@@ -330,7 +489,7 @@ NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE7(date,omrade,aktivitet,average) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\")", str, label.text,textview.text,averageBt.currentTitle];
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE7(date,omrade,aktivitet,average,familj,vanner,karlek,arbete,ekonomi,kost,motion,vila,fritid,somn) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\")", str, label.text,textview.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text];
         
         const char *insert_stmt = [insertSQL UTF8String];
         
@@ -359,29 +518,34 @@ NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
     }
 
 }
--(IBAction)NewBtn:(id)sender{
-    if([label.text isEqualToString:@""] && [textview.text isEqualToString:@""] ){
-        
-    }
-    else{
+-(IBAction)NewBtn:(id)sender
+{
+//    if([label.text isEqualToString:@""] && [textview.text isEqualToString:@""] )
+//    {
+//        
+//    }
+//    else
+//    {
       UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
                                         delegate:self
                                cancelButtonTitle:@"Cancel"
                                otherButtonTitles:@"without saving", nil];
+        alert.tag = 1;
         
         [alert show];
         [alert release];
-    }
+//    }
 
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSLog(@"ok");
     
-        if (buttonIndex == 1) {
+        if (buttonIndex == 1 && alertView.tag == 1)
+        {
             NSLog(@"new form");
             label.text=@"";
             textview.text=@"";
-        tf1.text=@"";
+            tf1.text=@"";
               tf2.text=@"";
               tf3.text=@"";  tf4.text=@"";
               tf5.text=@"";
@@ -392,16 +556,106 @@ NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
               tf10.text=@"";
                [averageBt setTitle:@"" forState:UIControlStateNormal];
             
-        }else{
-            
+        }
+        else if (buttonIndex == 1 && alertView.tag == 2)
+        {
+            sqlite3_stmt    *statement;
+            if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+                
+                NSLog(@"Delete.");
+                NSLog(@"Date of Item to be delete = %@", dateOfCurrentItem);
+                NSLog(@"Delete.");
+                NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE7 WHERE date='%@'", dateOfCurrentItem];
+                
+                const char *del_stmt = [sql UTF8String];
+                
+                sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+                if (sqlite3_step(statement) == SQLITE_ROW) {
+                    
+                    NSLog(@"sss");
+                }
+                
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+                
+                dateOfCurrentItem = nil;
+                [self updateCurrentItem];
+            }
         }
 }
--(IBAction)listofvalues:(id)sender{
-    ListOfKompass *lok=[[[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil] autorelease];
-    [self.navigationController pushViewController:lok animated:YES];
+-(IBAction)listofvalues:(id)sender
+{
+    int rows = 0;
+    NSString *docsDir;
+    NSArray *dirPaths;
+    
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    docsDir = [dirPaths objectAtIndex:0];
+    
+    // Build the path to the database file
+    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    // const char *dbpath = [databasePath UTF8String];
+    sqlite3_stmt    *statement;
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK)
+    {
+        
+        NSString *sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM EXERCISE7"];
+        
+        const char *query_stmt = [sql UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB,
+                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                rows = sqlite3_column_int(statement, 0);
+            }
+        }
+        
+        NSLog(@"SQLite Rows: %i", rows);
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+    }
+    
+    if (rows > 0)
+    {
+        lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
+        lok.delegate = self;
+        //    [self.navigationController pushViewController:lok animated:YES];
+        lok.tableView.layer.cornerRadius = 10;
+        lok.tableView.layer.borderColor = [UIColor blueColor].CGColor;
+        lok.tableView.layer.borderWidth = 3;
+        
+        lok.tableView.frame = CGRectMake(0, scrollView.contentSize.height - 280, 320, 280);
+        [self.view addSubview:lok.tableView];
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"There are no saved entries."
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
 }
 
--(IBAction)Increase:(id)sender{
+- (void)didSelectDate:(NSString *)date
+{
+    dateOfCurrentItem = [[NSString alloc] initWithString:date];
+    NSLog(@"Date of Selected Item = %@", dateOfCurrentItem);
+    [self updateCurrentItem];
+    [lok.tableView removeFromSuperview];
+    [lok release];
+    NSLog(@"CHECKING...");
+    NSLog(@"CHECKING ITEM = %@", dateOfCurrentItem);
+}
+
+-(IBAction)Increase:(id)sender
+{
      UIButton *btn = (UIButton *)sender;
     if(btn.tag==1){
         int box1=[tf1.text intValue];
@@ -504,7 +758,11 @@ else if(btn.tag==10){
         NSLog(@"%@",tf10.text);
     }
 }
+    
+    [self averagevalue];
 }
+
+
 -(IBAction)Decrease:(id)sender{
      UIButton *btn = (UIButton *)sender;
     if(btn.tag==1){
@@ -607,10 +865,68 @@ else if(btn.tag==10){
             NSLog(@"%@",tf10.text);
         }
     }
-   }
+    [self averagevalue];
+}
+
+- (IBAction)deleteEntry:(id)sender
+{
+    if (dateOfCurrentItem)
+    {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Erasing the form or not?"
+                                                     delegate:self
+                                            cancelButtonTitle:@"Cancel"
+                                            otherButtonTitles:@"Delete", nil];
+        alert.tag = 2;
+        [alert show];
+        [alert release];
+    }
+    else
+    {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"This is not a saved entry to delete. This is a fresh page."
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+}
+
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+//    
+//    if ([title isEqualToString:@"Delete"]) {
+//        NSLog(@"Delete.");
+//        sqlite3_stmt    *statement;
+//        if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+//            
+//            NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE7 WHERE date='%@'", dateoflivskompass];
+//            
+//            const char *del_stmt = [sql UTF8String];
+//            
+//            sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+//            if (sqlite3_step(statement) == SQLITE_ROW) {
+//                
+//                NSLog(@"sss");
+//            }
+//            
+//            sqlite3_finalize(statement);
+//            sqlite3_close(exerciseDB);
+//            
+//            
+//        }
+//        
+//    }
+//}
 
 - (void)dealloc {
     [scrollView release];
+    if (lok) {
+        [lok release];
+    }
+    if (dateOfCurrentItem) {
+        [dateOfCurrentItem release];
+    }
     [super dealloc];
 }
 @end
