@@ -81,11 +81,7 @@ int s=0;
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    
-    if ([filemgr fileExistsAtPath: databasePath ] == YES)
-    {
-		const char *dbpath = [databasePath UTF8String];
+    		const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
@@ -102,11 +98,9 @@ int s=0;
         } else {
             //status.text = @"Failed to open/create database";
         }
-    }
     
-    [filemgr release];
-
-    [self.view addSubview:listofdates];
+    
+       [self.view addSubview:listofdates];
     listofdates.hidden=YES;
     [self.view addSubview:PopupView1];
     PopupView1.hidden=YES;
@@ -330,7 +324,8 @@ int s=0;
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT date FROM EXERCISEONE"
+                              @"SELECT date FROM EXERCISEONE  ORDER BY date DESC"
+                              
                               ];
         
         const char *query_stmt = [querySQL UTF8String];
@@ -349,18 +344,16 @@ int s=0;
                     [listexercise1 addObject:tmp];
                 }
             }
-            if (sqlite3_step(statement) != SQLITE_ROW) {
-                NSLog(@"%u",listexercise1.count);
-                if (listexercise1.count==0) {
-                    listofdates.hidden = YES;
-                    scroll.scrollEnabled=YES;
-                }
-               
-            }
+           
             sqlite3_finalize(statement);
         }
         sqlite3_close(exerciseDB);
     }
+    if (listexercise1.count==0) {
+        listofdates.hidden = YES;
+        scroll.scrollEnabled=YES;
+    }
+
     
     [self.tableView reloadData];
     

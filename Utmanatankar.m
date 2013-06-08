@@ -98,10 +98,7 @@ NSArray *pArray;
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    
-    if ([filemgr fileExistsAtPath: databasePath ] == YES)
-    {
+  
 		const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
@@ -119,9 +116,7 @@ NSArray *pArray;
         } else {
             //status.text = @"Failed to open/create database";
         }
-    }
-    
-    [filemgr release];
+   
     [self.view addSubview:listofdates];
     listofdates.hidden=YES;
     [self.view addSubview:Label1Popup];
@@ -202,9 +197,6 @@ NSArray *pArray;
                 
                 sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
                 if (sqlite3_step(statement) == SQLITE_DONE)
-                    
-                    
-                    
                 {
                     c1.text=@"";
                     c2.text=@"";
@@ -315,7 +307,7 @@ NSArray *pArray;
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT date FROM EXERCISE3"
+                              @"SELECT date FROM EXERCISE3 ORDER BY date DESC"
                               ];
         
         const char *query_stmt = [querySQL UTF8String];

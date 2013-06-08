@@ -2495,6 +2495,24 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">Sparabutton:</string>
+						<reference key="source" ref="494054729"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">680</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">Nyttbutton:</string>
+						<reference key="source" ref="695857935"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">681</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">nextbutton:</string>
 						<reference key="source" ref="787180872"/>
 						<reference key="destination" ref="372490531"/>
@@ -3603,7 +3621,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">679</int>
+			<int key="maxID">681</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3672,6 +3690,7 @@
 						<string key="overC2">UITextView</string>
 						<string key="raderaButton">UIButton</string>
 						<string key="scroll">UIScrollView</string>
+						<string key="scroll1">UIScrollView</string>
 						<string key="tableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -3781,6 +3800,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="scroll">
 							<string key="name">scroll</string>
+							<string key="candidateClassName">UIScrollView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="scroll1">
+							<string key="name">scroll1</string>
 							<string key="candidateClassName">UIScrollView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tableView">
