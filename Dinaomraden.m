@@ -489,7 +489,30 @@
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE7(date,omrade,aktivitet,average,familj,vanner,karlek,arbete,ekonomi,kost,motion,vila,fritid,somn) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\")", str, label.text,textview.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text];
+        int rows = 0;
+        
+        NSString *sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM EXERCISE7 WHERE date='%@'", str];
+        
+        const char *query_stmt = [sql UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                rows = sqlite3_column_int(statement, 0);
+            }
+        }
+        
+        NSString *insertSQL;
+        
+        if (rows == 0)
+        {
+            insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE7(date,omrade,aktivitet,average,familj,vanner,karlek,arbete,ekonomi,kost,motion,vila,fritid,somn) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\")", str, label.text,textview.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text];
+        }
+        else
+        {
+            insertSQL = [NSString stringWithFormat: @"UPDATE EXERCISE7 SET date='%@', omrade='%@',aktivitet='%@',average='%@',familj='%@',vanner='%@',karlek='%@',arbete='%@',ekonomi='%@',kost='%@',motion='%@',vila='%@',fritid='%@',somn='%@' WHERE date='%@'", str, label.text,textview.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text, str];
+        }
         
         const char *insert_stmt = [insertSQL UTF8String];
         
@@ -508,7 +531,8 @@
             tf8.text=@"";
             tf9.text=@"";
             tf10.text=@"";
-
+            
+            dateOfCurrentItem = nil;
             
         } else {
             NSLog(@"no");
@@ -555,6 +579,7 @@
               tf9.text=@"";
               tf10.text=@"";
                [averageBt setTitle:@"" forState:UIControlStateNormal];
+            dateOfCurrentItem = nil;
             
         }
         else if (buttonIndex == 1 && alertView.tag == 2)
@@ -562,9 +587,7 @@
             sqlite3_stmt    *statement;
             if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
                 
-                NSLog(@"Delete.");
                 NSLog(@"Date of Item to be delete = %@", dateOfCurrentItem);
-                NSLog(@"Delete.");
                 NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE7 WHERE date='%@'", dateOfCurrentItem];
                 
                 const char *del_stmt = [sql UTF8String];
@@ -572,14 +595,13 @@
                 sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
                 if (sqlite3_step(statement) == SQLITE_ROW) {
                     
-                    NSLog(@"sss");
+                    NSLog(@"Deleted");
+                    dateOfCurrentItem = nil;
+                    [self updateCurrentItem];
                 }
                 
                 sqlite3_finalize(statement);
                 sqlite3_close(exerciseDB);
-                
-                dateOfCurrentItem = nil;
-                [self updateCurrentItem];
             }
         }
 }
