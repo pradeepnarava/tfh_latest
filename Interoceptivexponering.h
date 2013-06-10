@@ -10,7 +10,8 @@
 #import <sqlite3.h>
 @interface Interoceptivexponering : UIViewController<UITableViewDelegate, UITableViewDataSource>
 {
-    NSString *inStr ;
+    NSString *inStr,*instr1;
+    NSMutableString *str1,*str2,*str3, *str11,*str21,*str31;
      UIScrollView *scrollview;
     UILabel *titlelabel,*titlelabel1;
    UITableView *tblView,*tabeldates;
@@ -27,7 +28,7 @@
     sqlite3 *exerciseDB;
     NSString        *databasePath;
     sqlite3_stmt    *statement;
-    NSMutableArray *listofovningars,*listof_sliderValue,*listexercise5,*list_exercise5;
+    NSMutableArray *listofovningars,*listof_sliderValue,*listexercise5,*list_exercise5,*list_egen,*listofovningars1,*listof_sliderValue1,*list_egen1;
     NSString *SelectedDate;
     IBOutlet UIButton *raderaButton;
    }
@@ -37,6 +38,7 @@
 @property (nonatomic, retain)IBOutlet UILabel *text2;
 @property(nonatomic ,retain)NSMutableArray *listexercise5;
 @property(nonatomic ,retain)NSMutableArray *list_exercise5;
+
 @property (nonatomic, retain)IBOutlet UILabel *ovning;
 @property (nonatomic, retain)IBOutlet  UITextView *egen;
 @property (nonatomic, retain)IBOutlet  UISlider *slider;

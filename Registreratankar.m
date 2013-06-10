@@ -39,7 +39,7 @@ int s=0;
     
     self.navigationItem.title=@"Registrera tankar";
    // eevc=[[EditExerciseViewController alloc]initWithNibName:@"EditExerciseViewController" bundle:nil];
-    UIBarButtonItem *bButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+    UIBarButtonItem *bButton = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka"
                                                                 style:UIBarButtonItemStylePlain target:nil action:nil];
     UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
     [bButton setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];

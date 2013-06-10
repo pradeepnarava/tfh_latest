@@ -9,6 +9,7 @@
 #import "Interoceptivexponering.h"
 #import "MTPopupWindow.h"
 int d=0;
+int s;
 @interface Interoceptivexponering ()
 @property (nonatomic, assign) int seconds;
 @property (nonatomic, assign) int minutes;
@@ -45,8 +46,19 @@ int d=0;
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if([text isEqualToString:@"\n"])
+    if([text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
+          instr1=textView.text;
+        if(listofovningars1.count>0){
+            [list_egen1 insertObject:textView.text atIndex:s];
+        }else{
+      
+        [list_egen addObject:instr1];
+           NSLog(@"instr1%@",instr1);
+        }
+    }else{
+             NSLog(@"%@",textView.text);
+    }
     return YES;
 }
 - (void)viewDidLoad
@@ -59,13 +71,24 @@ int d=0;
     [scroll1 setContentSize:CGSizeMake(320, 1010)];
     scb=@"";
     inStr=[[NSString alloc]init];
-    inStr=@"";
-
+    inStr=@"0";
+    instr1=[[NSString alloc]init];
+    str1=[[NSMutableString alloc]init];
+    str2=[[NSMutableString alloc]init];
+    str3=[[NSMutableString alloc]init];
+    str11=[[NSMutableString alloc]init];
+    str21=[[NSMutableString alloc]init];
+    str31=[[NSMutableString alloc]init];
+    
     datesView.hidden=YES;
     listofovningars=[[NSMutableArray alloc]init];
     listof_sliderValue=[[NSMutableArray alloc]init];
+    listofovningars1=[[NSMutableArray alloc]init];
+    listof_sliderValue1=[[NSMutableArray alloc]init];
     listexercise5=[[NSMutableArray alloc]init];
     list_exercise5=[[NSMutableArray alloc]init];
+    list_egen=[[NSMutableArray alloc]init];
+      list_egen1=[[NSMutableArray alloc]init];
    [list_exercise5 addObject:@"Null"];
     raderaButton.hidden=YES;
     pupview.hidden=YES;
@@ -163,7 +186,15 @@ int d=0;
     [self.view bringSubviewToFront:pupview];
     pupview.hidden = NO;
    // scroll.scrollEnabled=NO;
-      
+    if ([inStr isEqualToString:@"0"]) {
+         [listof_sliderValue insertObject:inStr atIndex:0];
+    }else{
+        if(listofovningars1.count>0){
+            [listof_sliderValue1 insertObject:inStr atIndex:s];
+        }else{
+       [listof_sliderValue insertObject:inStr atIndex:listofovningars.count-1];
+        }
+    }
     [UIView beginAnimations:@"curlInView" context:nil];
     
     [UIView setAnimationDuration:3.0];
@@ -186,9 +217,13 @@ int d=0;
     [cb10 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
     pupview.hidden=YES;
  //   scroll.scrollEnabled=YES;
+    if(listofovningars1.count>0){
+            [listofovningars1 insertObject:ovning.text atIndex:s];
+    }else{
        [listofovningars addObject:ovning.text];
-      NSLog(@"%@",listof_sliderValue);
-    //  [listof_sliderValue insertObject:inStr atIndex:listofovningars.count-1];
+    }
+     // NSLog(@"%@",listof_sliderValue);
+    // 
       [self.tblView reloadData];
     egen.hidden=NO;
     slider.hidden=NO;
@@ -450,7 +485,10 @@ int d=0;
 }
 
 -(IBAction)updateside:(id)sender
-{
+{if([egen.text isEqualToString:@""]){
+    
+}else{
+  
     slider = (UISlider*)sender;
     NSLog(@"Slider Value: %.1f", [slider value]);
     NSNumber *myNumber = [NSNumber numberWithDouble: [slider value]];
@@ -461,7 +499,8 @@ int d=0;
     NSLog(@"inStr Value: %@", inStr);
      [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
      [cellButton setTitle:inStr forState:UIControlStateNormal];
-  
+    // [self.tblView reloadData];
+}
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -491,16 +530,32 @@ int d=0;
     
     
     if(tableView==tblView){
+        if(listofovningars.count>0){
     NSString *str=[NSString stringWithFormat:@"%@",[listofovningars objectAtIndex:row]];
    cell.textLabel.font=[UIFont fontWithName:@"HelveticaNeue" size:12.0];
     cell.textLabel.text = str;
     cellButton = [[UIButton alloc]init];
     [cellButton addTarget:self action:@selector(ClicktableButton:)forControlEvents:UIControlEventTouchDown];
-    [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons1.png"] forState:UIControlStateNormal];
+    [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
+        NSLog(@"slidervalue%@",[listof_sliderValue objectAtIndex:row]);
     [cellButton setTitle:[listof_sliderValue objectAtIndex:row] forState:UIControlStateNormal];
     cellButton.frame = CGRectMake(220, 5, 60, 30);
     [cell addSubview:cellButton];
     [cellButton release];
+        }else{
+            NSString *str=[NSString stringWithFormat:@"%@",[listofovningars1 objectAtIndex:row]];
+            cell.textLabel.font=[UIFont fontWithName:@"HelveticaNeue" size:12.0];
+            cell.textLabel.text = str;
+            cellButton = [[UIButton alloc]init];
+            [cellButton addTarget:self action:@selector(ClicktableButton:)forControlEvents:UIControlEventTouchDown];
+            [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
+            NSLog(@"slidervalue%@",[listof_sliderValue1 objectAtIndex:row]);
+            [cellButton setTitle:[listof_sliderValue1 objectAtIndex:row] forState:UIControlStateNormal];
+            cellButton.frame = CGRectMake(220, 5, 60, 30);
+            [cell addSubview:cellButton];
+            [cellButton release];
+        }
+     
     }else{
        
         cell.textLabel.text = [listexercise5 objectAtIndex:row];
@@ -541,14 +596,38 @@ int d=0;
                 if (c1 != NULL){
                     tmp1 = [NSString stringWithUTF8String:c1];
                     NSLog(@"value form db :%@",tmp1);
-                    ovning.text=tmp1;
+                   
+                    NSArray *array = [tmp1 componentsSeparatedByString:@","];
+                    
+                    for (int i=0; i < [array count]; i++) {
+                        NSString *str4 = [array objectAtIndex:i];
+                        if([str4 isEqualToString:@""]){
+                            
+                        }else{
+                            [listofovningars1 addObject:str4];
+                           // [listofovningars addObject:str4];
+                        }
+                    }
+                                    // NSLog(@"%@",[listofovningars1 objectAtIndex:0]);
                 }
                 char* c2 = (char*) sqlite3_column_text(statement,3);
                 NSString *tmp2;
                 if (c2 != NULL){
                     tmp2 = [NSString stringWithUTF8String:c2];
                     NSLog(@"value form db :%@",tmp2);
-                    egen.text=tmp2;
+                    NSArray *array = [tmp2 componentsSeparatedByString:@","];
+                    
+                    for (int i=0; i < [array count]; i++) {
+                        NSString *str4 = [array objectAtIndex:i];
+                        if([str4 isEqualToString:@""]){
+                            
+                        }else{
+                        [list_egen1 addObject:str4];
+                            //  [list_egen addObject:str4];
+                        }
+                    }
+                  //  NSLog(@"%@",[list_egen1 objectAtIndex:0]);
+
                 }
                 
                 char* c3 = (char*) sqlite3_column_text(statement,4);
@@ -556,21 +635,44 @@ int d=0;
                 if (c3!= NULL){
                     tmp3= [NSString stringWithUTF8String:c3];
                     NSLog(@"value form db :%@",tmp3);
-                    prc.text=tmp3;
+                    NSArray *array = [tmp3 componentsSeparatedByString:@","];
+                    
+                    for (int i=0; i < [array count]; i++) {
+                        NSString *str4 = [array objectAtIndex:i];
+                        if([str4 isEqualToString:@""]){
+                            
+                        }else{
+                        [listof_sliderValue1 addObject:str4];
+                            //[listof_sliderValue addObject:str4];
+                        }
+                    }
+                  //  NSLog(@"%@",[listof_sliderValue1 objectAtIndex:0]);
+
                 }
                 
             
                 
             }
-            
+            [tblView reloadData];
+
             sqlite3_finalize(statement);
             sqlite3_close(exerciseDB);
             
         }
+    }else{
+        s=indexPath.row;
+        egen.hidden=NO;
+        prc.hidden=NO;
+        slider.hidden=NO;
+        ovning.text= [listofovningars1 objectAtIndex:indexPath.row];
+        egen.text=[list_egen1 objectAtIndex:indexPath.row];
+        prc.text=[listof_sliderValue1 objectAtIndex:indexPath.row];
     }
    }
 
 -(IBAction)SparaButton:(id)sender{
+   
+
     
     NSDate* date = [NSDate date];
     
@@ -590,8 +692,11 @@ int d=0;
     
   
         NSLog(@"yes");
-        
-    raderaButton.hidden=YES;
+    
+       raderaButton.hidden=YES;
+    
+    
+    
     if([ovning.text isEqualToString:@""] &&[egen.text isEqualToString:@""] &&[prc.text isEqualToString:@""] ){
         
         
@@ -599,7 +704,21 @@ int d=0;
     
     else{
         NSLog(@"yes");
-        
+         [listof_sliderValue insertObject:inStr atIndex:listofovningars.count-1];
+        for(int i=0;i<listofovningars.count;i++){
+            //
+            [str1 appendString :[listofovningars objectAtIndex:i]];
+            [str1 appendString:@","];
+            NSLog(@"str1%@",str1);
+            // str2=[[NSString alloc]init];
+            [str2 appendString:[listof_sliderValue objectAtIndex:i]];
+            [str2 appendString:@","];
+            NSLog(@"str2%@",str2);
+            // str3=[[NSString alloc]init];
+            [str3 appendString:[list_egen objectAtIndex:i]];
+            [str3 appendString:@","];
+            NSLog(@"str3%@",str3);
+        }
 
         const char *dbpath = [databasePath UTF8String];
         
@@ -610,7 +729,7 @@ int d=0;
                 if([cellButton.currentTitle isEqualToString:@""]){
                     
                 }else{
-            NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE5 (date,ovningar,egen,angest) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\")", str, ovning.text,egen.text, prc.text ];
+            NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE5 (date,ovningar,egen,angest) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\")", str, str1,str3, str2 ];
             
             const char *insert_stmt = [insertSQL UTF8String];
             
@@ -623,7 +742,10 @@ int d=0;
                 egen.text=@"";
                 prc.text=@"";
                 slider.value=0;
-              
+                [listofovningars removeAllObjects];
+                [list_egen removeAllObjects];
+                [listof_sliderValue removeAllObjects];
+                [tblView reloadData];
                 //egen.hidden=YES;
              //   prc.hidden=YES;
               //  slider.hidden=YES;
@@ -637,7 +759,24 @@ int d=0;
             sqlite3_close(exerciseDB);
                 }
             }else{
-                NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE5 SET ovningar='%@', egen='%@', angest='%@' WHERE date='%@' ", ovning.text,egen.text, prc.text , [listexercise5 objectAtIndex:d]];
+                  [listof_sliderValue1 insertObject:inStr atIndex:s];
+                for(int i=0;i<listofovningars1.count;i++){
+                    //
+                
+                    [str11 appendString :[listofovningars1 objectAtIndex:i]];
+                    [str11 appendString:@","];
+                    NSLog(@"str1%@",str1);
+                    // str2=[[NSString alloc]init];
+                    [str21 appendString:[listof_sliderValue1 objectAtIndex:i]];
+                    [str21 appendString:@","];
+                    NSLog(@"str2%@",str2);
+                    // str3=[[NSString alloc]init];
+                    [str31 appendString:[list_egen1 objectAtIndex:i]];
+                    [str31 appendString:@","];
+                    NSLog(@"str3%@",str3);
+                }
+
+                NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE5 SET ovningar='%@', egen='%@', angest='%@' WHERE date='%@' ", str11,str31, str21 , [listexercise5 objectAtIndex:d]];
                 const char *del_stmt = [query UTF8String];
                 
                 if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK){
@@ -671,7 +810,7 @@ int d=0;
 
 
 -(IBAction)newcolm:(id)sender{
-    if([ovning.text isEqualToString:@""] || [egen.text isEqualToString:@""] || [prc.text isEqualToString:@""] ){
+    if([ovning.text isEqualToString:@""] &&[egen.text isEqualToString:@""] && [prc.text isEqualToString:@""] ){
         
     }else{
       UIAlertView  *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
@@ -708,7 +847,10 @@ int d=0;
         timerview.hidden = YES;
     datesView.hidden=YES;
     scroll.scrollEnabled=YES;
-}
+    [listof_sliderValue removeAllObjects];
+    [list_egen removeAllObjects];
+    [listofovningars removeAllObjects];
+   }
 -(IBAction)nextbutton:(id)sender{
     datesView.hidden=NO;
     scroll.scrollEnabled=NO;
