@@ -13,6 +13,7 @@
 @interface ListOfKompass : UITableViewController
 {
     NSMutableArray *listexercise7;
+   // EditLivskompass *elk;
 }
 
 @property (nonatomic, retain) id<ListOfKompassDelegate> delegate;

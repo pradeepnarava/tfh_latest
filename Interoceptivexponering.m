@@ -8,6 +8,7 @@
 
 #import "Interoceptivexponering.h"
 #import "MTPopupWindow.h"
+int d=0;
 @interface Interoceptivexponering ()
 @property (nonatomic, assign) int seconds;
 @property (nonatomic, assign) int minutes;
@@ -18,13 +19,12 @@
 @end
 
 @implementation Interoceptivexponering
-@synthesize ovning,egen,slider,tblView,prc,scb,text2,text1;
+@synthesize ovning,egen,slider,tblView,prc,scb,text2,text1,tabeldates,listexercise5,list_exercise5;
 @synthesize secondsDisplay;
 @synthesize minutesDisplay;
 @synthesize secondsTimer;
 @synthesize seconds;
 @synthesize minutes;
-@synthesize titlelabel,titlelabel1;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -55,14 +55,24 @@
     self.navigationItem.title=@"Interoceptiv exponering";
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 720)];
+    scroll1.scrollEnabled = YES;
+    [scroll1 setContentSize:CGSizeMake(320, 1010)];
     scb=@"";
+    inStr=[[NSString alloc]init];
+    inStr=@"";
+
+    datesView.hidden=YES;
     listofovningars=[[NSMutableArray alloc]init];
-    [self.view addSubview:pupview];
-    [self.view addSubview:timerview];
+    listof_sliderValue=[[NSMutableArray alloc]init];
+    listexercise5=[[NSMutableArray alloc]init];
+    list_exercise5=[[NSMutableArray alloc]init];
+   [list_exercise5 addObject:@"Null"];
+    raderaButton.hidden=YES;
     pupview.hidden=YES;
     timerview.hidden=YES;
-   // text1.hidden=YES;
-   // text2.hidden=YES;
+    egen.hidden=YES;
+    prc.hidden=YES;
+    slider.hidden=YES;
     ovning.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture3 =
     [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ovninglabelalert:)] autorelease];
@@ -95,16 +105,13 @@
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    
-    if ([filemgr fileExistsAtPath: databasePath ] == YES)
-    {
+   
 		const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
             char *errMsg;
-            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE5 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  NEGATIVE TEXT ,OVNINGAR TEXT,EGEN TEXT, ANGEST TEXT)";
+            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE5 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,OVNINGAR TEXT,EGEN TEXT, ANGEST TEXT)";
             
             if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
             {
@@ -116,9 +123,7 @@
         } else {
             //status.text = @"Failed to open/create database";
         }
-    }
     
-    [filemgr release];
     
    }
 
@@ -157,7 +162,7 @@
 //   
     [self.view bringSubviewToFront:pupview];
     pupview.hidden = NO;
-    
+   // scroll.scrollEnabled=NO;
       
     [UIView beginAnimations:@"curlInView" context:nil];
     
@@ -169,18 +174,27 @@
 }
 - (IBAction)closeBtn:(id)sender
 {
-    [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb1 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb2 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb3 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb4 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb5 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb6 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb7 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb8 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb9 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
+    [cb10 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
     pupview.hidden=YES;
+ //   scroll.scrollEnabled=YES;
+       [listofovningars addObject:ovning.text];
+      NSLog(@"%@",listof_sliderValue);
+    //  [listof_sliderValue insertObject:inStr atIndex:listofovningars.count-1];
+      [self.tblView reloadData];
+    egen.hidden=NO;
+    slider.hidden=NO;
+    prc.hidden=NO;
     [self.view bringSubviewToFront:timerview];
+    
     timerview.hidden = NO;
     
     [UIView beginAnimations:@"curlInView" context:nil];
@@ -200,12 +214,17 @@
 }
 - (IBAction)closetimer:(id)sender{
     timerview.hidden=YES;
+    scroll.scrollEnabled=YES;
     //ovning.text=scb;
     egen.hidden=NO;
     slider.hidden=NO;
     prc.hidden=NO;
     text1.hidden=NO;
      text2.hidden=NO;
+    [self.secondsTimer invalidate];
+    self.secondsTimer= nil;
+    secondsDisplay.text=@"00";
+    minutesDisplay.text=@"00";
 }
 - (IBAction)starttimer:(id)sender{
     self.secondsTimer = [NSTimer
@@ -242,20 +261,21 @@
     
     if (btn.tag == 1)
     {
-        if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
+        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
             NSLog(@"%@",scb);
-            if ([ovning.text isEqualToString:@""]) {
-                [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+          
+                [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
                 ovning.text=@"Skaka huvudet (30 sek)";
+            
                 NSLog(@"%@",  ovning.text);
                 self.seconds=30;
                  self.minutes=0;
-            }
+         
         
             
         }else{
             [btn
-             setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
             ovning.text=@"";
             NSLog(@"%@",  ovning.text);
             self.seconds=00;
@@ -263,17 +283,17 @@
         }
               
     }else if(btn.tag == 2){
-         if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+         if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+           
+        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
        ovning.text=@"Tajta kläder (60 min)";
         NSLog(@"%@",ovning.text);
-                self.minutes=59;
+                self.minutes=00;
                 self.seconds=60;
-            }
+         
          }else{
              [btn
-              setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+              setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
              ovning.text=@"";
              NSLog(@"%@",ovning.text);
              self.seconds=00;
@@ -281,17 +301,17 @@
          }
 
     }else if(btn.tag == 3){
-        if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+         
+        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
         ovning.text=@"Huvudet mellan benen (90 sek)";
         NSLog(@"%@",ovning.text);
                 self.seconds=30;
                 self.minutes=1;
-            }
+           
         }else{
             [btn
-             setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
             ovning.text=@"";
             NSLog(@"%@",ovning.text);
             self.seconds=00;
@@ -301,17 +321,17 @@
     }
     
     else if(btn.tag == 4){
-            if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+        
+        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
       ovning.text=@"Spring på stället (2 min)";
         NSLog(@"%@",ovning.text);
                 self.minutes=1;
                 self.seconds=60;
-            }
+           
             }else{
                 [btn
-                 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
                 ovning.text=@"";
                 NSLog(@"%@",ovning.text);
                 self.seconds=00;
@@ -319,18 +339,18 @@
             }
 
     }else if(btn.tag == 5){
-           if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+           if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+          
+        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
        ovning.text=@"Fullständig kroppsspänning (1 min)";
         NSLog(@"%@",ovning.text);
-                self.minutes=0;
+                self.minutes=00;
                 self.seconds=60;
                 
-            }
+          
            }else{
                [btn
-                setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
                ovning.text=@"";
                NSLog(@"%@",ovning.text);
                self.seconds=00;
@@ -338,80 +358,83 @@
            }
 
     }else if(btn.tag == 6){
-        if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+       
+        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
        ovning.text=@"Hålla andan (30 sek)";
         NSLog(@"%@",ovning.text);
                 self.seconds=30;
-                self.minutes=30;
-            }
+                self.minutes=00;
+          
         }else{
             [btn
-             setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
             ovning.text=@"";
             NSLog(@"%@",ovning.text);
             self.seconds=00;
             self.minutes=00;        }
     }else if(btn.tag == 7){
-         if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+         if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+        
+        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
         ovning.text=@"Hyperventilera (90 sek)";
         NSLog(@"%@",ovning.text);
                 self.seconds=30;
                 self.minutes=1;
-            }
+     
          }else{
              [btn
-              setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+              setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
              ovning.text=@"";
              NSLog(@"%@",ovning.text);
              self.seconds=00;
               self.minutes=00;
          }
     }else if(btn.tag == 8){
-          if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+          if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+                  [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
      ovning.text=@"Svälj snabbt (fem gånger)";
+              self.seconds=00;
+              self.minutes=00;
         NSLog(@"%@",ovning.text);
-            }
+      
           }else{
               [btn
-               setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+               setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
               ovning.text=@"";
               NSLog(@"%@",ovning.text);
               self.seconds=00;
               self.minutes=00;
           }
     }else if(btn.tag == 9){
-        if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+         
+        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
         ovning.text=@"Drick kaffe";
+            self.seconds=00;
+            self.minutes=00;
         NSLog(@"%@",ovning.text);
-            }
+    
         }else{
             [btn
-             setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
             ovning.text=@"";
             NSLog(@"%@",ovning.text);
             self.seconds=00;
             self.minutes=00;
         }
     }else if(btn.tag == 10){
-        if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-            if ([ovning.text isEqualToString:@""]) {
-        [btn setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
+            
+        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
        ovning.text=@"Vatten i munnen (2 min)";
         NSLog(@"%@",ovning.text);
                 self.minutes=1;
                  self.seconds=60;
-            }
+      
         }else{
             [btn
-             setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
             ovning.text=@"";
             NSLog(@"%@",ovning.text);
             self.seconds=00;
@@ -432,20 +455,27 @@
     NSLog(@"Slider Value: %.1f", [slider value]);
     NSNumber *myNumber = [NSNumber numberWithDouble: [slider value]];
     NSInteger myInt = [myNumber intValue];
-    NSString *inStr = [NSString stringWithFormat:@"%d", myInt];
-    inStr = [inStr stringByAppendingString:@" %"];
+    inStr = [NSString stringWithFormat:@"%d", myInt];
+  //  inStr = [inStr stringByAppendingString:@" %"];
     prc.text=inStr;
     NSLog(@"inStr Value: %@", inStr);
+     [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
+     [cellButton setTitle:inStr forState:UIControlStateNormal];
   
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    return 30;
+    return 40;
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [listofovningars count];
+    NSInteger rows;
+	
+	if(tableView == tabeldates) rows = [listexercise5 count];
+	if(tableView == tblView) rows = [listofovningars count];
+	
+	return rows;
 }
 
 // This will tell your UITableView what data to put in which cells in your table.
@@ -458,22 +488,88 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifer];
     }
     NSUInteger row = [indexPath row];
-    NSString *str=[NSString stringWithFormat:@"%@,%@",@"Övningar ",[listofovningars objectAtIndex:row]];
+    
+    
+    if(tableView==tblView){
+    NSString *str=[NSString stringWithFormat:@"%@",[listofovningars objectAtIndex:row]];
    cell.textLabel.font=[UIFont fontWithName:@"HelveticaNeue" size:12.0];
     cell.textLabel.text = str;
+    cellButton = [[UIButton alloc]init];
+    [cellButton addTarget:self action:@selector(ClicktableButton:)forControlEvents:UIControlEventTouchDown];
+    [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons1.png"] forState:UIControlStateNormal];
+    [cellButton setTitle:[listof_sliderValue objectAtIndex:row] forState:UIControlStateNormal];
+    cellButton.frame = CGRectMake(220, 5, 60, 30);
+    [cell addSubview:cellButton];
+    [cellButton release];
+    }else{
+       
+        cell.textLabel.text = [listexercise5 objectAtIndex:row];
+    }
     // Deciding which data to put into this particular cell.
     // If it the first row, the data input will be "Data1" from the array.
        return cell;
 }
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(tableView==tblView){
+    cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"cellbg1.png"]];
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Upon selecting an event, create an EKEventViewController to display the event.
-	//NSDictionary *dictionary = [self.listexercise1 objectAtIndex:indexPath.row];
-    //NSLog(@"%@",dictionary);
-   // NSString *SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
-   // NSLog(@"%@",SelectedDate);
-   // Selectedrow=SelectedDate;
-}
+    if(tableView==tabeldates){
+	NSDictionary *dictionary = [self.listexercise5 objectAtIndex:indexPath.row];
+    NSLog(@"%@",dictionary);
+        d=indexPath.row;
+        [list_exercise5 removeAllObjects];
+      
+  SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
+   NSLog(@"%@",SelectedDate);
+        [list_exercise5 addObject:SelectedDate];
+        raderaButton.hidden=NO;
+        if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+            
+            NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE5 WHERE date='%@'", SelectedDate];
+            
+            const char *del_stmt = [sql UTF8String];
+            
+            sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                
+                char* c1 = (char*) sqlite3_column_text(statement,2);
+                NSString *tmp1;
+                if (c1 != NULL){
+                    tmp1 = [NSString stringWithUTF8String:c1];
+                    NSLog(@"value form db :%@",tmp1);
+                    ovning.text=tmp1;
+                }
+                char* c2 = (char*) sqlite3_column_text(statement,3);
+                NSString *tmp2;
+                if (c2 != NULL){
+                    tmp2 = [NSString stringWithUTF8String:c2];
+                    NSLog(@"value form db :%@",tmp2);
+                    egen.text=tmp2;
+                }
+                
+                char* c3 = (char*) sqlite3_column_text(statement,4);
+                NSString *tmp3;
+                if (c3!= NULL){
+                    tmp3= [NSString stringWithUTF8String:c3];
+                    NSLog(@"value form db :%@",tmp3);
+                    prc.text=tmp3;
+                }
+                
+            
+                
+            }
+            
+            sqlite3_finalize(statement);
+            sqlite3_close(exerciseDB);
+            
+        }
+    }
+   }
+
 -(IBAction)SparaButton:(id)sender{
     
     NSDate* date = [NSDate date];
@@ -484,7 +580,7 @@
     
     //Set the required date format
     
-    [formatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     
     //Get the string date
     
@@ -494,12 +590,26 @@
     
   
         NSLog(@"yes");
-        sqlite3_stmt    *statement;
         
+    raderaButton.hidden=YES;
+    if([ovning.text isEqualToString:@""] &&[egen.text isEqualToString:@""] &&[prc.text isEqualToString:@""] ){
+        
+        
+    }
+    
+    else{
+        NSLog(@"yes");
+        
+
         const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
+           
+            if([[list_exercise5 objectAtIndex:0] isEqualToString:@"Null"]){
+                if([cellButton.currentTitle isEqualToString:@""]){
+                    
+                }else{
             NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE5 (date,ovningar,egen,angest) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\")", str, ovning.text,egen.text, prc.text ];
             
             const char *insert_stmt = [insertSQL UTF8String];
@@ -507,29 +617,56 @@
             sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
             if (sqlite3_step(statement) == SQLITE_DONE)
             {
-                [listofovningars addObject:ovning.text];
-
+                [listofovningars removeAllObjects];
+               
                 ovning.text=@"";
                 egen.text=@"";
                 prc.text=@"";
                 slider.value=0;
-                [self.tblView reloadData];
-                egen.hidden=YES;
-                prc.hidden=YES;
-                slider.hidden=YES;
-                text1.hidden=YES;
-                text2.hidden=YES;
+              
+                //egen.hidden=YES;
+             //   prc.hidden=YES;
+              //  slider.hidden=YES;
+              //  text1.hidden=YES;
+               // text2.hidden=YES;
             } else {
                 NSLog(@"no");
             }
+            
             sqlite3_finalize(statement);
             sqlite3_close(exerciseDB);
-        }
-        
- 
-    
+                }
+            }else{
+                NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE5 SET ovningar='%@', egen='%@', angest='%@' WHERE date='%@' ", ovning.text,egen.text, prc.text , [listexercise5 objectAtIndex:d]];
+                const char *del_stmt = [query UTF8String];
+                
+                if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK){
+                    if(SQLITE_DONE != sqlite3_step(statement))
+                        NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+                    NSLog(@"sss");
+                   ovning.text=@"";
+                    egen.text=@""; prc.text=@"";
+                    slider.value=0;
+                    [list_exercise5 removeAllObjects];
+                    d=0;
+                    [list_exercise5 addObject:@"Null"];
+                }
+                
+                
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+                
+                
+                
+     
+            }
 
+            }
     
+        }
+
+
+
 }
 
 
@@ -552,18 +689,100 @@
     NSLog(@"ok");
     
         if (buttonIndex == 1) {
-            egen.hidden=YES;
-            prc.hidden=YES;
-            slider.hidden=YES;
-            text1.hidden=YES;
-            text2.hidden=YES;
+            ovning.text=@"";
+            egen.text=@"";
+            prc.text=@"";
+            slider.value=0;
+            [list_exercise5 removeAllObjects];
+            d=0;
+            [list_exercise5 addObject:@"Null"];
             
         }else{
             
         }
     
 }
-
+-(IBAction)CloseButton:(id)sender{
+    pupview.hidden=YES;
+    scroll.scrollEnabled=YES;
+        timerview.hidden = YES;
+    datesView.hidden=YES;
+    scroll.scrollEnabled=YES;
+}
+-(IBAction)nextbutton:(id)sender{
+    datesView.hidden=NO;
+    scroll.scrollEnabled=NO;
+    [listexercise5 removeAllObjects];
+      [self getlistofDates];
+}
+-(void)getlistofDates{
+    const char *dbpath = [databasePath UTF8String];
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:
+                              @"SELECT date FROM EXERCISE5 ORDER BY date DESC"
+                              ];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB,
+                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            NSLog(@"%u",SQLITE_ROW);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                
+                char* date = (char*) sqlite3_column_text(statement,0);
+                NSString *tmp;
+                if (date != NULL){
+                    tmp = [NSString stringWithUTF8String:date];
+                    NSLog(@"value form db :%@",tmp);
+                    [listexercise5 addObject:tmp];
+                }
+            }
+            if (sqlite3_step(statement) != SQLITE_ROW) {
+                NSLog(@"%u",listexercise5.count);
+                if (listexercise5.count==0) {
+                    datesView.hidden = YES;
+                    scroll.scrollEnabled=YES;
+                }
+                
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(exerciseDB);
+    }
+    
+    [self.tabeldates reloadData];
+}
+-(IBAction)raderaclick:(id)sender{
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE5 WHERE date='%@'", [listexercise5 objectAtIndex:d]];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+            
+        }
+        raderaButton.hidden=YES;
+        ovning.text=@"";
+        egen.text=@"";
+        prc.text=@"";
+        slider.value=0;
+        [list_exercise5 removeAllObjects];
+        d=0;
+        [list_exercise5 addObject:@"Null"];
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+        
+        
+    }
+    
+    [self.tabeldates reloadData];
+}
 - (void)viewDidUnload{
     [super viewDidUnload];
 }

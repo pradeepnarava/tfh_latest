@@ -91,11 +91,11 @@
 }
 -(IBAction)exercise4:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                   // if ([[UIScreen mainScreen] bounds].size.height == 568) {
+                    if ([[UIScreen mainScreen] bounds].size.height == 568) {
                  bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController" bundle:nil];
-                  //  }else{
-                  //      bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController_iPhone4" bundle:nil];
-                   // }
+                   }else{
+                      bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController_iPhone4" bundle:nil];
+                }
          }else
          {
              
@@ -104,10 +104,14 @@
 }
 -(IBAction)exercise5:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+              if ([[UIScreen mainScreen] bounds].size.height == 568) {
               ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering" bundle:nil];
+              }else{
+                    ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering_iPhone4" bundle:nil];
+              }
             }else
          {
-             
+              ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering_iPad" bundle:nil];
          }
     [self.navigationController pushViewController:ice animated:YES];
 }

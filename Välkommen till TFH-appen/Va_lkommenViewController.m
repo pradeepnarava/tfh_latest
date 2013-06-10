@@ -26,12 +26,12 @@
 //    self.navigationItem.backBarButtonItem = backButton;
 //    
     UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
-   // [btnDone setTintColor:[UIColor Color]];
+    // [btnDone setTintColor:[UIColor Color]];
     UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
-[btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.navigationItem setBackBarButtonItem:btnDone];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+   
   
     UINavigationBar *navBar = self.navigationController.navigationBar;
       if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -41,7 +41,16 @@
          UIImage *image = [UIImage imageNamed:@"topbar4.png"];
         [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
       }
+    NSString *docsDir;
+    NSArray *dirPaths;
     
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    docsDir = [dirPaths objectAtIndex:0];
+    
+    // Build the path to the database file
+    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
 }
 
 

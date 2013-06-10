@@ -64,10 +64,7 @@ int x=0;
     
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    
-    if ([filemgr fileExistsAtPath: databasePath ] == YES)
-    {
+   
 		const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
@@ -88,9 +85,7 @@ int x=0;
         } else {
             //status.text = @"Failed to open/create database";
         }
-    }
-    
-    [filemgr release];
+   
     [super viewDidLoad];
     
 }
@@ -221,7 +216,7 @@ int x=0;
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT date FROM EXERCISETWO"
+                              @"SELECT date FROM EXERCISETWO ORDER BY date DESC"
                               ];
         
         const char *query_stmt = [querySQL UTF8String];
@@ -282,7 +277,7 @@ int x=0;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
     raderaButton.hidden=NO;
-    [listexercise2 removeAllObjects];
+    [list_exercise2 removeAllObjects];
     [list_exercise2 addObject:SelectedDate];
     sqlite3_stmt    *statement;
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {

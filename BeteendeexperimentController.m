@@ -14,7 +14,7 @@ int c=0;
 @end
 
 @implementation BeteendeexperimentController
-@synthesize label1,ex3c1,ex3c2,ex3c3,ex3c4,ex3c5,slabel1,slabel2,tableview,listexercise4;
+@synthesize label1,ex3c1,ex3c2,ex3c3,ex3c4,ex3c5,slabel1,slabel2,tableview,listexercise4,list_exercise4;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,13 +32,17 @@ int c=0;
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     [ex3c1 resignFirstResponder];
-    picker.hidden=YES;
+    //picker.hidden=YES;
     return YES;
 }
 - (void)textFieldDidBeginEditing:(UITextField *)aTextField{
     [ex3c1 resignFirstResponder];
     
     picker.hidden=NO;
+    [picker addTarget:self action:@selector(dueDateChanged:) forControlEvents:UIControlEventValueChanged];
+    //[self.view addSubview:picker];
+    [picker release];
+
 }
 - (void)viewDidLoad
 {
@@ -53,8 +57,8 @@ int c=0;
     listofdates.hidden=YES;
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1300)];
-     listexercise4=[[NSMutableArray alloc]init];
-    [listexercise4 addObject:@"Null"];
+     list_exercise4=[[NSMutableArray alloc]init];
+    [list_exercise4 addObject:@"Null"];
 
     
     label1.userInteractionEnabled = YES;
@@ -74,11 +78,7 @@ int c=0;
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    
-    if ([filemgr fileExistsAtPath: databasePath ] == YES)
-    {
-		const char *dbpath = [databasePath UTF8String];
+   		const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
@@ -97,14 +97,20 @@ int c=0;
         } else {
             //status.text = @"Failed to open/create database";
         }
-    }
     
-    [filemgr release];
     
 
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+-(void) dueDateChanged:(UIDatePicker *)sender {
+    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    picker.hidden=YES;
+    //self.myLabel.text = [dateFormatter stringFromDate:[dueDatePickerView date]];
+    NSLog(@"Picked the date %@", [dateFormatter stringFromDate:[sender date]]);
 }
 -(IBAction)mainlabelalert:(id)sender{
      [MTPopupWindow showWindowWithHTMLFile:@"Beteebdeexperiment.html" insideView:self.view];
@@ -154,7 +160,7 @@ int c=0;
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        if([[listexercise4 objectAtIndex:c]  isEqualToString:@"Null"]){
+        if([[list_exercise4 objectAtIndex:0]  isEqualToString:@"Null"]){
         NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE4 (date,datum,experimentet,forutsage,forutprc,resultat,lardomar,lardprc) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")", str, ex3c1.text,ex3c2.text, ex3c3.text , slabel1.text, ex3c4.text,ex3c5.text,slabel2.text];
         
         const char *insert_stmt = [insertSQL UTF8String];
@@ -191,9 +197,9 @@ int c=0;
                 slider.value=0.0;
                 slider1.value=0.0;
                 raderabutton.hidden=YES;
-                [listexercise4 removeAllObjects];
+                [list_exercise4 removeAllObjects];
                 c=0;
-                [listexercise4 addObject:@"Null"];
+                [list_exercise4 addObject:@"Null"];
             }
             
             
@@ -233,9 +239,9 @@ int c=0;
             slider.value=0.0;
             slider1.value=0.0;
             raderabutton.hidden=YES;
-            [listexercise4 removeAllObjects];
+            [list_exercise4 removeAllObjects];
             c=0;
-            [listexercise4 addObject:@"Null"];
+            [list_exercise4 addObject:@"Null"];
         }else{
             
         }
@@ -245,7 +251,7 @@ int c=0;
    
     
     scroll.scrollEnabled = NO;
-   
+    listexercise4=[[NSMutableArray alloc]init];
     [listexercise4 removeAllObjects];
     [self.view bringSubviewToFront:listofdates];
     listofdates.hidden = NO;
@@ -261,7 +267,7 @@ int c=0;
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT date FROM EXERCISE4"
+                              @"SELECT date FROM EXERCISE4 ORDER BY date DESC"
                               ];
         
         const char *query_stmt = [querySQL UTF8String];
@@ -323,6 +329,9 @@ int c=0;
     c=indexPath.row;
     raderabutton.hidden=NO;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
+    [list_exercise4 removeAllObjects];
+    [list_exercise4 addObject:SelectedDate];
+    
     NSLog(@"%@",SelectedDate);
    
    
@@ -430,9 +439,9 @@ int c=0;
            slider.value=0.0;
            slider1.value=0.0;
            raderabutton.hidden=YES;
-         [listexercise4 removeAllObjects];
+         [list_exercise4 removeAllObjects];
            c=0;
-           [listexercise4 addObject:@"Null"];
+           [list_exercise4 addObject:@"Null"];
        }
        
 

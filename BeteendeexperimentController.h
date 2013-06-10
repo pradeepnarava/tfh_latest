@@ -25,6 +25,7 @@
     
     UITableView *tableview;
  NSMutableArray *listexercise4;
+     NSMutableArray *list_exercise4;
     NSString *SelectedDate;
      sqlite3_stmt    *statement;
     IBOutlet UIButton *raderabutton;
@@ -35,6 +36,7 @@
 @property(nonatomic,retain)IBOutlet UITableView *tableview;
 
 @property(nonatomic,retain)NSMutableArray *listexercise4;
+@property(nonatomic,retain)NSMutableArray *list_exercise4;
 @property(nonatomic, retain)IBOutlet UILabel *label1;
 @property(nonatomic, retain)IBOutlet UILabel *slabel1;
 @property(nonatomic, retain)IBOutlet UILabel *slabel2;
