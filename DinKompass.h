@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
-#import "TUTSimpleScatterPlot.h"
-@interface DinKompass : UIViewController{
-    IBOutlet CPTGraphHostingView *_graphHostingView;
-    TUTSimpleScatterPlot *_scatterPlot;
+#import "DateSelectingViewController.h"
+
+@interface DinKompass : UIViewController <CPTPlotDataSource, DateSelectingViewControllerDelegate>
+{
+    NSMutableArray *presentArray;
+    NSMutableArray *olderArray;
 }
 
-@property (nonatomic, retain) TUTSimpleScatterPlot *scatterPlot;
+@property (nonatomic, retain) NSString *presentDate;
+@property (nonatomic, retain) NSString *oldDate;
+@property (nonatomic) BOOL isComparisonGraph;
+
 
 
 @end
