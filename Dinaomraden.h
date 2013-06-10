@@ -40,4 +40,5 @@
 -(IBAction)Increase:(id)sender;
 -(IBAction)Decrease:(id)sender;
 - (IBAction)deleteEntry:(id)sender;
+- (IBAction)generateGraph:(id)sender;
 @end

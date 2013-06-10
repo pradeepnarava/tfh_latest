@@ -8,6 +8,7 @@
 
 #import "Dinaomraden.h"
 #import <QuartzCore/QuartzCore.h>
+#import "DinKompass.h"
 
 @interface Dinaomraden ()
 
@@ -100,6 +101,12 @@
     [self averagevalue];
     // Do any additional setup after loading the view from its nib.
 }
+
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    [self initPlot];
+//}
 
 - (void)updateCurrentItem
 {
@@ -519,20 +526,20 @@
         sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-            label.text=@"";
-            textview.text=@"";
-       [averageBt setTitle:@"" forState:UIControlStateNormal];
-            tf1.text=@"";
-            tf2.text=@"";
-            tf3.text=@"";  tf4.text=@"";
-            tf5.text=@"";
-            tf6.text=@"";
-            tf7.text=@"";
-            tf8.text=@"";
-            tf9.text=@"";
-            tf10.text=@"";
+//            label.text=@"";
+//            textview.text=@"";
+//       [averageBt setTitle:@"" forState:UIControlStateNormal];
+//            tf1.text=@"";
+//            tf2.text=@"";
+//            tf3.text=@"";  tf4.text=@"";
+//            tf5.text=@"";
+//            tf6.text=@"";
+//            tf7.text=@"";
+//            tf8.text=@"";
+//            tf9.text=@"";
+//            tf10.text=@"";
             
-            dateOfCurrentItem = nil;
+            dateOfCurrentItem = [[NSString alloc] initWithString:str];
             
         } else {
             NSLog(@"no");
@@ -912,6 +919,101 @@ else if(btn.tag==10){
         [alert release];
     }
 }
+
+- (IBAction)generateGraph:(id)sender
+{
+    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    
+    NSString *olderDate;
+    
+    NSString *docsDir;
+    NSArray *dirPaths;
+    
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    docsDir = [dirPaths objectAtIndex:0];
+    
+//    sqlite3 *exerciseDB;
+    
+    // Build the path to the database file
+    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    const char *dbpath = [databasePath UTF8String];
+    sqlite3_stmt  *statement;
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:
+                              @"SELECT date FROM EXERCISE7 ORDER BY id DESC"
+                              ];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB,
+                               query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                
+                char* date = (char*) sqlite3_column_text(statement,0);
+                
+                if (date != NULL)
+                {
+                    NSLog(@"Date OF CURRENT ITEM = %@", dateOfCurrentItem);
+                    NSDate *presentDate = [formatter dateFromString:dateOfCurrentItem];
+                    NSDate *oldDate = [formatter dateFromString:[NSString stringWithUTF8String:date]];
+                    
+                    if ([presentDate compare:oldDate] == NSOrderedDescending)
+                    {
+                        olderDate = [[[NSString alloc] initWithUTF8String:date] autorelease];
+                        break;
+                    }
+                }
+                
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(exerciseDB);
+    }
+    
+    if (dateOfCurrentItem && olderDate)
+    {
+        DinKompass *dinKom = [[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];
+        dinKom.presentDate = [[NSString alloc] initWithString:dateOfCurrentItem];
+        dinKom.oldDate = [[NSString alloc] initWithString:olderDate];
+        dinKom.isComparisonGraph = YES;
+        //    dinKom.delegate = self;
+        [self.navigationController pushViewController:dinKom animated:YES];
+    }
+}
+
+//-(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index {
+//	// 1 - Define label text style
+//	static CPTMutableTextStyle *labelText = nil;
+//	if (!labelText) {
+//		labelText= [[CPTMutableTextStyle alloc] init];
+//		labelText.color = [CPTColor grayColor];
+//	}
+//	// 2 - Calculate portfolio total value
+//	NSDecimalNumber *portfolioSum = [NSDecimalNumber zero];
+//	for (NSDecimalNumber *price in [[CPDStockPriceStore sharedInstance] dailyPortfolioPrices]) {
+//		portfolioSum = [portfolioSum decimalNumberByAdding:price];
+//	}
+//	// 3 - Calculate percentage value
+//	NSDecimalNumber *price = [[[CPDStockPriceStore sharedInstance] dailyPortfolioPrices] objectAtIndex:index];
+//	NSDecimalNumber *percent = [price decimalNumberByDividingBy:portfolioSum];
+//	// 4 - Set up display label
+//	NSString *labelValue = [NSString stringWithFormat:@"$%0.2f USD (%0.1f %%)", [price floatValue], ([percent floatValue] * 100.0f)];
+//	// 5 - Create and return layer with label text
+//	return [[CPTTextLayer alloc] initWithText:labelValue style:labelText];
+//}
+//
+//-(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index {
+//	if (index < [[[CPDStockPriceStore sharedInstance] tickerSymbols] count]) {
+//		return [[[CPDStockPriceStore sharedInstance] tickerSymbols] objectAtIndex:index];
+//	}
+//	return @"N/A";
+//}
 
 //- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 //{

@@ -50,7 +50,7 @@
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT date FROM EXERCISE7"
+                              @"SELECT date FROM EXERCISE7 ORDER BY id DESC"
                               ];
         
         const char *query_stmt = [querySQL UTF8String];
