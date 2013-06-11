@@ -135,9 +135,7 @@
             }
             
             sqlite3_finalize(statement);
-            sqlite3_close(exerciseDB);
-            
-            
+            sqlite3_close(exerciseDB);            
         }
         
     }

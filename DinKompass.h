@@ -14,6 +14,8 @@
 {
     NSMutableArray *presentArray;
     NSMutableArray *olderArray;
+    NSMutableArray *averageArray;
+    NSMutableArray *datesArray;
 }
 
 @property (nonatomic, retain) NSString *presentDate;

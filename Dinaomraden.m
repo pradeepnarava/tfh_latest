@@ -925,7 +925,7 @@ else if(btn.tag==10){
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
     [formatter setDateFormat:@"dd-MM-yyyy"];
     
-    NSString *olderDate;
+    NSString *olderDate = nil;
     
     NSString *docsDir;
     NSArray *dirPaths;

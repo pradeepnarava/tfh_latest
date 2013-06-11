@@ -37,7 +37,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor greenColor];
+//    self.view.backgroundColor = [UIColor greenColor];
+    [self performSelector:@selector(setupGraphType) withObject:nil afterDelay:0.2];
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,6 +83,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+}
+
+- (void)setupGraphType
+{
     if (_isComparisonGraph)
     {
         presentArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:_presentDate]];
@@ -101,11 +106,71 @@
 
 - (void)didDatesSelecetedStartDate:(NSString *)startDate andEndDate:(NSString *)endDate
 {
+    _presentDate = [NSString stringWithString:startDate];
+    _oldDate = [NSString stringWithString:endDate];
 //    presentArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:startDate]];
 //    olderArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:endDate]];
 //    
 //    NSLog(@"PRESENT ARRAY = %@", presentArray);
 //    NSLog(@"OLDER ARRAY = %@", olderArray);
+    averageArray = [[NSMutableArray alloc] init];
+    datesArray = [[NSMutableArray alloc] init];
+    
+    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    
+    NSString *docsDir;
+    NSArray *dirPaths;
+    sqlite3 *exerciseDB;
+        
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    docsDir = [dirPaths objectAtIndex:0];
+    
+    // Build the path to the database file
+    NSString *databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    // const char *dbpath = [databasePath UTF8String];
+    sqlite3_stmt    *statement;
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK)
+    {
+        
+        NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE7"];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        while (sqlite3_step(statement) == SQLITE_ROW)
+        {
+            char* date = (char*) sqlite3_column_text(statement,1);
+            
+            if (date != NULL)
+            {
+//                NSLog(@"Date OF CURRENT ITEM = %@", dateOfCurrentItem);
+//                NSDate *presentDate = [formatter dateFromString:dateOfCurrentItem];
+                NSDate *rowDate = [formatter dateFromString:[NSString stringWithUTF8String:date]];
+                
+                if (([rowDate compare:[formatter dateFromString:startDate]] == NSOrderedDescending || [rowDate compare:[formatter dateFromString:startDate]] == NSOrderedSame) && ([rowDate compare:[formatter dateFromString:endDate]] == NSOrderedAscending || [rowDate compare:[formatter dateFromString:endDate]] == NSOrderedSame))
+                {
+                    char* c3 = (char*) sqlite3_column_text(statement,4);
+                    NSString *tmp3;
+                    if (c3!= NULL)
+                    {
+                        tmp3= [NSString stringWithUTF8String:c3];
+                        NSLog(@"value form db :%@",tmp3);
+                        [averageArray addObject:[NSNumber numberWithFloat:[tmp3 floatValue]]];
+                        [datesArray addObject:[NSString stringWithUTF8String:date]];
+                    }
+                    
+                }
+            }
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+    }
+    NSLog(@"AVERAGES ARRAY = %@", averageArray);
+    NSLog(@"DATES ARRAY = %@", datesArray);
+    [self initPlot];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -135,7 +200,7 @@
 -(void)configureHost {
 	self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:self.view.bounds];
 	self.hostView.allowPinchScaling = NO;
-    self.hostView.backgroundColor = [UIColor redColor];
+//    self.hostView.backgroundColor = [UIColor redColor];
 	[self.view addSubview:self.hostView];
 }
 
@@ -145,8 +210,16 @@
 	[graph applyTheme:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 	self.hostView.hostedGraph = graph;
 	// 2 - Set graph title
-	NSString *title = [NSString stringWithFormat:@"Comparison between %@ - %@", _presentDate, _oldDate]
+    NSString *title;
+    if (_isComparisonGraph)
+    {
+	title = [NSString stringWithFormat:@"Comparison between %@ - %@", _presentDate, _oldDate]
     ;
+    }
+    else
+    {
+        title = [NSString stringWithFormat:@"Averages for %@ - %@", _presentDate, _oldDate];
+    }
 	graph.title = title;
 	// 3 - Create and set text style
 	CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
@@ -169,52 +242,86 @@
 	CPTGraph *graph = self.hostView.hostedGraph;
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     
-	// 2 - Create the three plots
-	CPTScatterPlot *presentPlot = [[CPTScatterPlot alloc] init];
-	presentPlot.dataSource = self;
-	presentPlot.identifier = _presentDate;
-	CPTColor *presentColor = [CPTColor redColor];
-	[graph addPlot:presentPlot toPlotSpace:plotSpace];
-    
-	CPTScatterPlot *oldPlot = [[CPTScatterPlot alloc] init];
-	oldPlot.dataSource = self;
-	oldPlot.identifier = _oldDate;
-	CPTColor *oldColor = [CPTColor greenColor];
-	[graph addPlot:oldPlot toPlotSpace:plotSpace];
-	
-	// 3 - Set up plot space
-	[plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, oldPlot, nil]];
-    
-	CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-	[xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
-	plotSpace.xRange = xRange;
-	CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-	[yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
-	plotSpace.yRange = yRange;
-	// 4 - Create styles and symbols
-	CPTMutableLineStyle *presentLineStyle = [presentPlot.dataLineStyle mutableCopy];
-	presentLineStyle.lineWidth = 2.5;
-	presentLineStyle.lineColor = presentColor;
-	presentPlot.dataLineStyle = presentLineStyle;
-	CPTMutableLineStyle *presentSymbolLineStyle = [CPTMutableLineStyle lineStyle];
-	presentSymbolLineStyle.lineColor = presentColor;
-	CPTPlotSymbol *presentSymbol = [CPTPlotSymbol ellipsePlotSymbol];
-	presentSymbol.fill = [CPTFill fillWithColor:presentColor];
-	presentSymbol.lineStyle = presentSymbolLineStyle;
-	presentSymbol.size = CGSizeMake(6.0f, 6.0f);
-	presentPlot.plotSymbol = presentSymbol;
-    
-	CPTMutableLineStyle *oldLineStyle = [oldPlot.dataLineStyle mutableCopy];
-	oldLineStyle.lineWidth = 1.0;
-	oldLineStyle.lineColor = oldColor;
-	oldPlot.dataLineStyle = oldLineStyle;
-	CPTMutableLineStyle *oldSymbolLineStyle = [CPTMutableLineStyle lineStyle];
-	oldSymbolLineStyle.lineColor = oldColor;
-	CPTPlotSymbol *oldSymbol = [CPTPlotSymbol starPlotSymbol];
-	oldSymbol.fill = [CPTFill fillWithColor:oldColor];
-	oldSymbol.lineStyle = oldSymbolLineStyle;
-	oldSymbol.size = CGSizeMake(6.0f, 6.0f);
-	oldPlot.plotSymbol = oldSymbol;
+    if (_isComparisonGraph)
+    {
+        // 2 - Create the two plots
+        CPTScatterPlot *presentPlot = [[CPTScatterPlot alloc] init];
+        presentPlot.dataSource = self;
+        presentPlot.identifier = _presentDate;
+        CPTColor *presentColor = [CPTColor redColor];
+        [graph addPlot:presentPlot toPlotSpace:plotSpace];
+        
+        CPTScatterPlot *oldPlot = [[CPTScatterPlot alloc] init];
+        oldPlot.dataSource = self;
+        oldPlot.identifier = _oldDate;
+        CPTColor *oldColor = [CPTColor greenColor];
+        [graph addPlot:oldPlot toPlotSpace:plotSpace];
+        
+        // 3 - Set up plot space
+        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, oldPlot, nil]];
+        
+        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
+        plotSpace.xRange = xRange;
+        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
+        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
+        plotSpace.yRange = yRange;
+        // 4 - Create styles and symbols
+        CPTMutableLineStyle *presentLineStyle = [presentPlot.dataLineStyle mutableCopy];
+        presentLineStyle.lineWidth = 2.5;
+        presentLineStyle.lineColor = presentColor;
+        presentPlot.dataLineStyle = presentLineStyle;
+        CPTMutableLineStyle *presentSymbolLineStyle = [CPTMutableLineStyle lineStyle];
+        presentSymbolLineStyle.lineColor = presentColor;
+        CPTPlotSymbol *presentSymbol = [CPTPlotSymbol ellipsePlotSymbol];
+        presentSymbol.fill = [CPTFill fillWithColor:presentColor];
+        presentSymbol.lineStyle = presentSymbolLineStyle;
+        presentSymbol.size = CGSizeMake(6.0f, 6.0f);
+        presentPlot.plotSymbol = presentSymbol;
+        
+        CPTMutableLineStyle *oldLineStyle = [oldPlot.dataLineStyle mutableCopy];
+        oldLineStyle.lineWidth = 1.0;
+        oldLineStyle.lineColor = oldColor;
+        oldPlot.dataLineStyle = oldLineStyle;
+        CPTMutableLineStyle *oldSymbolLineStyle = [CPTMutableLineStyle lineStyle];
+        oldSymbolLineStyle.lineColor = oldColor;
+        CPTPlotSymbol *oldSymbol = [CPTPlotSymbol starPlotSymbol];
+        oldSymbol.fill = [CPTFill fillWithColor:oldColor];
+        oldSymbol.lineStyle = oldSymbolLineStyle;
+        oldSymbol.size = CGSizeMake(6.0f, 6.0f);
+        oldPlot.plotSymbol = oldSymbol;
+    }
+    else
+    {
+        CPTScatterPlot *presentPlot = [[CPTScatterPlot alloc] init];
+        presentPlot.dataSource = self;
+        presentPlot.identifier = _presentDate;
+        CPTColor *presentColor = [CPTColor redColor];
+        [graph addPlot:presentPlot toPlotSpace:plotSpace];
+        
+        // 3 - Set up plot space
+        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, nil]];
+        
+        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
+        plotSpace.xRange = xRange;
+        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
+        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
+        plotSpace.yRange = yRange;
+        
+        // 4 - Create styles and symbols
+        CPTMutableLineStyle *presentLineStyle = [presentPlot.dataLineStyle mutableCopy];
+        presentLineStyle.lineWidth = 2.5;
+        presentLineStyle.lineColor = presentColor;
+        presentPlot.dataLineStyle = presentLineStyle;
+        CPTMutableLineStyle *presentSymbolLineStyle = [CPTMutableLineStyle lineStyle];
+        presentSymbolLineStyle.lineColor = presentColor;
+        CPTPlotSymbol *presentSymbol = [CPTPlotSymbol ellipsePlotSymbol];
+        presentSymbol.fill = [CPTFill fillWithColor:presentColor];
+        presentSymbol.lineStyle = presentSymbolLineStyle;
+        presentSymbol.size = CGSizeMake(6.0f, 6.0f);
+        presentPlot.plotSymbol = presentSymbol;
+    }
 }
 
 -(void)configureAxes {
@@ -240,7 +347,7 @@
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
 	// 3 - Configure x-axis
 	CPTAxis *x = axisSet.xAxis;
-	x.title = @"Område";
+	x.title = @"Dates";
 	x.titleTextStyle = axisTitleStyle;
 	x.titleOffset = 15.0f;
 	x.axisLineStyle = axisLineStyle;
@@ -255,7 +362,16 @@
 	NSMutableSet *xLocations = [NSMutableSet setWithCapacity:dateCount];
 	NSInteger i = 0;
     
-    NSArray *array = [[NSArray alloc] initWithObjects:@"familj", @"vanner", @"karlek", @"arbete", @"ekonomi", @"kost", @"motion", @"vila", @"fritid", @"somn", nil];
+    NSArray *array;
+    
+    if (_isComparisonGraph)
+    {
+        array = [[NSArray alloc] initWithObjects:@"familj", @"vanner", @"karlek", @"arbete", @"ekonomi", @"kost", @"motion", @"vila", @"fritid", @"somn", nil];
+    }
+    else
+    {
+        array = [[NSArray alloc] initWithArray:datesArray];
+    }
     
 	for (NSString *date in array)
     {
@@ -263,7 +379,8 @@
 		CGFloat location = i++;
 		label.tickLocation = CPTDecimalFromCGFloat(location);
 		label.offset = x.majorTickLength;
-		if (label) {
+		if (label)
+        {
 			[xLabels addObject:label];
 			[xLocations addObject:[NSNumber numberWithFloat:location]];
 		}
@@ -441,8 +558,12 @@
 }
 
 #pragma mark - CPTPlotDataSource methods
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
-	return 10;
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+{
+    if (_isComparisonGraph)
+        return 10;
+    else
+        return [datesArray count];
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
@@ -450,17 +571,25 @@
 //	NSInteger valueCount = [[[CPDStockPriceStore sharedInstance] datesInMonth] count];
 	switch (fieldEnum) {
 		case CPTScatterPlotFieldX:
-			if (index < 10) {
+			if (index < (_isComparisonGraph ? 10 : [datesArray count])) {
 				return [NSNumber numberWithUnsignedInteger:index];
 			}
 			break;
 			
 		case CPTScatterPlotFieldY:
-			if ([plot.identifier isEqual:_presentDate] == YES) {
-				return [presentArray objectAtIndex:index];
-			} else if ([plot.identifier isEqual:_oldDate] == YES) {
-				return [olderArray objectAtIndex:index];
-			}
+            if (_isComparisonGraph)
+            {
+                if ([plot.identifier isEqual:_presentDate] == YES) {
+                    return [presentArray objectAtIndex:index];
+                } else if ([plot.identifier isEqual:_oldDate] == YES) {
+                    return [olderArray objectAtIndex:index];
+                }
+            }
+            else
+            {
+                if ([plot.identifier isEqual:_presentDate] == YES)
+                    return [averageArray objectAtIndex:index];
+            }
 			break;
 	}
 	return [NSDecimalNumber zero];

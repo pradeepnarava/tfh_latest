@@ -15,7 +15,7 @@
 @property (retain, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (retain, nonatomic) IBOutlet UITextField *startDateField;
 @property (retain, nonatomic) IBOutlet UITextField *endDateField;
-@property (retain, nonatomic) IBOutlet UINavigationItem *navBar;
+@property (retain, nonatomic) IBOutlet UINavigationBar *navBar;
 
 @property (nonatomic, retain) id<DateSelectingViewControllerDelegate> delegate;
 

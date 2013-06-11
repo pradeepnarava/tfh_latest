@@ -30,6 +30,8 @@
     _startDateField.inputView = _datePicker;
     _endDateField.inputView = _datePicker;
     
+    [_startDateField becomeFirstResponder];
+    
     [_datePicker setMaximumDate:[NSDate date]];
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
