@@ -45,7 +45,7 @@
     [super viewDidLoad];
     self.navigationItem.title=@"Dina områden";
     dateOfCurrentItem = nil;
-    
+    scrollView.contentSize = self.view.frame.size;
     //CGRect frame = CGRectMake(10, 270, 350, 50);
    // subView = [[UIView alloc] initWithFrame:frame];
     [self.view addSubview:subView];
@@ -269,6 +269,7 @@
 {
     [self.view bringSubviewToFront:subView];
     subView.hidden = NO;
+    settingsView.hidden = YES;
     label1.text=text1.text;
     label2.text=text2.text;
     label3.text=text3.text;
@@ -432,10 +433,41 @@
     
     
 }
--(IBAction)CloseBtn:(id)sender{
-    subView.hidden = YES;
-    settingsView.hidden=YES;
+-(IBAction)CloseBtn:(id)sender
+{
+    if (!subView.isHidden)
+    {
+        subView.hidden = YES;
+    }
+    else if (!settingsView.isHidden)
+    {
+//        NSCalendar* cal = [NSCalendar currentCalendar];
+//        NSDateComponents* comp = [cal components:NSWeekdayCalendarUnit fromDate:[_reminderDatePicker date]];
+//        if ([[comp weekday] < _weekSegmentControl.selectedSegmentIndex + 1])
+//        {
+//            
+//        }
+//        
+//        NSLog(@"DATE = %@", [_reminderDatePicker date]);
+//        UILocalNotification *notif = [[UILocalNotification alloc] init];
+//        notif.fireDate = [_reminderDatePicker date];
+//        notif.timeZone = [NSTimeZone defaultTimeZone];
+//        
+//        notif.alertBody = @"Did you forget something?";
+//        notif.alertAction = @"Show me";
+//        notif.soundName = UILocalNotificationDefaultSoundName;
+//        notif.applicationIconBadgeNumber = 1;
+//        
+////        NSDictionary *userDict = [NSDictionary dictionaryWithObject:reminderText.text                                                             forKey:kRemindMeNotificationDataKey];
+////        notif.userInfo = userDict;
+//        
+//        [[UIApplication sharedApplication] scheduleLocalNotification:notif];
+//        [notif release];
+        
+        settingsView.hidden = YES;
+    }
 }
+
 -(IBAction)averagevalue
 {
     int box1=[tf1.text intValue];
@@ -461,9 +493,36 @@
 -(IBAction)settingsbutton:(id)sender
 {
     [self.view bringSubviewToFront:settingsView];
+    
+    if (_reminderOnButton.enabled && _reminderOffButton.enabled)
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Reminder"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     settingsView.hidden = NO;
+    subView.hidden = YES;
     
+    [_reminderDatePicker setDate:[NSDate date]];
     
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Reminder"])
+    {
+        _reminderOnButton.enabled = NO;
+        _reminderOffButton.enabled = YES;
+        
+        _reminderDatePicker.enabled = YES;
+        
+        _weekSegmentControl.enabled = YES;
+    }
+    else
+    {
+        _reminderOnButton.enabled = NO;
+        _reminderOffButton.enabled = YES;
+        
+        _reminderDatePicker.enabled = NO;
+        
+        _weekSegmentControl.enabled = NO;
+    }
     
     [UIView beginAnimations:@"curlInView" context:nil];
     
@@ -651,7 +710,15 @@
     
     if (rows > 0)
     {
-        lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
+//        lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
+        }else
+        {
+            lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass_iPad" bundle:nil];
+        }
+        
         lok.delegate = self;
         //    [self.navigationController pushViewController:lok animated:YES];
         lok.tableView.layer.cornerRadius = 10;
@@ -978,13 +1045,48 @@ else if(btn.tag==10){
     
     if (dateOfCurrentItem && olderDate)
     {
-        DinKompass *dinKom = [[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];
+        DinKompass *dinKom;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            dinKom = [[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];
+        }else
+        {
+            dinKom = [[DinKompass alloc]initWithNibName:@"DinKompass_iPad" bundle:nil];
+        }
+        
         dinKom.presentDate = [[NSString alloc] initWithString:dateOfCurrentItem];
         dinKom.oldDate = [[NSString alloc] initWithString:olderDate];
         dinKom.isComparisonGraph = YES;
         //    dinKom.delegate = self;
         [self.navigationController pushViewController:dinKom animated:YES];
     }
+}
+
+- (IBAction)reminderOnOff:(UIButton *)sender
+{
+    if (sender.tag == 1)
+    {
+        _reminderOnButton.enabled = NO;
+        _reminderOffButton.enabled = YES;
+        
+        _reminderDatePicker.enabled = YES;
+        
+        _weekSegmentControl.enabled = YES;
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Reminder"];
+    }
+    else
+    {
+        _reminderOffButton.enabled = NO;
+        _reminderOnButton.enabled = YES;
+        
+        _reminderDatePicker.enabled = NO;
+        
+        _weekSegmentControl.enabled = NO;
+        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Reminder"];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 //-(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index {
@@ -1051,6 +1153,12 @@ else if(btn.tag==10){
     if (dateOfCurrentItem) {
         [dateOfCurrentItem release];
     }
+    [settingsView release];
+    [subView release];
+    [_reminderOnButton release];
+    [_reminderOffButton release];
+    [_weekSegmentControl release];
+    [_reminderDatePicker release];
     [super dealloc];
 }
 @end

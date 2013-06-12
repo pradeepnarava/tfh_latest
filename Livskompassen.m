@@ -27,8 +27,26 @@
 {
     [super viewDidLoad];
     self.navigationItem.title=@"Livskompassen";
-    dr=[[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
-    dk=[[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        if ([[UIScreen mainScreen] bounds].size.height == 568)
+        {
+            dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
+            dk = [[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];
+        }
+        else
+        {
+            dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
+            dk = [[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];
+        }
+    }
+    else
+    {
+        dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden_iPad" bundle:nil];
+        dk = [[DinKompass alloc]initWithNibName:@"DinKompass_iPad" bundle:nil];
+    }
+    
     //[self.view addSubview:scrollView];
     //scrollView.hidden=YES;
     // Do any additional setup after loading the view from its nib.
@@ -48,6 +66,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [dk release];
+    [dr release];
+    [super dealloc];
 }
 
 @end

@@ -11,7 +11,6 @@
 #import "DinKompass.h"
 
 @interface Livskompassen : UIViewController{
-    UIScrollView *scrollView;
     Dinaomraden *dr;
     DinKompass *dk;
       

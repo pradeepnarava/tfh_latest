@@ -30,6 +30,10 @@
     ListOfKompass *lok;
 }
 
+@property (retain, nonatomic) IBOutlet UIDatePicker *reminderDatePicker;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *weekSegmentControl;
+@property (retain, nonatomic) IBOutlet UIButton *reminderOnButton;
+@property (retain, nonatomic) IBOutlet UIButton *reminderOffButton;
 @property (nonatomic,retain)IBOutlet UITextView *textview;
 -(IBAction)averagevalue;
 -(IBAction)selectedcheckbox:(id)sender;
@@ -41,4 +45,5 @@
 -(IBAction)Decrease:(id)sender;
 - (IBAction)deleteEntry:(id)sender;
 - (IBAction)generateGraph:(id)sender;
+- (IBAction)reminderOnOff:(UIButton *)sender;
 @end

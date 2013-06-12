@@ -98,7 +98,15 @@
     }
     else
     {
-        DateSelectingViewController *dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController" bundle:nil];
+        DateSelectingViewController *dateSelector;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController" bundle:nil];
+        }else
+        {
+            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController_iPad" bundle:nil];
+        }
+
         dateSelector.delegate = self;
         [self presentViewController:dateSelector animated:YES completion:nil];
     }
