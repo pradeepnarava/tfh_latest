@@ -593,6 +593,7 @@
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+										<bool key="IBUIEditable">NO</bool>
 										<object class="NSMutableString" key="IBUIText">
 											<bytes key="NS.bytes">RW4gbmVnYXRpdiBhdXRvbWF0aXNrIHRhbmtlIGHMiHIgZW4gbmVnYXRpdiB0b2xrbmluZyBhdiBlbiBz
 aXR1YXRpb24sIHNvbSBiaWRyYXIgdGlsbCBhdHQgZHUga2HMiG5uZXIgYcyKbmdlc3QgZWxsZXIgbmVk
@@ -705,6 +706,7 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+										<bool key="IBUIEditable">NO</bool>
 										<object class="NSMutableString" key="IBUIText">
 											<bytes key="NS.bytes">RW4gbmVnYXRpdiBhdXRvbWF0aXNrIHRhbmtlIGHMiHIgZW4gbmVnYXRpdiB0b2xrbmluZyBhdiBlbiBz
 aXR1YXRpb24sIHNvbSBiaWRyYXIgdGlsbCBhdHQgZHUga2HMiG5uZXIgYcyKbmdlc3QgZWxsZXIgbmVk
@@ -804,7 +806,7 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 									<object class="IBUITextView" id="892306473">
 										<reference key="NSNextResponder" ref="21367225"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{29, 59}, {430, 128}}</string>
+										<string key="NSFrame">{{29, 64}, {430, 120}}</string>
 										<reference key="NSSuperview" ref="21367225"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="183918087"/>
@@ -814,6 +816,7 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 										<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+										<bool key="IBUIEditable">NO</bool>
 										<object class="NSMutableString" key="IBUIText">
 											<bytes key="NS.bytes">77+8Rmx5a3QtLCB1bmR2aWthbmRlLSBlbGxlciBzYcyIa2VyaGV0c2JldGVlbmRlbiBhzIhyIGJldGVl
 bmRlbiBzb20gdXBwc3RhzIpyIHNvbSBlbiBmb8yIbGpkIGF2IE5BVCwgb2NoIHNvbSBwYcyKIGV0dCBl
@@ -838,7 +841,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 									<object class="IBUILabel" id="544111423">
 										<reference key="NSNextResponder" ref="21367225"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{35, 35}, {339, 21}}</string>
+										<string key="NSFrame">{{48, 35}, {339, 21}}</string>
 										<reference key="NSSuperview" ref="21367225"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="936098284"/>
@@ -851,6 +854,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 										<string key="IBUIText">Flykt_,undvikande </string>
 										<nil key="IBUIHighlightedColor"/>
 										<int key="IBUIBaselineAdjustment">0</int>
+										<int key="IBUITextAlignment">1</int>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">1</int>
 											<double key="pointSize">22</double>
@@ -1066,14 +1070,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">PopupView4</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="21367225"/>
-					</object>
-					<int key="connectionID">79</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">tableView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="88342916"/>
@@ -1151,6 +1147,14 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<reference key="destination" ref="918534133"/>
 					</object>
 					<int key="connectionID">81</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">PopupView3</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="21367225"/>
+					</object>
+					<int key="connectionID">83</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1609,7 +1613,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">81</int>
+			<int key="maxID">83</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1673,7 +1677,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="PopupView1">UIView</string>
 						<string key="PopupView2">UIView</string>
-						<string key="PopupView4">UIView</string>
+						<string key="PopupView3">UIView</string>
 						<string key="beteenden">UITextView</string>
 						<string key="flykt">UILabel</string>
 						<string key="listofdates">UIView</string>
@@ -1697,8 +1701,8 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<string key="name">PopupView2</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="PopupView4">
-							<string key="name">PopupView4</string>
+						<object class="IBToOneOutletInfo" key="PopupView3">
+							<string key="name">PopupView3</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="beteenden">

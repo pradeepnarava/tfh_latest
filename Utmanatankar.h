@@ -18,7 +18,7 @@
     NSString *databasePath;
     IBOutlet UISlider *slider;
     
-    IBOutlet UIScrollView *scroll;
+    IBOutlet UIScrollView *scroll,*scroll1;
     UIAlertView *alert;
     
     IBOutlet UIView *listofdates;

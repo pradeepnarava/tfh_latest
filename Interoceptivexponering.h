@@ -38,6 +38,9 @@
 @property (nonatomic, retain)IBOutlet UILabel *text2;
 @property(nonatomic ,retain)NSMutableArray *listexercise5;
 @property(nonatomic ,retain)NSMutableArray *list_exercise5;
+@property(nonatomic ,retain)NSMutableArray *listofovningars1;
+@property(nonatomic ,retain)NSMutableArray *listof_sliderValue1;
+@property(nonatomic ,retain)NSMutableArray *list_egen1;
 
 @property (nonatomic, retain)IBOutlet UILabel *ovning;
 @property (nonatomic, retain)IBOutlet  UITextView *egen;

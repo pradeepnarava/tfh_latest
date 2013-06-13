@@ -40,6 +40,8 @@ NSArray *pArray;
     self.navigationItem.title=@"Utmana tankar";
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1400)];
+    scroll1.scrollEnabled = YES;
+    [scroll1 setContentSize:CGSizeMake(320, 1600)];
     list_exercise3=[[NSMutableArray alloc]init];
     [list_exercise3 addObject:@"Null"];
     raderaButton.hidden=YES;

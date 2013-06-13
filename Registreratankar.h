@@ -29,8 +29,8 @@
     UITableViewCell *cell;
     NSMutableArray *listexercise1;
      NSString *SelectedDate;
-     IBOutlet UIView *PopupView1,*PopupView2;
-    IBOutlet UIView *PopupView4;
+     IBOutlet UIView *PopupView1,*PopupView2,*PopupView3;
+    //IBOutlet UIView *PopupView4;
     IBOutlet UIButton *raderabutton;
     NSMutableArray *exercise1_list;
 }

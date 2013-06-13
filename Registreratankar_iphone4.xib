@@ -610,6 +610,7 @@
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<bool key="IBUIEditable">NO</bool>
 										<object class="NSMutableString" key="IBUIText">
 											<bytes key="NS.bytes">RW4gbmVnYXRpdiBhdXRvbWF0aXNrIHRhbmtlIGHMiHIgZW4gbmVnYXRpdiB0b2xrbmluZyBhdiBlbiBz
 aXR1YXRpb24sIHNvbSBiaWRyYXIgdGlsbCBhdHQgZHUga2HMiG5uZXIgYcyKbmdlc3QgZWxsZXIgbmVk
@@ -720,6 +721,7 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<bool key="IBUIEditable">NO</bool>
 										<object class="NSMutableString" key="IBUIText">
 											<bytes key="NS.bytes">RW4gbmVnYXRpdiBhdXRvbWF0aXNrIHRhbmtlIGHMiHIgZW4gbmVnYXRpdiB0b2xrbmluZyBhdiBlbiBz
 aXR1YXRpb24sIHNvbSBiaWRyYXIgdGlsbCBhdHQgZHUga2HMiG5uZXIgYcyKbmdlc3QgZWxsZXIgbmVk
@@ -820,6 +822,7 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<bool key="IBUIMultipleTouchEnabled">YES</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<bool key="IBUIEditable">NO</bool>
 										<object class="NSMutableString" key="IBUIText">
 											<bytes key="NS.bytes">77+8Rmx5a3QtLCB1bmR2aWthbmRlLSBlbGxlciBzYcyIa2VyaGV0c2JldGVlbmRlbiBhzIhyIGJldGVl
 bmRlbiBzb20gdXBwc3RhzIpyIHNvbSBlbiBmb8yIbGpkIGF2IE5BVCwgb2NoIHNvbSBwYcyKIGV0dCBl
@@ -857,6 +860,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 										<string key="IBUIText">Flykt_,udvikande</string>
 										<nil key="IBUIHighlightedColor"/>
 										<int key="IBUIBaselineAdjustment">0</int>
+										<int key="IBUITextAlignment">1</int>
 										<reference key="IBUIFontDescription" ref="644603909"/>
 										<reference key="IBUIFont" ref="77798417"/>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
@@ -1044,14 +1048,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">PopupView4</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="535258576"/>
-					</object>
-					<int key="connectionID">214</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">negative</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="667473565"/>
@@ -1129,6 +1125,14 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<reference key="destination" ref="543776491"/>
 					</object>
 					<int key="connectionID">223</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">PopupView3</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="535258576"/>
+					</object>
+					<int key="connectionID">225</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -1605,7 +1609,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">223</int>
+			<int key="maxID">225</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1617,6 +1621,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<string key="Editbutton:">id</string>
 						<string key="Sparabutton:">id</string>
 						<string key="aMethod:">id</string>
+						<string key="flyktalert:">id</string>
 						<string key="mainlabelalert:">id</string>
 						<string key="nyttbutton:">id</string>
 					</dictionary>
@@ -1637,6 +1642,10 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<string key="name">aMethod:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="flyktalert:">
+							<string key="name">flyktalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="mainlabelalert:">
 							<string key="name">mainlabelalert:</string>
 							<string key="candidateClassName">id</string>
@@ -1649,7 +1658,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="PopupView1">UIView</string>
 						<string key="PopupView2">UIView</string>
-						<string key="PopupView4">UIView</string>
+						<string key="PopupView3">UIView</string>
 						<string key="beteenden">UITextView</string>
 						<string key="flykt">UILabel</string>
 						<string key="listofdates">UIView</string>
@@ -1673,8 +1682,8 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<string key="name">PopupView2</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="PopupView4">
-							<string key="name">PopupView4</string>
+						<object class="IBToOneOutletInfo" key="PopupView3">
+							<string key="name">PopupView3</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="beteenden">

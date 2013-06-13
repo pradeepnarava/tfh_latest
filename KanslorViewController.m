@@ -43,7 +43,7 @@
         NSUInteger index = [inputArray indexOfObject:firstStrings];
             NSLog(@"%u",index);
             if(index==0){
-             [first setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
+             [b1 setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
             }
         }
             }
@@ -62,7 +62,7 @@
                 [firstString appendString:@"Glad,"];
                 NSLog(@"%@",firstString);
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 
             }
             
@@ -73,7 +73,7 @@
                 [firstString appendString:@"Nöjd,"];
                 NSLog(@"%@",firstString);
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
             }
             
             break;
@@ -82,7 +82,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                [firstString appendString:@" Lycklig,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 // beteenden.text=@"";
             }
             
@@ -92,7 +92,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                [firstString appendString:@" Förtjust,"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -102,7 +102,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"lvrig,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 // beteenden.text=@"";
             }
             
@@ -112,7 +112,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" Exalterad,"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -122,7 +122,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"  Stolt,"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -132,7 +132,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"Belåten,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -142,7 +142,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"upprymd,"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -152,7 +152,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"Munter,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -162,7 +162,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" Livad,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -171,7 +171,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"Euforisk,"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -191,7 +191,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"  Lättad,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -201,7 +201,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" Hat,"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -211,7 +211,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" Motvilja,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -221,7 +221,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" Ovilja,"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -231,7 +231,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" Avsky,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -241,7 +241,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" Äckel,"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -251,7 +251,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" Avsmak,"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -261,7 +261,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"Ledsen,"];
             }else{
-             //   [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+           [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -273,7 +273,7 @@
                 [firstString appendString:@"Plågad,"];
                 NSLog(@"%@",firstString);
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 
             }
             
@@ -284,7 +284,7 @@
                 [firstString appendString:@", Deprimerad"];
                 NSLog(@"%@",firstString);
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
             }
             
             break;
@@ -293,7 +293,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Nedstämd"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 // beteenden.text=@"";
             }
             
@@ -303,7 +303,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Lidande"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -313,7 +313,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@", Förvånad"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 // beteenden.text=@"";
             }
             
@@ -323,7 +323,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Häpen"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+              [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -333,7 +333,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Förbluffad"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -343,7 +343,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Överraskad"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+              [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -353,7 +353,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Rädd"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -363,7 +363,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Skräckslagen"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -373,7 +373,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Ängslig"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -382,7 +382,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Nervös"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -392,7 +392,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Bekymrad"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -402,7 +402,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Orolig"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -412,7 +412,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Spänd"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -432,7 +432,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Vettskrämd"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -442,7 +442,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Uppskrämd"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -452,7 +452,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Intresserad"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -462,7 +462,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Nyfiken"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -472,7 +472,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Inspirerad"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -483,7 +483,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Generad"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -493,7 +493,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Skamsen"];
             }else{
-              //  [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -513,7 +513,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , IIsken"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -523,7 +523,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Upprörd"];
             }else{
-             //   [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -533,7 +533,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Hatisk"];
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -543,7 +543,7 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@" , Vrede"];
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
             }
             
@@ -610,10 +610,11 @@
     NSLog(@"%@",allstrings);
   
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+   
 }
 
 @end

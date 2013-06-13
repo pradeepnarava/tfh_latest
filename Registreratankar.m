@@ -102,13 +102,15 @@ int s=0;
     
        [self.view addSubview:listofdates];
     listofdates.hidden=YES;
-    [self.view addSubview:PopupView1];
+  //  [self.view addSubview:PopupView1];
     PopupView1.hidden=YES;
-    [self.view addSubview:PopupView2];
+    //[self.view addSubview:PopupView2];
     PopupView2.hidden=YES;
     
-    [self.view addSubview:PopupView4];
-    PopupView4.hidden=YES;
+  //[self.view addSubview:PopupView3];
+   PopupView3.hidden=YES;
+    
+    
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1100)];
     
@@ -127,11 +129,11 @@ int s=0;
 -(IBAction)natalert:(id)sender{
   
     
-    [self.view bringSubviewToFront:PopupView2];
+   // [self.view bringSubviewToFront:PopupView2];
     PopupView2.hidden = NO;
-    [UIView beginAnimations:@"curlInView" context:nil];
-    [UIView setAnimationDuration:1.0];
-    [UIView commitAnimations];
+   // [UIView beginAnimations:@"curlInView" context:nil];
+   // [UIView setAnimationDuration:1.0];
+   // [UIView commitAnimations];
 }
 -(IBAction)tabellenalert:(id)sender{
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -157,20 +159,20 @@ int s=0;
 -(IBAction)tankealert:(id)sender{
     
    
-    [self.view bringSubviewToFront:PopupView1];
+    //[self.view bringSubviewToFront:PopupView1];
     PopupView1.hidden = NO;
-    [UIView beginAnimations:@"curlInView" context:nil];
-    [UIView setAnimationDuration:1.0];
-    [UIView commitAnimations];
+    //[UIView beginAnimations:@"curlInView" context:nil];
+    //[UIView setAnimationDuration:1.0];
+   // [UIView commitAnimations];
 }
 -(IBAction)flyktalert:(id)sender{
    
     
-    [self.view bringSubviewToFront:PopupView4];
-    PopupView4.hidden = NO;
-    [UIView beginAnimations:@"curlInView" context:nil];
-    [UIView setAnimationDuration:1.0];
-    [UIView commitAnimations];
+   // [self.view bringSubviewToFront:PopupView4];
+    PopupView3.hidden = NO;
+    //[UIView beginAnimations:@"curlInView" context:nil];
+    //[UIView setAnimationDuration:1.0];
+    //[UIView commitAnimations];
 }
 
 -(void) viewWillAppear: (BOOL) animated {
@@ -483,7 +485,7 @@ int s=0;
     listofdates.hidden = YES;
       scroll.scrollEnabled = YES;
     PopupView1.hidden=YES;
-     PopupView4.hidden=YES;
+     PopupView3.hidden=YES;
      PopupView2.hidden=YES;
     NSLog(@"value of s%@",[listexercise1 objectAtIndex:s]);
 }

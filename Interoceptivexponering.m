@@ -20,7 +20,7 @@ int s;
 @end
 
 @implementation Interoceptivexponering
-@synthesize ovning,egen,slider,tblView,prc,scb,text2,text1,tabeldates,listexercise5,list_exercise5;
+@synthesize ovning,egen,slider,tblView,prc,scb,text2,text1,tabeldates,listexercise5,list_exercise5,listofovningars1,listof_sliderValue1,list_egen1;
 @synthesize secondsDisplay;
 @synthesize minutesDisplay;
 @synthesize secondsTimer;
@@ -604,7 +604,7 @@ int s;
                         if([str4 isEqualToString:@""]){
                             
                         }else{
-                            [listofovningars1 addObject:str4];
+                            [listofovningars addObject:str4];
                            // [listofovningars addObject:str4];
                         }
                     }
@@ -622,7 +622,7 @@ int s;
                         if([str4 isEqualToString:@""]){
                             
                         }else{
-                        [list_egen1 addObject:str4];
+                        [list_egen addObject:str4];
                             //  [list_egen addObject:str4];
                         }
                     }
@@ -642,7 +642,7 @@ int s;
                         if([str4 isEqualToString:@""]){
                             
                         }else{
-                        [listof_sliderValue1 addObject:str4];
+                        [listof_sliderValue addObject:str4];
                             //[listof_sliderValue addObject:str4];
                         }
                     }
@@ -651,9 +651,9 @@ int s;
                 }
                 
             
-                
+                 [tblView reloadData];
             }
-            [tblView reloadData];
+           
 
             sqlite3_finalize(statement);
             sqlite3_close(exerciseDB);
@@ -661,12 +661,14 @@ int s;
         }
     }else{
         s=indexPath.row;
+        NSLog(@"%u",s);
         egen.hidden=NO;
         prc.hidden=NO;
         slider.hidden=NO;
-        ovning.text= [listofovningars1 objectAtIndex:indexPath.row];
-        egen.text=[list_egen1 objectAtIndex:indexPath.row];
-        prc.text=[listof_sliderValue1 objectAtIndex:indexPath.row];
+        NSLog(@"%@",[listofovningars objectAtIndex:0]);
+        ovning.text= [listofovningars objectAtIndex:indexPath.row];
+        egen.text=[list_egen objectAtIndex:indexPath.row];
+        prc.text=[listof_sliderValue objectAtIndex:indexPath.row];
     }
    }
 
@@ -742,7 +744,7 @@ int s;
                 egen.text=@"";
                 prc.text=@"";
                 slider.value=0;
-                [listofovningars removeAllObjects];
+              //  [listofovningars removeAllObjects];
                 [list_egen removeAllObjects];
                 [listof_sliderValue removeAllObjects];
                 [tblView reloadData];
