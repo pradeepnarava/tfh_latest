@@ -441,28 +441,32 @@
     }
     else if (!settingsView.isHidden)
     {
-//        NSCalendar* cal = [NSCalendar currentCalendar];
-//        NSDateComponents* comp = [cal components:NSWeekdayCalendarUnit fromDate:[_reminderDatePicker date]];
-//        if ([[comp weekday] < _weekSegmentControl.selectedSegmentIndex + 1])
-//        {
-//            
-//        }
-//        
-//        NSLog(@"DATE = %@", [_reminderDatePicker date]);
-//        UILocalNotification *notif = [[UILocalNotification alloc] init];
-//        notif.fireDate = [_reminderDatePicker date];
-//        notif.timeZone = [NSTimeZone defaultTimeZone];
-//        
-//        notif.alertBody = @"Did you forget something?";
-//        notif.alertAction = @"Show me";
-//        notif.soundName = UILocalNotificationDefaultSoundName;
-//        notif.applicationIconBadgeNumber = 1;
-//        
-////        NSDictionary *userDict = [NSDictionary dictionaryWithObject:reminderText.text                                                             forKey:kRemindMeNotificationDataKey];
-////        notif.userInfo = userDict;
-//        
-//        [[UIApplication sharedApplication] scheduleLocalNotification:notif];
-//        [notif release];
+        UILocalNotification *notif = [[UILocalNotification alloc] init];
+        
+        NSCalendar *cal = [NSCalendar currentCalendar];
+                
+        for (int i = 0; i <= 6; i++)
+        {
+            NSDate *newDate = [[_reminderDatePicker date] dateByAddingTimeInterval:(60 * 60 * 24 * i)];
+            
+            NSDateComponents *newDateComp = [cal components:NSWeekdayCalendarUnit fromDate:newDate];
+            
+            if (_weekSegmentControl.selectedSegmentIndex + 1 == [newDateComp weekday])
+            {
+                notif.fireDate = newDate;
+                notif.repeatInterval = NSWeekdayCalendarUnit;
+            }
+        }
+        
+        notif.timeZone = [NSTimeZone defaultTimeZone];
+        
+        notif.alertBody = @"Did you forget something?";
+        notif.alertAction = @"Show me";
+        notif.soundName = UILocalNotificationDefaultSoundName;
+        notif.applicationIconBadgeNumber = 1;
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:notif];
+        [notif release];
         
         settingsView.hidden = YES;
     }
@@ -1077,6 +1081,7 @@ else if(btn.tag==10){
     }
     else
     {
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
         _reminderOffButton.enabled = NO;
         _reminderOnButton.enabled = YES;
         

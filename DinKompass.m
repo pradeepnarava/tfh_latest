@@ -98,17 +98,75 @@
     }
     else
     {
-        DateSelectingViewController *dateSelector;
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+//        DateSelectingViewController *dateSelector;
+//        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+//        {
+//            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController" bundle:nil];
+//        }else
+//        {
+//            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController_iPad" bundle:nil];
+//        }
+//
+//        dateSelector.delegate = self;
+//        [self presentViewController:dateSelector animated:YES completion:nil];
+        averageArray = [[NSMutableArray alloc] init];
+        datesArray = [[NSMutableArray alloc] init];
+        
+        NSString *docsDir;
+        NSArray *dirPaths;
+        sqlite3 *exerciseDB;
+        
+        // Get the documents directory
+        dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        
+        docsDir = [dirPaths objectAtIndex:0];
+        
+        // Build the path to the database file
+        NSString *databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+        // const char *dbpath = [databasePath UTF8String];
+        sqlite3_stmt    *statement;
+        if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK)
         {
-            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController" bundle:nil];
-        }else
-        {
-            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController_iPad" bundle:nil];
+            
+            NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE7 ORDER BY id DESC LIMIT 20"];
+            
+            const char *del_stmt = [sql UTF8String];
+            
+            sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                char* date = (char*) sqlite3_column_text(statement,1);
+                
+                if (date != NULL)
+                {
+                    //                NSLog(@"Date OF CURRENT ITEM = %@", dateOfCurrentItem);
+                    //                NSDate *presentDate = [formatter dateFromString:dateOfCurrentItem];
+//                    NSDate *rowDate = [formatter dateFromString:[NSString stringWithUTF8String:date]];
+//                    
+//                    if (([rowDate compare:[formatter dateFromString:startDate]] == NSOrderedDescending || [rowDate compare:[formatter dateFromString:startDate]] == NSOrderedSame) && ([rowDate compare:[formatter dateFromString:endDate]] == NSOrderedAscending || [rowDate compare:[formatter dateFromString:endDate]] == NSOrderedSame))
+//                    {
+                        char* c3 = (char*) sqlite3_column_text(statement,4);
+                        NSString *tmp3;
+                        if (c3!= NULL)
+                        {
+                            tmp3= [NSString stringWithUTF8String:c3];
+                            NSLog(@"value form db :%@",tmp3);
+                            [averageArray addObject:[NSNumber numberWithFloat:[tmp3 floatValue]]];
+                            [datesArray addObject:[NSString stringWithUTF8String:date]];
+                        }
+                        
+//                    }
+                }
+            }
+            sqlite3_finalize(statement);
+            sqlite3_close(exerciseDB);
         }
-
-        dateSelector.delegate = self;
-        [self presentViewController:dateSelector animated:YES completion:nil];
+        NSLog(@"AVERAGES ARRAY = %@", averageArray);
+        NSLog(@"DATES ARRAY = %@", datesArray);
+        _presentDate = [NSString stringWithString:[datesArray lastObject]];
+        _oldDate = [NSString stringWithString:[datesArray objectAtIndex:0]];
+        
+        [self initPlot];
     }
 }
 
@@ -226,7 +284,7 @@
     }
     else
     {
-        title = [NSString stringWithFormat:@"Averages for %@ - %@", _presentDate, _oldDate];
+        title = [NSString stringWithFormat:@"Averages for %@ - %@", [datesArray lastObject], [datesArray objectAtIndex:0]];
     }
 	graph.title = title;
 	// 3 - Create and set text style
@@ -314,7 +372,7 @@
         [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
         plotSpace.xRange = xRange;
         CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
+        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
         plotSpace.yRange = yRange;
         
         // 4 - Create styles and symbols
