@@ -189,7 +189,9 @@
 		D84FDFB817661B5D00AD1D78 /* DateSelectingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84FDFB617661B5D00AD1D78 /* DateSelectingViewController.m */; };
 		D84FDFB917661B5D00AD1D78 /* DateSelectingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84FDFB717661B5D00AD1D78 /* DateSelectingViewController.xib */; };
 		D89F65BD1764A597004E3634 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D89F65BC1764A597004E3634 /* libCorePlot-CocoaTouch.a */; };
-		D8FF05701769C41B0015EC2C /* background-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FF056D1769C41B0015EC2C /* background-iPad.png */; };
+		D8D3B982176F41FB0077711A /* background-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D3B981176F41FB0077711A /* background-iPad.png */; };
+		D8D3B985176F50BD0077711A /* button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D3B983176F50BD0077711A /* button-off.png */; };
+		D8D3B986176F50BD0077711A /* button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D3B984176F50BD0077711A /* button-on.png */; };
 		D8FF05711769C41B0015EC2C /* background-iPhone4.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FF056E1769C41B0015EC2C /* background-iPhone4.png */; };
 		D8FF05721769C41B0015EC2C /* background-iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FF056F1769C41B0015EC2C /* background-iPhone5.png */; };
 		D8FF05811769D9880015EC2C /* bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FF05771769D9880015EC2C /* bottom.png */; };
@@ -513,7 +515,9 @@
 		D89F65BA1764A597004E3634 /* NSDecimalNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDecimalNumberExtensions.h; sourceTree = "<group>"; };
 		D89F65BB1764A597004E3634 /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		D89F65BC1764A597004E3634 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
-		D8FF056D1769C41B0015EC2C /* background-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-iPad.png"; sourceTree = "<group>"; };
+		D8D3B981176F41FB0077711A /* background-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-iPad.png"; sourceTree = "<group>"; };
+		D8D3B983176F50BD0077711A /* button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-off.png"; sourceTree = "<group>"; };
+		D8D3B984176F50BD0077711A /* button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-on.png"; sourceTree = "<group>"; };
 		D8FF056E1769C41B0015EC2C /* background-iPhone4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-iPhone4.png"; sourceTree = "<group>"; };
 		D8FF056F1769C41B0015EC2C /* background-iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-iPhone5.png"; sourceTree = "<group>"; };
 		D8FF05771769D9880015EC2C /* bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom.png; sourceTree = "<group>"; };
@@ -653,7 +657,7 @@
 			isa = PBXGroup;
 			children = (
 				D8FF05761769D9880015EC2C /* Livskompassen Betygsätt dina områden */,
-				D8FF056D1769C41B0015EC2C /* background-iPad.png */,
+				D8D3B981176F41FB0077711A /* background-iPad.png */,
 				D8FF056E1769C41B0015EC2C /* background-iPhone4.png */,
 				D8FF056F1769C41B0015EC2C /* background-iPhone5.png */,
 				5E210D60175CFB01006C8254 /* button.png */,
@@ -1010,6 +1014,8 @@
 				D8FF057E1769D9880015EC2C /* område2-title.png */,
 				D8FF057F1769D9880015EC2C /* rate-text.png */,
 				D8FF05801769D9880015EC2C /* rate-title.png */,
+				D8D3B983176F50BD0077711A /* button-off.png */,
+				D8D3B984176F50BD0077711A /* button-on.png */,
 			);
 			path = "Livskompassen Betygsätt dina områden";
 			sourceTree = "<group>";
@@ -1200,7 +1206,6 @@
 				D82DF5A31768515500B92E24 /* DinKompass_iPad.xib in Resources */,
 				D82DF5A51768517900B92E24 /* DateSelectingViewController_iPad.xib in Resources */,
 				D82DF5A717686CA000B92E24 /* Dinaomraden_iPad.xib in Resources */,
-				D8FF05701769C41B0015EC2C /* background-iPad.png in Resources */,
 				D8FF05711769C41B0015EC2C /* background-iPhone4.png in Resources */,
 				D8FF05721769C41B0015EC2C /* background-iPhone5.png in Resources */,
 				D8FF05811769D9880015EC2C /* bottom.png in Resources */,
@@ -1213,6 +1218,9 @@
 				D8FF05881769D9880015EC2C /* område2-title.png in Resources */,
 				D8FF05891769D9880015EC2C /* rate-text.png in Resources */,
 				D8FF058A1769D9880015EC2C /* rate-title.png in Resources */,
+				D8D3B982176F41FB0077711A /* background-iPad.png in Resources */,
+				D8D3B985176F50BD0077711A /* button-off.png in Resources */,
+				D8D3B986176F50BD0077711A /* button-on.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

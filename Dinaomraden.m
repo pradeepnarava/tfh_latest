@@ -546,7 +546,7 @@
     
     //Set the required date format
     
-    [formatter setDateFormat:@"dd-MM-yyyy"];
+    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     
     //Get the string date
     
@@ -601,11 +601,23 @@
 //            tf8.text=@"";
 //            tf9.text=@"";
 //            tf10.text=@"";
+            if (rows == 0)
+            {
+                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form Saved Successfully" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+                [insertAlert show];
+            }
+            else
+            {
+                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form Updated Successfully" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+                [insertAlert show];
+            }
             
             dateOfCurrentItem = [[NSString alloc] initWithString:str];
             
         } else {
             NSLog(@"no");
+            UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form Update/Save Failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+            [insertAlert show];
         }
         sqlite3_finalize(statement);
         sqlite3_close(exerciseDB);
@@ -620,10 +632,10 @@
 //    }
 //    else
 //    {
-      UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
+      UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
                                         delegate:self
-                               cancelButtonTitle:@"Cancel"
-                               otherButtonTitles:@"without saving", nil];
+                               cancelButtonTitle:@"Avbryt"
+                               otherButtonTitles:@"Fortsätt utan att spara", nil];
         alert.tag = 1;
         
         [alert show];
@@ -714,6 +726,8 @@
     
     if (rows > 0)
     {
+        tableImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, scrollView.contentSize.height - 280, 320, 280)] autorelease];
+        [tableImageView setImage:[UIImage imageNamed:@"scrollbottom.png"]];
 //        lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         {
@@ -725,12 +739,24 @@
         
         lok.delegate = self;
         //    [self.navigationController pushViewController:lok animated:YES];
-        lok.tableView.layer.cornerRadius = 10;
-        lok.tableView.layer.borderColor = [UIColor blueColor].CGColor;
-        lok.tableView.layer.borderWidth = 3;
+//        lok.tableView.layer.cornerRadius = 10;
+//        lok.tableView.layer.borderColor = [UIColor blueColor].CGColor;
+//        lok.tableView.layer.borderWidth = 3;
         
-        lok.tableView.frame = CGRectMake(0, scrollView.contentSize.height - 280, 320, 280);
+        lok.tableView.frame = CGRectMake(10, tableImageView.frame.origin.y + 10, 300, 210);
+        
+        closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        closeButton.frame = CGRectMake(30, tableImageView.frame.origin.y + 230, 260, 31);
+        [closeButton setBackgroundImage:[UIImage imageNamed:@"blargebutton.png"] forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(removeTableSubviews) forControlEvents:UIControlEventTouchUpInside];
+        [closeButton setTitle:@"Avbryt" forState:UIControlStateNormal];
+        closeButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+        [closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+//        [self.view addSubview:lok.tableView];
+        [self.view addSubview:tableImageView];
         [self.view addSubview:lok.tableView];
+        [self.view addSubview:closeButton];
     }
     else
     {
@@ -743,12 +769,22 @@
     }
 }
 
+- (void)removeTableSubviews
+{
+    [closeButton removeFromSuperview];
+    [lok.tableView removeFromSuperview];
+    [tableImageView removeFromSuperview];
+}
+
 - (void)didSelectDate:(NSString *)date
 {
     dateOfCurrentItem = [[NSString alloc] initWithString:date];
     NSLog(@"Date of Selected Item = %@", dateOfCurrentItem);
     [self updateCurrentItem];
     [lok.tableView removeFromSuperview];
+    [closeButton removeFromSuperview];
+    [lok.tableView removeFromSuperview];
+    [tableImageView removeFromSuperview];
     [lok release];
     NSLog(@"CHECKING...");
     NSLog(@"CHECKING ITEM = %@", dateOfCurrentItem);
@@ -972,10 +1008,10 @@ else if(btn.tag==10){
 {
     if (dateOfCurrentItem)
     {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Erasing the form or not?"
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Är du säker på att du vill radera formuläret?"
                                                      delegate:self
-                                            cancelButtonTitle:@"Cancel"
-                                            otherButtonTitles:@"Delete", nil];
+                                            cancelButtonTitle:@"Avbryt"
+                                            otherButtonTitles:@"Radera", nil];
         alert.tag = 2;
         [alert show];
         [alert release];
@@ -994,7 +1030,7 @@ else if(btn.tag==10){
 - (IBAction)generateGraph:(id)sender
 {
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"dd-MM-yyyy"];
+    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     
     NSString *olderDate = nil;
     
@@ -1063,6 +1099,11 @@ else if(btn.tag==10){
         dinKom.isComparisonGraph = YES;
         //    dinKom.delegate = self;
         [self.navigationController pushViewController:dinKom animated:YES];
+    }
+    else
+    {
+        UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Please select one form to generate Kompass." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+        [insertAlert show];
     }
 }
 

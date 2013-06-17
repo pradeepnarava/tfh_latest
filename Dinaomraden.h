@@ -28,6 +28,8 @@
     
     NSString *dateOfCurrentItem;
     ListOfKompass *lok;
+    UIImageView *tableImageView;
+    UIButton *closeButton;
 }
 
 @property (retain, nonatomic) IBOutlet UIDatePicker *reminderDatePicker;
