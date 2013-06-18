@@ -58,8 +58,14 @@
     [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelalert:)] autorelease];
     [label addGestureRecognizer:tapGesture];
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"
-                                                                    style:UIBarButtonItemStylePlain target:self action:@selector(settingsbutton:)];
+//    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"                                                                    style:UIBarButtonItemStylePlain target:self action:@selector(settingsbutton:)];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"alarm-button.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(settingsbutton:) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake(0, 0, 30, 30);
+    
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = rightButton;
     
     NSString *docsDir;
@@ -464,6 +470,7 @@
         notif.alertAction = @"Show me";
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.applicationIconBadgeNumber = 1;
+        notif.userInfo = [NSDictionary dictionaryWithObject:@"Reminder" forKey:@"Type"];
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
         [notif release];

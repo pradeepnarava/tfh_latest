@@ -897,10 +897,7 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="772391461"/>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="10792343">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
@@ -1740,15 +1737,9 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Generera kompass</string>
 						<reference key="IBUIHighlightedTitleColor" ref="176840748"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="772391461"/>
 						<reference key="IBUINormalTitleShadowColor" ref="10792343"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="526571117">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">largebuttonipad.png</string>
-						</object>
+						<reference key="IBUINormalBackgroundImage" ref="122377985"/>
 						<reference key="IBUIFontDescription" ref="33776801"/>
 						<reference key="IBUIFont" ref="1031889194"/>
 					</object>
@@ -1758,7 +1749,6 @@
 						<string key="NSFrame">{{17, 755}, {287, 34}}</string>
 						<reference key="NSSuperview" ref="759575719"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="697033427"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -1768,12 +1758,12 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Tidigare kompass</string>
 						<reference key="IBUIHighlightedTitleColor" ref="176840748"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="772391461"/>
 						<reference key="IBUINormalTitleShadowColor" ref="10792343"/>
-						<reference key="IBUINormalBackgroundImage" ref="526571117"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">largebuttonipad.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="33776801"/>
 						<reference key="IBUIFont" ref="1031889194"/>
 					</object>
@@ -2073,7 +2063,6 @@
 						<string key="NSFrame">{{130, 514}, {66, 30}}</string>
 						<reference key="NSSuperview" ref="86611196"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -2344,6 +2333,7 @@
 						<string key="NSFrame">{{20, 179}, {286, 289}}</string>
 						<reference key="NSSuperview" ref="94860301"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="334953442"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -2451,7 +2441,7 @@
 						<string key="NSFrame">{{20, 130}, {286, 49}}</string>
 						<reference key="NSSuperview" ref="94860301"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="334953442"/>
+						<reference key="NSNextKeyView" ref="603328400"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -2555,7 +2545,6 @@
 						<string key="NSFrame">{{130, 497}, {67, 37}}</string>
 						<reference key="NSSuperview" ref="94860301"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

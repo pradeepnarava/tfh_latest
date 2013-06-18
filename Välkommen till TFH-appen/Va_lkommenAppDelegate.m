@@ -64,10 +64,36 @@
 }
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
 	// Handle the notificaton when the app is running
-	NSLog(@"Recieved Notification %@",notif);
-    AktivitetsplanenViewController *asvc=[[AktivitetsplanenViewController alloc]initWithNibName:@"" bundle:[NSBundle mainBundle]];
-    nav = [[UINavigationController alloc]initWithRootViewController:asvc];
-[self.window addSubview:nav.view];
+    NSLog(@"Recieved Notification %@",notif);
+    if ([[notif.userInfo valueForKey:@"Type"] isEqualToString:@"Reminder"])
+    {
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height == 568)
+            {
+                Dinaomraden *dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
+                [nav pushViewController:dr animated:YES];
+            }
+            else
+            {
+                Dinaomraden *dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
+                [nav pushViewController:dr animated:YES];
+            }
+        }
+        else
+        {
+            Dinaomraden *dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden_iPad" bundle:nil];
+            [nav pushViewController:dr animated:YES];
+        }
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    }
+    else
+    {
+        AktivitetsplanenViewController *asvc=[[AktivitetsplanenViewController alloc]initWithNibName:@"" bundle:[NSBundle mainBundle]];
+        nav = [[UINavigationController alloc]initWithRootViewController:asvc];
+        [self.window addSubview:nav.view];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -131,7 +131,7 @@
     lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen" bundle:nil];
          }else
          {
-             
+             lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen_iPad" bundle:nil];
          }
     [self.navigationController pushViewController:lsp animated:YES];
 }

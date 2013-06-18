@@ -28,6 +28,12 @@
     [super viewDidLoad];
     self.navigationItem.title=@"Livskompassen";
     
+    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    // [btnDone setTintColor:[UIColor Color]];
+    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
+    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.navigationItem setBackBarButtonItem:btnDone];
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
         if ([[UIScreen mainScreen] bounds].size.height == 568)

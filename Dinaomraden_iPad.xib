@@ -916,10 +916,7 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="772391461"/>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="10792343">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
@@ -1759,15 +1756,9 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Generera kompass</string>
 						<reference key="IBUIHighlightedTitleColor" ref="176840748"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="772391461"/>
 						<reference key="IBUINormalTitleShadowColor" ref="10792343"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="526571117">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">largebuttonipad.png</string>
-						</object>
+						<reference key="IBUINormalBackgroundImage" ref="122377985"/>
 						<reference key="IBUIFontDescription" ref="33776801"/>
 						<reference key="IBUIFont" ref="118973151"/>
 					</object>
@@ -1787,12 +1778,12 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Tidigare kompass</string>
 						<reference key="IBUIHighlightedTitleColor" ref="176840748"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="772391461"/>
 						<reference key="IBUINormalTitleShadowColor" ref="10792343"/>
-						<reference key="IBUINormalBackgroundImage" ref="526571117"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">largebuttonipad.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="33776801"/>
 						<reference key="IBUIFont" ref="118973151"/>
 					</object>
@@ -2579,7 +2570,7 @@
 					<object class="IBUIButton" id="623504848">
 						<reference key="NSNextResponder" ref="94860301"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{360, 484}, {67, 37}}</string>
+						<string key="NSFrame">{{360, 484}, {66, 30}}</string>
 						<reference key="NSSuperview" ref="94860301"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -2591,11 +2582,9 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">OK</string>
 						<reference key="IBUIHighlightedTitleColor" ref="176840748"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="176840748"/>
 						<reference key="IBUINormalTitleShadowColor" ref="10792343"/>
+						<reference key="IBUINormalBackgroundImage" ref="122377985"/>
 						<reference key="IBUIFontDescription" ref="33776801"/>
 						<reference key="IBUIFont" ref="118973151"/>
 					</object>
@@ -4901,7 +4890,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background-iPad.png">{1280, 1920}</string>
 			<string key="bbutton.png">{138, 60}</string>
-			<string key="bottom.png">{640, 271}</string>
+			<string key="bottom.png">{320, 89}</string>
 			<string key="button-off.png">{108, 60}</string>
 			<string key="button-on.png">{108, 60}</string>
 			<string key="largebuttonipad.png">{972, 162}</string>
