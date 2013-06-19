@@ -36,7 +36,7 @@
     self = [super init];
     if (self) {
         // Initialization code here.
-        bgView = [[[UIView alloc] initWithFrame: sview.bounds] autorelease];
+        bgView = [[[UIView alloc] initWithFrame:sview.bounds] autorelease];
         [sview addSubview: bgView];
         
         // proceed with animation after the bgView was added
@@ -61,7 +61,7 @@
     bigPanelView.center = CGPointMake( bgView.frame.size.width/2, bgView.frame.size.height/2);
     
     //add the window background
-    UIImageView* background = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popup3.png"]] autorelease];
+    UIImageView* background = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"läsdel-popup.png"]] autorelease];
     background.center = CGPointMake(bigPanelView.frame.size.width/2, bigPanelView.frame.size.height/2);
     [bigPanelView addSubview: background];
     
