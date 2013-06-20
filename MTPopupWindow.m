@@ -95,10 +95,9 @@
     UIImage* closeBtnImg = [UIImage imageNamed:@"closebutton.png"];
     UIButton* closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeBtn setImage:closeBtnImg forState:UIControlStateNormal];
-    [closeBtn setFrame:CGRectMake( background.frame.origin.x + background.frame.size.width - closeBtnImg.size.width - closeBtnOffset, 
-                                   background.frame.origin.y ,
-                                   closeBtnImg.size.width + closeBtnOffset, 
-                                   closeBtnImg.size.height + closeBtnOffset)];
+    [closeBtn setFrame:CGRectMake(280, 5,
+                                   30,
+                                   30)];
     [closeBtn addTarget:self action:@selector(closePopupWindow) forControlEvents:UIControlEventTouchUpInside];
     [bigPanelView addSubview: closeBtn];
     

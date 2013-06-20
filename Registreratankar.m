@@ -261,9 +261,7 @@ int s=0;
                    sqlite3_finalize(statement);
                    sqlite3_close(exerciseDB);
                    
-                   
-                   
-                   
+            
                }
 
 
