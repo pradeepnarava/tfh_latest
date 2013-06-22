@@ -28,17 +28,19 @@ int s=0;
     }
     return self;
 }
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if([text isEqualToString:@"\n"])
         [textView resignFirstResponder];
     return YES;
 }
+
 - (void)viewDidLoad
 {
     
     self.navigationItem.title=@"Registrera tankar";
-   // eevc=[[EditExerciseViewController alloc]initWithNibName:@"EditExerciseViewController" bundle:nil];
+    // eevc=[[EditExerciseViewController alloc]initWithNibName:@"EditExerciseViewController" bundle:nil];
     UIBarButtonItem *bButton = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka"
                                                                 style:UIBarButtonItemStylePlain target:nil action:nil];
     UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
@@ -46,7 +48,7 @@ int s=0;
     self.navigationItem.backBarButtonItem = bButton;
     
     kanslor.allstrings=[[NSString alloc]init];
-      exercise1_list=[[NSMutableArray alloc]init];
+    exercise1_list=[[NSMutableArray alloc]init];
     [exercise1_list addObject:@"Null" ];
     raderabutton.hidden=YES;
     
@@ -81,47 +83,48 @@ int s=0;
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
-    		const char *dbpath = [databasePath UTF8String];
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISEONE (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  NEGATIVE TEXT ,SITUATION TEXT,BETEENDEN TEXT, OVERIGA TEXT)";
         
-        if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
-            char *errMsg;
-            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISEONE (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  NEGATIVE TEXT ,SITUATION TEXT,BETEENDEN TEXT, OVERIGA TEXT)";
-            
-            if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
-            {
-                NSLog(@"Failed to create database");
-            }
-            
-            sqlite3_close(exerciseDB);
-            
-        } else {
-            //status.text = @"Failed to open/create database";
+            NSLog(@"Failed to create database");
         }
+        
+        sqlite3_close(exerciseDB);
+        
+    } else {
+        //status.text = @"Failed to open/create database";
+    }
     
     
-       [self.view addSubview:listofdates];
+    [self.view addSubview:listofdates];
     listofdates.hidden=YES;
-  //  [self.view addSubview:PopupView1];
+    //  [self.view addSubview:PopupView1];
     PopupView1.hidden=YES;
     //[self.view addSubview:PopupView2];
     PopupView2.hidden=YES;
     
-  //[self.view addSubview:PopupView3];
-   PopupView3.hidden=YES;
+    //[self.view addSubview:PopupView3];
+    PopupView3.hidden=YES;
     
     
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1100)];
     
-   scroll2.scrollEnabled = YES;
-[scroll2 setContentSize:CGSizeMake(768, 1200)];
+    scroll2.scrollEnabled = YES;
+    [scroll2 setContentSize:CGSizeMake(768, 1200)];
     
     //scroll1.scrollEnabled = YES;
-   // [scroll1 setContentSize:CGSizeMake(320, 700)];
-    [super viewDidLoad]; 
+    // [scroll1 setContentSize:CGSizeMake(320, 700)];
+    [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
 -(IBAction)mainlabelalert:(id)sender{
      [MTPopupWindow showWindowWithHTMLFile:@"Registreratankar.html" insideView:self.view];
 }
@@ -135,27 +138,31 @@ int s=0;
    // [UIView setAnimationDuration:1.0];
    // [UIView commitAnimations];
 }
--(IBAction)tabellenalert:(id)sender{
+
+-(void)tabellenalert:(id)sender{
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-       
-               kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController" bundle:nil];
-           }
-    else{
-         kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController_iPad" bundle:nil];
-    }
-   
-    if([beteenden.text isEqualToString:@""]){
         
+        kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController" bundle:nil];
+    }
+    else{
+        kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController_iPad" bundle:nil];
+    }
+    
+    if([beteenden.text isEqualToString:@""]){
+        NSLog(@"%@",beteenden.text);
     }else{
         kanslor.selectedstrings=[[NSString alloc]init];
         kanslor.selectedstrings=beteenden.text;
         NSLog(@"%@",kanslor.selectedstrings);
     }
     
-
+    
     [self. navigationController pushViewController:kanslor animated:YES];
-
+    
 }
+
+
 -(IBAction)tankealert:(id)sender{
     
    
@@ -177,8 +184,7 @@ int s=0;
 
 -(void) viewWillAppear: (BOOL) animated {
    
-    if(kanslor.allstrings==NULL){
-       
+    if(kanslor.allstrings== nil){
        
     }else{
         NSLog(@"%@",kanslor.allstrings);
@@ -187,6 +193,7 @@ int s=0;
     [super viewWillAppear:animated];
     
 }
+
 -(IBAction)Sparabutton:(id)sender{
     NSDate* date = [NSDate date];
     
@@ -437,6 +444,13 @@ int s=0;
         sqlite3_close(exerciseDB);
         
     }
+    
+    listofdates.hidden = YES;
+    scroll.scrollEnabled = YES;
+    PopupView1.hidden=YES;
+    PopupView3.hidden=YES;
+    PopupView2.hidden=YES;
+    NSLog(@"value of s%@",[listexercise1 objectAtIndex:s]);
 }
 -(IBAction)aMethod:(id)sender{
     
