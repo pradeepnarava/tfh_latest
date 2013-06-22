@@ -10,7 +10,7 @@
 #import "CorePlot-CocoaTouch.h"
 #import "DateSelectingViewController.h"
 
-@interface DinKompass : UIViewController <CPTPlotDataSource, DateSelectingViewControllerDelegate>
+@interface DinKompass : UIViewController <CPTPlotDataSource, DateSelectingViewControllerDelegate, UIAlertViewDelegate>
 {
     NSMutableArray *presentArray;
     NSMutableArray *olderArray;

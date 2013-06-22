@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 #import "ListOfKompass.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
+#import <GameKit/GameKit.h>
 
-@interface Dinaomraden : UIViewController <ListOfKompassDelegate, UIAlertViewDelegate>
+@interface Dinaomraden : UIViewController <ListOfKompassDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate>
 {
         IBOutlet UIView *subView;
      IBOutlet UIView *settingsView;
@@ -30,12 +33,21 @@
     ListOfKompass *lok;
     UIImageView *tableImageView;
     UIButton *closeButton;
+    
+    GKSession *currentSession;
+    GKPeerPickerController *peerPicker;
+    
+//     UIImage* image;
 }
 
 @property (retain, nonatomic) IBOutlet UIDatePicker *reminderDatePicker;
 @property (retain, nonatomic) IBOutlet UISegmentedControl *weekSegmentControl;
 @property (retain, nonatomic) IBOutlet UIButton *reminderOnButton;
 @property (retain, nonatomic) IBOutlet UIButton *reminderOffButton;
+
+
+- (IBAction)skickaButtonClicked:(id)sender;
+
 @property (nonatomic,retain)IBOutlet UITextView *textview;
 -(IBAction)averagevalue;
 -(IBAction)selectedcheckbox:(id)sender;

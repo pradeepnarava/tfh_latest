@@ -44,10 +44,17 @@
 {
     [super viewDidLoad];
     self.navigationItem.title=@"Dina områden";
+    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    // [btnDone setTintColor:[UIColor Color]];
+    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
+    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.navigationItem setBackBarButtonItem:btnDone];
+    
     dateOfCurrentItem = nil;
     scrollView.contentSize = self.view.frame.size;
     //CGRect frame = CGRectMake(10, 270, 350, 50);
    // subView = [[UIView alloc] initWithFrame:frame];
+    subView.frame = CGRectMake(0, self.view.frame.size.height - subView.frame.size.height, self.view.frame.size.width, subView.frame.size.height);
     [self.view addSubview:subView];
     subView.hidden=YES;
     
@@ -733,7 +740,7 @@
     
     if (rows > 0)
     {
-        tableImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, scrollView.contentSize.height - 280, 320, 280)] autorelease];
+        tableImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, scrollView.contentSize.height - 280, self.view.frame.size.width, 280)] autorelease];
         [tableImageView setImage:[UIImage imageNamed:@"scrollbottom.png"]];
 //        lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
@@ -750,10 +757,10 @@
 //        lok.tableView.layer.borderColor = [UIColor blueColor].CGColor;
 //        lok.tableView.layer.borderWidth = 3;
         
-        lok.tableView.frame = CGRectMake(10, tableImageView.frame.origin.y + 10, 300, 210);
+        lok.tableView.frame = CGRectMake(10, tableImageView.frame.origin.y + 10, self.view.frame.size.width - 20, 210);
         
         closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        closeButton.frame = CGRectMake(30, tableImageView.frame.origin.y + 230, 260, 31);
+        closeButton.frame = CGRectMake((self.view.frame.size.width / 2) - 130, tableImageView.frame.origin.y + 230, 260, 31);
         [closeButton setBackgroundImage:[UIImage imageNamed:@"blargebutton.png"] forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(removeTableSubviews) forControlEvents:UIControlEventTouchUpInside];
         [closeButton setTitle:@"Avbryt" forState:UIControlStateNormal];
@@ -1214,4 +1221,225 @@ else if(btn.tag==10){
     [_reminderDatePicker release];
     [super dealloc];
 }
+
+- (IBAction)skickaButtonClicked:(id)sender
+{
+    if (dateOfCurrentItem)
+    {
+        UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Bluetooth", @"Email", @"Print", nil];
+        cameraActionSheet.tag = 1;
+        [cameraActionSheet showInView:self.view];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Please select a form to share" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (UIImage *)getFormImage
+{
+    UIImage *tempImage = nil;
+    UIGraphicsBeginImageContext(scrollView.contentSize);
+    {
+        CGPoint savedContentOffset = scrollView.contentOffset;
+        CGRect savedFrame = scrollView.frame;
+        
+        scrollView.contentOffset = CGPointZero;
+        scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
+        
+        [scrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        tempImage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        scrollView.contentOffset = savedContentOffset;
+        scrollView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    return tempImage;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
+	if (buttonIndex == 0)
+    {
+        peerPicker = [[GKPeerPickerController alloc] init];
+        peerPicker.delegate = self;
+        peerPicker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
+        
+//        [connect setHidden:YES];
+//        [disconnect setHidden:NO];
+        [peerPicker show];
+    }
+    else if (buttonIndex == 1)
+    {
+        if ([MFMailComposeViewController canSendMail])
+        {
+            MFMailComposeViewController *emailDialog = [[MFMailComposeViewController alloc] init];
+            
+            NSMutableString *htmlMsg = [NSMutableString string];
+            [htmlMsg appendString:@"<html><body><p>"];
+            [htmlMsg appendString:[NSString stringWithFormat:@"Please find the attached form on %@", dateOfCurrentItem]];
+            [htmlMsg appendString:@": </p></body></html>"];
+            
+            NSData *jpegData = UIImageJPEGRepresentation([self getFormImage], 1);
+            
+            NSString *fileName = [NSString stringWithString:dateOfCurrentItem];
+            fileName = [fileName stringByAppendingPathExtension:@"jpeg"];
+            [emailDialog addAttachmentData:jpegData mimeType:@"image/jpeg" fileName:fileName];
+            
+            [emailDialog setSubject:@"Form"];
+            [emailDialog setMessageBody:htmlMsg isHTML:YES];
+            
+            
+            [self presentViewController:emailDialog animated:YES completion:nil];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail cannot be send now. Please check mail has been configured in your device and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    else if (buttonIndex == 2)
+    {
+        UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
+        //pic.delegate = del;
+        
+        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+        printInfo.outputType = UIPrintInfoOutputGeneral;
+        printInfo.jobName = [NSString stringWithFormat:@"Form on %@", dateOfCurrentItem];
+        pic.printInfo = printInfo;
+        pic.printingItem = [self getFormImage];
+        
+        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) =
+        ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
+            if (!completed && error) {
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error."
+                                                             message:[NSString stringWithFormat:@"An error occured while printing: %@", error]
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles:nil, nil];
+                
+                [av show];
+                [av release];
+            }
+        };
+        
+        [pic presentAnimated:YES completionHandler:completionHandler];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    // Notifies users about errors associated with the interface
+    switch (result)
+    {
+            
+        case MFMailComposeResultCancelled:
+            break;
+        case MFMailComposeResultSaved:
+            break;
+        case MFMailComposeResultSent:
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail sent successfully" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+            break;
+        case MFMailComposeResultFailed:
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail send failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+            break;
+        default:
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail was not sent." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma Bluetooth Methods
+
+- (void)peerPickerController:(GKPeerPickerController *)picker
+              didConnectPeer:(NSString *)peerID
+                   toSession:(GKSession *) session {
+    currentSession = session;
+    session.delegate = self;
+    [session setDataReceiveHandler:self withContext:nil];
+    
+    picker.delegate = nil;
+    
+    [picker dismiss];
+    [picker autorelease];
+}
+
+- (GKSession *)peerPickerController:(GKPeerPickerController *)picker sessionForConnectionType:(GKPeerPickerConnectionType)type
+{
+    //create ID for session
+    NSString *sessionIDString = @"MTBluetoothSessionID";
+    //create GKSession object
+    GKSession *session = [[GKSession alloc] initWithSessionID:sessionIDString displayName:nil sessionMode:GKSessionModePeer];
+    return session;
+}
+
+- (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker
+{
+    picker.delegate = nil;
+    [picker autorelease];
+    
+//    [connect setHidden:NO];
+//    [disconnect setHidden:YES];
+}
+
+- (void)session:(GKSession *)session
+           peer:(NSString *)peerID
+ didChangeState:(GKPeerConnectionState)state
+{
+    switch (state)
+    {
+        case GKPeerStateConnected:
+        {
+            [currentSession sendDataToAllPeers:UIImageJPEGRepresentation([self getFormImage], 0)
+                                       withDataMode:GKSendDataReliable
+                                              error:nil];
+        }
+            break;
+        case GKPeerStateDisconnected:
+            NSLog(@"disconnected");
+            [currentSession release];
+            currentSession = nil;
+            
+//            [connect setHidden:NO];
+//            [disconnect setHidden:YES];
+            break;
+        case GKPeerStateAvailable:
+            NSLog(@"Available");
+            break;
+        case GKPeerStateUnavailable:
+            NSLog(@"Unavailable");
+            break;
+        case GKPeerStateConnecting:
+            NSLog(@"Connecting..");
+            break;
+    }
+}
+
+- (void) receiveData:(NSData *)data
+            fromPeer:(NSString *)peer
+           inSession:(GKSession *)session
+             context:(void *)context {
+    
+    //---convert the NSData to NSString---
+    UIImageWriteToSavedPhotosAlbum([UIImage imageWithData:data], nil, nil, nil);
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form saved to Photo Album successfully." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    
+}
+
 @end

@@ -1652,10 +1652,10 @@
 					<object class="IBUIButton" id="1033564697">
 						<reference key="NSNextResponder" ref="759575719"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 659}, {66, 33}}</string>
+						<string key="NSFrame">{{12, 659}, {61, 33}}</string>
 						<reference key="NSSuperview" ref="759575719"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="788264779"/>
+						<reference key="NSNextKeyView" ref="368441563"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="697033427"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -1679,7 +1679,7 @@
 					<object class="IBUIButton" id="788264779">
 						<reference key="NSNextResponder" ref="759575719"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{123, 659}, {75, 31}}</string>
+						<string key="NSFrame">{{163, 659}, {63, 33}}</string>
 						<reference key="NSSuperview" ref="759575719"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1067723655"/>
@@ -1700,7 +1700,7 @@
 					<object class="IBUIButton" id="1067723655">
 						<reference key="NSNextResponder" ref="759575719"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{229, 657}, {75, 38}}</string>
+						<string key="NSFrame">{{240, 659}, {64, 33}}</string>
 						<reference key="NSSuperview" ref="759575719"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="916447883"/>
@@ -1735,9 +1735,9 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Generera kompass</string>
+						<string key="IBUINormalTitle">Generera Kompass</string>
 						<reference key="IBUIHighlightedTitleColor" ref="176840748"/>
-						<reference key="IBUINormalTitleColor" ref="772391461"/>
+						<reference key="IBUINormalTitleColor" ref="176840748"/>
 						<reference key="IBUINormalTitleShadowColor" ref="10792343"/>
 						<reference key="IBUINormalBackgroundImage" ref="122377985"/>
 						<reference key="IBUIFontDescription" ref="33776801"/>
@@ -1756,7 +1756,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Tidigare kompass</string>
+						<string key="IBUINormalTitle">Tidigare Kompass</string>
 						<reference key="IBUIHighlightedTitleColor" ref="176840748"/>
 						<reference key="IBUINormalTitleColor" ref="772391461"/>
 						<reference key="IBUINormalTitleShadowColor" ref="10792343"/>
@@ -1764,6 +1764,26 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">largebuttonipad.png</string>
 						</object>
+						<reference key="IBUIFontDescription" ref="33776801"/>
+						<reference key="IBUIFont" ref="1031889194"/>
+					</object>
+					<object class="IBUIButton" id="368441563">
+						<reference key="NSNextResponder" ref="759575719"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{81, 659}, {67, 34}}</string>
+						<reference key="NSSuperview" ref="759575719"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="788264779"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUINormalTitle">Skicka</string>
+						<reference key="IBUIHighlightedTitleColor" ref="176840748"/>
+						<reference key="IBUINormalTitleColor" ref="176840748"/>
+						<reference key="IBUINormalTitleShadowColor" ref="10792343"/>
+						<reference key="IBUINormalBackgroundImage" ref="122377985"/>
 						<reference key="IBUIFontDescription" ref="33776801"/>
 						<reference key="IBUIFont" ref="1031889194"/>
 					</object>
@@ -3512,6 +3532,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					</object>
 					<int key="connectionID">2182</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">skickaButtonClicked:</string>
+						<reference key="source" ref="368441563"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">3360</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -3557,8 +3586,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<reference ref="735915867"/>
 							<reference ref="916447883"/>
 							<reference ref="1067723655"/>
-							<reference ref="788264779"/>
-							<reference ref="1033564697"/>
 							<reference ref="371373544"/>
 							<reference ref="796917460"/>
 							<reference ref="819933311"/>
@@ -3620,6 +3647,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<reference ref="456138760"/>
 							<reference ref="639498313"/>
 							<reference ref="263420520"/>
+							<reference ref="1033564697"/>
+							<reference ref="788264779"/>
+							<reference ref="368441563"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -4343,6 +4373,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<reference key="object" ref="603328400"/>
 						<reference key="parent" ref="94860301"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">3359</int>
+						<reference key="object" ref="368441563"/>
+						<reference key="parent" ref="759575719"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -4439,6 +4474,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="3356.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3357.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3358.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="3359.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="352.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="353.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="354.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -4489,7 +4525,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">3358</int>
+			<int key="maxID">3360</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4505,9 +4541,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<string key="averagevalue">id</string>
 						<string key="deleteEntry:">id</string>
 						<string key="generateGraph:">id</string>
+						<string key="labelalert:">id</string>
 						<string key="listofvalues:">id</string>
 						<string key="reminderOnOff:">UIButton</string>
 						<string key="selectedcheckbox:">id</string>
+						<string key="settingsbutton:">id</string>
+						<string key="skickaButtonClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="CloseBtn:">
@@ -4542,6 +4581,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<string key="name">generateGraph:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="labelalert:">
+							<string key="name">labelalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="listofvalues:">
 							<string key="name">listofvalues:</string>
 							<string key="candidateClassName">id</string>
@@ -4552,6 +4595,14 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						</object>
 						<object class="IBActionInfo" key="selectedcheckbox:">
 							<string key="name">selectedcheckbox:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="settingsbutton:">
+							<string key="name">settingsbutton:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="skickaButtonClicked:">
+							<string key="name">skickaButtonClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

@@ -149,10 +149,36 @@
                         NSString *tmp3;
                         if (c3!= NULL)
                         {
+//                            NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+//                            [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
+//                            [dateFormatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
+//                            NSDate *rowDate = [dateFormatter dateFromString:[NSString stringWithUTF8String:date]];
+//                            
+////                            NSDate* sourceDate = [NSDate date];
+//                            
+//                            NSLog(@"DB DATE = %@", [NSString stringWithUTF8String:date]);
+//                            
+//                            [dateFormatter setDateFormat:@"MMM dd, yyyy"];
+//                            
+//                            NSDate *finaldate = [dateFormatter dateFromString:[dateFormatter stringFromDate:rowDate]];
+                            
+//                            NSDate *sourceDate = [NSDate date];
+//                            NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+//                            NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+//                            
+//                            NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
+//                            NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
+//                            NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+//                            
+//                            NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval sinceDate:finaldate] autorelease];
+                            NSArray *dateComponents = [[[NSArray alloc] initWithArray:[[NSString stringWithUTF8String:date] componentsSeparatedByString:@" "]] autorelease];
+                            
+//                            NSLog(@"Date = %@", destinationDate);
+//                            NSLog(@"STring From Date = %@", [dateFormatter stringFromDate:destinationDate]);
                             tmp3= [NSString stringWithUTF8String:c3];
-                            NSLog(@"value form db :%@",tmp3);
+//                            NSLog(@"value form db :%@",tmp3);
                             [averageArray addObject:[NSNumber numberWithFloat:[tmp3 floatValue]]];
-                            [datesArray addObject:[NSString stringWithUTF8String:date]];
+                            [datesArray addObject:[NSString stringWithFormat:@"%@ %@,\n  %@", [dateComponents objectAtIndex:0], [dateComponents objectAtIndex:1], [dateComponents objectAtIndex:2]]];
                         }
                         
 //                    }
@@ -163,80 +189,24 @@
         }
         NSLog(@"AVERAGES ARRAY = %@", averageArray);
         NSLog(@"DATES ARRAY = %@", datesArray);
-        _presentDate = [NSString stringWithString:[datesArray lastObject]];
-        _oldDate = [NSString stringWithString:[datesArray objectAtIndex:0]];
-        
-        [self initPlot];
+        if ([datesArray count] > 0 && [averageArray count] > 0)
+        {
+            _presentDate = [NSString stringWithString:[datesArray lastObject]];
+            _oldDate = [NSString stringWithString:[datesArray objectAtIndex:0]];
+            [self initPlot];
+        }
+        else
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"No Entries to plot graph" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+            [alertView release];
+        }
     }
 }
 
-- (void)didDatesSelecetedStartDate:(NSString *)startDate andEndDate:(NSString *)endDate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    _presentDate = [NSString stringWithString:startDate];
-    _oldDate = [NSString stringWithString:endDate];
-//    presentArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:startDate]];
-//    olderArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:endDate]];
-//    
-//    NSLog(@"PRESENT ARRAY = %@", presentArray);
-//    NSLog(@"OLDER ARRAY = %@", olderArray);
-    averageArray = [[NSMutableArray alloc] init];
-    datesArray = [[NSMutableArray alloc] init];
-    
-    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"dd-MM-yyyy"];
-    
-    NSString *docsDir;
-    NSArray *dirPaths;
-    sqlite3 *exerciseDB;
-        
-    // Get the documents directory
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    docsDir = [dirPaths objectAtIndex:0];
-    
-    // Build the path to the database file
-    NSString *databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
-    // const char *dbpath = [databasePath UTF8String];
-    sqlite3_stmt    *statement;
-    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK)
-    {
-        
-        NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE7"];
-        
-        const char *del_stmt = [sql UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
-        while (sqlite3_step(statement) == SQLITE_ROW)
-        {
-            char* date = (char*) sqlite3_column_text(statement,1);
-            
-            if (date != NULL)
-            {
-//                NSLog(@"Date OF CURRENT ITEM = %@", dateOfCurrentItem);
-//                NSDate *presentDate = [formatter dateFromString:dateOfCurrentItem];
-                NSDate *rowDate = [formatter dateFromString:[NSString stringWithUTF8String:date]];
-                
-                if (([rowDate compare:[formatter dateFromString:startDate]] == NSOrderedDescending || [rowDate compare:[formatter dateFromString:startDate]] == NSOrderedSame) && ([rowDate compare:[formatter dateFromString:endDate]] == NSOrderedAscending || [rowDate compare:[formatter dateFromString:endDate]] == NSOrderedSame))
-                {
-                    char* c3 = (char*) sqlite3_column_text(statement,4);
-                    NSString *tmp3;
-                    if (c3!= NULL)
-                    {
-                        tmp3= [NSString stringWithUTF8String:c3];
-                        NSLog(@"value form db :%@",tmp3);
-                        [averageArray addObject:[NSNumber numberWithFloat:[tmp3 floatValue]]];
-                        [datesArray addObject:[NSString stringWithUTF8String:date]];
-                    }
-                    
-                }
-            }
-        }
-        sqlite3_finalize(statement);
-        sqlite3_close(exerciseDB);
-    }
-    NSLog(@"AVERAGES ARRAY = %@", averageArray);
-    NSLog(@"DATES ARRAY = %@", datesArray);
-    [self initPlot];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -273,23 +243,25 @@
 -(void)configureGraph {
 	// 1 - Create the graph
 	CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
-	[graph applyTheme:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
+	[graph applyTheme:[CPTTheme themeNamed:kCPTPlainWhiteTheme]];
 	self.hostView.hostedGraph = graph;
 	// 2 - Set graph title
     NSString *title;
     if (_isComparisonGraph)
     {
-	title = [NSString stringWithFormat:@"Comparison between %@ - %@", _presentDate, _oldDate]
-    ;
+        NSArray *dateComponents1 = [[[NSArray alloc] initWithArray:[_presentDate componentsSeparatedByString:@" "]] autorelease];
+        NSArray *dateComponents2 = [[[NSArray alloc] initWithArray:[_oldDate componentsSeparatedByString:@" "]] autorelease];
+        
+        title = [NSString stringWithFormat:@"Jämförelse %@ - %@", [NSString stringWithFormat:@"%@ %@, %@", [dateComponents1 objectAtIndex:0], [dateComponents1 objectAtIndex:1], [dateComponents1 objectAtIndex:2]], [NSString stringWithFormat:@"%@ %@, %@", [dateComponents2 objectAtIndex:0], [dateComponents2 objectAtIndex:1], [dateComponents2 objectAtIndex:2]]];
     }
     else
     {
-        title = [NSString stringWithFormat:@"Averages for %@ - %@", [datesArray lastObject], [datesArray objectAtIndex:0]];
+        title = [NSString stringWithFormat:@"Utveckling %@ - %@", [datesArray lastObject], [datesArray objectAtIndex:0]];
     }
 	graph.title = title;
 	// 3 - Create and set text style
 	CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
-	titleStyle.color = [CPTColor whiteColor];
+	titleStyle.color = [CPTColor blackColor];
 	titleStyle.fontName = @"Helvetica-Bold";
 	titleStyle.fontSize = 16.0f;
 	graph.titleTextStyle = titleStyle;
@@ -324,13 +296,13 @@
         [graph addPlot:oldPlot toPlotSpace:plotSpace];
         
         // 3 - Set up plot space
-        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, oldPlot, nil]];
+//        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, oldPlot, nil]];
         
         CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
+        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
         plotSpace.xRange = xRange;
         CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(1.2f)];
+        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
         plotSpace.yRange = yRange;
         // 4 - Create styles and symbols
         CPTMutableLineStyle *presentLineStyle = [presentPlot.dataLineStyle mutableCopy];
@@ -366,13 +338,13 @@
         [graph addPlot:presentPlot toPlotSpace:plotSpace];
         
         // 3 - Set up plot space
-        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, nil]];
+//        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, nil]];
         
         CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.1f)];
+        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
         plotSpace.xRange = xRange;
         CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
+        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
         plotSpace.yRange = yRange;
         
         // 4 - Create styles and symbols
@@ -393,29 +365,36 @@
 -(void)configureAxes {
 	// 1 - Create styles
 	CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
-	axisTitleStyle.color = [CPTColor whiteColor];
+	axisTitleStyle.color = [CPTColor blackColor];
 	axisTitleStyle.fontName = @"Helvetica-Bold";
 	axisTitleStyle.fontSize = 12.0f;
 	CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
 	axisLineStyle.lineWidth = 2.0f;
-	axisLineStyle.lineColor = [CPTColor whiteColor];
+	axisLineStyle.lineColor = [CPTColor blackColor];
 	CPTMutableTextStyle *axisTextStyle = [[CPTMutableTextStyle alloc] init];
-	axisTextStyle.color = [CPTColor whiteColor];
+	axisTextStyle.color = [CPTColor blackColor];
 	axisTextStyle.fontName = @"Helvetica-Bold";
 	axisTextStyle.fontSize = 11.0f;
 	CPTMutableLineStyle *tickLineStyle = [CPTMutableLineStyle lineStyle];
-	tickLineStyle.lineColor = [CPTColor whiteColor];
-	tickLineStyle.lineWidth = 2.0f;
-	CPTMutableLineStyle *gridLineStyle = [CPTMutableLineStyle lineStyle];
 	tickLineStyle.lineColor = [CPTColor blackColor];
-	tickLineStyle.lineWidth = 1.0f;
+	tickLineStyle.lineWidth = 2.0f;
+//	CPTMutableLineStyle *gridLineStyle = [CPTMutableLineStyle lineStyle];
+//	tickLineStyle.lineColor = [CPTColor blackColor];
+//	tickLineStyle.lineWidth = 1.0f;
 	// 2 - Get axis set
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
 	// 3 - Configure x-axis
 	CPTAxis *x = axisSet.xAxis;
 	x.title = @"Dates";
 	x.titleTextStyle = axisTitleStyle;
-	x.titleOffset = 15.0f;
+    if (_isComparisonGraph)
+    {
+        x.titleOffset = 15.0f;
+    }
+    else
+    {
+        x.titleOffset = 30.0f;
+    }
 	x.axisLineStyle = axisLineStyle;
 	x.labelingPolicy = CPTAxisLabelingPolicyNone;
 	x.labelTextStyle = axisTextStyle;
@@ -432,11 +411,13 @@
     
     if (_isComparisonGraph)
     {
-        array = [[NSArray alloc] initWithObjects:@"familj", @"vanner", @"karlek", @"arbete", @"ekonomi", @"kost", @"motion", @"vila", @"fritid", @"somn", nil];
+        array = [[NSArray alloc] initWithObjects:@"Fam", @"Vän", @"Kär", @"Arb", @"Eko", @"Kost", @"Mot", @"Vila", @"Frit", @"Sömn", nil];
+        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
     }
     else
     {
         array = [[NSArray alloc] initWithArray:datesArray];
+        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([datesArray count])];
     }
     
 	for (NSString *date in array)
@@ -459,8 +440,8 @@
 	y.title = @"Rating";
 	y.titleTextStyle = axisTitleStyle;
 	y.titleOffset = -40.0f;
-	y.axisLineStyle = axisLineStyle;
-	y.majorGridLineStyle = gridLineStyle;
+	y.axisLineStyle = axisLineStyle; 
+//	y.majorGridLineStyle = gridLineStyle;
 	y.labelingPolicy = CPTAxisLabelingPolicyNone;
 	y.labelTextStyle = axisTextStyle;
 	y.labelOffset = 16.0f;
@@ -468,6 +449,7 @@
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
+    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
 	NSInteger majorIncrement = 1;
 	NSInteger minorIncrement = 1;
 	CGFloat yMax = 10.0f;  // should determine dynamically based on max price
@@ -480,7 +462,7 @@
 			CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
 			NSDecimal location = CPTDecimalFromInteger(j);
 			label.tickLocation = location;
-			label.offset = -y.majorTickLength - y.labelOffset;
+			label.offset = - y.majorTickLength - y.labelOffset;
 			if (label) {
 				[yLabels addObject:label];
 			}
