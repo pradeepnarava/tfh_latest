@@ -179,7 +179,7 @@ int s=0;
     PopupView3.hidden = NO;
     //[UIView beginAnimations:@"curlInView" context:nil];
     //[UIView setAnimationDuration:1.0];
-    //[UIView commitAnimations];
+    //[UIView commipl;tAnimations];
 }
 
 -(void) viewWillAppear: (BOOL) animated {

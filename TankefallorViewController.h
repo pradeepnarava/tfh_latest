@@ -39,7 +39,9 @@
     UITextView *KanslC2;
     UITextView *EtikeC1;
     UITextView *EtikeC2;
-      IBOutlet UIScrollView *scroll,*scroll1;
+    
+    IBOutlet UIScrollView *scroll,*scroll1;
+    
     UIAlertView  *alert;
     
      IBOutlet UIView *listofdates;

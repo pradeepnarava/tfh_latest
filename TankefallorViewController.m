@@ -43,10 +43,10 @@ int x=0;
     listofdates.hidden=YES;
     scroll.scrollEnabled = YES;
     raderaButton.hidden=YES;
-    [scroll setContentSize:CGSizeMake(320, 3000)];
+    [scroll setContentSize:CGSizeMake(320, 4418)];
     scroll1.scrollEnabled = YES;
     
-    [scroll1 setContentSize:CGSizeMake(320, 3300)];
+    [scroll1 setContentSize:CGSizeMake(320, 4418)];
     //    label.userInteractionEnabled = YES;
     //    UITapGestureRecognizer *tapGesture =
     //    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mainlabelalert:)] autorelease];
