@@ -1278,7 +1278,7 @@ else if(btn.tag==10){
         if ([MFMailComposeViewController canSendMail])
         {
             MFMailComposeViewController *emailDialog = [[MFMailComposeViewController alloc] init];
-            
+            emailDialog.mailComposeDelegate = self;
             NSMutableString *htmlMsg = [NSMutableString string];
             [htmlMsg appendString:@"<html><body><p>"];
             [htmlMsg appendString:[NSString stringWithFormat:@"Please find the attached form on %@", dateOfCurrentItem]];
@@ -1327,7 +1327,14 @@ else if(btn.tag==10){
             }
         };
         
-        [pic presentAnimated:YES completionHandler:completionHandler];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [pic presentFromRect:skickaButton.frame inView:self.view animated:YES completionHandler:nil];
+        }
+        else
+        {
+            [pic presentAnimated:YES completionHandler:completionHandler];
+        }
     }
 }
 

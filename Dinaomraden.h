@@ -29,6 +29,8 @@
 //    ListOfKompass *lok;
     IBOutlet UIScrollView *scrollView;
     
+    IBOutlet UIButton *skickaButton;
+    
     NSString *dateOfCurrentItem;
     ListOfKompass *lok;
     UIImageView *tableImageView;
