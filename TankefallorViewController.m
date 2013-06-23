@@ -28,7 +28,7 @@ int x=0;
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if([text isEqualToString:@"\n"])
+    if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
     
     [UIView animateWithDuration:0.5
@@ -39,7 +39,11 @@ int x=0;
                          // whatever you need to do when animations are complete
                          
                      }];
+    }
+    else {
     return YES;
+    }
+    return 0;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView

@@ -20,6 +20,7 @@
 
 #define kCloseBtnDiameter 30
 #define kDefaultMargin 18
+
 static CGSize kWindowMarginSize;
 
 //

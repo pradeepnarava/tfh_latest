@@ -27,21 +27,15 @@
 {
     [super viewDidLoad];
     scroll.scrollEnabled = YES;
-    [scroll setContentSize:CGSizeMake(320, 700)];
+    [scroll setContentSize:CGSizeMake(320, 640)];
   self.navigationItem.title=@"Övningar";
     
-   
-    
-    
-    
- 
-    
+
     UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
     // [btnDone setTintColor:[UIColor Color]];
     UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
     [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.navigationItem setBackBarButtonItem:btnDone];  // Do any additional setup after loading the view from its nib.
-    
+    [self.navigationItem setBackBarButtonItem:btnDone];      
    
 }
 
@@ -50,6 +44,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 -(IBAction)exercise1:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
                if ([[UIScreen mainScreen] bounds].size.height == 568) {
@@ -63,6 +59,8 @@
          }
     [self.navigationController pushViewController:rt animated:YES];
 }
+
+
 -(IBAction)exercise2:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
                 if ([[UIScreen mainScreen] bounds].size.height == 568) {
@@ -76,6 +74,8 @@
          }
     [self.navigationController pushViewController:tfvc animated:YES];
 }
+
+
 -(IBAction)exercise3:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
                    if ([[UIScreen mainScreen] bounds].size.height == 568) {
@@ -89,6 +89,8 @@
          }
     [self.navigationController pushViewController:ut animated:YES];
 }
+
+
 -(IBAction)exercise4:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
                     if ([[UIScreen mainScreen] bounds].size.height == 568) {
@@ -102,6 +104,8 @@
          }
     [self.navigationController pushViewController:bec animated:YES];
 }
+
+
 -(IBAction)exercise5:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
               if ([[UIScreen mainScreen] bounds].size.height == 568) {
@@ -115,6 +119,8 @@
          }
     [self.navigationController pushViewController:ice animated:YES];
 }
+
+
 -(IBAction)exercise6:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
       
@@ -126,6 +132,9 @@
          }
     [self.navigationController pushViewController:ba animated:YES];
 }
+
+
+
 -(IBAction)exercise7:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
     lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen" bundle:nil];

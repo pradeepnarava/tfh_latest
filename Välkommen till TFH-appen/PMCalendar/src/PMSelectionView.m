@@ -65,7 +65,7 @@
                                     (id)color.CGColor, 
                                     (id)color2.CGColor, nil];
         CGFloat gradient3Locations[] = {0, 1};
-        CGGradientRef gradient3 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradient3Colors, gradient3Locations);
+        CGGradientRef gradient3 = CGGradientCreateWithColors(colorSpace, ( CFArrayRef)gradient3Colors, gradient3Locations);
         
         CGFloat width  = self.frame.size.width;
         CGFloat height = self.frame.size.height;

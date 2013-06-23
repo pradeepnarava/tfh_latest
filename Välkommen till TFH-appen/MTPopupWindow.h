@@ -73,7 +73,7 @@
 
 @property (strong, nonatomic) NSString* fileName;
 @property (strong, nonatomic) UIWebView* webView;
-@property (weak, nonatomic) id <MTPopupWindowDelegate> delegate;
+@property (assign, nonatomic) id <MTPopupWindowDelegate> delegate;
 @property (nonatomic) BOOL usesSafari;
 
 @end

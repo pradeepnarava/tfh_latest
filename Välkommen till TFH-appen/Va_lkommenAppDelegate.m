@@ -7,9 +7,9 @@
 //
 
 #import "Va_lkommenAppDelegate.h"
-
 #import "Va_lkommenViewController.h"
 #import "AktivitetsplanenViewController.h"
+
 @implementation Va_lkommenAppDelegate
 
 @synthesize dateSelected;

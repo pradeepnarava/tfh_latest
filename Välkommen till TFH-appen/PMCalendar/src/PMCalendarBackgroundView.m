@@ -202,7 +202,7 @@ CGSize innerPadding = (CGSize){10, 10};
                                 (id)darkColor.CGColor, 
                                 (id)lightColor.CGColor, nil];
     CGFloat gradient2Locations[] = {0, 1};
-    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradient2Colors, gradient2Locations);
+    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, ( CFArrayRef)gradient2Colors, gradient2Locations);
 
     // shadow declarations
     CGColorRef bigBoxInnerShadow = bigBoxInnerShadowColor.CGColor;

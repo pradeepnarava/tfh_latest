@@ -131,15 +131,15 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<bool key="IBUIUsesAttributedText">YES</bool>
 								<object class="NSAttributedString" key="IBUIAttributedText">
-									<string key="NSString">1. I vilken situation uppstod en negativ automatisk tanke? När var det? Vart var du? Vad hände?</string>
+									<string key="NSString">1. I vilken situation uppstod en "Negativ automatisk tanke?" När var det? Vart var du? Vad hände?</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<dictionary id="838729569">
-											<object class="NSFont" key="NSFont" id="206789969">
-												<string key="NSName">LucidaGrande</string>
+										<dictionary id="961440110">
+											<object class="NSFont" key="NSFont">
+												<string key="NSName">HelveticaNeue-Bold</string>
 												<double key="NSSize">14</double>
 												<int key="NSfFlags">16</int>
 											</object>
-											<object class="NSParagraphStyle" key="NSParagraphStyle">
+											<object class="NSParagraphStyle" key="NSParagraphStyle" id="582337501">
 												<double key="NSParagraphSpacing">10</double>
 												<double key="NSTailIndent">432</double>
 												<double key="NSDefaultTabInterval">36</double>
@@ -148,8 +148,16 @@
 												<int key="NSWritingDirection">1</int>
 											</object>
 										</dictionary>
+										<dictionary id="85005300">
+											<object class="NSFont" key="NSFont" id="307764924">
+												<string key="NSName">HelveticaNeue-BoldItalic</string>
+												<double key="NSSize">14</double>
+												<int key="NSfFlags">16</int>
+											</object>
+											<reference key="NSParagraphStyle" ref="582337501"/>
+										</dictionary>
 										<dictionary id="25939277">
-											<reference key="NSFont" ref="206789969"/>
+											<reference key="NSFont" ref="307764924"/>
 											<object class="NSParagraphStyle" key="NSParagraphStyle">
 												<double key="NSParagraphSpacing">10</double>
 												<double key="NSTailIndent">432</double>
@@ -162,12 +170,12 @@
 										</dictionary>
 									</array>
 									<object class="NSMutableData" key="NSAttributeInfo">
-										<bytes key="NS.bytes">IQAYASYAA</bytes>
+										<bytes key="NS.bytes">IQABARgCAgElAA</bytes>
 									</object>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<int key="IBUINumberOfLines">3</int>
+								<int key="IBUINumberOfLines">8</int>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<double key="preferredMaxLayoutWidth">280</double>
 							</object>
@@ -229,13 +237,14 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<bool key="IBUIUsesAttributedText">YES</bool>
 								<object class="NSAttributedString" key="IBUIAttributedText">
-									<string key="NSString">2. Vilken/vilka  NAT uppstod för dig idenna situation?</string>
+									<string key="NSString">2. Vilken/vilka  "NAT" uppstod för dig idenna situation?</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<reference ref="838729569"/>
+										<reference ref="961440110"/>
+										<reference ref="85005300"/>
 										<reference ref="25939277"/>
 									</array>
 									<object class="NSMutableData" key="NSAttributeInfo">
-										<bytes key="NS.bytes">EQADASIAA</bytes>
+										<bytes key="NS.bytes">EQABAQQCIgA</bytes>
 									</object>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
@@ -250,7 +259,7 @@
 								<string key="NSFrame">{{20, 343}, {280, 141}}</string>
 								<reference key="NSSuperview" ref="468749070"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="219342112"/>
+								<reference key="NSNextKeyView" ref="996512155"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="518763287"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -293,7 +302,7 @@
 								<bool key="IBUIUsesAttributedText">YES</bool>
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">3. Vilka känslor uppstod som en följd av dina NAT? T.ex. "ångest", "rädd" eller "nervös", Om du har svårt att själv sätt ord på känslorna kan du välja i </string>
-									<reference key="NSAttributes" ref="838729569"/>
+									<reference key="NSAttributes" ref="961440110"/>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
@@ -324,7 +333,7 @@
 							<object class="IBUILabel" id="838295400">
 								<reference key="NSNextResponder" ref="468749070"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{193, 575}, {73, 21}}</string>
+								<string key="NSFrame">{{227, 575}, {73, 21}}</string>
 								<reference key="NSSuperview" ref="468749070"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="633022571"/>
@@ -350,40 +359,40 @@
 										<object class="NSParagraphStyle" key="NSParagraphStyle">
 											<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
 											<array key="NSTabStops">
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="84933323">
 													<double key="NSLocation">28</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="882088725">
 													<double key="NSLocation">56</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="354183162">
 													<double key="NSLocation">84</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="218625579">
 													<double key="NSLocation">112</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="390682403">
 													<double key="NSLocation">140</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="661947087">
 													<double key="NSLocation">168</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="106321867">
 													<double key="NSLocation">196</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="475686704">
 													<double key="NSLocation">224</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="542096077">
 													<double key="NSLocation">252</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="886641910">
 													<double key="NSLocation">280</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="462934518">
 													<double key="NSLocation">308</double>
 												</object>
-												<object class="NSTextTab">
+												<object class="NSTextTab" id="617078129">
 													<double key="NSLocation">336</double>
 												</object>
 											</array>
@@ -424,18 +433,19 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<bool key="IBUIUsesAttributedText">YES</bool>
 								<object class="NSAttributedString" key="IBUIAttributedText">
-									<string key="NSString">4. Vilka flykt-,undvikande eller säkerhetsbeteenden använde du?</string>
+									<string key="NSString">4. Vilka "flykt-,undvikande" eller "säkerhetsbeteenden" använde du?</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<reference ref="838729569"/>
+										<reference ref="961440110"/>
+										<reference ref="85005300"/>
 										<reference ref="25939277"/>
 									</array>
 									<object class="NSMutableData" key="NSAttributeInfo">
-										<bytes key="NS.bytes">CQARAQcAEgEMAA</bytes>
+										<bytes key="NS.bytes">CQABARICBwABARMCDAA</bytes>
 									</object>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<int key="IBUINumberOfLines">3</int>
+								<int key="IBUINumberOfLines">7</int>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<double key="preferredMaxLayoutWidth">280</double>
 							</object>
@@ -547,6 +557,7 @@
 										<string key="NSFrame">{{20, 58}, {280, 39}}</string>
 										<reference key="NSSuperview" ref="204355162"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -554,7 +565,7 @@
 										<int key="IBUIContentVerticalAlignment">0</int>
 										<string key="IBUINormalTitle">Tidigare Formulär</string>
 										<reference key="IBUIHighlightedTitleColor" ref="485155630"/>
-										<object class="NSColor" key="IBUINormalTitleColor">
+										<object class="NSColor" key="IBUINormalTitleColor" id="164147242">
 											<int key="NSColorSpace">3</int>
 											<bytes key="NSWhite">MAA</bytes>
 										</object>
@@ -630,19 +641,65 @@
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">"Negativ automatisk tanke"</string>
+										<bool key="IBUIUsesAttributedText">YES</bool>
+										<object class="NSAttributedString" key="IBUIAttributedText">
+											<string key="NSString">"Negativ automatisk tanke"</string>
+											<dictionary key="NSAttributes">
+												<object class="NSFont" key="NSFont">
+													<string key="NSName">HelveticaNeue-Bold</string>
+													<double key="NSSize">15</double>
+													<int key="NSfFlags">16</int>
+												</object>
+												<object class="NSParagraphStyle" key="NSParagraphStyle">
+													<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
+													<array key="NSTabStops">
+														<object class="NSTextTab" id="8143823">
+															<double key="NSLocation">28.300000000000001</double>
+														</object>
+														<object class="NSTextTab" id="552126444">
+															<double key="NSLocation">56.649999999999999</double>
+														</object>
+														<object class="NSTextTab" id="269464547">
+															<double key="NSLocation">85</double>
+														</object>
+														<object class="NSTextTab" id="879090322">
+															<double key="NSLocation">113.34999999999999</double>
+														</object>
+														<object class="NSTextTab" id="599153427">
+															<double key="NSLocation">141.69999999999999</double>
+														</object>
+														<object class="NSTextTab" id="153358901">
+															<double key="NSLocation">170.05000000000001</double>
+														</object>
+														<object class="NSTextTab" id="80799357">
+															<double key="NSLocation">198.40000000000001</double>
+														</object>
+														<object class="NSTextTab" id="998319900">
+															<double key="NSLocation">226.75</double>
+														</object>
+														<object class="NSTextTab" id="604616928">
+															<double key="NSLocation">255.09999999999999</double>
+														</object>
+														<object class="NSTextTab" id="67744935">
+															<double key="NSLocation">283.44999999999999</double>
+														</object>
+														<object class="NSTextTab" id="248345378">
+															<double key="NSLocation">311.80000000000001</double>
+														</object>
+														<object class="NSTextTab" id="685223666">
+															<double key="NSLocation">340.14999999999998</double>
+														</object>
+													</array>
+												</object>
+												<integer value="1" key="NSUnderline"/>
+												<reference key="NSUnderlineColor" ref="164147242"/>
+											</dictionary>
+										</object>
 										<nil key="IBUIHighlightedColor"/>
 										<int key="IBUIBaselineAdjustment">0</int>
-										<object class="IBUIFontDescription" key="IBUIFontDescription" id="889220631">
-											<int key="type">1</int>
-											<double key="pointSize">17</double>
-										</object>
-										<object class="NSFont" key="IBUIFont" id="504989053">
-											<string key="NSName">Helvetica</string>
-											<double key="NSSize">17</double>
-											<int key="NSfFlags">16</int>
-										</object>
+										<int key="IBUINumberOfLines">4</int>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+										<double key="preferredMaxLayoutWidth">210</double>
 									</object>
 									<object class="IBUITextView" id="51896524">
 										<reference key="NSNextResponder" ref="219342112"/>
@@ -650,7 +707,7 @@
 										<string key="NSFrame">{{14, 86}, {222, 254}}</string>
 										<reference key="NSSuperview" ref="219342112"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="996512155"/>
+										<reference key="NSNextKeyView" ref="838295400"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="518763287"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -748,18 +805,42 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">NAT</string>
-										<object class="NSColor" key="IBUITextColor" id="277210475">
-											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MCAwIDAAA</bytes>
-											<string key="IBUIColorCocoaTouchKeyPath">darkTextColor</string>
+										<bool key="IBUIUsesAttributedText">YES</bool>
+										<object class="NSAttributedString" key="IBUIAttributedText">
+											<string key="NSString">NAT</string>
+											<dictionary key="NSAttributes">
+												<object class="NSFont" key="NSFont">
+													<string key="NSName">Helvetica-Bold</string>
+													<double key="NSSize">17</double>
+													<int key="NSfFlags">16</int>
+												</object>
+												<object class="NSMutableParagraphStyle" key="NSParagraphStyle">
+													<int key="NSAlignment">2</int>
+													<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
+													<array key="NSTabStops">
+														<reference ref="8143823"/>
+														<reference ref="552126444"/>
+														<reference ref="269464547"/>
+														<reference ref="879090322"/>
+														<reference ref="599153427"/>
+														<reference ref="153358901"/>
+														<reference ref="80799357"/>
+														<reference ref="998319900"/>
+														<reference ref="604616928"/>
+														<reference ref="67744935"/>
+														<reference ref="248345378"/>
+														<reference ref="685223666"/>
+													</array>
+												</object>
+												<integer value="1" key="NSUnderline"/>
+												<reference key="NSUnderlineColor" ref="164147242"/>
+											</dictionary>
 										</object>
 										<nil key="IBUIHighlightedColor"/>
 										<int key="IBUIBaselineAdjustment">0</int>
-										<int key="IBUITextAlignment">1</int>
-										<reference key="IBUIFontDescription" ref="889220631"/>
-										<reference key="IBUIFont" ref="504989053"/>
+										<int key="IBUINumberOfLines">3</int>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+										<double key="preferredMaxLayoutWidth">206</double>
 									</object>
 									<object class="IBUITextView" id="70072334">
 										<reference key="NSNextResponder" ref="129040941"/>
@@ -767,7 +848,7 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 										<string key="NSFrame">{{20, 79}, {215, 260}}</string>
 										<reference key="NSSuperview" ref="129040941"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="838295400"/>
+										<reference key="NSNextKeyView" ref="219342112"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<reference key="IBUIBackgroundColor" ref="518763287"/>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -858,14 +939,42 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 										<int key="IBUIContentMode">7</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<string key="IBUIText">Flykt-,undvikande</string>
-										<reference key="IBUITextColor" ref="277210475"/>
+										<bool key="IBUIUsesAttributedText">YES</bool>
+										<object class="NSAttributedString" key="IBUIAttributedText">
+											<string key="NSString">Flykt-,undvikande</string>
+											<dictionary key="NSAttributes">
+												<object class="NSFont" key="NSFont">
+													<string key="NSName">HelveticaNeue-Bold</string>
+													<double key="NSSize">17</double>
+													<int key="NSfFlags">16</int>
+												</object>
+												<object class="NSParagraphStyle" key="NSParagraphStyle">
+													<int key="NSAlignment">2</int>
+													<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
+													<array key="NSTabStops">
+														<reference ref="84933323"/>
+														<reference ref="882088725"/>
+														<reference ref="354183162"/>
+														<reference ref="218625579"/>
+														<reference ref="390682403"/>
+														<reference ref="661947087"/>
+														<reference ref="106321867"/>
+														<reference ref="475686704"/>
+														<reference ref="542096077"/>
+														<reference ref="886641910"/>
+														<reference ref="462934518"/>
+														<reference ref="617078129"/>
+													</array>
+												</object>
+												<integer value="1" key="NSUnderline"/>
+												<reference key="NSUnderlineColor" ref="164147242"/>
+											</dictionary>
+										</object>
 										<nil key="IBUIHighlightedColor"/>
 										<int key="IBUIBaselineAdjustment">0</int>
-										<int key="IBUITextAlignment">1</int>
-										<reference key="IBUIFontDescription" ref="889220631"/>
-										<reference key="IBUIFont" ref="504989053"/>
+										<int key="IBUINumberOfLines">3</int>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+										<double key="preferredMaxLayoutWidth">204</double>
 									</object>
 									<object class="IBUITextView" id="948526940">
 										<reference key="NSNextResponder" ref="520438804"/>
@@ -1009,6 +1118,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="547043386"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<reference key="IBUIBackgroundColor" ref="518763287"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1438,31 +1548,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<reference key="parent" ref="468749070"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">9734</int>
-						<reference key="object" ref="1008455014"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="553934315"/>
-							<reference ref="51627008"/>
-							<reference ref="214022295"/>
-						</array>
-						<reference key="parent" ref="468749070"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">9704</int>
-						<reference key="object" ref="553934315"/>
-						<reference key="parent" ref="1008455014"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">9705</int>
-						<reference key="object" ref="51627008"/>
-						<reference key="parent" ref="1008455014"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">9706</int>
-						<reference key="object" ref="214022295"/>
-						<reference key="parent" ref="1008455014"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">9701</int>
 						<reference key="object" ref="241734630"/>
 						<reference key="parent" ref="204355162"/>
@@ -1589,6 +1674,31 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<int key="objectID">8994</int>
 						<reference key="object" ref="969889139"/>
 						<reference key="parent" ref="349587441"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">9734</int>
+						<reference key="object" ref="1008455014"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="553934315"/>
+							<reference ref="51627008"/>
+							<reference ref="214022295"/>
+						</array>
+						<reference key="parent" ref="468749070"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">9706</int>
+						<reference key="object" ref="214022295"/>
+						<reference key="parent" ref="1008455014"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">9705</int>
+						<reference key="object" ref="51627008"/>
+						<reference key="parent" ref="1008455014"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">9704</int>
+						<reference key="object" ref="553934315"/>
+						<reference key="parent" ref="1008455014"/>
 					</object>
 				</array>
 			</object>

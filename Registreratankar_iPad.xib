@@ -40,29 +40,29 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="IBUIImageView" id="71832265">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrameSize">{768, 1004}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1063581994"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<object class="NSColor" key="IBUIBackgroundColor" id="288811057">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">background-iPad.png</string>
+						</object>
+					</object>
 					<object class="IBUIScrollView" id="1063581994">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="71832265">
-								<reference key="NSNextResponder" ref="1063581994"/>
-								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{768, 1200}</string>
-								<reference key="NSSuperview" ref="1063581994"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="634432113"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<object class="NSColor" key="IBUIBackgroundColor" id="288811057">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MCAwAA</bytes>
-								</object>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">background-iPad.png</string>
-								</object>
-							</object>
 							<object class="IBUIButton" id="634432113">
 								<reference key="NSNextResponder" ref="1063581994"/>
 								<int key="NSvFlags">292</int>
@@ -1010,11 +1010,12 @@ b3RhzIhja3TigJ0pLg</bytes>
 								<reference key="IBUIFont" ref="244434339"/>
 							</object>
 						</array>
-						<string key="NSFrameSize">{768, 1004}</string>
+						<string key="NSFrameSize">{768, 1200}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="71832265"/>
+						<reference key="NSNextKeyView" ref="634432113"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<reference key="IBUIBackgroundColor" ref="288811057"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -1023,7 +1024,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 				<string key="NSFrame">{{0, 20}, {768, 1004}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="1063581994"/>
+				<reference key="NSNextKeyView" ref="71832265"/>
 				<reference key="IBUIBackgroundColor" ref="288811057"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
@@ -1295,6 +1296,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="1063581994"/>
+							<reference ref="71832265"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1318,7 +1320,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<reference ref="856970769"/>
 							<reference ref="689018675"/>
 							<reference ref="980438516"/>
-							<reference ref="71832265"/>
 							<reference ref="552250181"/>
 							<reference ref="183918087"/>
 							<reference ref="634432113"/>
@@ -1370,11 +1371,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 					<object class="IBObjectRecord">
 						<int key="objectID">18</int>
 						<reference key="object" ref="980438516"/>
-						<reference key="parent" ref="1063581994"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">3</int>
-						<reference key="object" ref="71832265"/>
 						<reference key="parent" ref="1063581994"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1564,6 +1560,11 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<reference key="object" ref="611977098"/>
 						<reference key="parent" ref="21367225"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">3</int>
+						<reference key="object" ref="71832265"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1634,7 +1635,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<string key="mainlabelalert:">id</string>
 						<string key="natalert:">id</string>
 						<string key="nyttbutton:">id</string>
-						<string key="tabellenalert:">id</string>
 						<string key="tankealert:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -1668,10 +1668,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 						</object>
 						<object class="IBActionInfo" key="nyttbutton:">
 							<string key="name">nyttbutton:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="tabellenalert:">
-							<string key="name">tabellenalert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="tankealert:">
@@ -1777,7 +1773,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background-iPad.png">{1280, 1920}</string>
 			<string key="bgqus.png">{628, 312}</string>
-			<string key="bottom.png">{640, 271}</string>
+			<string key="bottom.png">{320, 89}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="definitionpopup.ipad.png">{450, 328}</string>
 			<string key="genericbuttonipad.png">{274, 120}</string>

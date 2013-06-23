@@ -8,19 +8,23 @@
 
 #import "Registreratankar.h"
 #import "MTPopupWindow.h"
+
 int s=0;
+
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 
 //NSMutableString *firstString;
 @interface Registreratankar ()
 
+@property (nonatomic) BOOL isSaved;
+
 @end
 
 @implementation Registreratankar
 @synthesize flykt,tanke,tabellen,nat,exercise1_list;
 @synthesize negative,situation,beteenden,overiga;
-@synthesize listexercise1,tableView;
+@synthesize listexercise1,tableView,isSaved;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,26 +37,32 @@ int s=0;
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if([text isEqualToString:@"\n"])
+    {
         [textView resignFirstResponder];
+        
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             self.view.frame = CGRectMake(self.view.frame.origin.x
+                                                          , 0, self.view.frame.size.width, self.view.frame.size.height);
+                         }
+                         completion:^(BOOL finished){
+                             // whatever you need to do when animations are complete
+                             
+                         }];
+    }
+    else {
+        return YES;
+    }
     
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         self.view.frame = CGRectMake(scroll.frame.origin.x
-                                                      , 0, scroll.frame.size.width, scroll.frame.size.height);
-                     }
-                     completion:^(BOOL finished){
-                         // whatever you need to do when animations are complete
-                         
-                     }];
-    return YES;
+    return 0;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     [UIView animateWithDuration:0.5
                      animations:^{
-                         self.view.frame = CGRectMake(scroll.frame.origin.x
-                                                      , 0, scroll.frame.size.width, scroll.frame.size.height);
+                         self.view.frame = CGRectMake(self.view.frame.origin.x
+                                                      , -100, self.view.frame.size.width, self.view.frame.size.height);
                      }
                      completion:^(BOOL finished){
                          // whatever you need to do when animations are complete
@@ -74,12 +84,6 @@ int s=0;
     self.navigationItem.backBarButtonItem = bButton;
     
     
-    UIBarButtonItem *okButtonClk = [[UIBarButtonItem alloc] initWithTitle:@"Klar" style:UIBarButtonItemStylePlain target:self action:@selector(OkButtonClicked)];
-
-    
-    UIImage *okImage =[UIImage imageNamed:@"Klar_button.png"];
-    [okButtonClk setBackButtonBackgroundImage:okImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    self.navigationItem.rightBarButtonItem = okButtonClk;
     
     kanslor.allstrings=[[NSString alloc]init];
     exercise1_list=[[NSMutableArray alloc]init];
@@ -159,13 +163,13 @@ int s=0;
     // Do any additional setup after loading the view from its nib.
 }
 
+
+
 -(IBAction)mainlabelalert:(id)sender{
      [MTPopupWindow showWindowWithHTMLFile:@"Registreratankar.html" insideView:self.view];
 }
 
--(void)OkButtonClicked {
-    NSLog(@"okbutton");
-}
+
 
 -(IBAction)natalert:(id)sender{
   
@@ -191,7 +195,7 @@ int s=0;
         NSLog(@"%@",beteenden.text);
     }else{
         kanslor.selectedstrings=[[NSString alloc]init];
-        kanslor.selectedstrings=beteenden.text;
+        kanslor.selectedstrings = beteenden.text;
         NSLog(@"%@",kanslor.selectedstrings);
     }
     
@@ -229,7 +233,7 @@ int s=0;
         beteenden.text=kanslor.allstrings;
     }
     [super viewWillAppear:animated];
-    
+    isSaved = YES;
 }
 
 -(IBAction)Sparabutton:(id)sender{
@@ -248,71 +252,71 @@ int s=0;
     NSString* str = [formatter stringFromDate:date];
     
     NSLog(@"date%@",str);
+    
     raderabutton.hidden=YES;
     
-    if([negative.text isEqualToString:@""] &&[situation.text isEqualToString:@""] &&[beteenden.text isEqualToString:@""] && [overiga.text isEqualToString:@""]){
-       
-      
+    if([negative.text isEqualToString:@""] &&[situation.text isEqualToString:@""] &&[beteenden.text isEqualToString:@""] && [overiga.text isEqualToString:@""]) {
+        
+        
     }
-       
-  else{
+    else{
         NSLog(@"yes");
-   
         
         const char *dbpath = [databasePath UTF8String];
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
             //NSLog(@"%@",[listexercise1 objectAtIndex:s] );
-               if([[exercise1_list objectAtIndex:0] isEqualToString:@"Null"]){
-            NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISEONE (date,negative,situation,beteenden,overiga) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\")", str, negative.text,situation.text, beteenden.text , overiga.text];
-            
-            const char *insert_stmt = [insertSQL UTF8String];
-            
-            sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
-            if (sqlite3_step(statement) == SQLITE_DONE)
-            {
-             
-                situation.text = @"";
-                negative.text = @"";
-                overiga.text = @"";
-                beteenden.text=@"";
+            if([[exercise1_list objectAtIndex:0] isEqualToString:@"Null"]){
+                NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISEONE (date,negative,situation,beteenden,overiga) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\")", str, negative.text,situation.text, beteenden.text , overiga.text];
+                
+                const char *insert_stmt = [insertSQL UTF8String];
+                
+                sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+                if (sqlite3_step(statement) == SQLITE_DONE)
+                {
+                    
+                    //situation.text = @"";
+                    //negative.text = @"";
+                    //overiga.text = @"";
+                    //beteenden.text=@"";
+                    isSaved = NO;
+                    
+                } else {
+                    NSLog(@"no");
+                }
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+            }else{
+                
+                NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISEONE SET negative='%@', situation='%@' , beteenden='%@', overiga='%@' WHERE date='%@' ",negative.text,situation.text, beteenden.text,overiga.text, [listexercise1 objectAtIndex:s]];
+                const char *del_stmt = [query UTF8String];
+                
+                if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK){
+                    if(SQLITE_DONE != sqlite3_step(statement))
+                        NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+                    NSLog(@"sss");
+                    situation.text = @"";
+                    negative.text = @"";
+                    overiga.text = @"";
+                    beteenden.text=@"";
+                    [listexercise1 removeAllObjects];
+                    s=0;
+                    [listexercise1 addObject:@"Null"];
+                }
                 
                 
-            } else {
-                NSLog(@"no");
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+                
+                
             }
-            sqlite3_finalize(statement);
-            sqlite3_close(exerciseDB);
-               }else{
-                   
-                   NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISEONE SET negative='%@', situation='%@' , beteenden='%@', overiga='%@' WHERE date='%@' ",negative.text,situation.text, beteenden.text,overiga.text, [listexercise1 objectAtIndex:s]];
-                   const char *del_stmt = [query UTF8String];
-                   
-                   if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK){
-                       if(SQLITE_DONE != sqlite3_step(statement))
-                           NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
-                       NSLog(@"sss");
-                       situation.text = @"";
-                       negative.text = @"";
-                       overiga.text = @"";
-                       beteenden.text=@"";
-                       [listexercise1 removeAllObjects];
-                       s=0;
-                       [listexercise1 addObject:@"Null"];
-                   }
-                   
-                   
-                   sqlite3_finalize(statement);
-                   sqlite3_close(exerciseDB);
-                   
             
-               }
-
-
-      }  }
-
-    
+        }
+        UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert1 show];
+        [alert1 release];
+    }
 }
 
 -(IBAction)nyttbutton:(id)sender{
@@ -320,14 +324,15 @@ int s=0;
     if([situation.text isEqualToString:@""] && [negative.text isEqualToString:@""] && [overiga.text isEqualToString:@""] && [beteenden.text isEqualToString:@""]){
    
     }else{
-        
-        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+        if (isSaved == NO) {
+        alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
                                         delegate:self
                                cancelButtonTitle:@"Forsätt utan att spara"
                                otherButtonTitles:@"Avbryt", nil];
         alert.tag=kAlertViewOne;
         [alert show];
         [alert release];
+        }
     }
     
     
@@ -346,8 +351,9 @@ int s=0;
             [exercise1_list removeAllObjects];
             s=0;
             [exercise1_list addObject:@"Null"];
+            isSaved = YES;
         }else{
-           
+            isSaved = YES;
         }
     } else if(alert.tag == kAlertViewTwo) {
         if (buttonIndex == 0) {
@@ -381,12 +387,18 @@ int s=0;
             // [self getlistofDates];
             
             [self.tableView reloadData];
+            
+            UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Raderat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+            [alert1 show];
+            [alert1 release];
         }
         else {
             
         }
     }
 }
+
+
 -(IBAction)Editbutton:(id)sender{
     scroll.scrollEnabled = NO;
     listexercise1 =[[NSMutableArray alloc]init];
@@ -527,9 +539,7 @@ int s=0;
 }
 -(IBAction)aMethod:(id)sender{
     
-    alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Är du säker på att du vill radera formuläret?" delegate:self
-                           cancelButtonTitle:@"Radera"
-                           otherButtonTitles:@"Avbryt", nil];
+    alert=[[UIAlertView alloc] initWithTitle:nil message:@"Är du säker på att du vill radera formuläret?" delegate:self cancelButtonTitle:@"Radera" otherButtonTitles:@"Avbryt", nil];
     alert.tag=kAlertViewTwo;
     [alert show];
     [alert release];

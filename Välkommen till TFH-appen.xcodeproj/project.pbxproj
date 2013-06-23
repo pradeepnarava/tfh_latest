@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24171D211777631600182CF4 /* MTPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 24171D201777631600182CF4 /* MTPopupWindow.m */; };
 		2424F1FC177220530012A934 /* läsdel-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 2424F1FB177220530012A934 /* läsdel-popup.png */; };
 		2424F200177222840012A934 /* background-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2424F1FD177222840012A934 /* background-iPad.png */; };
 		2424F201177222840012A934 /* background-ipone4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2424F1FE177222840012A934 /* background-ipone4.png */; };
@@ -192,7 +193,6 @@
 		5EF0E2CC17340F540016A59D /* PMDimmingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0E2C317340F540016A59D /* PMDimmingView.m */; };
 		5EF0E2CD17340F540016A59D /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0E2C517340F540016A59D /* PMPeriod.m */; };
 		5EF0E2CE17340F540016A59D /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0E2C717340F540016A59D /* PMSelectionView.m */; };
-		5EF0E2D3173410450016A59D /* MTPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF0E2D2173410450016A59D /* MTPopupWindow.m */; };
 		5EF4F08C17478BB8003F68B2 /* AktivitetsplanenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF4F08A17478BB8003F68B2 /* AktivitetsplanenViewController.m */; };
 		5EF4F08D17478BB8003F68B2 /* AktivitetsplanenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF4F08B17478BB8003F68B2 /* AktivitetsplanenViewController.xib */; };
 		5EF4F09017479A85003F68B2 /* ShowEventsBO.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF4F08F17479A84003F68B2 /* ShowEventsBO.m */; };
@@ -233,6 +233,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24171D1F1777631600182CF4 /* MTPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPopupWindow.h; sourceTree = "<group>"; };
+		24171D201777631600182CF4 /* MTPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPopupWindow.m; sourceTree = "<group>"; };
 		2424F1FB177220530012A934 /* läsdel-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "läsdel-popup.png"; sourceTree = "<group>"; };
 		2424F1FD177222840012A934 /* background-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-iPad.png"; sourceTree = "<group>"; };
 		2424F1FE177222840012A934 /* background-ipone4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-ipone4.png"; sourceTree = "<group>"; };
@@ -459,8 +461,6 @@
 		5EF0E2C517340F540016A59D /* PMPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPeriod.m; sourceTree = "<group>"; };
 		5EF0E2C617340F540016A59D /* PMSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSelectionView.h; sourceTree = "<group>"; };
 		5EF0E2C717340F540016A59D /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
-		5EF0E2D1173410450016A59D /* MTPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTPopupWindow.h; path = ../MTPopupWindow.h; sourceTree = "<group>"; };
-		5EF0E2D2173410450016A59D /* MTPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTPopupWindow.m; path = ../MTPopupWindow.m; sourceTree = "<group>"; };
 		5EF4F08917478BB8003F68B2 /* AktivitetsplanenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AktivitetsplanenViewController.h; sourceTree = "<group>"; };
 		5EF4F08A17478BB8003F68B2 /* AktivitetsplanenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AktivitetsplanenViewController.m; sourceTree = "<group>"; };
 		5EF4F08B17478BB8003F68B2 /* AktivitetsplanenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AktivitetsplanenViewController.xib; sourceTree = "<group>"; };
@@ -711,8 +711,8 @@
 		5EA026B2172E7CD100C37EE4 /* Välkommen till TFH-appen */ = {
 			isa = PBXGroup;
 			children = (
-				5EF0E2D1173410450016A59D /* MTPopupWindow.h */,
-				5EF0E2D2173410450016A59D /* MTPopupWindow.m */,
+				24171D1F1777631600182CF4 /* MTPopupWindow.h */,
+				24171D201777631600182CF4 /* MTPopupWindow.m */,
 				5EA026BB172E7CD100C37EE4 /* Va_lkommenAppDelegate.h */,
 				5EA026BC172E7CD100C37EE4 /* Va_lkommenAppDelegate.m */,
 				5EA026C4172E7CD100C37EE4 /* Va_lkommenViewController.h */,
@@ -1362,7 +1362,6 @@
 				5EF0E2CC17340F540016A59D /* PMDimmingView.m in Sources */,
 				5EF0E2CD17340F540016A59D /* PMPeriod.m in Sources */,
 				5EF0E2CE17340F540016A59D /* PMSelectionView.m in Sources */,
-				5EF0E2D3173410450016A59D /* MTPopupWindow.m in Sources */,
 				5E51A29E1737898B002259C5 /* Veckostatistik.m in Sources */,
 				5EEFD16F1737BD21001E0E25 /* Interoceptivexponering.m in Sources */,
 				5EED2ACC173D389F00CF77B3 /* Livskompassen.m in Sources */,
@@ -1381,6 +1380,7 @@
 				25A8FAF91748F9B9000D6BAC /* DayEventViewController.m in Sources */,
 				5E2F8B1F1757A2840044AFB5 /* KanslorViewController.m in Sources */,
 				D84FDFB817661B5D00AD1D78 /* DateSelectingViewController.m in Sources */,
+				24171D211777631600182CF4 /* MTPopupWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

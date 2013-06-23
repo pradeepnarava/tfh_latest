@@ -15,6 +15,7 @@
 #import "Interoceptivexponering.h"
 #import "Livskompassen.h"
 @interface OveningarViewController : UIViewController{
+   
     Registreratankar *rt;
     TankefallorViewController *tfvc;
     Utmanatankar *ut;

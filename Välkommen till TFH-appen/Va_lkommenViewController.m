@@ -8,6 +8,7 @@
 
 #import "Va_lkommenViewController.h"
 #import "MTPopupWindow.h"
+
 @interface Va_lkommenViewController ()
 
 @end
@@ -18,13 +19,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.title=@"KBT Appen";
-//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka"
-//                                                                   style:UIBarButtonItemStyleBordered target:nil action:nil];
-//    
-//   UIImage *image = [UIImage imageNamed:@"backbutton.png"];
-//    [backButton setBackgroundImage:image forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-//    self.navigationItem.backBarButtonItem = backButton;
-//    
+
     UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
     // [btnDone setTintColor:[UIColor Color]];
     UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
@@ -68,15 +63,19 @@
 }
 
 -(IBAction)introduktion:(id)sender{
+    //[MTPopupWindow showWindowWithHTMLFile:@"info.html"];
+    
   [MTPopupWindow showWindowWithHTMLFile:@"Introduktion.html" insideView:self.view];
 }
 
 -(IBAction)om:(id)sender{
       [MTPopupWindow showWindowWithHTMLFile:@"om.html" insideView:self.view];
 }
+
 -(IBAction)lashorna:(id)sender{
       [MTPopupWindow showWindowWithHTMLFile:@"lashorna.html" insideView:self.view];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

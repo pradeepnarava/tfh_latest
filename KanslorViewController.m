@@ -29,52 +29,56 @@
 - (void)viewDidLoad
 {
     self.navigationItem.title=@"Kanslor";
-    
-   // NSArray* inputArray = [NSArray arrayWithObjects:@"Glad", @"Nöjd", @"Lycklig", @"Förtjust",@"lvrig",@"Exalterad",@"Stolt",@"Belåten",@"Upprymd",@"Munter",@"Livad",@"Euforisk",@"Hänförd",@"Lättad",@"Hat",@"Motvilja",@"Ovilja",@"Avsky",@"Äckel",@"Avsmak",@"Ledsen",@"Plågad",@"Deprimerad",@"Nedstämd",@"Lidande",@"Förvånad",@"Häpen",@"Förbluffad",@"Överraskad",nil];
-    buttonsArray = [[NSArray alloc] initWithObjects:b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24,b25,b26,b27,b28,b29,b30,b31,b32,b33,b34,b35,b36,b37,b38,b39,b40,b41,b42,b43,b44,b45,b46,b47,b48,b49,b50,b51,b52,b53,b54,nil];
-    
-    firstString=[[NSMutableString alloc]init];
+    firstString = [[NSMutableString alloc]init];
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1350)];
     [super viewDidLoad];
-    /*if ([selectedstrings isEqualToString:@""]) {
-        
-    }
-    else{
-        NSArray* myArray = [selectedstrings componentsSeparatedByString:@","];
-        for(int i=0;i<myArray.count;i++){
-            NSString* firstStrings = [myArray objectAtIndex:i];
-            NSLog(@"%@",firstStrings);
-            for (int g = 0; g < [buttonsArray count]; g++) {
-                UIButton *button = [buttonsArray objectAtIndex:g];
-                NSString *secondString = [button currentTitle];
-                if ([firstStrings isEqualToString:secondString]) {
-                    [button setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                }
-            }
-        }
-    }*/
-    // Do any additional setup after loading the view from its nib.
+    
+    UIImage *image = [UIImage imageNamed:@"Klar_button.png"];
+    UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    [okBtn setTitle:@"Klar" forState:UIControlStateNormal];
+    [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+    [okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    
+    
+   // NSArray* inputArray = [NSArray arrayWithObjects:@"Glad", @"Nöjd", @"Lycklig", @"Förtjust",@"lvrig",@"Exalterad",@"Stolt",@"Belåten",@"Upprymd",@"Munter",@"Livad",@"Euforisk",@"Hänförd",@"Lättad",@"Hat",@"Motvilja",@"Ovilja",@"Avsky",@"Äckel",@"Avsmak",@"Ledsen",@"Plågad",@"Deprimerad",@"Nedstämd",@"Lidande",@"Förvånad",@"Häpen",@"Förbluffad",@"Överraskad",nil];
+   
+    
+    buttonsArray = [[NSArray alloc] initWithObjects:b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24,b25,b26,b27,b28,b29,b30,b31,b32,b33,b34,b35,b36,b37,b38,b39,b40,b41,b42,b43,b44,b45,b46,b47,b48,b49,b50,b51,b52,b53,b54,nil];
+    
+   
+}
+
+-(void)OkButtonClicked {
+    NSLog(@"okbutton");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     
-    if ([selectedstrings isEqualToString:@""]) {
+    if ([selectedstrings length] == 0) {
         
     }
     else{
-        NSArray* myArray = [selectedstrings componentsSeparatedByString:@","];
+        NSLog(@"%@",selectedstrings);
+        [firstString appendFormat:selectedstrings];
+
+        NSArray* myArray = [selectedstrings componentsSeparatedByString:@", "];
         
         for(int i=0;i<myArray.count;i++){
             NSString* firstStrings = [myArray objectAtIndex:i];
+            
             NSLog(@"%@",firstStrings);
             for (int g = 0; g < [buttonsArray count]; g++) {
                 UIButton *button = [buttonsArray objectAtIndex:g];
                 NSString *secondString = [button currentTitle];
-                if ([firstStrings isEqualToString:secondString]) {
-//                    [firstString appendString:@"Glad,"];
+                if ([[firstStrings stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:secondString]) {
+                    
                     [button setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 }
             }
@@ -86,15 +90,22 @@
 -(IBAction)tabellencheck:(id)sender{
     UIButton *btn=(UIButton *)sender;
     
-    NSLog(@"%u",btn.tag) ;
+    NSLog(@"%u",btn.tag);
+    NSLog(@"firstString is : %@",firstString);
+    if ([firstString length] == 0) {
+        
+    }
+    else {
+        [firstString appendFormat:@", "];
+    }
     switch (btn.tag) {
         case 1:
             
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 
-                [firstString appendString:@"Glad,"];
-                NSLog(@"%@",firstString);
+                [firstString appendString:@"Glad"];
+                NSLog(@"%@", firstString);
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 
@@ -104,8 +115,8 @@
         case 2:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Nöjd,"];
-                NSLog(@"%@",firstString);
+                [firstString appendString:@"Nöjd"];
+                NSLog(@"%@", firstString);
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
             }
@@ -114,7 +125,7 @@
         case 3:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-               [firstString appendString:@"Lycklig,"];
+               [firstString appendString:@"Lycklig"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 // beteenden.text=@"";
@@ -124,7 +135,7 @@
         case 4:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-               [firstString appendString:@"Förtjust,"];
+               [firstString appendString:@"Förtjust"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -134,7 +145,7 @@
         case 5:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"lvrig,"];
+                [firstString appendString:@"lvrig"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 // beteenden.text=@"";
@@ -142,10 +153,10 @@
             
             break;
         case 6:
-            btn.userInteractionEnabled = NO;
+            btn.enabled = NO;
            /* if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Exalterad,"];
+                [firstString appendString:@"Exalterad"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -155,7 +166,7 @@
         case 7:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Stolt,"];
+                [firstString appendString:@"Stolt"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -165,7 +176,7 @@
         case 8:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Belåten,"];
+                [firstString appendString:@"Belåten"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -175,7 +186,7 @@
         case 9:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"upprymd,"];
+                [firstString appendString:@"upprymd"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -185,7 +196,7 @@
         case 10:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Munter,"];
+                [firstString appendString:@"Munter"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -195,7 +206,7 @@
         case 11:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Livad,"];
+                [firstString appendString:@"Livad"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -204,7 +215,7 @@
             break;case 12:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Euforisk,"];
+                [firstString appendString:@"Euforisk"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -214,7 +225,7 @@
         case 13:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Hänförd,"];
+                [firstString appendString:@"Hänförd"];
             }else{
                // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -224,7 +235,7 @@
         case 14:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Lättad,"];
+                [firstString appendString:@"Lättad"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -234,7 +245,7 @@
         case 15:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Hat,"];
+                [firstString appendString:@"Hat"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -244,7 +255,7 @@
         case 16:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Motvilja,"];
+                [firstString appendString:@"Motvilja"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -254,7 +265,7 @@
         case 17:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Ovilja,"];
+                [firstString appendString:@"Ovilja"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -264,7 +275,7 @@
         case 18:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Avsky,"];
+                [firstString appendString:@"Avsky"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -274,7 +285,7 @@
         case 19:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Äckel,"];
+                [firstString appendString:@"Äckel"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -284,7 +295,7 @@
         case 20:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Avsmak,"];
+                [firstString appendString:@"Avsmak"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -294,7 +305,7 @@
         case 21:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Ledsen,"];
+                [firstString appendString:@"Ledsen"];
             }else{
            [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -305,7 +316,7 @@
         case 22:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@"Plågad,"];
+                [firstString appendString:@"Plågad"];
                 NSLog(@"%@",firstString);
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
@@ -316,7 +327,7 @@
         case 23:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Deprimerad"];
+                [firstString appendString:@"Deprimerad"];
                 NSLog(@"%@",firstString);
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
@@ -326,7 +337,7 @@
         case 24:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Nedstämd"];
+                [firstString appendString:@"Nedstämd"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 // beteenden.text=@"";
@@ -336,7 +347,7 @@
         case 25:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Lidande"];
+                [firstString appendString:@"Lidande"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -346,7 +357,7 @@
         case 26:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Förvånad"];
+                [firstString appendString:@"Förvånad"];
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 // beteenden.text=@"";
@@ -356,7 +367,7 @@
         case 27:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Häpen"];
+                [firstString appendString:@"Häpen"];
             }else{
               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -366,7 +377,7 @@
         case 28:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Förbluffad"];
+                [firstString appendString:@"Förbluffad"];
             }else{
              [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -376,7 +387,7 @@
         case 29:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Överraskad"];
+                [firstString appendString:@"Överraskad"];
             }else{
               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -386,7 +397,7 @@
         case 30:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Rädd"];
+                [firstString appendString:@"Rädd"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -396,7 +407,7 @@
         case 31:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Skräckslagen"];
+                [firstString appendString:@"Skräckslagen"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -406,7 +417,7 @@
         case 32:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Ängslig"];
+                [firstString appendString:@"Ängslig"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -415,7 +426,7 @@
             break;case 33:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Nervös"];
+                [firstString appendString:@"Nervös"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -425,7 +436,7 @@
         case 34:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Bekymrad"];
+                [firstString appendString:@"Bekymrad"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -435,7 +446,7 @@
         case 35:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Orolig"];
+                [firstString appendString:@"Orolig"];
             }else{
              [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -445,7 +456,7 @@
         case 36:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Spänd"];
+                [firstString appendString:@"Spänd"];
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -455,7 +466,7 @@
         case 37:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Skärrad"];
+                [firstString appendString:@"Skärrad"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -465,7 +476,7 @@
         case 38:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Vettskrämd"];
+                [firstString appendString:@"Vettskrämd"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -475,7 +486,7 @@
         case 39:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Uppskrämd"];
+                [firstString appendString:@"Uppskrämd"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -485,7 +496,7 @@
         case 40:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Intresserad"];
+                [firstString appendString:@"Intresserad"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -495,7 +506,7 @@
         case 41:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Nyfiken"];
+                [firstString appendString:@"Nyfiken"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -505,7 +516,7 @@
         case 42:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Inspirerad"];
+                [firstString appendString:@"Inspirerad"];
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -516,7 +527,7 @@
         case 43:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Generad"];
+                [firstString appendString:@"Generad"];
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -526,7 +537,7 @@
         case 44:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Skamsen"];
+                [firstString appendString:@"Skamsen"];
             }else{
              [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -536,7 +547,7 @@
         case 45:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Osäker"];
+                [firstString appendString:@"Osäker"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -546,7 +557,7 @@
         case 46:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",IIsken"];
+                [firstString appendString:@"IIsken"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -556,7 +567,7 @@
         case 47:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Upprörd"];
+                [firstString appendString:@"Upprörd"];
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -566,7 +577,7 @@
         case 48:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Hatisk"];
+                [firstString appendString:@"Hatisk"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -576,7 +587,7 @@
         case 49:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Vrede"];
+                [firstString appendString:@"Vrede"];
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -586,7 +597,7 @@
         case 50:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Arg"];
+                [firstString appendString:@"Arg"];
             }else{
                // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -596,7 +607,7 @@
         case 51:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Uppretad"];
+                [firstString appendString:@"Uppretad"];
             }else{
                // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -606,7 +617,7 @@
         case 52:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Irriterad"];
+                [firstString appendString:@"Irriterad"];
             }else{
                 //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -617,7 +628,7 @@
         case 53:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Rasande"];
+                [firstString appendString:@"Rasande"];
             }else{
                 //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -627,7 +638,7 @@
         case 54:
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
-                [firstString appendString:@",Ursinning"];
+                [firstString appendString:@"Ursinning"];
             }else{
                 //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
@@ -639,10 +650,12 @@
             break;
     }
 }
+
+
 - (void)viewWillDisappear:(BOOL)animated {
-     NSLog(@"stringssss%@",firstString);
+     NSLog(@"stringssss%@", firstString);
     allstrings = [NSString stringWithString:firstString];
-    NSLog(@"%@",allstrings);
+    NSLog(@"%@", allstrings);
   
 }
 
