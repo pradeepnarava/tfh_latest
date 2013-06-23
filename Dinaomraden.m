@@ -44,6 +44,34 @@
 {
     [super viewDidLoad];
     self.navigationItem.title=@"Dina områden";
+    
+    // Customing the segmented control
+    UIImage *segmentSelected = [[UIImage imageNamed:@"segSelected.png"]
+     resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+    UIImage *segmentUnselected = [[UIImage imageNamed:@"segUnSelected.png"]
+     resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+    UIImage *segmentSelectedUnselected = [UIImage imageNamed:@"segSelectedUnSelected.png"];
+    UIImage *segUnselectedSelected = [UIImage imageNamed:@"segUnSelectedSelected.png"];
+    UIImage *segmentUnselectedUnselected = [UIImage imageNamed:@"segUnSelectedUnSelected.png"];
+    
+    [[UISegmentedControl appearance] setBackgroundImage:segmentUnselected
+                                               forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [[UISegmentedControl appearance] setBackgroundImage:segmentSelected
+                                               forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    
+    [[UISegmentedControl appearance] setDividerImage:segmentUnselectedUnselected
+                                 forLeftSegmentState:UIControlStateNormal
+                                   rightSegmentState:UIControlStateNormal
+                                          barMetrics:UIBarMetricsDefault];
+    [[UISegmentedControl appearance] setDividerImage:segmentSelectedUnselected
+                                 forLeftSegmentState:UIControlStateSelected
+                                   rightSegmentState:UIControlStateNormal
+                                          barMetrics:UIBarMetricsDefault];
+    [[UISegmentedControl appearance] setDividerImage:segUnselectedSelected
+                                 forLeftSegmentState:UIControlStateNormal
+                                   rightSegmentState:UIControlStateSelected
+                                          barMetrics:UIBarMetricsDefault];
+
     UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
     // [btnDone setTintColor:[UIColor Color]];
     UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;

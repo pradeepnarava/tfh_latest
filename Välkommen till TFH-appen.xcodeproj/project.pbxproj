@@ -215,6 +215,11 @@
 		D89F65BD1764A597004E3634 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D89F65BC1764A597004E3634 /* libCorePlot-CocoaTouch.a */; };
 		D8D3B985176F50BD0077711A /* button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D3B983176F50BD0077711A /* button-off.png */; };
 		D8D3B986176F50BD0077711A /* button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D3B984176F50BD0077711A /* button-on.png */; };
+		D8F5D37117771550002E4C8B /* segSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F5D36C17771550002E4C8B /* segSelected.png */; };
+		D8F5D37217771550002E4C8B /* segSelectedUnSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F5D36D17771550002E4C8B /* segSelectedUnSelected.png */; };
+		D8F5D37317771550002E4C8B /* segUnSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F5D36E17771550002E4C8B /* segUnSelected.png */; };
+		D8F5D37417771550002E4C8B /* segUnSelectedSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F5D36F17771550002E4C8B /* segUnSelectedSelected.png */; };
+		D8F5D37517771550002E4C8B /* segUnSelectedUnSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F5D37017771550002E4C8B /* segUnSelectedUnSelected.png */; };
 		D8FF05811769D9880015EC2C /* bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FF05771769D9880015EC2C /* bottom.png */; };
 		D8FF05821769D9880015EC2C /* check-background.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FF05781769D9880015EC2C /* check-background.png */; };
 		D8FF05831769D9880015EC2C /* generera-kompass-button.png in Resources */ = {isa = PBXBuildFile; fileRef = D8FF05791769D9880015EC2C /* generera-kompass-button.png */; };
@@ -562,6 +567,11 @@
 		D89F65BC1764A597004E3634 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		D8D3B983176F50BD0077711A /* button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-off.png"; sourceTree = "<group>"; };
 		D8D3B984176F50BD0077711A /* button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-on.png"; sourceTree = "<group>"; };
+		D8F5D36C17771550002E4C8B /* segSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = segSelected.png; sourceTree = "<group>"; };
+		D8F5D36D17771550002E4C8B /* segSelectedUnSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = segSelectedUnSelected.png; sourceTree = "<group>"; };
+		D8F5D36E17771550002E4C8B /* segUnSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = segUnSelected.png; sourceTree = "<group>"; };
+		D8F5D36F17771550002E4C8B /* segUnSelectedSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = segUnSelectedSelected.png; sourceTree = "<group>"; };
+		D8F5D37017771550002E4C8B /* segUnSelectedUnSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = segUnSelectedUnSelected.png; sourceTree = "<group>"; };
 		D8FF05771769D9880015EC2C /* bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom.png; sourceTree = "<group>"; };
 		D8FF05781769D9880015EC2C /* check-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-background.png"; sourceTree = "<group>"; };
 		D8FF05791769D9880015EC2C /* generera-kompass-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generera-kompass-button.png"; sourceTree = "<group>"; };
@@ -1075,6 +1085,11 @@
 		D8FF05761769D9880015EC2C /* Livskompassen Betygsätt dina områden */ = {
 			isa = PBXGroup;
 			children = (
+				D8F5D36C17771550002E4C8B /* segSelected.png */,
+				D8F5D36D17771550002E4C8B /* segSelectedUnSelected.png */,
+				D8F5D36E17771550002E4C8B /* segUnSelected.png */,
+				D8F5D36F17771550002E4C8B /* segUnSelectedSelected.png */,
+				D8F5D37017771550002E4C8B /* segUnSelectedUnSelected.png */,
 				D8FF05771769D9880015EC2C /* bottom.png */,
 				D8FF05781769D9880015EC2C /* check-background.png */,
 				D8FF05791769D9880015EC2C /* generera-kompass-button.png */,
@@ -1313,6 +1328,11 @@
 				24AE0F4A17761B3C0073A880 /* text-background.png in Resources */,
 				24AE0F4D1776EB510073A880 /* Klar_button.png in Resources */,
 				24AE0F4E1776EB510073A880 /* Klar_button@2x.png in Resources */,
+				D8F5D37117771550002E4C8B /* segSelected.png in Resources */,
+				D8F5D37217771550002E4C8B /* segSelectedUnSelected.png in Resources */,
+				D8F5D37317771550002E4C8B /* segUnSelected.png in Resources */,
+				D8F5D37417771550002E4C8B /* segUnSelectedSelected.png in Resources */,
+				D8F5D37517771550002E4C8B /* segUnSelectedUnSelected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
