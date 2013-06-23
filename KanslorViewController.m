@@ -142,13 +142,14 @@
             
             break;
         case 6:
-            if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
+            btn.userInteractionEnabled = NO;
+           /* if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"Exalterad,"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
-            }
+            }*/
             
             break;
         case 7:

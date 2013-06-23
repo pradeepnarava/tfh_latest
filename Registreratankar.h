@@ -10,7 +10,7 @@
 #import <sqlite3.h>
 #import "KanslorViewController.h"
 
-@interface Registreratankar : UIViewController<UITableViewDelegate, UITableViewDataSource>{
+@interface Registreratankar : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>{
     UILabel *nat,*tanke,*tabellen,*flykt;
     sqlite3 *exerciseDB;
      NSString        *databasePath;

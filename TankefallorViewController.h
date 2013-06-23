@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
-@interface TankefallorViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>{
+@interface TankefallorViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>{
     
     sqlite3 *exerciseDB;
     NSString *databasePath;

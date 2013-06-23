@@ -30,6 +30,29 @@ int x=0;
 {
     if([text isEqualToString:@"\n"])
         [textView resignFirstResponder];
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         // whatever you need to do when animations are complete
+                         
+                     }];
+    return YES;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.view.frame = CGRectMake(self.view.frame.origin.x, -100, self.view.frame.size.width, self.view.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         // whatever you need to do when animations are complete
+                         
+                     }];
+    
     return YES;
 }
 
@@ -43,7 +66,7 @@ int x=0;
     listofdates.hidden=YES;
     scroll.scrollEnabled = YES;
     raderaButton.hidden=YES;
-    [scroll setContentSize:CGSizeMake(320, 4418)];
+    [scroll setContentSize:CGSizeMake(320, 4435)];
     scroll1.scrollEnabled = YES;
     
     [scroll1 setContentSize:CGSizeMake(320, 4418)];
@@ -92,6 +115,9 @@ int x=0;
 -(IBAction)mainlabelalert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"Tankefallor.html" insideView:self.view];
 }
+
+
+
 
 
 -(IBAction)Sparabutton:(id)sender{
@@ -269,6 +295,7 @@ int x=0;
     
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Upon selecting an event, create an EKEventViewController to display the event.
 	NSDictionary *dictionary = [self.listexercise2 objectAtIndex:indexPath.row];
@@ -490,6 +517,8 @@ int x=0;
     [list_exercise2 addObject:@"Null"];
     raderaButton.hidden=YES;
     [self clearalltexts];
+    listofdates.hidden = YES;
+    scroll.scrollEnabled = YES;
     
 }
 -(IBAction)CloseButton:(id)sender{
