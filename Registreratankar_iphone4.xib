@@ -518,7 +518,6 @@
 										<string key="NSFrame">{{20, 58}, {280, 39}}</string>
 										<reference key="NSSuperview" ref="201834756"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<int key="IBUITag">100</int>
@@ -949,7 +948,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 										<reference key="IBUIFont" ref="1021716926"/>
 									</object>
 								</array>
-								<string key="NSFrame">{{0, 224}, {320, 224}}</string>
+								<string key="NSFrame">{{0, 224}, {320, 189}}</string>
 								<reference key="NSSuperview" ref="858145002"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="563274575"/>
@@ -1613,7 +1612,9 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<string key="aMethod:">id</string>
 						<string key="flyktalert:">id</string>
 						<string key="mainlabelalert:">id</string>
+						<string key="natalert:">id</string>
 						<string key="nyttbutton:">id</string>
+						<string key="tankealert:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="Closelistofdates:">
@@ -1640,8 +1641,16 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<string key="name">mainlabelalert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="natalert:">
+							<string key="name">natalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="nyttbutton:">
 							<string key="name">nyttbutton:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="tankealert:">
+							<string key="name">tankealert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -1743,7 +1752,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background-ipone4.png">{640, 960}</string>
 			<string key="bbutton.png">{138, 60}</string>
-			<string key="bottom.png">{320, 89}</string>
+			<string key="bottom.png">{640, 271}</string>
 			<string key="buttom-large-button.png">{280, 47}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="definitionpopup.png">{627, 457}</string>

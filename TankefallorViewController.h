@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
-@interface TankefallorViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>{
+@interface TankefallorViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>{
     
     sqlite3 *exerciseDB;
     NSString *databasePath;
@@ -39,7 +39,9 @@
     UITextView *KanslC2;
     UITextView *EtikeC1;
     UITextView *EtikeC2;
-      IBOutlet UIScrollView *scroll,*scroll1;
+    
+    IBOutlet UIScrollView *scroll,*scroll1;
+    
     UIAlertView  *alert;
     
      IBOutlet UIView *listofdates;
