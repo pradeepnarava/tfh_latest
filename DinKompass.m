@@ -385,15 +385,16 @@
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
 	// 3 - Configure x-axis
 	CPTAxis *x = axisSet.xAxis;
-	x.title = @"Dates";
 	x.titleTextStyle = axisTitleStyle;
     if (_isComparisonGraph)
     {
         x.titleOffset = 15.0f;
+        x.title = @"Områden";
     }
     else
     {
         x.titleOffset = 30.0f;
+        x.title = @"Datum";
     }
 	x.axisLineStyle = axisLineStyle;
 	x.labelingPolicy = CPTAxisLabelingPolicyNone;
@@ -437,7 +438,7 @@
 	x.majorTickLocations = xLocations;
 	// 4 - Configure y-axis
 	CPTAxis *y = axisSet.yAxis;
-	y.title = @"Rating";
+	y.title = @"Medelvärde";
 	y.titleTextStyle = axisTitleStyle;
 	y.titleOffset = -40.0f;
 	y.axisLineStyle = axisLineStyle; 
