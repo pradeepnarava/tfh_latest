@@ -62,7 +62,7 @@ int s=0;
     [UIView animateWithDuration:0.5
                      animations:^{
                          self.view.frame = CGRectMake(self.view.frame.origin.x
-                                                      , -100, self.view.frame.size.width, self.view.frame.size.height);
+                                                      , -170, self.view.frame.size.width, self.view.frame.size.height);
                      }
                      completion:^(BOOL finished){
                          // whatever you need to do when animations are complete
@@ -88,7 +88,7 @@ int s=0;
     kanslor.allstrings=[[NSString alloc]init];
     exercise1_list=[[NSMutableArray alloc]init];
     [exercise1_list addObject:@"Null" ];
-    raderabutton.hidden=YES;
+    raderabutton.enabled=NO;
     
     nat.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture2 =
@@ -257,7 +257,7 @@ int s=0;
     
     NSLog(@"date%@",str);
     
-    raderabutton.hidden=YES;
+    raderabutton.enabled=NO;
     
     if([negative.text isEqualToString:@""] &&[situation.text isEqualToString:@""] &&[beteenden.text isEqualToString:@""] && [overiga.text isEqualToString:@""]) {
         
@@ -291,8 +291,9 @@ int s=0;
                 }
                 sqlite3_finalize(statement);
                 sqlite3_close(exerciseDB);
-            }else{
-                
+            }
+            else{
+                NSLog(@"Updated");
                 NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISEONE SET negative='%@', situation='%@' , beteenden='%@', overiga='%@' WHERE date='%@' ",negative.text,situation.text, beteenden.text,overiga.text, [listexercise1 objectAtIndex:s]];
                 const char *del_stmt = [query UTF8String];
                 
@@ -300,22 +301,20 @@ int s=0;
                     if(SQLITE_DONE != sqlite3_step(statement))
                         NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
                     NSLog(@"sss");
-                    situation.text = @"";
+                  /*  situation.text = @"";
                     negative.text = @"";
                     overiga.text = @"";
                     beteenden.text=@"";
                     [listexercise1 removeAllObjects];
                     s=0;
-                    [listexercise1 addObject:@"Null"];
+                    [listexercise1 addObject:@"Null"];*/
+                     isSaved = YES;
                 }
-                
-                
+    
                 sqlite3_finalize(statement);
                 sqlite3_close(exerciseDB);
-                
-                
-            }
             
+            }
         }
         UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert1 show];
@@ -328,14 +327,28 @@ int s=0;
     if([situation.text isEqualToString:@""] && [negative.text isEqualToString:@""] && [overiga.text isEqualToString:@""] && [beteenden.text isEqualToString:@""]){
    
     }else{
-        if (isSaved == NO) {
-        alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
-                                        delegate:self
-                               cancelButtonTitle:@"Forsätt utan att spara"
-                               otherButtonTitles:@"Avbryt", nil];
-        alert.tag=kAlertViewOne;
-        [alert show];
-        [alert release];
+        if (isSaved == YES) {
+            alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+                                            delegate:self
+                                   cancelButtonTitle:@"Forsätt"
+                                   otherButtonTitles:@"Avbryt", nil];
+            alert.tag=kAlertViewOne;
+            [alert show];
+            [alert release];
+            
+        
+        }
+        else {
+            situation.text = @"";
+            negative.text = @"";
+            overiga.text = @"";
+            beteenden.text=@"";
+            raderabutton.enabled=NO;
+            [exercise1_list removeAllObjects];
+            s=0;
+            [exercise1_list addObject:@"Null"];
+            isSaved = YES;
+
         }
     }
     
@@ -351,7 +364,7 @@ int s=0;
             negative.text = @"";
             overiga.text = @"";
             beteenden.text=@"";
-            raderabutton.hidden=YES;
+            raderabutton.enabled=NO;
             [exercise1_list removeAllObjects];
             s=0;
             [exercise1_list addObject:@"Null"];
@@ -374,7 +387,7 @@ int s=0;
                     NSLog(@"sss");
                     
                 }
-                raderabutton.hidden=YES;
+                raderabutton.enabled=NO;
                 situation.text = @"";
                 negative.text = @"";
                 overiga.text = @"";
@@ -415,6 +428,8 @@ int s=0;
     [self getlistofDates];
         //[self.navigationController pushViewController:eevc animated:YES];
 }
+
+
 -(void)getlistofDates{
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
@@ -449,12 +464,10 @@ int s=0;
         listofdates.hidden = YES;
         scroll.scrollEnabled=YES;
     }
-
-    
     [self.tableView reloadData];
-    
-
 }
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.listexercise1 count];
 }
@@ -484,7 +497,7 @@ int s=0;
     NSLog(@"ssss%u",s);
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
-    raderabutton.hidden=NO;
+    raderabutton.enabled=YES;
     [exercise1_list removeAllObjects];
     [exercise1_list addObject:SelectedDate];
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {

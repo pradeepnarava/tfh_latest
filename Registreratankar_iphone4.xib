@@ -107,15 +107,15 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage" id="866395266">
+								<object class="NSCustomResource" key="IBUIImage" id="355708904">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">fråga-larger-size.png</string>
+									<string key="NSResourceName">fråga-normal-size.png</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="287179390">
 								<reference key="NSNextResponder" ref="858145002"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 68}, {280, 54}}</string>
+								<string key="NSFrame">{{18, 60}, {280, 54}}</string>
 								<reference key="NSSuperview" ref="858145002"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="667473565"/>
@@ -133,13 +133,13 @@
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">1. I vilken situation uppstod en "negativ automatisk tanke?" När var det? Vart var du? Vad hände?</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<dictionary id="485753261">
-											<object class="NSFont" key="NSFont" id="57153646">
+										<dictionary id="1017189749">
+											<object class="NSFont" key="NSFont" id="875392018">
 												<string key="NSName">HelveticaNeue-Bold</string>
 												<double key="NSSize">14</double>
 												<int key="NSfFlags">16</int>
 											</object>
-											<object class="NSParagraphStyle" key="NSParagraphStyle" id="328435274">
+											<object class="NSParagraphStyle" key="NSParagraphStyle" id="347296653">
 												<double key="NSParagraphSpacing">10</double>
 												<double key="NSTailIndent">432</double>
 												<double key="NSDefaultTabInterval">36</double>
@@ -148,16 +148,16 @@
 												<int key="NSWritingDirection">1</int>
 											</object>
 										</dictionary>
-										<dictionary id="782795206">
-											<object class="NSFont" key="NSFont" id="710122657">
+										<dictionary id="79126615">
+											<object class="NSFont" key="NSFont" id="169651987">
 												<string key="NSName">HelveticaNeue-BoldItalic</string>
 												<double key="NSSize">14</double>
 												<int key="NSfFlags">16</int>
 											</object>
-											<reference key="NSParagraphStyle" ref="328435274"/>
+											<reference key="NSParagraphStyle" ref="347296653"/>
 										</dictionary>
 										<dictionary id="1004212148">
-											<reference key="NSFont" ref="710122657"/>
+											<reference key="NSFont" ref="169651987"/>
 											<object class="NSParagraphStyle" key="NSParagraphStyle">
 												<double key="NSParagraphSpacing">10</double>
 												<double key="NSTailIndent">432</double>
@@ -216,10 +216,7 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage" id="503847964">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">fråga-normal-size.png</string>
-								</object>
+								<reference key="IBUIImage" ref="355708904"/>
 							</object>
 							<object class="IBUILabel" id="874747273">
 								<reference key="NSNextResponder" ref="858145002"/>
@@ -239,8 +236,8 @@
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">2. Vilken/vilka  "NAT" uppstod för dig idenna situation?</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<reference ref="485753261"/>
-										<reference ref="782795206"/>
+										<reference ref="1017189749"/>
+										<reference ref="79126615"/>
 										<reference ref="1004212148"/>
 									</array>
 									<object class="NSMutableData" key="NSAttributeInfo">
@@ -283,7 +280,10 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<reference key="IBUIImage" ref="866395266"/>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">fråga-larger-size.png</string>
+								</object>
 							</object>
 							<object class="IBUILabel" id="546643324">
 								<reference key="NSNextResponder" ref="858145002"/>
@@ -302,7 +302,7 @@
 								<bool key="IBUIUsesAttributedText">YES</bool>
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">3. Vilka känslor uppstod som en följd av dina NAT? T.ex. "ångest", "rädd" eller "nervös", Om du har svårt att själv sätt ord på känslorna kan du välja i </string>
-									<reference key="NSAttributes" ref="485753261"/>
+									<reference key="NSAttributes" ref="1017189749"/>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
@@ -333,7 +333,7 @@
 							<object class="IBUILabel" id="845550330">
 								<reference key="NSNextResponder" ref="858145002"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{193, 572}, {73, 21}}</string>
+								<string key="NSFrame">{{227, 572}, {73, 21}}</string>
 								<reference key="NSSuperview" ref="858145002"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="113543764"/>
@@ -347,7 +347,7 @@
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">tabellen</string>
 									<dictionary key="NSAttributes">
-										<object class="NSColor" key="NSColor" id="228916698">
+										<object class="NSColor" key="NSColor" id="1018428572">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MC4yNjY2NjY2NjY3IDAuMzkyMTU2ODYyNyAwLjgAA</bytes>
 										</object>
@@ -359,46 +359,46 @@
 										<object class="NSParagraphStyle" key="NSParagraphStyle">
 											<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
 											<array key="NSTabStops">
-												<object class="NSTextTab" id="714958395">
+												<object class="NSTextTab" id="865809742">
 													<double key="NSLocation">28</double>
 												</object>
-												<object class="NSTextTab" id="954373919">
+												<object class="NSTextTab" id="1017261002">
 													<double key="NSLocation">56</double>
 												</object>
-												<object class="NSTextTab" id="947378573">
+												<object class="NSTextTab" id="271146332">
 													<double key="NSLocation">84</double>
 												</object>
-												<object class="NSTextTab" id="1038090417">
+												<object class="NSTextTab" id="858775777">
 													<double key="NSLocation">112</double>
 												</object>
-												<object class="NSTextTab" id="1073204981">
+												<object class="NSTextTab" id="225051374">
 													<double key="NSLocation">140</double>
 												</object>
-												<object class="NSTextTab" id="270402538">
+												<object class="NSTextTab" id="153817117">
 													<double key="NSLocation">168</double>
 												</object>
-												<object class="NSTextTab" id="906266117">
+												<object class="NSTextTab" id="414424902">
 													<double key="NSLocation">196</double>
 												</object>
-												<object class="NSTextTab" id="107552218">
+												<object class="NSTextTab" id="309261638">
 													<double key="NSLocation">224</double>
 												</object>
-												<object class="NSTextTab" id="431759961">
+												<object class="NSTextTab" id="424560030">
 													<double key="NSLocation">252</double>
 												</object>
-												<object class="NSTextTab" id="744319448">
+												<object class="NSTextTab" id="1016244732">
 													<double key="NSLocation">280</double>
 												</object>
-												<object class="NSTextTab" id="210602690">
+												<object class="NSTextTab" id="489048539">
 													<double key="NSLocation">308</double>
 												</object>
-												<object class="NSTextTab" id="837619109">
+												<object class="NSTextTab" id="193749103">
 													<double key="NSLocation">336</double>
 												</object>
 											</array>
 										</object>
 										<integer value="1" key="NSUnderline"/>
-										<reference key="NSUnderlineColor" ref="228916698"/>
+										<reference key="NSUnderlineColor" ref="1018428572"/>
 									</dictionary>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
@@ -415,7 +415,7 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<reference key="IBUIImage" ref="503847964"/>
+								<reference key="IBUIImage" ref="355708904"/>
 							</object>
 							<object class="IBUILabel" id="455129494">
 								<reference key="NSNextResponder" ref="858145002"/>
@@ -435,8 +435,8 @@
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">4. Vilka "flykt-,undvikande" eller "säkerhetsbeteenden" använde du?</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<reference ref="485753261"/>
-										<reference ref="782795206"/>
+										<reference ref="1017189749"/>
+										<reference ref="79126615"/>
 										<reference ref="1004212148"/>
 									</array>
 									<object class="NSMutableData" key="NSAttributeInfo">
@@ -646,23 +646,23 @@
 										<object class="NSAttributedString" key="IBUIAttributedText">
 											<string key="NSString">"Negativ automatisk tanke?"</string>
 											<dictionary key="NSAttributes">
-												<reference key="NSFont" ref="57153646"/>
+												<reference key="NSFont" ref="875392018"/>
 												<object class="NSMutableParagraphStyle" key="NSParagraphStyle">
 													<int key="NSAlignment">2</int>
 													<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
-													<array key="NSTabStops" id="454016818">
-														<reference ref="714958395"/>
-														<reference ref="954373919"/>
-														<reference ref="947378573"/>
-														<reference ref="1038090417"/>
-														<reference ref="1073204981"/>
-														<reference ref="270402538"/>
-														<reference ref="906266117"/>
-														<reference ref="107552218"/>
-														<reference ref="431759961"/>
-														<reference ref="744319448"/>
-														<reference ref="210602690"/>
-														<reference ref="837619109"/>
+													<array key="NSTabStops" id="757570298">
+														<reference ref="865809742"/>
+														<reference ref="1017261002"/>
+														<reference ref="271146332"/>
+														<reference ref="858775777"/>
+														<reference ref="225051374"/>
+														<reference ref="153817117"/>
+														<reference ref="414424902"/>
+														<reference ref="309261638"/>
+														<reference ref="424560030"/>
+														<reference ref="1016244732"/>
+														<reference ref="489048539"/>
+														<reference ref="193749103"/>
 													</array>
 												</object>
 												<integer value="1" key="NSUnderline"/>
@@ -776,12 +776,12 @@ bGEgYXR0IG1hzIhya2EgYXR0IGphZyBhzIhyIG5lcnZvzIhz4oCdLg</bytes>
 										<object class="NSAttributedString" key="IBUIAttributedText">
 											<string key="NSString">"NAT"</string>
 											<dictionary key="NSAttributes">
-												<reference key="NSFont" ref="57153646"/>
-												<reference key="NSOriginalFont" ref="57153646"/>
+												<reference key="NSFont" ref="875392018"/>
+												<reference key="NSOriginalFont" ref="875392018"/>
 												<object class="NSMutableParagraphStyle" key="NSParagraphStyle">
 													<int key="NSAlignment">2</int>
 													<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
-													<reference key="NSTabStops" ref="454016818"/>
+													<reference key="NSTabStops" ref="757570298"/>
 												</object>
 												<integer value="1" key="NSUnderline"/>
 												<reference key="NSUnderlineColor" ref="614729143"/>
@@ -932,18 +932,18 @@ b3RhzIhja3TigJ0pLg</bytes>
 													<int key="NSAlignment">2</int>
 													<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
 													<array key="NSTabStops">
-														<reference ref="714958395"/>
-														<reference ref="954373919"/>
-														<reference ref="947378573"/>
-														<reference ref="1038090417"/>
-														<reference ref="1073204981"/>
-														<reference ref="270402538"/>
-														<reference ref="906266117"/>
-														<reference ref="107552218"/>
-														<reference ref="431759961"/>
-														<reference ref="744319448"/>
-														<reference ref="210602690"/>
-														<reference ref="837619109"/>
+														<reference ref="865809742"/>
+														<reference ref="1017261002"/>
+														<reference ref="271146332"/>
+														<reference ref="858775777"/>
+														<reference ref="225051374"/>
+														<reference ref="153817117"/>
+														<reference ref="414424902"/>
+														<reference ref="309261638"/>
+														<reference ref="424560030"/>
+														<reference ref="1016244732"/>
+														<reference ref="489048539"/>
+														<reference ref="193749103"/>
 													</array>
 												</object>
 												<integer value="1" key="NSUnderline"/>

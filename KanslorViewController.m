@@ -53,13 +53,16 @@
 }
 
 -(void)OkButtonClicked {
-    NSLog(@"okbutton");
+   
+    NSLog(@"stringssss%@", firstString);
+    allstrings = [NSString stringWithString:firstString];
+    NSLog(@"%@", allstrings);
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     
     if ([selectedstrings length] == 0) {
         
@@ -657,10 +660,7 @@
 
 
 - (void)viewWillDisappear:(BOOL)animated {
-     NSLog(@"stringssss%@", firstString);
-    allstrings = [NSString stringWithString:firstString];
-    NSLog(@"%@", allstrings);
-  
+
 }
 
 - (void)didReceiveMemoryWarning
