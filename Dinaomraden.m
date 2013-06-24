@@ -505,7 +505,9 @@
         notif.alertAction = @"Show me";
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.applicationIconBadgeNumber = 1;
-        notif.userInfo = [NSDictionary dictionaryWithObject:@"Reminder" forKey:@"Type"];
+        
+        NSDictionary *infoDict = [NSDictionary dictionaryWithObject:@"Reminder" forKey:@"notifyKey"];
+        notif.userInfo = infoDict;
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
         [notif release];

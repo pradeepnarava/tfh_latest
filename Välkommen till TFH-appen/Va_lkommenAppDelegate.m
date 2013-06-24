@@ -64,8 +64,8 @@
 }
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
 	// Handle the notificaton when the app is running
-    NSLog(@"Recieved Notification %@",notif);
-    if ([[notif.userInfo valueForKey:@"Type"] isEqualToString:@"Reminder"])
+    NSLog(@"Recieved Notification %@",notif.userInfo);
+    if ([[notif.userInfo valueForKey:@"notifyKey"] isEqualToString:@"Reminder"])
     {
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         {
