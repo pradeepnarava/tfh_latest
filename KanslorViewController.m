@@ -93,10 +93,14 @@
     NSLog(@"%u",btn.tag);
     NSLog(@"firstString is : %@",firstString);
     if ([firstString length] == 0) {
-        
+        NSLog(@"fisrtString is empty");
     }
-    else {
+    else  {
+        if (btn.tag == 6) {
+            
+        }else {
         [firstString appendFormat:@", "];
+        }
     }
     switch (btn.tag) {
         case 1:
