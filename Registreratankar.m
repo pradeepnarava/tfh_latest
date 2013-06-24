@@ -322,6 +322,7 @@ int s=0;
     }
 }
 
+
 -(IBAction)nyttbutton:(id)sender{
     
     if([situation.text isEqualToString:@""] && [negative.text isEqualToString:@""] && [overiga.text isEqualToString:@""] && [beteenden.text isEqualToString:@""]){
@@ -335,8 +336,6 @@ int s=0;
             alert.tag=kAlertViewOne;
             [alert show];
             [alert release];
-            
-        
         }
         else {
             situation.text = @"";
@@ -348,7 +347,6 @@ int s=0;
             s=0;
             [exercise1_list addObject:@"Null"];
             isSaved = YES;
-
         }
     }
     
@@ -560,8 +558,6 @@ int s=0;
     alert.tag=kAlertViewTwo;
     [alert show];
     [alert release];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning

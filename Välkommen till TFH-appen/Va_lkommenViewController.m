@@ -50,15 +50,15 @@
 
 
 -(IBAction)oveningarbutton:(id)sender{
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-             if ([[UIScreen mainScreen] bounds].size.height == 548) {
-             ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController" bundle:nil];
-             }else{
-                 ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController_iPhone4" bundle:nil];
-             }
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            ovc = [[OveningarViewController alloc]initWithNibName:@"OveningarViewController_iPhone" bundle:nil];
         }else{
-             ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController_iPad" bundle:nil];
+            ovc = [[OveningarViewController alloc]initWithNibName:@"OveningarViewController_iPhone4" bundle:nil];
         }
+    }else{
+        ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController_iPad" bundle:nil];
+    }
     [self.navigationController pushViewController:ovc animated:YES];
 }
 

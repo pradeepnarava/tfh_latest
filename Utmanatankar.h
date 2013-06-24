@@ -10,7 +10,8 @@
 #import <sqlite3.h>
 
 
-@interface Utmanatankar : UIViewController<UITableViewDelegate, UITableViewDataSource>{
+@interface Utmanatankar : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>
+{
     UILabel *label2,*strategier,*negative,*din,*motavis,*tanke,*alltanke;
     UITextView *c1,*c2,*c4,*c5,*c6;
     UILabel *c3;

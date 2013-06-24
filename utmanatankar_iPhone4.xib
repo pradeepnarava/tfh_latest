@@ -830,7 +830,6 @@
 								<string key="NSFrame">{{17, 1321}, {280, 32}}</string>
 								<reference key="NSSuperview" ref="618253474"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -839,7 +838,7 @@
 								<int key="IBUIButtonType">1</int>
 								<string key="IBUINormalTitle">Tidigare Formulär</string>
 								<reference key="IBUIHighlightedTitleColor" ref="601328616"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
+								<object class="NSColor" key="IBUINormalTitleColor" id="433947352">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
@@ -904,10 +903,7 @@
 										<int key="IBUIButtonType">1</int>
 										<string key="IBUINormalTitle">Avbryt</string>
 										<reference key="IBUIHighlightedTitleColor" ref="601328616"/>
-										<object class="NSColor" key="IBUINormalTitleColor">
-											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-										</object>
+										<reference key="IBUINormalTitleColor" ref="433947352"/>
 										<reference key="IBUINormalTitleShadowColor" ref="668659974"/>
 										<reference key="IBUINormalBackgroundImage" ref="335989608"/>
 										<reference key="IBUIFontDescription" ref="151634488"/>
@@ -1400,10 +1396,7 @@
 										<int key="IBUIContentVerticalAlignment">0</int>
 										<string key="IBUINormalTitle">Klar</string>
 										<reference key="IBUIHighlightedTitleColor" ref="601328616"/>
-										<object class="NSColor" key="IBUINormalTitleColor">
-											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-										</object>
+										<reference key="IBUINormalTitleColor" ref="601328616"/>
 										<reference key="IBUINormalTitleShadowColor" ref="668659974"/>
 										<reference key="IBUINormalBackgroundImage" ref="304842470"/>
 										<reference key="IBUIFontDescription" ref="151634488"/>
@@ -2475,7 +2468,7 @@
 			<string key="background-ipone4.png">{640, 960}</string>
 			<string key="bbutton.png">{138, 60}</string>
 			<string key="blargebutton.png">{486, 82}</string>
-			<string key="bottom.png">{640, 271}</string>
+			<string key="bottom.png">{320, 89}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="läsdel.png">{114, 29}</string>
 			<string key="popup6.png">{640, 739}</string>

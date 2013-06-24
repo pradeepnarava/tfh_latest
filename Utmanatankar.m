@@ -31,7 +31,38 @@ NSArray *pArray;
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if([text isEqualToString:@"\n"])
+    {
         [textView resignFirstResponder];
+        
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             self.view.frame = CGRectMake(self.view.frame.origin.x
+                                                          , 0, self.view.frame.size.width, self.view.frame.size.height);
+                         }
+                         completion:^(BOOL finished){
+                             // whatever you need to do when animations are complete
+                             
+                         }];
+    }
+    else {
+        return YES;
+    }
+    
+    return 0;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.view.frame = CGRectMake(self.view.frame.origin.x
+                                                      , -170, self.view.frame.size.width, self.view.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         // whatever you need to do when animations are complete
+                         
+                     }];
+    
     return YES;
 }
 
