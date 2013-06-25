@@ -26,7 +26,7 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height == 568) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
             
             mainObj = [[[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone" bundle:nil] autorelease];
             
@@ -69,7 +69,7 @@
     {
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         {
-            if ([[UIScreen mainScreen] bounds].size.height == 568)
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
             {
                 Dinaomraden *dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
                 [nav pushViewController:dr animated:YES];

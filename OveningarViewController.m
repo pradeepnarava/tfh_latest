@@ -48,7 +48,7 @@
 
 -(IBAction)exercise1:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-               if ([[UIScreen mainScreen] bounds].size.height == 568) {
+               if ([[UIScreen mainScreen] bounds].size.height > 480) {
     rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar" bundle:nil];
                }else{
                     rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar_iphone4" bundle:nil];
@@ -63,7 +63,7 @@
 
 -(IBAction)exercise2:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                if ([[UIScreen mainScreen] bounds].size.height == 568) {
+                if ([[UIScreen mainScreen] bounds].size.height >  480) {
                     tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController" bundle:nil];
                 }else{
                     tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController_iPhone4" bundle:nil];
@@ -78,7 +78,7 @@
 
 -(IBAction)exercise3:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                   if ([[UIScreen mainScreen] bounds].size.height == 568) {
+                   if ([[UIScreen mainScreen] bounds].size.height > 480) {
     ut=[[Utmanatankar alloc]initWithNibName:@"Utmanatankar" bundle:nil];
                    }else{
                         ut=[[Utmanatankar alloc]initWithNibName:@"utmanatankar_iPhone4" bundle:nil];
@@ -93,7 +93,7 @@
 
 -(IBAction)exercise4:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                    if ([[UIScreen mainScreen] bounds].size.height == 568) {
+                    if ([[UIScreen mainScreen] bounds].size.height > 480) {
                  bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController" bundle:nil];
                    }else{
                       bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController_iPhone4" bundle:nil];
@@ -108,7 +108,7 @@
 
 -(IBAction)exercise5:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-              if ([[UIScreen mainScreen] bounds].size.height == 568) {
+              if ([[UIScreen mainScreen] bounds].size.height >  480) {
               ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering" bundle:nil];
               }else{
                     ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering_iPhone4" bundle:nil];
