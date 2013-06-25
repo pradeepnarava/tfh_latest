@@ -295,6 +295,8 @@ int x=0;
     [UIView commitAnimations];
     [self getlistofDates];
 }
+
+
 -(void)getlistofDates{
     const char *dbpath = [databasePath UTF8String];
     sqlite3_stmt    *statement;

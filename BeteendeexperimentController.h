@@ -31,32 +31,35 @@
     IBOutlet UIButton *raderabutton;
     IBOutlet UIDatePicker *picker;
 }
+
+
 -(IBAction)displayDate:(id)sender;
 
-@property(nonatomic,retain)IBOutlet UITableView *tableview;
+@property(nonatomic, retain)IBOutlet UITableView *tableview;
 
-@property(nonatomic,retain)NSMutableArray *listexercise4;
-@property(nonatomic,retain)NSMutableArray *list_exercise4;
+@property(nonatomic, retain)NSMutableArray *listexercise4;
+@property(nonatomic, retain)NSMutableArray *list_exercise4;
 @property(nonatomic, retain)IBOutlet UILabel *label1;
 @property(nonatomic, retain)IBOutlet UILabel *slabel1;
 @property(nonatomic, retain)IBOutlet UILabel *slabel2;
 
 @property(nonatomic, retain)IBOutlet UITextField *ex3c1;
 @property(nonatomic, retain)IBOutlet UITextView *ex3c2;
-@property(nonatomic, retain)IBOutlet  UITextView *ex3c3;
-@property(nonatomic, retain)IBOutlet  UITextView *ex3c4;
-@property(nonatomic, retain)IBOutlet  UITextView *ex3c5;
+@property(nonatomic, retain)IBOutlet UITextView *ex3c3;
+@property(nonatomic, retain)IBOutlet UITextView *ex3c4;
+@property(nonatomic, retain)IBOutlet UITextView *ex3c5;
 
--(IBAction)changeSlider:(id)sender ;
--(IBAction)changeSlider1:(id)sender ;
+-(void)clearalltexts;
 
--(IBAction)saveButton:(id)sender;
--(IBAction)newButton:(id)sender;
--(IBAction)nextButton:(id)sender;
--(IBAction)mainlabelalert:(id)sender;
+- (IBAction)changeSlider:(id)sender;
+- (IBAction)changeSlider1:(id)sender;
+
+- (IBAction)saveButton:(id)sender;
+- (IBAction)newButton:(id)sender;
+- (IBAction)nextButton:(id)sender;
+- (IBAction)mainlabelalert:(id)sender;
   
 - (IBAction)RaderaButton:(id)sender;
+- (IBAction)CloseButton:(id)sender;
 
-
--(IBAction)CloseButton:(id)sender;
 @end

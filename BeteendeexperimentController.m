@@ -9,12 +9,19 @@
 #import "BeteendeexperimentController.h"
 #import "MTPopupWindow.h"
 int c=0;
+#define kAlertViewOne 1
+#define kAlertViewTwo 2
+
 @interface BeteendeexperimentController ()
+
+@property (nonatomic) BOOL isSaved;
 
 @end
 
 @implementation BeteendeexperimentController
 @synthesize label1,ex3c1,ex3c2,ex3c3,ex3c4,ex3c5,slabel1,slabel2,tableview,listexercise4,list_exercise4;
+@synthesize isSaved;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -25,16 +32,46 @@ int c=0;
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if([text isEqualToString:@"\n"])
+    if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
+        
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
+                         }
+                         completion:^(BOOL finished){
+                             // whatever you need to do when animations are complete
+                             
+                         }];
+    }
+    else {
+        return YES;
+    }
+    return 0;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.view.frame = CGRectMake(self.view.frame.origin.x, -170, self.view.frame.size.width, self.view.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         // whatever you need to do when animations are complete
+                         
+                     }];
+    
     return YES;
 }
+
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     [ex3c1 resignFirstResponder];
     //picker.hidden=YES;
     return YES;
 }
+
 - (void)textFieldDidBeginEditing:(UITextField *)aTextField{
     [ex3c1 resignFirstResponder];
     
@@ -47,16 +84,16 @@ int c=0;
 - (void)viewDidLoad
 {
     self.navigationItem.title=@"Beteendeexperiment";
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                                   style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     
     [self.view addSubview:listofdates];
     picker.hidden=YES;
-    raderabutton.hidden=YES;
+    raderabutton.enabled=NO;
     listofdates.hidden=YES;
     scroll.scrollEnabled = YES;
-    [scroll setContentSize:CGSizeMake(320, 1300)];
+    [scroll setContentSize:CGSizeMake(320, 1285)];
      list_exercise4=[[NSMutableArray alloc]init];
     [list_exercise4 addObject:@"Null"];
 
@@ -104,6 +141,13 @@ int c=0;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    isSaved = YES;
+}
+
+
 -(void) dueDateChanged:(UIDatePicker *)sender {
     NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateStyle:NSDateFormatterLongStyle];
@@ -112,12 +156,18 @@ int c=0;
     //self.myLabel.text = [dateFormatter stringFromDate:[dueDatePickerView date]];
     NSLog(@"Picked the date %@", [dateFormatter stringFromDate:[sender date]]);
 }
+
+
 -(IBAction)mainlabelalert:(id)sender{
      [MTPopupWindow showWindowWithHTMLFile:@"Beteebdeexperiment.html" insideView:self.view];
 }
+
+
 -(IBAction)l1alert:(id)sender{
      [MTPopupWindow showWindowWithHTMLFile:@"tanke.html" insideView:self.view];
 }
+
+
 -(IBAction)changeSlider:(id)sender {
     
     NSString *sl1= [[NSString alloc] initWithFormat:@"%d%@", (int)slider.value,@"%"];
@@ -134,7 +184,9 @@ int c=0;
      NSLog(@"self.slabel2.text%@",self.slabel2.text);
     
 }
--(IBAction)saveButton:(id)sender{
+
+
+-(IBAction)saveButton:(id)sender {
     NSDate* date = [NSDate date];
     
     //Create the dateformatter object
@@ -150,103 +202,145 @@ int c=0;
     NSString* str = [formatter stringFromDate:date];
     
     NSLog(@"date%@",str);
-    raderabutton.hidden=YES;
+    raderabutton.enabled=NO;
     if ([ex3c1.text isEqualToString:@""] &&[ex3c2.text isEqualToString:@""]&&[ex3c3.text isEqualToString:@""]&&[ex3c4.text isEqualToString:@""]&&[ex3c5.text isEqualToString:@""]) {
         
     }else{
-   
-    //DATE TEXT,  DATUM TEXT ,EXPERIMENTET TEXT,FORUTSAGE TEXT, RESULTAT TEXT,LARDOMAR TEXT
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        if([[list_exercise4 objectAtIndex:0]  isEqualToString:@"Null"]){
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE4 (date,datum,experimentet,forutsage,forutprc,resultat,lardomar,lardprc) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")", str, ex3c1.text,ex3c2.text, ex3c3.text , slabel1.text, ex3c4.text,ex3c5.text,slabel2.text];
         
-        const char *insert_stmt = [insertSQL UTF8String];
+        //DATE TEXT,  DATUM TEXT ,EXPERIMENTET TEXT,FORUTSAGE TEXT, RESULTAT TEXT,LARDOMAR TEXT
+        const char *dbpath = [databasePath UTF8String];
         
-             
-        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
-        if (sqlite3_step(statement) == SQLITE_DONE)
+        if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
+            if([[list_exercise4 objectAtIndex:0]  isEqualToString:@"Null"]){
+                NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE4 (date,datum,experimentet,forutsage,forutprc,resultat,lardomar,lardprc) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")", str, ex3c1.text,ex3c2.text, ex3c3.text , slabel1.text, ex3c4.text,ex3c5.text,slabel2.text];
+                
+                const char *insert_stmt = [insertSQL UTF8String];
+                
+                
+                sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+                if (sqlite3_step(statement) == SQLITE_DONE)
+                {
+                    
+                    isSaved = NO;
+                
+                } else {
+                    NSLog(@"no");
+                }
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+            }else{
+                NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE4 SET  datum='%@',experimentet='%@', forutsage='%@',forutprc='%@', resultat='%@',lardomar='%@' ,lardprc='%@' WHERE date='%@'",ex3c1.text,ex3c2.text, ex3c3.text,slabel1.text, ex3c4.text, ex3c5.text,slabel2.text, [listexercise4 objectAtIndex:c] ];
+                const char *del_stmt = [query UTF8String];
+                
+                if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
+                    if(SQLITE_DONE != sqlite3_step(statement))
+                        NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+                    NSLog(@"sss");
+                    isSaved = NO;
+        
+                }
             
-            
-            ex3c1.text=@"";
-             ex3c2.text=@""; ex3c3.text=@""; ex3c4.text=@""; ex3c5.text=@"";
-            slabel1.text=@"";
-            slabel2.text=@"";
-            slider.value=0.0;
-            slider1.value=0.0;
-        } else {
-            NSLog(@"no");
-        }
-        sqlite3_finalize(statement);
-        sqlite3_close(exerciseDB);
-        }else{
-            NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE4 SET  datum='%@',experimentet='%@', forutsage='%@',forutprc='%@', resultat='%@',lardomar='%@' ,lardprc='%@' WHERE date='%@'",ex3c1.text,ex3c2.text, ex3c3.text,slabel1.text, ex3c4.text, ex3c5.text,slabel2.text, [listexercise4 objectAtIndex:c] ];
-            const char *del_stmt = [query UTF8String];
-            
-            if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
-                if(SQLITE_DONE != sqlite3_step(statement))
-                    NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
-                NSLog(@"sss");
-                ex3c1.text=@"";
-                ex3c2.text=@""; ex3c3.text=@""; ex3c4.text=@""; ex3c5.text=@"";
-                slabel1.text=@"";
-                slabel2.text=@"";
-                slider.value=0.0;
-                slider1.value=0.0;
-                raderabutton.hidden=YES;
-                [list_exercise4 removeAllObjects];
-                c=0;
-                [list_exercise4 addObject:@"Null"];
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
             }
-            
-            
-            sqlite3_finalize(statement);
-            sqlite3_close(exerciseDB);
-            
-
         }
+        UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert1 show];
+        [alert1 release];
     }
-    }
-
 }
--(IBAction)newButton:(id)sender{
+
+
+-(IBAction)newButton:(id)sender {
     if([ex3c1.text isEqualToString:@""] && [ex3c2.text isEqualToString:@""] && [ex3c3.text isEqualToString:@""] && [ex3c4.text isEqualToString:@""]&& [ex3c5.text isEqualToString:@""]){
         
     }else{
-  UIAlertView  *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
-                                        delegate:self
-                               cancelButtonTitle:@"Cancel"
-                               otherButtonTitles:@"without saving", nil];
         
-        [alert show];
-        [alert release];
-    }
-    
-
-}
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"ok");
-   
-        if (buttonIndex == 1) {
-            NSLog(@"new form");
-            ex3c1.text=@"";
-            ex3c2.text=@""; ex3c3.text=@""; ex3c4.text=@""; ex3c5.text=@"";
-            slabel1.text=@"";
-            slabel2.text=@"";
-            slider.value=0.0;
-            slider1.value=0.0;
-            raderabutton.hidden=YES;
+        if (isSaved == YES) {
+            UIAlertView  *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+                                            delegate:self
+                                   cancelButtonTitle:@"Forsätt"
+                                   otherButtonTitles:@"Avbryt", nil];
+            alert.tag=kAlertViewOne;
+            [alert show];
+            [alert release];
+        }
+        else {
+            [self clearalltexts];
+            raderabutton.enabled=NO;
             [list_exercise4 removeAllObjects];
             c=0;
             [list_exercise4 addObject:@"Null"];
+            isSaved = YES;
+        }
+    }
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"ok");
+    if(alertView.tag  == kAlertViewOne) {
+        if (buttonIndex == 0) {
+            NSLog(@"new form");
+            [self clearalltexts];
+            raderabutton.enabled=NO;
+            [list_exercise4 removeAllObjects];
+            c=0;
+            [list_exercise4 addObject:@"Null"];
+            isSaved = YES;
         }else{
+            isSaved = YES;
+        }
+    } else if(alertView.tag == kAlertViewTwo) {
+        if (buttonIndex == 0) {
+            
+            if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+                
+                NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE4  WHERE date='%@'", [listexercise4 objectAtIndex:c] ];
+                
+                const char *del_stmt = [sql UTF8String];
+                
+                sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+                if (sqlite3_step(statement) == SQLITE_ROW) {
+                    
+                    NSLog(@"sss");
+                }
+                
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+    
+            }
+            raderabutton.enabled=NO;
+            [list_exercise4 removeAllObjects];
+            c=0;
+            [list_exercise4 addObject:@"Null"];
+            [self clearalltexts];
+            listofdates.hidden = YES;
+            scroll.scrollEnabled = YES;
+            
+            UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Raderat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+            [alert1 show];
+            [alert1 release];
+        }
+        else {
             
         }
-   
+    }
 }
+
+
+
+-(void)clearalltexts {
+    ex3c1.text=@"";
+    ex3c2.text=@""; ex3c3.text=@""; ex3c4.text=@""; ex3c5.text=@"";
+    slabel1.text=@"";
+    slabel2.text=@"";
+    slider.value=0.0;
+    slider1.value=0.0;
+}
+
+
 -(IBAction)nextButton:(id)sender{
    
     
@@ -327,7 +421,7 @@ int c=0;
 	NSDictionary *dictionary = [self.listexercise4 objectAtIndex:indexPath.row];
     NSLog(@"%@",dictionary);
     c=indexPath.row;
-    raderabutton.hidden=NO;
+    raderabutton.enabled=YES;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     [list_exercise4 removeAllObjects];
     [list_exercise4 addObject:SelectedDate];
@@ -406,46 +500,23 @@ int c=0;
         
         
     }
-
+    scroll.scrollEnabled = YES;
+    listofdates.hidden = YES;
 }
 
 -(IBAction)CloseButton:(id)sender{
     scroll.scrollEnabled = YES;
      listofdates.hidden = YES;
 }
-   - (IBAction)RaderaButton:(id)sender{
-       if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
-           
-           NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE4  WHERE date='%@'", [listexercise4 objectAtIndex:c] ];
-           
-           const char *del_stmt = [sql UTF8String];
-           
-           sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
-           if (sqlite3_step(statement) == SQLITE_ROW) {
-               
-               NSLog(@"sss");
-           }
-           
-           sqlite3_finalize(statement);
-           sqlite3_close(exerciseDB);
-           
-           ex3c1.text=@"";
-           ex3c2.text=@"";
-           ex3c3.text=@"";
-           ex3c4.text=@"";
-           ex3c5.text=@"";
-           slabel1.text=@"";
-           slabel2.text=@"";
-           slider.value=0.0;
-           slider1.value=0.0;
-           raderabutton.hidden=YES;
-         [list_exercise4 removeAllObjects];
-           c=0;
-           [list_exercise4 addObject:@"Null"];
-       }
-       
 
+- (IBAction)RaderaButton:(id)sender {
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Är du säker på att du vill radera formuläret?" delegate:self cancelButtonTitle:@"Radera" otherButtonTitles:@"Avbryt", nil];
+    alert.tag=kAlertViewTwo;
+    [alert show];
+    [alert release];
 }
+
+
 -(IBAction)displayDate:(id)sender{
     NSDate * selected = [picker date];
 	NSString * date = [selected description];
