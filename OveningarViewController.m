@@ -109,7 +109,7 @@
 -(IBAction)exercise5:(id)sender{
          if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
               if ([[UIScreen mainScreen] bounds].size.height >  480) {
-              ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering" bundle:nil];
+                  ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering" bundle:nil];
               }else{
                     ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering_iPhone4" bundle:nil];
               }
