@@ -88,10 +88,16 @@
     
     [self.view addSubview:settingsView];
     settingsView.hidden=YES;
-      label.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapGesture =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelalert:)] autorelease];
-    [label addGestureRecognizer:tapGesture];
+    
+    omradeLabel1.userInteractionEnabled = YES;
+    omradeLabel2.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelalert:)] autorelease];
+    [omradeLabel1 addGestureRecognizer:tapGesture];
+//    [omradeLabel2 addGestureRecognizer:tapGesture];
+    
+    UITapGestureRecognizer *tapGesture1 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelalert:)] autorelease];
+    [omradeLabel2 addGestureRecognizer:tapGesture1];
     
 //    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"                                                                    style:UIBarButtonItemStylePlain target:self action:@selector(settingsbutton:)];
     
@@ -123,7 +129,7 @@
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
             char *errMsg;
-            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE7 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  OMRADE TEXT ,AKTIVITET TEXT,AVERAGE TEXT,FAMILJ TEXT,VANNER TEXT,KARLEK TEXT,ARBETE TEXT,EKONOMI TEXT,KOST TEXT,MOTION TEXT,VILA TEXT,FRITID TEXT,SOMN TEXT)";
+            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE7 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  OMRADE1 TEXT , AKTIVITET1 TEXT, OMRADE2 TEXT , AKTIVITET2 TEXT, AVERAGE TEXT,FAMILJ TEXT,VANNER TEXT,KARLEK TEXT,ARBETE TEXT,EKONOMI TEXT,KOST TEXT,MOTION TEXT,VILA TEXT,FRITID TEXT,SOMN TEXT)";
             
             if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
             {
@@ -143,11 +149,105 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 //    [self initPlot];
-//}
+    [self setRecentItems];
+}
+
+- (void)setRecentItems
+{    
+    NSString *docsDir;
+    NSArray *dirPaths;
+    
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    docsDir = [dirPaths objectAtIndex:0];
+    
+    // Build the path to the database file
+    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    // const char *dbpath = [databasePath UTF8String];
+    sqlite3_stmt    *statement;
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK)
+    {
+        NSString *rLabel1 = nil;
+        NSString *rLabel2 = nil;
+        NSString *rTextView1 = nil;
+        NSString *rTextView2 = nil;
+        
+        NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE7 ORDER BY id DESC"];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        while (sqlite3_step(statement) == SQLITE_ROW)
+        {
+            
+            char* c1 = (char*) sqlite3_column_text(statement,2);
+            NSString *tmp1;
+            if (c1 != NULL){
+                tmp1 = [NSString stringWithUTF8String:c1];
+                NSLog(@"value form db :%@",tmp1);
+                rLabel1 = [NSString stringWithString:tmp1];
+            }
+            char* c2 = (char*) sqlite3_column_text(statement,3);
+            NSString *tmp2;
+            if (c2 != NULL){
+                tmp2 = [NSString stringWithUTF8String:c2];
+                NSLog(@"value form db :%@",tmp2);
+                rTextView1 = [NSString stringWithString:tmp2];
+            }
+            
+            char* c14 = (char*) sqlite3_column_text(statement,4);
+            NSString *tmp14;
+            if (c14 != NULL){
+                tmp14 = [NSString stringWithUTF8String:c14];
+                NSLog(@"value form db :%@",tmp14);
+                rLabel2 = [NSString stringWithString:tmp14];
+            }
+            char* c15 = (char*) sqlite3_column_text(statement,5);
+            NSString *tmp15;
+            if (c15 != NULL){
+                tmp15 = [NSString stringWithUTF8String:c15];
+                NSLog(@"value form db :%@",tmp15);
+                rTextView2 = [NSString stringWithString:tmp15];
+            }
+            
+            break;
+        }
+        
+        if (rLabel1 && ![rLabel1 isEqualToString:@""])
+        {
+            _recentButton1.hidden = NO;
+            _recentLabel1.hidden = NO;
+            
+            _recentLabel1.text = rLabel1;
+        }
+        else
+        {
+            _recentButton1.hidden = YES;
+            _recentLabel1.hidden = YES;
+        }
+        
+        if (rLabel2 && ![rLabel2 isEqualToString:@""])
+        {
+            _recentButton2.hidden = NO;
+            _recentLabel2.hidden = NO;
+            
+            _recentLabel2.text = rLabel2;
+        }
+        else
+        {
+            _recentButton2.hidden = YES;
+            _recentLabel2.hidden = YES;
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+    }
+}
 
 - (void)updateCurrentItem
 {
@@ -179,7 +279,7 @@
                 if (c1 != NULL){
                     tmp1 = [NSString stringWithUTF8String:c1];
                     NSLog(@"value form db :%@",tmp1);
-                    label.text=tmp1;
+                    omradeLabel1.text=tmp1;
                 }
                 char* c2 = (char*) sqlite3_column_text(statement,3);
                 NSString *tmp2;
@@ -189,7 +289,22 @@
                     textview.text=tmp2;
                 }
                 
-                char* c3 = (char*) sqlite3_column_text(statement,4);
+                char* c14 = (char*) sqlite3_column_text(statement,4);
+                NSString *tmp14;
+                if (c14 != NULL){
+                    tmp14 = [NSString stringWithUTF8String:c14];
+                    NSLog(@"value form db :%@",tmp14);
+                    omradeLabel2.text=tmp14;
+                }
+                char* c15 = (char*) sqlite3_column_text(statement,5);
+                NSString *tmp15;
+                if (c15 != NULL){
+                    tmp15 = [NSString stringWithUTF8String:c15];
+                    NSLog(@"value form db :%@",tmp15);
+                    self.textview1.text=tmp15;
+                }
+                
+                char* c3 = (char*) sqlite3_column_text(statement,6);
                 NSString *tmp3;
                 if (c3!= NULL){
                     tmp3= [NSString stringWithUTF8String:c3];
@@ -197,7 +312,7 @@
                     [averageBt setTitle:tmp3 forState:UIControlStateNormal];
                 }
                 
-                char* c4 = (char*) sqlite3_column_text(statement,5);
+                char* c4 = (char*) sqlite3_column_text(statement,7);
                 NSString *tmp4;
                 if (c4!= NULL){
                     tmp4= [NSString stringWithUTF8String:c4];
@@ -205,7 +320,7 @@
                     tf1.text = tmp4;
                 }
                 
-                char* c5 = (char*) sqlite3_column_text(statement,6);
+                char* c5 = (char*) sqlite3_column_text(statement,8);
                 NSString *tmp5;
                 if (c5!= NULL){
                     tmp5= [NSString stringWithUTF8String:c5];
@@ -213,7 +328,7 @@
                     tf2.text = tmp5;
                 }
                 
-                char* c6 = (char*) sqlite3_column_text(statement,7);
+                char* c6 = (char*) sqlite3_column_text(statement,9);
                 NSString *tmp6;
                 if (c6!= NULL){
                     tmp6= [NSString stringWithUTF8String:c6];
@@ -221,7 +336,7 @@
                     tf3.text = tmp6;
                 }
                 
-                char* c7 = (char*) sqlite3_column_text(statement,8);
+                char* c7 = (char*) sqlite3_column_text(statement,10);
                 NSString *tmp7;
                 if (c7!= NULL){
                     tmp7= [NSString stringWithUTF8String:c7];
@@ -229,7 +344,7 @@
                     tf4.text = tmp7;
                 }
                 
-                char* c8 = (char*) sqlite3_column_text(statement,9);
+                char* c8 = (char*) sqlite3_column_text(statement,11);
                 NSString *tmp8;
                 if (c8!= NULL){
                     tmp8= [NSString stringWithUTF8String:c8];
@@ -237,7 +352,7 @@
                     tf5.text = tmp8;
                 }
                 
-                char* c9 = (char*) sqlite3_column_text(statement,10);
+                char* c9 = (char*) sqlite3_column_text(statement,12);
                 NSString *tmp9;
                 if (c9!= NULL){
                     tmp9= [NSString stringWithUTF8String:c9];
@@ -245,7 +360,7 @@
                     tf6.text = tmp9;
                 }
                 
-                char* c10 = (char*) sqlite3_column_text(statement,11);
+                char* c10 = (char*) sqlite3_column_text(statement,13);
                 NSString *tmp10;
                 if (c10!= NULL){
                     tmp10= [NSString stringWithUTF8String:c10];
@@ -253,7 +368,7 @@
                     tf7.text = tmp10;
                 }
                 
-                char* c11 = (char*) sqlite3_column_text(statement,12);
+                char* c11 = (char*) sqlite3_column_text(statement,14);
                 NSString *tmp11;
                 if (c11!= NULL){
                     tmp11= [NSString stringWithUTF8String:c11];
@@ -261,7 +376,7 @@
                    tf8.text = tmp11;
                 }
                 
-                char* c12 = (char*) sqlite3_column_text(statement,13);
+                char* c12 = (char*) sqlite3_column_text(statement,15);
                 NSString *tmp12;
                 if (c12!= NULL){
                     tmp12= [NSString stringWithUTF8String:c12];
@@ -269,7 +384,7 @@
                     tf9.text = tmp12;
                 }
                 
-                char* c13 = (char*) sqlite3_column_text(statement,14);
+                char* c13 = (char*) sqlite3_column_text(statement,16);
                 NSString *tmp13;
                 if (c13!= NULL){
                     tmp13= [NSString stringWithUTF8String:c13];
@@ -285,7 +400,8 @@
     }
     else
     {
-        label.text=@"";
+        omradeLabel1.text=@"";
+        omradeLabel2.text = @"";
         textview.text=@"";
         [averageBt setTitle:@"" forState:UIControlStateNormal];
         tf1.text=@"";
@@ -306,21 +422,31 @@
     [scrollView setContentOffset:CGPointZero animated:YES];
 }
 
--(IBAction)labelalert:(id)sender
+-(IBAction)labelalert:(UITapGestureRecognizer *)sender
 {
+    NSLog(@"CLASS = %i", [sender view].tag);
+    if ([sender view].tag == 0)
+    {
+        isOmrade1 = YES;
+    }
+    else
+    {
+        isOmrade1 = NO;
+    }
+    
     [self.view bringSubviewToFront:subView];
     subView.hidden = NO;
     settingsView.hidden = YES;
-    label1.text=text1.text;
-    label2.text=text2.text;
-    label3.text=text3.text;
-    label4.text=text4.text;
-    label5.text=text5.text;
-    label6.text=text6.text;
-    label7.text=text7.text;
-    label8.text=text8.text;
-    label9.text=text9.text;
-    label10.text=text10.text;    
+    label1.text=@"Familj";
+    label2.text=@"Vänner";
+    label3.text=@"kärlek";
+    label4.text=@"Arbete";
+    label5.text=@"Ekonomi";
+    label6.text=@"Kost";
+    label7.text=@"Motion";
+    label8.text=@"Vila";
+    label9.text=@"Fritid";
+    label10.text=@"Sömn";
  
     
     [UIView beginAnimations:@"curlInView" context:nil];
@@ -343,137 +469,392 @@
     if (btn.tag == 1)
     {
               NSLog(@"%@",scb);
-            if(cb1.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                if ([label.text isEqualToString:@""]) {
-
-                [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                label.text=label1.text;
+            if(cb1.currentImage==[UIImage imageNamed:@"uncheck.png"])
+            {
+                if (isOmrade1)
+                {
+                    [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                    omradeLabel1.text=label1.text;
                 }
-            }else{
-                [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                label.text=@"";
+                else
+                {
+                    [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                    omradeLabel2.text=label1.text;
+                }
+                
+                [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
             }
-
-        }
-          
-    else if(btn.tag == 2){
+            else
+            {
+                [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                if (isOmrade1)
+                {
+                    omradeLabel1.text = @"";
+                }
+                else
+                {
+                    omradeLabel2.text = @"";
+                }
+            }
+    }
+    else if(btn.tag == 2)
+    {
        
-        if(cb2.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-             if ([label.text isEqualToString:@""]) {
-            [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-             label.text=label2.text;
-             }
-        }else{
-            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-       label.text=@"";
+        if(cb2.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        {
+            if (isOmrade1)
+            {
+                [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label2.text;
+            }
+            else
+            {
+                [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label2.text;
+            }
+            
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
         }
-               }
+        else
+        {
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            if (isOmrade1)
+            {
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                omradeLabel2.text = @"";
+            }
+        }
    
-    
+    }
     else if(btn.tag == 3){
         
-        if(cb3.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-             if ([label.text isEqualToString:@""]) {
-            [cb3 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-            label.text=label3.text;
-             }
-        }else{
-            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        label.text=@"";
-        }
-     
-          }else if(btn.tag == 4){
-              if(cb4.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-                   if ([label.text isEqualToString:@""]) {
-                  [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                   label.text=label4.text;
-                   }
-              }else{
-                  [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                   label.text=@"";
-              }
-           
-          
-        
-    }else if(btn.tag == 5){
-        
-        if(cb5.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-             if ([label.text isEqualToString:@""]) {
-            [cb5 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-             label.text=label5.text;
-             }
-        }else{
+        if(cb3.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        {
+            if (isOmrade1)
+            {
+                [cb3 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label3.text;
+            }
+            else
+            {
+                [cb3 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label3.text;
+            }
+            
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
             [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-             label.text=@"";
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        }
+        else
+        {
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            if (isOmrade1)
+            {
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                omradeLabel2.text = @"";
+            }
+        }
+        
+    }
+    else if(btn.tag == 4)
+    {
+        if(cb4.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        {
+            if (isOmrade1)
+            {
+                [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label4.text;
+            }
+            else
+            {
+                [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label4.text;
+            }
+            
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        }
+        else
+        {
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            if (isOmrade1)
+            {
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                omradeLabel2.text = @"";
+            }
+        }
+        
+    }
+    else if(btn.tag == 5)
+    {
+        if(cb5.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        {
+            if (isOmrade1)
+            {
+                [cb5 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label5.text;
+            }
+            else
+            {
+                [cb5 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label5.text;
+            }
+            
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        }
+        else
+        {
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            if (isOmrade1)
+            {
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                omradeLabel2.text = @"";
+            }
         }
        
-    }else if(btn.tag == 6){
-        if(cb6.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-             if ([label.text isEqualToString:@""]) {
-            [cb6 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-             label.text=label6.text;
-             }
-        }else{
+    }else if(btn.tag == 6)
+    {
+        if(cb6.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        {
+            if (isOmrade1)
+            {
+                [cb6 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label6.text;
+            }
+            else
+            {
+                [cb6 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label6.text;
+            }
+            
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        }
+        else
+        {
             [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-             label.text=@"";
+            if (isOmrade1)
+            {
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                omradeLabel2.text = @"";
+            }
         }
       
      
-    }else if(btn.tag == 7){
-        if(cb7.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-             if ([label.text isEqualToString:@""]) {
-            [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-             label.text=label7.text;
+    }else if(btn.tag == 7)
+    {
+        if(cb7.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        {
+            if (isOmrade1)
+            {
+                [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label7.text;
             }
-        }else{
+            else
+            {
+                [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label7.text;
+            }
+            
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        }
+        else
+        {
             [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-             label.text=@"";
+            if (isOmrade1)
+            {
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                omradeLabel2.text = @"";
+            }
+        }
+    }else if(btn.tag == 8)
+    {
+    if(cb8.currentImage==[UIImage imageNamed:@"uncheck.png"])
+    {
+        if (isOmrade1)
+        {
+            [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            omradeLabel1.text=label8.text;
+        }
+        else
+        {
+            [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            omradeLabel2.text=label8.text;
+        }
         
-        }
-}else if(btn.tag == 8){
-    if(cb8.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-         if ([label.text isEqualToString:@""]) {
-        [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-         label.text=label8.text;
-        }
-    }else{
+        [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    }
+    else
+    {
         [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-         label.text=@"";
+        if (isOmrade1)
+        {
+            omradeLabel1.text = @"";
+        }
+        else
+        {
+            omradeLabel2.text = @"";
+        }
     }
     
 }else if(btn.tag == 9){
     
-    if(cb9.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-         if ([label.text isEqualToString:@""]) {
-        [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-         label.text=label9.text;
+    if(cb9.currentImage==[UIImage imageNamed:@"uncheck.png"])
+    {
+        if (isOmrade1)
+        {
+            [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            omradeLabel1.text=label9.text;
         }
-    }else{
+        else
+        {
+            [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            omradeLabel2.text=label9.text;
+        }
+        
+        [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    }
+    else
+    {
         [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-         label.text=@"";
+        if (isOmrade1)
+        {
+            omradeLabel1.text = @"";
+        }
+        else
+        {
+            omradeLabel2.text = @"";
+        }
     }
     
     
     }else if(btn.tag == 10){
       
-        if(cb10.currentImage==[UIImage imageNamed:@"uncheck.png"]){
-             if ([label.text isEqualToString:@""]) {
-            [cb10 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-             label.text=label10.text;
-           } 
-        }else{
+        if(cb10.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        {
+            if (isOmrade1)
+            {
+                [cb10 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label10.text;
+            }
+            else
+            {
+                [cb10 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label10.text;
+            }
+            
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        }
+        else
+        {
             [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-             label.text=@"";
+            if (isOmrade1)
+            {
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                omradeLabel2.text = @"";
+            }
         }
         
-    }else{
-        
     }
-    
-    
-    
-    
 }
+    
 -(IBAction)CloseBtn:(id)sender
 {
     if (!subView.isHidden)
@@ -621,11 +1002,11 @@
         
         if (rows == 0)
         {
-            insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE7(date,omrade,aktivitet,average,familj,vanner,karlek,arbete,ekonomi,kost,motion,vila,fritid,somn) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\")", str, label.text,textview.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text];
+            insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE7(date,omrade1,aktivitet1,omrade2,aktivitet2,average,familj,vanner,karlek,arbete,ekonomi,kost,motion,vila,fritid,somn) VALUES (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\")", str, omradeLabel1.text,textview.text, omradeLabel2.text,self.textview1.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text];
         }
         else
         {
-            insertSQL = [NSString stringWithFormat: @"UPDATE EXERCISE7 SET date='%@', omrade='%@',aktivitet='%@',average='%@',familj='%@',vanner='%@',karlek='%@',arbete='%@',ekonomi='%@',kost='%@',motion='%@',vila='%@',fritid='%@',somn='%@' WHERE date='%@'", str, label.text,textview.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text, str];
+            insertSQL = [NSString stringWithFormat: @"UPDATE EXERCISE7 SET date='%@', omrade1='%@',aktivitet1='%@',omrade2='%@',aktivitet2='%@',average='%@',familj='%@',vanner='%@',karlek='%@',arbete='%@',ekonomi='%@',kost='%@',motion='%@',vila='%@',fritid='%@',somn='%@' WHERE date='%@'", str, omradeLabel1.text,textview.text, omradeLabel2.text,self.textview1.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text, str];
         }
         
         const char *insert_stmt = [insertSQL UTF8String];
@@ -693,7 +1074,8 @@
         if (buttonIndex == 1 && alertView.tag == 1)
         {
             NSLog(@"new form");
-            label.text=@"";
+            omradeLabel1.text=@"";
+            omradeLabel2.text = @"";
             textview.text=@"";
             tf1.text=@"";
               tf2.text=@"";
@@ -1179,6 +1561,32 @@ else if(btn.tag==10){
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (IBAction)recentButtonsClicked:(id)sender
+{
+    if ([(UIButton *)sender tag] == 0)
+    {
+        if ([omradeLabel1.text isEqualToString:@""])
+        {
+            omradeLabel1.text = _recentLabel1.text;
+        }
+        else if ([omradeLabel2.text isEqualToString:@""])
+        {
+            omradeLabel2.text = _recentLabel1.text;
+        }
+    }
+    else
+    {
+        if ([omradeLabel1.text isEqualToString:@""])
+        {
+            omradeLabel1.text = _recentLabel2.text;
+        }
+        else if ([omradeLabel2.text isEqualToString:@""])
+        {
+            omradeLabel2.text = _recentLabel2.text;
+        }
+    }
+}
+
 //-(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index {
 //	// 1 - Define label text style
 //	static CPTMutableTextStyle *labelText = nil;
@@ -1249,6 +1657,11 @@ else if(btn.tag==10){
     [_reminderOffButton release];
     [_weekSegmentControl release];
     [_reminderDatePicker release];
+    [_textview1 release];
+    [_recentButton1 release];
+    [_recentButton2 release];
+    [_recentLabel1 release];
+    [_recentLabel2 release];
     [super dealloc];
 }
 

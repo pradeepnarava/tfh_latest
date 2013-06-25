@@ -145,7 +145,7 @@
 //                    
 //                    if (([rowDate compare:[formatter dateFromString:startDate]] == NSOrderedDescending || [rowDate compare:[formatter dateFromString:startDate]] == NSOrderedSame) && ([rowDate compare:[formatter dateFromString:endDate]] == NSOrderedAscending || [rowDate compare:[formatter dateFromString:endDate]] == NSOrderedSame))
 //                    {
-                        char* c3 = (char*) sqlite3_column_text(statement,4);
+                        char* c3 = (char*) sqlite3_column_text(statement,6);
                         NSString *tmp3;
                         if (c3!= NULL)
                         {
@@ -508,7 +508,7 @@
         sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
         while (sqlite3_step(statement) == SQLITE_ROW)
         {
-            char* c4 = (char*) sqlite3_column_text(statement,5);
+            char* c4 = (char*) sqlite3_column_text(statement,7);
             NSString *tmp4;
             if (c4!= NULL){
                 tmp4= [NSString stringWithUTF8String:c4];
@@ -517,7 +517,7 @@
 //                tf1.text = tmp4;
             }
             
-            char* c5 = (char*) sqlite3_column_text(statement,6);
+            char* c5 = (char*) sqlite3_column_text(statement,8);
             NSString *tmp5;
             if (c5!= NULL){
                 tmp5= [NSString stringWithUTF8String:c5];
@@ -526,7 +526,7 @@
 //                tf2.text = tmp5;
             }
             
-            char* c6 = (char*) sqlite3_column_text(statement,7);
+            char* c6 = (char*) sqlite3_column_text(statement,9);
             NSString *tmp6;
             if (c6!= NULL){
                 tmp6= [NSString stringWithUTF8String:c6];
@@ -535,7 +535,7 @@
 //                tf3.text = tmp6;
             }
             
-            char* c7 = (char*) sqlite3_column_text(statement,8);
+            char* c7 = (char*) sqlite3_column_text(statement,10);
             NSString *tmp7;
             if (c7!= NULL){
                 tmp7= [NSString stringWithUTF8String:c7];
@@ -544,7 +544,7 @@
 //                tf4.text = tmp7;
             }
             
-            char* c8 = (char*) sqlite3_column_text(statement,9);
+            char* c8 = (char*) sqlite3_column_text(statement,11);
             NSString *tmp8;
             if (c8!= NULL){
                 tmp8= [NSString stringWithUTF8String:c8];
@@ -553,7 +553,7 @@
 //                tf5.text = tmp8;
             }
             
-            char* c9 = (char*) sqlite3_column_text(statement,10);
+            char* c9 = (char*) sqlite3_column_text(statement,12);
             NSString *tmp9;
             if (c9!= NULL){
                 tmp9= [NSString stringWithUTF8String:c9];
@@ -562,7 +562,7 @@
 //                tf6.text = tmp9;
             }
             
-            char* c10 = (char*) sqlite3_column_text(statement,11);
+            char* c10 = (char*) sqlite3_column_text(statement,13);
             NSString *tmp10;
             if (c10!= NULL){
                 tmp10= [NSString stringWithUTF8String:c10];
@@ -571,7 +571,7 @@
 //                tf7.text = tmp10;
             }
             
-            char* c11 = (char*) sqlite3_column_text(statement,12);
+            char* c11 = (char*) sqlite3_column_text(statement,14);
             NSString *tmp11;
             if (c11!= NULL){
                 tmp11= [NSString stringWithUTF8String:c11];
@@ -580,7 +580,7 @@
 //                tf8.text = tmp11;
             }
             
-            char* c12 = (char*) sqlite3_column_text(statement,13);
+            char* c12 = (char*) sqlite3_column_text(statement,15);
             NSString *tmp12;
             if (c12!= NULL){
                 tmp12= [NSString stringWithUTF8String:c12];
@@ -589,7 +589,7 @@
 //                tf9.text = tmp12;
             }
             
-            char* c13 = (char*) sqlite3_column_text(statement,14);
+            char* c13 = (char*) sqlite3_column_text(statement,16);
             NSString *tmp13;
             if (c13!= NULL){
                 tmp13= [NSString stringWithUTF8String:c13];

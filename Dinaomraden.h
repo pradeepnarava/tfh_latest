@@ -21,7 +21,8 @@
      IBOutlet UILabel*label1,*label2,*label3,*label4,*label5,*label6,*label7,*label8,*label9,*label10;
     IBOutlet UITextField *tf1,*tf2,*tf3,*tf4,*tf5,*tf6,*tf7,*tf8,*tf9,*tf10;
     IBOutlet UIButton *averageBt;
-    IBOutlet UILabel *label;
+    IBOutlet UILabel *omradeLabel1;
+    IBOutlet UILabel *omradeLabel2;
     NSString *scb;
     IBOutlet UIButton *cb1,*cb2,*cb3,*cb4,*cb5,*cb6,*cb7,*cb8,*cb9,*cb10;
     sqlite3 *exerciseDB;
@@ -39,6 +40,7 @@
     GKSession *currentSession;
     GKPeerPickerController *peerPicker;
     
+    BOOL isOmrade1;
 //     UIImage* image;
 }
 
@@ -47,10 +49,15 @@
 @property (retain, nonatomic) IBOutlet UIButton *reminderOnButton;
 @property (retain, nonatomic) IBOutlet UIButton *reminderOffButton;
 
+@property (retain, nonatomic) IBOutlet UIButton *recentButton1;
+@property (retain, nonatomic) IBOutlet UIButton *recentButton2;
+@property (retain, nonatomic) IBOutlet UILabel *recentLabel1;
+@property (retain, nonatomic) IBOutlet UILabel *recentLabel2;
 
 - (IBAction)skickaButtonClicked:(id)sender;
 
 @property (nonatomic,retain)IBOutlet UITextView *textview;
+@property (retain, nonatomic) IBOutlet UITextView *textview1;
 -(IBAction)averagevalue;
 -(IBAction)selectedcheckbox:(id)sender;
 -(IBAction)CloseBtn:(id)sender;
@@ -62,4 +69,5 @@
 - (IBAction)deleteEntry:(id)sender;
 - (IBAction)generateGraph:(id)sender;
 - (IBAction)reminderOnOff:(UIButton *)sender;
+- (IBAction)recentButtonsClicked:(id)sender;
 @end
