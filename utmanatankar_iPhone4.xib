@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">11G63</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -63,7 +63,7 @@
 							<object class="IBUIButton" id="123164654">
 								<reference key="NSNextResponder" ref="618253474"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{103, 15}, {114, 29}}</string>
+								<string key="NSFrame">{{103, 11}, {114, 29}}</string>
 								<reference key="NSSuperview" ref="618253474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="444734424"/>
@@ -101,7 +101,7 @@
 							<object class="IBUILabel" id="444734424">
 								<reference key="NSNextResponder" ref="618253474"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 52}, {280, 21}}</string>
+								<string key="NSFrame">{{13, 48}, {287, 21}}</string>
 								<reference key="NSSuperview" ref="618253474"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="514256207"/>
@@ -116,9 +116,9 @@
 									<string key="NSString">Kopiera tanka frånditt registreringdformulär (Registrera tankar)</string>
 									<array class="NSMutableArray" key="NSAttributes">
 										<dictionary>
-											<object class="NSFont" key="NSFont" id="836222143">
-												<string key="NSName">BigCaslon-Medium</string>
-												<double key="NSSize">10</double>
+											<object class="NSFont" key="NSFont" id="962972226">
+												<string key="NSName">HelveticaNeue-Bold</string>
+												<double key="NSSize">9.5</double>
 												<int key="NSfFlags">16</int>
 											</object>
 											<object class="NSParagraphStyle" key="NSParagraphStyle">
@@ -132,7 +132,7 @@
 											<integer value="1" key="NSUnderline"/>
 										</dictionary>
 										<dictionary>
-											<reference key="NSFont" ref="836222143"/>
+											<reference key="NSFont" ref="962972226"/>
 											<object class="NSParagraphStyle" key="NSParagraphStyle">
 												<double key="NSParagraphSpacing">10</double>
 												<double key="NSTailIndent">432</double>
@@ -300,10 +300,13 @@
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">2. Dina bevis –Precisera det resonemang som bger bakom din tanke. Vilka bevis har du för att tanken stammer?</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<reference ref="75999090"/>
-										<dictionary id="531226026">
-											<reference key="NSFont" ref="219854433"/>
-											<object class="NSParagraphStyle" key="NSParagraphStyle">
+										<dictionary>
+											<object class="NSFont" key="NSFont" id="171049608">
+												<string key="NSName">HelveticaNeue-Bold</string>
+												<double key="NSSize">13</double>
+												<int key="NSfFlags">16</int>
+											</object>
+											<object class="NSParagraphStyle" key="NSParagraphStyle" id="915430089">
 												<double key="NSParagraphSpacing">10</double>
 												<double key="NSTailIndent">432</double>
 												<double key="NSDefaultTabInterval">36</double>
@@ -311,6 +314,10 @@
 												<reference key="NSTabStops" ref="0"/>
 												<int key="NSWritingDirection">1</int>
 											</object>
+										</dictionary>
+										<dictionary>
+											<reference key="NSFont" ref="171049608"/>
+											<reference key="NSParagraphStyle" ref="915430089"/>
 											<integer value="1" key="NSUnderline"/>
 										</dictionary>
 									</array>
@@ -483,22 +490,15 @@
 									<string key="NSString">4. Motbevis – Vilka argument talor emot din tanke?Om du känner för det så använd gärna</string>
 									<array class="NSMutableArray" key="NSAttributes">
 										<dictionary>
-											<object class="NSFont" key="NSFont" id="171049608">
+											<object class="NSFont" key="NSFont" id="834801081">
 												<string key="NSName">HelveticaNeue-Bold</string>
-												<double key="NSSize">13</double>
+												<double key="NSSize">12</double>
 												<int key="NSfFlags">16</int>
 											</object>
-											<object class="NSParagraphStyle" key="NSParagraphStyle" id="915430089">
-												<double key="NSParagraphSpacing">10</double>
-												<double key="NSTailIndent">432</double>
-												<double key="NSDefaultTabInterval">36</double>
-												<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
-												<reference key="NSTabStops" ref="0"/>
-												<int key="NSWritingDirection">1</int>
-											</object>
+											<reference key="NSParagraphStyle" ref="915430089"/>
 										</dictionary>
 										<dictionary>
-											<reference key="NSFont" ref="171049608"/>
+											<reference key="NSFont" ref="834801081"/>
 											<reference key="NSParagraphStyle" ref="915430089"/>
 											<integer value="1" key="NSUnderline"/>
 										</dictionary>
@@ -532,7 +532,7 @@
 									<string key="NSString">strategier  som har presenteratsi textavsnittet. Om det Värsta hander, vad får det för konsekvenserom 10 år?</string>
 									<array class="NSMutableArray" key="NSAttributes">
 										<dictionary>
-											<reference key="NSFont" ref="219854433"/>
+											<reference key="NSFont" ref="834801081"/>
 											<object class="NSParagraphStyle" key="NSParagraphStyle" id="553358571">
 												<double key="NSParagraphSpacing">10</double>
 												<double key="NSTailIndent">432</double>
@@ -548,7 +548,7 @@
 											</object>
 										</dictionary>
 										<dictionary>
-											<reference key="NSFont" ref="219854433"/>
+											<reference key="NSFont" ref="834801081"/>
 											<reference key="NSParagraphStyle" ref="553358571"/>
 											<reference key="NSUnderlineColor" ref="433947352"/>
 										</dictionary>
@@ -626,7 +626,18 @@
 									<string key="NSString">5. Innehåller din negativa automatiska tanke någon tankefälla</string>
 									<array class="NSMutableArray" key="NSAttributes">
 										<reference ref="75999090"/>
-										<reference ref="531226026"/>
+										<dictionary id="268089676">
+											<reference key="NSFont" ref="219854433"/>
+											<object class="NSParagraphStyle" key="NSParagraphStyle">
+												<double key="NSParagraphSpacing">10</double>
+												<double key="NSTailIndent">432</double>
+												<double key="NSDefaultTabInterval">36</double>
+												<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
+												<reference key="NSTabStops" ref="0"/>
+												<int key="NSWritingDirection">1</int>
+											</object>
+											<integer value="1" key="NSUnderline"/>
+										</dictionary>
 									</array>
 									<object class="NSMutableData" key="NSAttributeInfo">
 										<bytes key="NS.bytes">MwAKAQ</bytes>
@@ -701,7 +712,7 @@
 									<string key="NSString">6. Alternativ tanke Finns det någon balanserad/mer realistisk tanke som summer bevisen för och emot? Vad drar du för slutsotser av dina svar?</string>
 									<array class="NSMutableArray" key="NSAttributes">
 										<reference ref="75999090"/>
-										<reference ref="531226026"/>
+										<reference ref="268089676"/>
 									</array>
 									<object class="NSMutableData" key="NSAttributeInfo">
 										<bytes key="NS.bytes">AwAKAYABAA</bytes>
@@ -828,10 +839,9 @@
 							<object class="IBUIButton" id="499215781">
 								<reference key="NSNextResponder" ref="618253474"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{17, 1321}, {280, 32}}</string>
+								<string key="NSFrame">{{18, 1321}, {280, 36}}</string>
 								<reference key="NSSuperview" ref="618253474"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

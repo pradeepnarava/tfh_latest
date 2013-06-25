@@ -8,17 +8,19 @@
 
 #import "Utmanatankar.h"
 #import "MTPopupWindow.h"
+
 int y=0;
+
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 NSArray *pArray;
 @interface Utmanatankar ()
-
+@property (nonatomic) BOOL isSaved;
 @end
 
 @implementation Utmanatankar
 @synthesize  label1,strategier,negative,din,motavis,tanke,alltanke,c1,c2,c3,c4,c5,c6;
-@synthesize listexercise3,tableView,list_exercise3;
+@synthesize listexercise3,tableView,list_exercise3,isSaved;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,12 +72,20 @@ NSArray *pArray;
 {
     self.navigationItem.title=@"Utmana tankar";
     scroll.scrollEnabled = YES;
-    [scroll setContentSize:CGSizeMake(320, 1380)];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
+            [scroll setContentSize:CGSizeMake(320, 1380)];
+        }
+        else {
+            [scroll setContentSize:CGSizeMake(320, 1475)];
+        }
+    }
+    
     scroll1.scrollEnabled = YES;
     [scroll1 setContentSize:CGSizeMake(320, 1600)];
     list_exercise3=[[NSMutableArray alloc]init];
     [list_exercise3 addObject:@"Null"];
-    raderaButton.hidden=YES;
+    raderaButton.enabled=NO;
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
                                                                    style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
@@ -157,9 +167,16 @@ NSArray *pArray;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    isSaved = YES;
+}
+
 -(IBAction)labelalert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"Utmanatankar.html" insideView:self.view];
 }
+
 
 -(IBAction)label1alert:(id)sender{
     //[MTPopupWindow showWindowWithHTMLFile:@"om.html" insideView:self.view];
@@ -170,22 +187,29 @@ NSArray *pArray;
     [UIView setAnimationDuration:1.0];
     [UIView commitAnimations];
 }
+
 -(IBAction)strategieralert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"tankefallar.html" insideView:self.view];
 }
+
 -(IBAction)negativealert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"tanke.html" insideView:self.view];
 }
 
+
 -(IBAction)dinalert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"Minabevis.html" insideView:self.view];
 }
+
+
 -(IBAction)motavisalert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"Motbevis.html" insideView:self.view];
 }
 -(IBAction)tankealert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"tanefallor.html" insideView:self.view];
 }
+
+
 -(IBAction)alltankealert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"Alternativtanke.html" insideView:self.view];
 }
@@ -212,11 +236,11 @@ NSArray *pArray;
     //Get the string date
     
     NSString* str1 = [formatter stringFromDate:date];
-    
+    raderaButton.enabled=NO;
     NSLog(@"date%@",str1);
     if ([c1.text isEqualToString:@""]&&[c2.text isEqualToString:@""]&&[c4.text isEqualToString:@""]
         &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
-            }else{
+    }else{
         
         
         const char *dbpath = [databasePath UTF8String];
@@ -231,14 +255,9 @@ NSArray *pArray;
                 sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
                 if (sqlite3_step(statement) == SQLITE_DONE)
                 {
-                    c1.text=@"";
-                    c2.text=@"";
-                    c3.text=@"0%";
-                    c4.text=@"";
-                    c5.text=@"";
-                    c6.text=@"";
-                    NSLog(@"yes");
-                    slider.value=0.0;
+                    isSaved = NO;
+                    //isSaved
+                    
                 } else {
                     NSLog(@"no");
                 }
@@ -255,52 +274,39 @@ NSArray *pArray;
                     if(SQLITE_DONE != sqlite3_step(statement))
                         NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
                     NSLog(@"sss");
-                    c1.text=@"";
-                    c2.text=@"";
-                    c3.text=@"0%";
-                    c4.text=@"";
-                    c5.text=@"";
-                    c6.text=@"";
-                    slider.value=0.0;
-                    raderaButton.hidden=YES;
-                    [listexercise3 removeAllObjects];
-                    y=0;
-                    [listexercise3 addObject:@"Null"];
+                    
+                    isSaved = NO;
+                    //isSaved
+                    
                 }
-                
-                
-                
+
                 sqlite3_finalize(statement);
                 sqlite3_close(exerciseDB);
                 
-                
-                
+
             }
         }
+        UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert1 show];
+        [alert1 release];
     }
-    
 }
+
 -(IBAction)newbutton:(id)sender{
     if ([c1.text isEqualToString:@""]&&[c2.text isEqualToString:@""]&&[c4.text isEqualToString:@""]
         &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
         
     }else{
-        alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Please Enter the text above fields"
-                                        delegate:self
-                               cancelButtonTitle:@"Cancel"
-                               otherButtonTitles:@"without saving", nil];
-        alert.tag=kAlertViewOne;
-        [alert show];
-        [alert release];
-    }
-}
-
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if( alert.tag==kAlertViewOne){
-        if (buttonIndex == 1) {
-            NSLog(@"new form");
-            
+        if (isSaved == YES) {
+            alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+                                            delegate:self
+                                   cancelButtonTitle:@"Forsätt"
+                                   otherButtonTitles:@"Avbryt", nil];
+            alert.tag=kAlertViewOne;
+            [alert show];
+            [alert release];
+        }
+        else {
             c1.text=@"";
             c2.text=@"";
             c3.text=@"0%";
@@ -308,17 +314,81 @@ NSArray *pArray;
             c5.text=@"";
             c6.text=@"";
             slider.value=0.0;
-            raderaButton.hidden=YES;
+            raderaButton.enabled=NO;
+            [listexercise3 removeAllObjects];
+            y=0;
+            [listexercise3 addObject:@"Null"];
+            isSaved = YES;
+        }
+    }
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"ok");
+    if(alert.tag  == kAlertViewOne) {
+        if (buttonIndex == 0) {
+            NSLog(@"new form");
+            c1.text=@"";
+            c2.text=@"";
+            c3.text=@"0%";
+            c4.text=@"";
+            c5.text=@"";
+            c6.text=@"";
+            slider.value=0.0;
+            raderaButton.enabled=NO;
             [list_exercise3 removeAllObjects];
             y=0;
             [list_exercise3 addObject:@"Null"];
+            isSaved = YES;
         }else{
+            isSaved = YES;
+        }
+    } else if(alert.tag == kAlertViewTwo) {
+        if (buttonIndex == 0) {
+            
+            
+            if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+                
+                NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE3 WHERE date='%@'", [listexercise3 objectAtIndex:y] ];
+                
+                const char *del_stmt = [sql UTF8String];
+                
+                sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+                if (sqlite3_step(statement) == SQLITE_ROW) {
+                    
+                    NSLog(@"sss");
+                }
+                
+                sqlite3_finalize(statement);
+                sqlite3_close(exerciseDB);
+                
+                
+            }
+            c1.text=@"";
+            c2.text=@"";
+            c3.text=@"0%";
+            c4.text=@"";
+            c5.text=@"";
+            c6.text=@"";
+            raderaButton.enabled=NO;
+            [list_exercise3 removeAllObjects];
+            y=0;
+            [list_exercise3 addObject:@"Null"];
+            [self getlistofDates3];
+            
+            
+            UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Raderat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+            [alert1 show];
+            [alert1 release];
+        }
+        else {
             
         }
-    }else{
-        
     }
 }
+
+
 
 -(IBAction)nextbutton:(id)sender{
     // udv=[[UtmanaDateView alloc]initWithNibName:@"UtmanaDateView" bundle:nil];
@@ -401,7 +471,7 @@ NSArray *pArray;
     y=indexPath.row;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
-    raderaButton.hidden=NO;
+    raderaButton.enabled=YES;
     [list_exercise3 removeAllObjects];
     [list_exercise3 addObject:SelectedDate];
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
@@ -467,42 +537,21 @@ NSArray *pArray;
         
         sqlite3_finalize(statement);
         sqlite3_close(exerciseDB);
-        
-        
     }
-    
+    listofdates.hidden = YES;
+    scroll.scrollEnabled = YES;
+    Label1Popup.hidden=YES;
 }
+
+
 -(IBAction)aMethod:(id)sender{
-    
-    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
-        
-        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE3 WHERE date='%@'", [listexercise3 objectAtIndex:y] ];
-        
-        const char *del_stmt = [sql UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
-        if (sqlite3_step(statement) == SQLITE_ROW) {
-            
-            NSLog(@"sss");
-        }
-        
-        sqlite3_finalize(statement);
-        sqlite3_close(exerciseDB);
-        
-        
-    }
-    c1.text=@"";
-    c2.text=@"";
-    c3.text=@"0%";
-    c4.text=@"";
-    c5.text=@"";
-    c6.text=@"";
-    raderaButton.hidden=YES;
-    [list_exercise3 removeAllObjects];
-    y=0;
-    [list_exercise3 addObject:@"Null"];
-    [self getlistofDates3];
+    alert=[[UIAlertView alloc] initWithTitle:nil message:@"Är du säker på att du vill radera formuläret?" delegate:self cancelButtonTitle:@"Radera" otherButtonTitles:@"Avbryt", nil];
+    alert.tag=kAlertViewTwo;
+    [alert show];
+    [alert release];
+   
 }
+
 -(IBAction)Closelistofdates:(id)sender{
     listofdates.hidden = YES;
     scroll.scrollEnabled = YES;

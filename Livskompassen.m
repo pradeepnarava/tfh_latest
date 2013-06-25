@@ -36,7 +36,7 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
-        if ([[UIScreen mainScreen] bounds].size.height == 568)
+        if ([[UIScreen mainScreen] bounds].size.height > 480)
         {
             dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
             dk = [[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];

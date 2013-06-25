@@ -184,7 +184,7 @@ int s=0;
 -(void)tabellenalert:(id)sender{
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height == 548) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
              kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController" bundle:nil];
         }else{
             kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController_iPhone4" bundle:nil];
