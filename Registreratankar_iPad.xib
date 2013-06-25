@@ -66,7 +66,7 @@
 							<object class="IBUIButton" id="634432113">
 								<reference key="NSNextResponder" ref="1063581994"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{270, 23}, {228, 58}}</string>
+								<string key="NSFrame">{{270, 30}, {228, 58}}</string>
 								<reference key="NSSuperview" ref="1063581994"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1028652794"/>
@@ -396,12 +396,36 @@
 								<reference key="IBUIFontDescription" ref="557689955"/>
 								<reference key="IBUIFont" ref="244434339"/>
 							</object>
+							<object class="IBUIButton" id="918534133">
+								<reference key="NSNextResponder" ref="1063581994"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{595, 1093}, {120, 38}}</string>
+								<reference key="NSSuperview" ref="1063581994"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="552250181"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<string key="IBUINormalTitle">Radera</string>
+								<reference key="IBUIHighlightedTitleColor" ref="661479587"/>
+								<reference key="IBUINormalTitleColor" ref="661479587"/>
+								<reference key="IBUINormalTitleShadowColor" ref="1009599824"/>
+								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">raderaipad.png</string>
+								</object>
+								<reference key="IBUIFontDescription" ref="557689955"/>
+								<reference key="IBUIFont" ref="244434339"/>
+							</object>
 							<object class="IBUIButton" id="552250181">
 								<reference key="NSNextResponder" ref="1063581994"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{119, 1150}, {533, 39}}</string>
+								<string key="NSFrame">{{189, 1130}, {381, 50}}</string>
 								<reference key="NSSuperview" ref="1063581994"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -1019,7 +1043,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 									<object class="IBUITableView" id="88342916">
 										<reference key="NSNextResponder" ref="946467125"/>
 										<int key="NSvFlags">274</int>
-										<string key="NSFrame">{{51, 20}, {667, 222}}</string>
+										<string key="NSFrame">{{51, 20}, {667, 239}}</string>
 										<reference key="NSSuperview" ref="946467125"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="369902352"/>
@@ -1038,7 +1062,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 									<object class="IBUIButton" id="369902352">
 										<reference key="NSNextResponder" ref="946467125"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{189, 284}, {391, 37}}</string>
+										<string key="NSFrame">{{189, 290}, {381, 50}}</string>
 										<reference key="NSSuperview" ref="946467125"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="670791001"/>
@@ -1080,29 +1104,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 									</object>
 								</object>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-							</object>
-							<object class="IBUIButton" id="918534133">
-								<reference key="NSNextResponder" ref="1063581994"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{595, 1093}, {120, 38}}</string>
-								<reference key="NSSuperview" ref="1063581994"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="552250181"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIOpaque">NO</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<int key="IBUIContentHorizontalAlignment">0</int>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUINormalTitle">Radera</string>
-								<reference key="IBUIHighlightedTitleColor" ref="661479587"/>
-								<reference key="IBUINormalTitleColor" ref="661479587"/>
-								<reference key="IBUINormalTitleShadowColor" ref="1009599824"/>
-								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">raderaipad.png</string>
-								</object>
-								<reference key="IBUIFontDescription" ref="557689955"/>
-								<reference key="IBUIFont" ref="244434339"/>
 							</object>
 						</array>
 						<string key="NSFrameSize">{768, 1200}</string>
@@ -1411,7 +1412,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<reference key="object" ref="1063581994"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="21367225"/>
-							<reference ref="918534133"/>
 							<reference ref="856970769"/>
 							<reference ref="689018675"/>
 							<reference ref="980438516"/>
@@ -1433,6 +1433,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<reference ref="678856847"/>
 							<reference ref="225988455"/>
 							<reference ref="104085751"/>
+							<reference ref="918534133"/>
 							<reference ref="946467125"/>
 						</array>
 						<reference key="parent" ref="191373211"/>

@@ -155,7 +155,7 @@ int s=0;
     [scroll setContentSize:CGSizeMake(320, 1100)];
     
     scroll2.scrollEnabled = YES;
-    [scroll2 setContentSize:CGSizeMake(768, 1200)];
+    [scroll2 setContentSize:CGSizeMake(768, 1395)];
     
     //scroll1.scrollEnabled = YES;
     // [scroll1 setContentSize:CGSizeMake(320, 700)];
