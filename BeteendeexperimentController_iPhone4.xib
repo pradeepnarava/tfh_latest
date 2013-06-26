@@ -499,7 +499,14 @@
 									<dictionary key="NSAttributes">
 										<reference key="NSFont" ref="509106573"/>
 										<reference key="NSOriginalFont" ref="509106573"/>
-										<reference key="NSParagraphStyle" ref="916020647"/>
+										<object class="NSParagraphStyle" key="NSParagraphStyle">
+											<double key="NSParagraphSpacing">10</double>
+											<double key="NSTailIndent">432</double>
+											<double key="NSDefaultTabInterval">36</double>
+											<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
+											<reference key="NSTabStops" ref="0"/>
+											<int key="NSWritingDirection">1</int>
+										</object>
 									</dictionary>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
@@ -756,6 +763,7 @@
 								<string key="NSFrame">{{23, 1233}, {274, 34}}</string>
 								<reference key="NSSuperview" ref="38758801"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1557,7 +1565,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<string key="changeSlider1:">id</string>
 						<string key="changeSlider:">id</string>
 						<string key="displayDate:">id</string>
-						<string key="l1alert:">id</string>
 						<string key="mainlabelalert:">id</string>
 						<string key="newButton:">id</string>
 						<string key="nextButton:">id</string>
@@ -1582,10 +1589,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						</object>
 						<object class="IBActionInfo" key="displayDate:">
 							<string key="name">displayDate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="l1alert:">
-							<string key="name">l1alert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="mainlabelalert:">

@@ -66,7 +66,7 @@
 								<string key="NSFrame">{{103, 12}, {114, 29}}</string>
 								<reference key="NSSuperview" ref="724491549"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="949317705"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -97,64 +97,6 @@
 									<double key="NSSize">15</double>
 									<int key="NSfFlags">16</int>
 								</object>
-							</object>
-							<object class="IBUILabel" id="949317705">
-								<reference key="NSNextResponder" ref="724491549"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{17, 43}, {287, 27}}</string>
-								<reference key="NSSuperview" ref="724491549"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="208627700"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<int key="IBUIContentMode">7</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<bool key="IBUIUsesAttributedText">YES</bool>
-								<object class="NSAttributedString" key="IBUIAttributedText">
-									<string key="NSString">Kopiera tanka frånditt registreringdformulär (Registrera tankar)</string>
-									<array class="NSMutableArray" key="NSAttributes">
-										<dictionary>
-											<object class="NSColor" key="NSColor" id="231426990">
-												<int key="NSColorSpace">1</int>
-												<bytes key="NSRGB">MCAwIDAAA</bytes>
-											</object>
-											<object class="NSFont" key="NSFont" id="7911987">
-												<string key="NSName">HelveticaNeue-Bold</string>
-												<double key="NSSize">9.5</double>
-												<int key="NSfFlags">16</int>
-											</object>
-											<object class="NSParagraphStyle" key="NSParagraphStyle">
-												<double key="NSParagraphSpacing">10</double>
-												<double key="NSTailIndent">432</double>
-												<double key="NSDefaultTabInterval">36</double>
-												<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
-												<array key="NSTabStops" id="0"/>
-												<int key="NSWritingDirection">1</int>
-											</object>
-											<integer value="1" key="NSUnderline"/>
-										</dictionary>
-										<dictionary>
-											<reference key="NSColor" ref="231426990"/>
-											<reference key="NSFont" ref="7911987"/>
-											<object class="NSParagraphStyle" key="NSParagraphStyle">
-												<double key="NSParagraphSpacing">10</double>
-												<double key="NSTailIndent">432</double>
-												<double key="NSDefaultTabInterval">36</double>
-												<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
-												<reference key="NSTabStops" ref="0"/>
-												<int key="NSWritingDirection">1</int>
-											</object>
-										</dictionary>
-									</array>
-									<object class="NSMutableData" key="NSAttributeInfo">
-										<bytes key="NS.bytes">BwA5AQ</bytes>
-									</object>
-								</object>
-								<nil key="IBUIHighlightedColor"/>
-								<int key="IBUIBaselineAdjustment">0</int>
-								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 							<object class="IBUIImageView" id="208627700">
 								<reference key="NSNextResponder" ref="724491549"/>
@@ -192,7 +134,7 @@
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">1. kopiera tankar från ditt gistreringsformulär</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<dictionary id="274064518">
+										<dictionary id="509514289">
 											<object class="NSFont" key="NSFont" id="794447772">
 												<string key="NSName">HelveticaNeue-Bold</string>
 												<double key="NSSize">14</double>
@@ -208,7 +150,7 @@
 												<double key="NSTailIndent">432</double>
 												<double key="NSDefaultTabInterval">36</double>
 												<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
-												<reference key="NSTabStops" ref="0"/>
+												<array key="NSTabStops" id="0"/>
 												<int key="NSWritingDirection">1</int>
 											</object>
 										</dictionary>
@@ -308,7 +250,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<bool key="IBUIUsesAttributedText">YES</bool>
 								<object class="NSAttributedString" key="IBUIAttributedText">
-									<string key="NSString">2. Dina bevis –Precisera det resonemang som bger bakom din tanke. Vilka bevis har du för att tanken stammer?</string>
+									<string key="NSString">2. "Dina bevis" –Precisera det resonemang som bger bakom din tanke. Vilka bevis har du för att tanken stammer?</string>
 									<array class="NSMutableArray" key="NSAttributes">
 										<dictionary>
 											<object class="NSFont" key="NSFont" id="13272584">
@@ -320,7 +262,16 @@
 											<reference key="NSParagraphStyle" ref="981956009"/>
 										</dictionary>
 										<dictionary>
-											<reference key="NSFont" ref="13272584"/>
+											<object class="NSFont" key="NSFont" id="908341389">
+												<string key="NSName">HelveticaNeue-BoldItalic</string>
+												<double key="NSSize">13</double>
+												<int key="NSfFlags">16</int>
+											</object>
+											<reference key="NSOriginalFont" ref="13272584"/>
+											<reference key="NSParagraphStyle" ref="981956009"/>
+										</dictionary>
+										<dictionary>
+											<reference key="NSFont" ref="908341389"/>
 											<reference key="NSOriginalFont" ref="13272584"/>
 											<object class="NSParagraphStyle" key="NSParagraphStyle" id="303100055">
 												<double key="NSParagraphSpacing">10</double>
@@ -334,7 +285,7 @@
 										</dictionary>
 									</array>
 									<object class="NSMutableData" key="NSAttributeInfo">
-										<bytes key="NS.bytes">AwAKAV8AA</bytes>
+										<bytes key="NS.bytes">AwABAQsCXwA</bytes>
 									</object>
 								</object>
 								<nil key="IBUIHighlightedColor"/>
@@ -404,8 +355,8 @@
 								<bool key="IBUIUsesAttributedText">YES</bool>
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">3. Hur troligtär det att det värsta hander? Välj sannolikhet.</string>
-									<dictionary key="NSAttributes" id="222958354">
-										<reference key="NSFont" ref="794447772"/>
+									<dictionary key="NSAttributes">
+										<reference key="NSFont" ref="13272584"/>
 										<object class="NSParagraphStyle" key="NSParagraphStyle">
 											<double key="NSParagraphSpacing">10</double>
 											<double key="NSTailIndent">432</double>
@@ -1120,7 +1071,17 @@
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">5. Innehåller din negativa automatiska tanke någon tankefälla</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<reference ref="222958354"/>
+										<dictionary>
+											<reference key="NSFont" ref="794447772"/>
+											<object class="NSParagraphStyle" key="NSParagraphStyle">
+												<double key="NSParagraphSpacing">10</double>
+												<double key="NSTailIndent">432</double>
+												<double key="NSDefaultTabInterval">36</double>
+												<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
+												<reference key="NSTabStops" ref="0"/>
+												<int key="NSWritingDirection">1</int>
+											</object>
+										</dictionary>
 										<dictionary>
 											<reference key="NSFont" ref="794447772"/>
 											<object class="NSParagraphStyle" key="NSParagraphStyle">
@@ -1206,7 +1167,7 @@
 								<object class="NSAttributedString" key="IBUIAttributedText">
 									<string key="NSString">6. Alternativ tanke Finns det någon balanserad/mer realistisk tanke som summer bevisen för och emot? Vad drar du för slutsotser av dina svar?</string>
 									<array class="NSMutableArray" key="NSAttributes">
-										<reference ref="274064518"/>
+										<reference ref="509514289"/>
 										<dictionary>
 											<reference key="NSFont" ref="794447772"/>
 											<reference key="NSOriginalFont" ref="740219895"/>
@@ -1339,7 +1300,6 @@
 								<string key="NSFrame">{{17, 1321}, {280, 32}}</string>
 								<reference key="NSSuperview" ref="724491549"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1513,14 +1473,6 @@
 						<reference key="destination" ref="1004766498"/>
 					</object>
 					<int key="connectionID">301</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">label1</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="949317705"/>
-					</object>
-					<int key="connectionID">296</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -1925,7 +1877,6 @@
 							<reference ref="323468293"/>
 							<reference ref="78922220"/>
 							<reference ref="208627700"/>
-							<reference ref="949317705"/>
 							<reference ref="853220719"/>
 							<reference ref="779183518"/>
 						</array>
@@ -2119,11 +2070,6 @@
 						<reference key="parent" ref="724491549"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">16</int>
-						<reference key="object" ref="949317705"/>
-						<reference key="parent" ref="724491549"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">390</int>
 						<reference key="object" ref="853220719"/>
 						<reference key="parent" ref="724491549"/>
@@ -2269,7 +2215,6 @@
 				<string key="120.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="139.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="140.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="162.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="163.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="183.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -2343,18 +2288,11 @@
 						<string key="Closelistofdates:">id</string>
 						<string key="SelectChekBoxs:">id</string>
 						<string key="aMethod:">id</string>
-						<string key="alltankealert:">id</string>
 						<string key="changeSlider:">id</string>
-						<string key="dinalert:">id</string>
-						<string key="label1alert:">id</string>
 						<string key="labelalert:">id</string>
-						<string key="motavisalert:">id</string>
-						<string key="negativealert:">id</string>
 						<string key="newbutton:">id</string>
 						<string key="nextbutton:">id</string>
 						<string key="sparabutton:">id</string>
-						<string key="strategieralert:">id</string>
-						<string key="tankealert:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="Closelistofdates:">
@@ -2369,32 +2307,12 @@
 							<string key="name">aMethod:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="alltankealert:">
-							<string key="name">alltankealert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="changeSlider:">
 							<string key="name">changeSlider:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="dinalert:">
-							<string key="name">dinalert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="label1alert:">
-							<string key="name">label1alert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="labelalert:">
 							<string key="name">labelalert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="motavisalert:">
-							<string key="name">motavisalert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="negativealert:">
-							<string key="name">negativealert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="newbutton:">
@@ -2407,14 +2325,6 @@
 						</object>
 						<object class="IBActionInfo" key="sparabutton:">
 							<string key="name">sparabutton:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="strategieralert:">
-							<string key="name">strategieralert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="tankealert:">
-							<string key="name">tankealert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -2537,7 +2447,7 @@
 			<string key="background-ipone5.png">{640, 1136}</string>
 			<string key="bbutton.png">{138, 60}</string>
 			<string key="blargebutton.png">{486, 82}</string>
-			<string key="bottom.png">{320, 89}</string>
+			<string key="bottom.png">{640, 271}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="läsdel.png">{114, 29}</string>
 			<string key="popup6.png">{640, 739}</string>

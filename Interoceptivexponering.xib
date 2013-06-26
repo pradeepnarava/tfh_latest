@@ -480,7 +480,6 @@
 								<string key="NSFrame">{{20, 650}, {283, 40}}</string>
 								<reference key="NSSuperview" ref="986170250"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -2481,11 +2480,14 @@
 						<string key="closetimer:">id</string>
 						<string key="newcolm:">id</string>
 						<string key="nextbutton:">id</string>
+						<string key="ovninglabelalert:">id</string>
 						<string key="raderaclick:">id</string>
 						<string key="selectedcheckbox:">id</string>
 						<string key="starttimer:">id</string>
 						<string key="stoptimer:">id</string>
+						<string key="titlelabel1alert:">id</string>
 						<string key="titlelabelalert:">id</string>
+						<string key="updateside:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="CloseButton:">
@@ -2516,6 +2518,10 @@
 							<string key="name">nextbutton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="ovninglabelalert:">
+							<string key="name">ovninglabelalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="raderaclick:">
 							<string key="name">raderaclick:</string>
 							<string key="candidateClassName">id</string>
@@ -2532,8 +2538,16 @@
 							<string key="name">stoptimer:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="titlelabel1alert:">
+							<string key="name">titlelabel1alert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="titlelabelalert:">
 							<string key="name">titlelabelalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="updateside:">
+							<string key="name">updateside:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -2686,7 +2700,7 @@
 			<string key="background-ipone5.png">{640, 1136}</string>
 			<string key="bbutton.png">{138, 60}</string>
 			<string key="blargebutton.png">{486, 82}</string>
-			<string key="bottom.png">{320, 89}</string>
+			<string key="bottom.png">{640, 271}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="interoceptivmtbg.png">{610, 182}</string>
 			<string key="interoceptivtext.png">{610, 102}</string>
