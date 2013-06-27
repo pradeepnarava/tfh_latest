@@ -51,7 +51,7 @@
                if ([[UIScreen mainScreen] bounds].size.height > 480) {
     rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar" bundle:nil];
                }else{
-                    rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar_iphone4" bundle:nil];
+                    rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar_iPhone4" bundle:nil];
                }
          }
          else{

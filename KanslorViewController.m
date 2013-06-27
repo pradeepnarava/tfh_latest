@@ -69,7 +69,7 @@
     }
     else{
         NSLog(@"%@",selectedstrings);
-        [firstString appendFormat:selectedstrings];
+        [firstString appendString:selectedstrings];
 
         NSArray* myArray = [selectedstrings componentsSeparatedByString:@", "];
         
@@ -98,13 +98,13 @@
     if ([firstString length] == 0) {
         NSLog(@"fisrtString is empty");
     }
-    else  {
+   /* else  {
         if (btn.tag == 6) {
             
         }else {
         [firstString appendFormat:@", "];
         }
-    }
+    }*/
     switch (btn.tag) {
         case 1:
             
@@ -160,14 +160,14 @@
             
             break;
         case 6:
-            btn.enabled = NO;
-           /* if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
+            //btn.enabled = NO;
+            if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [firstString appendString:@"Exalterad"];
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 //beteenden.text=@"";
-            }*/
+            }
             
             break;
         case 7:
