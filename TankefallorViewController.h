@@ -50,8 +50,7 @@
     NSMutableArray *list_exercise2;
     UITableViewCell *cell ;
     NSString *SelectedDate;
-    
-    
+
     IBOutlet UIButton *raderaButton;
 }
 

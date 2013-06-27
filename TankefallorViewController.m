@@ -8,9 +8,12 @@
 
 #import "TankefallorViewController.h"
 #import "MTPopupWindow.h"
-int x=0;
+
+
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
+
+
 @interface TankefallorViewController ()
 
 @property (nonatomic) BOOL isSaved;
@@ -18,7 +21,13 @@ int x=0;
 @end
 
 @implementation TankefallorViewController
-@synthesize StagC2,StagC1,SelektC2,SelektC1,overC1,overC2,TankeC2,TankeC1,PerC1,PerC2,PliktC1,PliktC2,DiskC1,DiskC2,ForC1,ForC2,KanslC1,KanslC2,KataC1,KataC2,AllC1,AllC2,EtikeC1,EtikeC2,tableView,listexercise2,list_exercise2,isSaved;
+
+@synthesize StagC2,StagC1,SelektC2,SelektC1,overC1,overC2,TankeC2,TankeC1,PerC1,PerC2,PliktC1,PliktC2,DiskC1,DiskC2,ForC1,ForC2,KanslC1,KanslC2,KataC1,KataC2,AllC1,AllC2,EtikeC1,EtikeC2,tableView,listexercise2,list_exercise2;
+
+@synthesize isSaved;
+
+int x=0;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,7 +63,7 @@ int x=0;
 {
     [UIView animateWithDuration:0.5
                      animations:^{
-                         self.view.frame = CGRectMake(self.view.frame.origin.x, -170, self.view.frame.size.width, self.view.frame.size.height);
+                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30) animated:YES];
                      }
                      completion:^(BOOL finished){
                          // whatever you need to do when animations are complete
@@ -75,7 +84,7 @@ int x=0;
     listofdates.hidden=YES;
     scroll.scrollEnabled = YES;
     raderaButton.enabled=NO;
-    [scroll setContentSize:CGSizeMake(320, 4435)];
+    [scroll setContentSize:CGSizeMake(320, 4029)];
     scroll1.scrollEnabled = YES;
     
     [scroll1 setContentSize:CGSizeMake(320, 4418)];
