@@ -8,12 +8,14 @@
 
 #import "Interoceptivexponering.h"
 #import "MTPopupWindow.h"
-int d=0;
-int s;
+
+
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 
 @interface Interoceptivexponering ()
+
+
 @property (nonatomic, assign) int seconds;
 @property (nonatomic, assign) int minutes;
 @property (nonatomic, assign) int Reseconds;
@@ -33,6 +35,10 @@ int s;
 @synthesize minutes;
 @synthesize isSaved;
 
+int d=0;
+int s;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,16 +47,16 @@ int s;
     }
     return self;
 }
-- (void)viewWillAppear:(BOOL)animated {
-   [self.tblView reloadData];
-    isSaved = YES;
-}
+
 -(void)dealloc{
     [super dealloc];
     [timerview release];
     [pupview release];
+    [ovning release];
    
 }
+
+#pragma mark -- TextViewDelegate Methods
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -69,26 +75,30 @@ int s;
     }
     return YES;
 }
+
+
+#pragma mark -- ViewLifeCycle Methods 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title=@"Interoceptiv exponering";
+    self.navigationItem.title=@"Interoceptiv Exponering";
+    
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 700)];
     scroll1.scrollEnabled = YES;
     [scroll1 setContentSize:CGSizeMake(320, 1010)];
-    scb=@"";
-    inStr=[[NSString alloc]init];
-    inStr=@"0";
-    instr1=[[NSString alloc]init];
-    str1=[[NSMutableString alloc]init];
-    str2=[[NSMutableString alloc]init];
-    str3=[[NSMutableString alloc]init];
-    str11=[[NSMutableString alloc]init];
-    str21=[[NSMutableString alloc]init];
-    str31=[[NSMutableString alloc]init];
     
-    datesView.hidden=YES;
+    
+    inStr =[[NSString alloc]init];
+    instr1=[[NSString alloc]init];
+    str1  =[[NSMutableString alloc]init];
+    str2  =[[NSMutableString alloc]init];
+    str3  =[[NSMutableString alloc]init];
+    str11 =[[NSMutableString alloc]init];
+    str21 =[[NSMutableString alloc]init];
+    str31 =[[NSMutableString alloc]init];
+    
     listofovningars=[[NSMutableArray alloc]init];
     listof_sliderValue=[[NSMutableArray alloc]init];
     listofovningars1=[[NSMutableArray alloc]init];
@@ -96,68 +106,64 @@ int s;
     listexercise5=[[NSMutableArray alloc]init];
     list_exercise5=[[NSMutableArray alloc]init];
     list_egen=[[NSMutableArray alloc]init];
-      list_egen1=[[NSMutableArray alloc]init];
-   [list_exercise5 addObject:@"Null"];
+    list_egen1=[[NSMutableArray alloc]init];
+    [list_exercise5 addObject:@"Null"];
+    
+    
+    scb=@"";
+    inStr=@"0";
+    datesView.hidden=YES;
     raderaButton.enabled=NO;
     pupview.hidden=YES;
     timerview.hidden=YES;
     egen.hidden=YES;
-    prc.hidden=YES;
-    slider.hidden=YES;
+    prc.hidden=NO;
+    slider.hidden=NO;
     ovning.userInteractionEnabled = YES;
+    
     UITapGestureRecognizer *tapGesture3 =
     [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ovninglabelalert:)] autorelease];
     [ovning addGestureRecognizer:tapGesture3];
-   
-    [ovning release];
     
-//    titlelabel.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tapGesture =
-//    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titlelabelalert:)] autorelease];
-//    [titlelabel addGestureRecognizer:tapGesture];
     
     titlelabel1.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture2 =
     [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titlelabel1alert:)] autorelease];
     [titlelabel1 addGestureRecognizer:tapGesture2];
     
-    //egen.hidden=YES;
-  //  slider.hidden=YES;
-   // prc.hidden=YES;
-    
-    NSString *docsDir;
-    NSArray *dirPaths;
     
     // Get the documents directory
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
-    docsDir = [dirPaths objectAtIndex:0];
+    NSString *docsDir = [dirPaths objectAtIndex:0];
     
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
-   
-		const char *dbpath = [databasePath UTF8String];
+    
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE5 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,OVNINGAR TEXT,EGEN TEXT, ANGEST TEXT)";
         
-        if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
-            char *errMsg;
-            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE5 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,OVNINGAR TEXT,EGEN TEXT, ANGEST TEXT)";
-            
-            if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
-            {
-                NSLog(@"Failed to create database");
-            }
-            
-            sqlite3_close(exerciseDB);
-            
-        } else {
-            //status.text = @"Failed to open/create database";
+            NSLog(@"Failed to create database");
         }
-    
-    
-   }
+        
+        sqlite3_close(exerciseDB);
+        
+    } else {
+        //status.text = @"Failed to open/create database";
+    }
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tblView reloadData];
+    isSaved = YES;
+}
 
 -(IBAction)titlelabelalert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"Interoceptivexponering.html" insideView:self.view];
@@ -171,11 +177,11 @@ int s;
 - (void) timerFireMethod:(NSTimer *) theTimer
 {
     
-        if(self.seconds ==0 && self.minutes ==0){
-            
-        }else{
-            self.seconds--;
-            if (self.seconds == 0 && self.minutes != 0) {
+    if(self.seconds ==0 && self.minutes ==0){
+        
+    }else{
+        self.seconds--;
+        if (self.seconds == 0 && self.minutes != 0) {
             self.minutes--;
             self.seconds = 60;
         }
@@ -192,17 +198,17 @@ int s;
 
 
 -(IBAction)ovninglabelalert:(id)sender{
-//   
+    //
     [self.view bringSubviewToFront:pupview];
     pupview.hidden = NO;
-   // scroll.scrollEnabled=NO;
+    // scroll.scrollEnabled=NO;
     if ([inStr isEqualToString:@"0"]) {
-         [listof_sliderValue insertObject:inStr atIndex:0];
+        [listof_sliderValue insertObject:inStr atIndex:0];
     }else{
         if(listofovningars1.count>0){
             [listof_sliderValue1 insertObject:inStr atIndex:s];
         }else{
-       [listof_sliderValue insertObject:inStr atIndex:listofovningars.count-1];
+            [listof_sliderValue insertObject:inStr atIndex:listofovningars.count-1];
         }
     }
     [UIView beginAnimations:@"curlInView" context:nil];
@@ -226,15 +232,15 @@ int s;
     [cb9 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
     [cb10 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
     pupview.hidden=YES;
- //   scroll.scrollEnabled=YES;
+    //   scroll.scrollEnabled=YES;
     if(listofovningars1.count>0){
-            [listofovningars1 insertObject:ovning.text atIndex:s];
+        [listofovningars1 insertObject:ovning.text atIndex:s];
     }else{
-       [listofovningars addObject:ovning.text];
+        [listofovningars addObject:ovning.text];
     }
-     // NSLog(@"%@",listof_sliderValue);
-    // 
-      [self.tblView reloadData];
+    // NSLog(@"%@",listof_sliderValue);
+    //
+    [self.tblView reloadData];
     egen.hidden=NO;
     slider.hidden=NO;
     prc.hidden=NO;
@@ -247,7 +253,7 @@ int s;
     [UIView setAnimationDuration:3.0];
     
     [UIView commitAnimations];
-   
+    
     
     self.secondsDisplay.text = [NSString
                                 stringWithFormat:@"%d", self.seconds];
@@ -257,6 +263,7 @@ int s;
     self.Reseconds=self.seconds;
     self.Reminutes=self.minutes;
 }
+
 - (IBAction)closetimer:(id)sender{
     timerview.hidden=YES;
     scroll.scrollEnabled=YES;
@@ -488,48 +495,56 @@ int s;
     }else{
         
     }
-
-
-
-
 }
 
 -(IBAction)updateside:(id)sender
-{if([egen.text isEqualToString:@""]){
-    
-}else{
-  
-    slider = (UISlider*)sender;
-    NSLog(@"Slider Value: %.1f", [slider value]);
-    NSNumber *myNumber = [NSNumber numberWithDouble: [slider value]];
-    NSInteger myInt = [myNumber intValue];
-    inStr = [NSString stringWithFormat:@"%d", myInt];
-  //  inStr = [inStr stringByAppendingString:@" %"];
-    prc.text=inStr;
-    NSLog(@"inStr Value: %@", inStr);
-     [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
-     [cellButton setTitle:inStr forState:UIControlStateNormal];
-    // [self.tblView reloadData];
+{
+    if([egen.text isEqualToString:@""]){
+        NSLog(@"engen Text is : %@",egen.text);
+    }else{
+        
+        slider = (UISlider*)sender;
+        NSLog(@"Slider Value: %.1f", [slider value]);
+        NSNumber *myNumber = [NSNumber numberWithDouble: [slider value]];
+        NSInteger myInt = [myNumber intValue];
+        inStr = [NSString stringWithFormat:@"%d", myInt];
+        //  inStr = [inStr stringByAppendingString:@" %"];
+        prc.text=inStr;
+        NSLog(@"inStr Value: %@", inStr);
+        [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
+        [cellButton setTitle:inStr forState:UIControlStateNormal];
+        // [self.tblView reloadData];
+    }
 }
-}
+
+#pragma mark -- TableView DataSource Methods
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+
     return 40;
     
 }
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     NSInteger rows;
 	
-	if(tableView == tabeldates) rows = [listexercise5 count];
-	if(tableView == tblView) rows = [listofovningars count];
-	
+	if(tableView == tabeldates) {
+        rows = [listexercise5 count];
+    }
+	if(tableView == tblView) {
+        rows = [listofovningars count];
+    }
+    
 	return rows;
 }
 
 // This will tell your UITableView what data to put in which cells in your table.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     static NSString *CellIdentifer = @"CellIdentifier";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer];
     
     // Using a cell identifier will allow your app to reuse cells as they come and go from the screen.
@@ -538,23 +553,24 @@ int s;
     }
     NSUInteger row = [indexPath row];
     
-    
     if(tableView==tblView){
         if(listofovningars.count>0){
-    NSString *str=[NSString stringWithFormat:@"%@",[listofovningars objectAtIndex:row]];
-   cell.textLabel.font=[UIFont fontWithName:@"HelveticaNeue" size:12.0];
-    cell.textLabel.text = str;
-    cellButton = [[UIButton alloc]init];
-    [cellButton addTarget:self action:@selector(ClicktableButton:)forControlEvents:UIControlEventTouchDown];
-    [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
-        NSLog(@"slidervalue%@",[listof_sliderValue objectAtIndex:row]);
-    [cellButton setTitle:[listof_sliderValue objectAtIndex:row] forState:UIControlStateNormal];
-    cellButton.frame = CGRectMake(220, 5, 60, 30);
-    [cell addSubview:cellButton];
-    [cellButton release];
-        }else{
+            NSString *str=[NSString stringWithFormat:@"%@",[listofovningars objectAtIndex:row]];
+            cell.textLabel.font=[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
+            cell.textLabel.text = str;
+            cellButton = [[UIButton alloc]init];
+            [cellButton addTarget:self action:@selector(ClicktableButton:)forControlEvents:UIControlEventTouchDown];
+            [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
+            NSLog(@"slidervalue%@",[listof_sliderValue objectAtIndex:row]);
+            [cellButton setTitle:[listof_sliderValue objectAtIndex:row] forState:UIControlStateNormal];
+            cellButton.frame = CGRectMake(220, 5, 60, 30);
+            [cell addSubview:cellButton];
+            [cellButton release];
+        }else {
+            NSLog(@"%@",[listofovningars1 objectAtIndex:row]);
             NSString *str=[NSString stringWithFormat:@"%@",[listofovningars1 objectAtIndex:row]];
-            cell.textLabel.font=[UIFont fontWithName:@"HelveticaNeue" size:12.0];
+            cell.textLabel.font=[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
+            cell.textLabel.textColor = [UIColor blackColor];
             cell.textLabel.text = str;
             cellButton = [[UIButton alloc]init];
             [cellButton addTarget:self action:@selector(ClicktableButton:)forControlEvents:UIControlEventTouchDown];
@@ -565,18 +581,20 @@ int s;
             [cell addSubview:cellButton];
             [cellButton release];
         }
-     
+        
     }else{
-       
+        
         cell.textLabel.text = [listexercise5 objectAtIndex:row];
     }
-    // Deciding which data to put into this particular cell.
-    // If it the first row, the data input will be "Data1" from the array.
-       return cell;
+    
+    return cell;
 }
+
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if(tableView==tblView){
-    cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"cellbg1.png"]];
+        //cell.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"cellbg1.png"]];
     }
 }
 
@@ -653,7 +671,6 @@ int s;
                             
                         }else{
                             [listof_sliderValue addObject:str4];
-                            //[listof_sliderValue addObject:str4];
                         }
                     }
                     //  NSLog(@"%@",[listof_sliderValue1 objectAtIndex:0]);
@@ -713,7 +730,7 @@ int s;
     NSLog(@"yes");
     
     raderaButton.enabled=NO;
-
+    
     if([ovning.text isEqualToString:@""] &&[egen.text isEqualToString:@""] &&[prc.text isEqualToString:@""] ){
         
         
@@ -755,12 +772,6 @@ int s;
                     {
                         isSaved = NO;
                         
-                        
-                        //egen.hidden=YES;
-                        //   prc.hidden=YES;
-                        //  slider.hidden=YES;
-                        //  text1.hidden=YES;
-                        // text2.hidden=YES;
                     } else {
                         NSLog(@"no");
                     }
@@ -957,6 +968,8 @@ int s;
     
     [self.tabeldates reloadData];
 }
+
+
 -(IBAction)raderaclick:(id)sender{
     
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Är du säker på att du vill radera formuläret?" delegate:self cancelButtonTitle:@"Radera" otherButtonTitles:@"Avbryt", nil];
