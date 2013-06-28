@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
-@interface TankefallorViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>{
+@interface TankefallorViewController : UIViewController<UITextViewDelegate>{
     
-    sqlite3 *exerciseDB;
+    sqlite3 *tankefallorDB;
     NSString *databasePath;
     
     UILabel *label;
@@ -37,32 +37,23 @@
     UITextView *SelektC2;
     UITextView *KanslC1;
     UITextView *KanslC2;
-    UITextView *EtikeC1;
-    UITextView *EtikeC2;
     
+
     IBOutlet UIScrollView *scroll,*scroll1;
     
-    UIAlertView  *alert;
-    
-     IBOutlet UIView *listofdates;
-    UITableView *tableView;
     NSMutableArray *listexercise2;
-    NSMutableArray *list_exercise2;
-    UITableViewCell *cell ;
-    NSString *SelectedDate;
-
-    IBOutlet UIButton *raderaButton;
 }
 
-@property(nonatomic,retain)IBOutlet UITableView *tableView;
 @property(nonatomic, retain)NSMutableArray *listexercise2;
-@property(nonatomic, retain)NSMutableArray *list_exercise2;
+
+
+-(void)getDetailsFromtankefallorDB;
 -(IBAction)Sparabutton:(id)sender;
 -(IBAction)Nyttbutton:(id)sender;
 -(IBAction)nextbutton:(id)sender;
 -(IBAction)mainlabelalert:(id)sender;
 
--(IBAction)CloseButton:(id)sender;
+
 @property(nonatomic, retain)IBOutlet UITextView *StagC1;
 @property(nonatomic, retain)IBOutlet UITextView *StagC2;
 @property(nonatomic, retain)IBOutlet UITextView *overC1;
@@ -85,9 +76,7 @@
 @property(nonatomic, retain)IBOutlet UITextView *SelektC2;
 @property(nonatomic, retain)IBOutlet UITextView *KanslC1;
 @property(nonatomic, retain)IBOutlet UITextView *KanslC2;
-@property(nonatomic, retain)IBOutlet UITextView *EtikeC1;
-@property(nonatomic, retain)IBOutlet UITextView *EtikeC2;
 
 
--(IBAction)aMethod:(id)sender;
+
 @end

@@ -30,6 +30,7 @@ NSArray *pArray;
     }
     return self;
 }
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if([text isEqualToString:@"\n"])
@@ -57,8 +58,7 @@ NSArray *pArray;
 {
     [UIView animateWithDuration:0.5
                      animations:^{
-                         self.view.frame = CGRectMake(self.view.frame.origin.x
-                                                      , -170, self.view.frame.size.width, self.view.frame.size.height);
+                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30) animated:YES];
                      }
                      completion:^(BOOL finished){
                          // whatever you need to do when animations are complete
