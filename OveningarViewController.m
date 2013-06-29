@@ -61,32 +61,32 @@
 }
 
 
--(IBAction)exercise2:(id)sender{
-         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                if ([[UIScreen mainScreen] bounds].size.height >  480) {
-                    tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController" bundle:nil];
-                }else{
-                    tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController_iPhone4" bundle:nil];
-                }
-         }else
-         {
-            tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController_iPad" bundle:nil];
-         }
+-(IBAction)exercise2:(id)sender {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height >  480) {
+            tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController" bundle:nil];
+        }else{
+            tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController_iPhone4" bundle:nil];
+        }
+    }else
+    {
+        tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController_iPad" bundle:nil];
+    }
     [self.navigationController pushViewController:tfvc animated:YES];
 }
 
 
 -(IBAction)exercise3:(id)sender{
-         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                   if ([[UIScreen mainScreen] bounds].size.height > 480) {
-    ut=[[Utmanatankar alloc]initWithNibName:@"Utmanatankar" bundle:nil];
-                   }else{
-                        ut=[[Utmanatankar alloc]initWithNibName:@"utmanatankar_iPhone4" bundle:nil];
-                   }
-         }else
-         {
-             ut=[[Utmanatankar alloc]initWithNibName:@"Utmanatankar_iPad" bundle:nil];
-         }
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            ut=[[Utmanatankar alloc]initWithNibName:@"Utmanatankar" bundle:nil];
+        }else{
+            ut=[[Utmanatankar alloc]initWithNibName:@"Utmanatankar_iPhone4" bundle:nil];
+        }
+    }else
+    {
+        ut=[[Utmanatankar alloc]initWithNibName:@"Utmanatankar_iPad" bundle:nil];
+    }
     [self.navigationController pushViewController:ut animated:YES];
 }
 

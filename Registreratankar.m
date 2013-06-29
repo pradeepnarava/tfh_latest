@@ -230,7 +230,7 @@ int s=0;
     //[UIView commipl;tAnimations];
 }
 
--(void) viewWillAppear: (BOOL) animated {
+-(void)viewWillAppear:(BOOL)animated {
    
     if(kanslor.allstrings== nil){
        
@@ -242,7 +242,9 @@ int s=0;
     isSaved = YES;
 }
 
--(IBAction)Sparabutton:(id)sender{
+
+
+-(IBAction)Sparabutton:(id)sender {
     NSDate* date = [NSDate date];
     
     //Create the dateformatter object
@@ -263,6 +265,7 @@ int s=0;
     
     if([negative.text isEqualToString:@""] &&[situation.text isEqualToString:@""] &&[beteenden.text isEqualToString:@""] && [overiga.text isEqualToString:@""]) {
         
+        NSLog(@"Empty");
         
     }
     else{
@@ -430,14 +433,13 @@ int s=0;
 }
 
 
--(void)getlistofDates{
+-(void)getlistofDates {
+    
     const char *dbpath = [databasePath UTF8String];
+    
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT date FROM EXERCISEONE  ORDER BY date DESC"
-                              
-                              ];
+        NSString *querySQL = [NSString stringWithFormat:@"SELECT date FROM EXERCISEONE  ORDER BY date DESC"];
         
         const char *query_stmt = [querySQL UTF8String];
         
@@ -474,7 +476,9 @@ int s=0;
 
 // This will tell your UITableView what data to put in which cells in your table.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     static NSString *CellIdentifer = @"CellIdentifier";
+    
     cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer];
     
     // Using a cell identifier will allow your app to reuse cells as they come and go from the screen.
@@ -489,6 +493,9 @@ int s=0;
 
     return cell;
 }
+
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Upon selecting an event, create an EKEventViewController to display the event.
 	NSDictionary *dictionary = [self.listexercise1 objectAtIndex:indexPath.row];

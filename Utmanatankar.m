@@ -13,14 +13,19 @@ int y=0;
 
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
-NSArray *pArray;
+
+
+
+
 @interface Utmanatankar ()
 @property (nonatomic) BOOL isSaved;
 @end
 
 @implementation Utmanatankar
-@synthesize  label1,strategier,negative,din,motavis,tanke,alltanke,c1,c2,c3,c4,c5,c6;
-@synthesize listexercise3,tableView,list_exercise3,isSaved;
+@synthesize  label1,strategier,quesitonLabel1,quesitonLabel2,quesitonLabel3,quesitonLabel4,questionLabel5,questionLabel6,c1,c2,c3,c4,c5,c6;
+@synthesize listexercise3,tableview,list_exercise3,isSaved;
+
+NSArray *pArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +35,9 @@ NSArray *pArray;
     }
     return self;
 }
+
+
+#pragma mark TextViewDelegate Methods
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -62,24 +70,34 @@ NSArray *pArray;
                      }
                      completion:^(BOOL finished){
                          // whatever you need to do when animations are complete
-                         
+                         NSLog(@"Finished");
                      }];
     
     return YES;
 }
 
+#pragma mark ViewLifeCycle Methods
+
 - (void)viewDidLoad
 {
     self.navigationItem.title=@"Utmana tankar";
     scroll.scrollEnabled = YES;
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
-            [scroll setContentSize:CGSizeMake(320, 1380)];
+            [scroll setContentSize:CGSizeMake(320, 1249)];
         }
         else {
-            [scroll setContentSize:CGSizeMake(320, 1475)];
+            [scroll setContentSize:CGSizeMake(320, 1249)];
         }
     }
+    
+    questionView1.hidden = YES;
+    questionView2.hidden = YES;
+    questionView3.hidden = YES;
+    questionView4.hidden = YES;
+    questionView5.hidden = YES;
+    questionView6.hidden = YES;
     
     scroll1.scrollEnabled = YES;
     [scroll1 setContentSize:CGSizeMake(320, 1600)];
@@ -104,31 +122,39 @@ NSArray *pArray;
     [strategier addGestureRecognizer:tapGesture3];
     
     
-    negative.userInteractionEnabled = YES;
+    quesitonLabel1.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture4 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(negativealert:)] autorelease];
-    [negative addGestureRecognizer:tapGesture4];
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap1:)] autorelease];
+    [quesitonLabel1 addGestureRecognizer:tapGesture4];
     
     
-    din.userInteractionEnabled = YES;
+    quesitonLabel2.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture5 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dinalert:)] autorelease];
-    [din addGestureRecognizer:tapGesture5];
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap2:)] autorelease];
+    [quesitonLabel2 addGestureRecognizer:tapGesture5];
     
-    motavis.userInteractionEnabled = YES;
+    
+    
+    quesitonLabel3.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture6 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(motavisalert:)] autorelease];
-    [motavis addGestureRecognizer:tapGesture6];
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap3:)] autorelease];
+    [quesitonLabel3 addGestureRecognizer:tapGesture6];
     
-    tanke.userInteractionEnabled = YES;
+    
+    quesitonLabel4.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture7 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tankealert:)] autorelease];
-    [tanke addGestureRecognizer:tapGesture7];
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap4:)] autorelease];
+    [quesitonLabel4 addGestureRecognizer:tapGesture7];
     
-    alltanke.userInteractionEnabled = YES;
+    questionLabel5.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture8 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alltankealert:)] autorelease];
-    [alltanke addGestureRecognizer:tapGesture8];
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap5:)] autorelease];
+    [questionLabel5 addGestureRecognizer:tapGesture8];
+    
+    questionLabel6.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture9 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap6:)] autorelease];
+    [questionLabel6 addGestureRecognizer:tapGesture9];
     
     NSString *docsDir;
     NSArray *dirPaths;
@@ -141,25 +167,24 @@ NSArray *pArray;
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
-  
-		const char *dbpath = [databasePath UTF8String];
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE3 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  NEGATIVE TEXT ,DINA TEXT,HUR TEXT, MOTBEVIS TEXT,TANKEFALLA TEXT,ALTERNATIV TEXT)";
         
-        if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
-            char *errMsg;
-            const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE3 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  NEGATIVE TEXT ,DINA TEXT,HUR TEXT, MOTBEVIS TEXT,TANKEFALLA TEXT,ALTERNATIV TEXT)";
-            
-            if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
-            {
-                NSLog(@"Failed to create database");
-            }
-            
-            sqlite3_close(exerciseDB);
-            
-        } else {
-            //status.text = @"Failed to open/create database";
+            NSLog(@"Failed to create database");
         }
-   
+        
+        sqlite3_close(exerciseDB);
+        
+    } else {
+        //status.text = @"Failed to open/create database";
+    }
+    
     [self.view addSubview:listofdates];
     listofdates.hidden=YES;
     [self.view addSubview:Label1Popup];
@@ -173,13 +198,14 @@ NSArray *pArray;
     isSaved = YES;
 }
 
+// Lasdel 
 -(IBAction)labelalert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"Utmanatankar.html" insideView:self.view];
 }
 
 
 -(IBAction)label1alert:(id)sender{
-    //[MTPopupWindow showWindowWithHTMLFile:@"om.html" insideView:self.view];
+    
     scroll.scrollEnabled = NO;
     [self.view bringSubviewToFront:Label1Popup];
     Label1Popup.hidden = NO;
@@ -188,37 +214,74 @@ NSArray *pArray;
     [UIView commitAnimations];
 }
 
+
+
 -(IBAction)strategieralert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"tankefallar.html" insideView:self.view];
 }
 
--(IBAction)negativealert:(id)sender{
-    [MTPopupWindow showWindowWithHTMLFile:@"tanke.html" insideView:self.view];
+
+//1.
+-(void)questionTap1:(id)sender {
+    questionView1.hidden = NO;
+}
+
+-(IBAction)questionCloseBtn1:(id)sender{
+    questionView1.hidden =YES;
+}
+
+//2.
+-(void)questionTap2:(id)sender {
+    questionView2.hidden = NO;
+}
+-(IBAction)questionCloseBtn2:(id)sender{
+    questionView2.hidden =YES;
+}
+
+//3.
+-(void)questionTap3:(id)sender {
+    questionView3.hidden = NO;
+}
+
+-(IBAction)questionCloseBtn3:(id)sender{
+    questionView3.hidden =YES;
+}
+//4.
+-(void)questionTap4:(id)sender {
+    questionView4.hidden = NO;
+}
+
+-(IBAction)questionCloseBtn4:(id)sender{
+    questionView4.hidden =YES;
 }
 
 
--(IBAction)dinalert:(id)sender{
-    [MTPopupWindow showWindowWithHTMLFile:@"Minabevis.html" insideView:self.view];
+//5.
+-(void)questionTap5:(id)sender {
+    questionView5.hidden = NO;
+}
+
+-(IBAction)questionCloseBtn5:(id)sender{
+    questionView5.hidden =YES;
+}
+
+//6.
+-(void)questionTap6:(id)sender {
+    questionView6.hidden = NO;
+}
+
+-(IBAction)questionCloseBtn6:(id)sender{
+    questionView6.hidden =YES;
 }
 
 
--(IBAction)motavisalert:(id)sender{
-    [MTPopupWindow showWindowWithHTMLFile:@"Motbevis.html" insideView:self.view];
-}
--(IBAction)tankealert:(id)sender{
-    [MTPopupWindow showWindowWithHTMLFile:@"tanefallor.html" insideView:self.view];
-}
-
-
--(IBAction)alltankealert:(id)sender{
-    [MTPopupWindow showWindowWithHTMLFile:@"Alternativtanke.html" insideView:self.view];
-}
-
+//Slider Show Values
 -(IBAction)changeSlider:(id)sender {
     
     NSString *str= [[NSString alloc] initWithFormat:@"%d%@", (int)slider.value,@"%"];
     self.c3.text=str;
 }
+
 
 -(IBAction)sparabutton:(id)sender{
     
@@ -391,8 +454,7 @@ NSArray *pArray;
 
 
 -(IBAction)nextbutton:(id)sender{
-    // udv=[[UtmanaDateView alloc]initWithNibName:@"UtmanaDateView" bundle:nil];
-    // [self.navigationController pushViewController:udv animated:YES];
+
     scroll.scrollEnabled = NO;
     listexercise3=[[NSMutableArray alloc]init];
     [listexercise3 removeAllObjects];
@@ -440,7 +502,7 @@ NSArray *pArray;
         }
         sqlite3_close(exerciseDB);
     }
-    [self.tableView reloadData];
+    [self.tableview reloadData];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.listexercise3 count];
@@ -557,6 +619,8 @@ NSArray *pArray;
     scroll.scrollEnabled = YES;
     Label1Popup.hidden=YES;
 }
+
+
 -(IBAction)SelectChekBoxs:(id)sender{
     UIButton *btn=(UIButton *)sender;
     switch (btn.tag) {

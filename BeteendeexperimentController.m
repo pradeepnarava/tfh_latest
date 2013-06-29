@@ -8,7 +8,11 @@
 
 #import "BeteendeexperimentController.h"
 #import "MTPopupWindow.h"
+
+
 int c=0;
+
+
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 
@@ -22,6 +26,8 @@ int c=0;
 @synthesize label1,ex3c1,ex3c2,ex3c3,ex3c4,ex3c5,slabel1,slabel2,tableview,listexercise4,list_exercise4;
 @synthesize isSaved;
 
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,6 +36,9 @@ int c=0;
     }
     return self;
 }
+
+#pragma  mark TextViewDelegate Methods
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if([text isEqualToString:@"\n"]) {
@@ -77,10 +86,13 @@ int c=0;
     
     picker.hidden=NO;
     [picker addTarget:self action:@selector(dueDateChanged:) forControlEvents:UIControlEventValueChanged];
-    //[self.view addSubview:picker];
-    [picker release];
+    
+
 
 }
+
+#pragma mark ViewLife Cycle 
+
 - (void)viewDidLoad
 {
     self.navigationItem.title=@"Beteendeexperiment";
@@ -99,6 +111,8 @@ int c=0;
 
     
     label1.userInteractionEnabled = YES;
+    
+    
     UITapGestureRecognizer *tapGesture2 =
     [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(l1alert:)] autorelease];
     [label1 addGestureRecognizer:tapGesture2];
@@ -134,8 +148,6 @@ int c=0;
         } else {
             //status.text = @"Failed to open/create database";
         }
-    
-    
 
     
     [super viewDidLoad];
@@ -146,6 +158,9 @@ int c=0;
     [super viewWillAppear:animated];
     isSaved = YES;
 }
+
+
+
 
 
 -(void) dueDateChanged:(UIDatePicker *)sender {
@@ -509,6 +524,8 @@ int c=0;
      listofdates.hidden = YES;
 }
 
+
+
 - (IBAction)RaderaButton:(id)sender {
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Är du säker på att du vill radera formuläret?" delegate:self cancelButtonTitle:@"Radera" otherButtonTitles:@"Avbryt", nil];
     alert.tag=kAlertViewTwo;
@@ -517,11 +534,20 @@ int c=0;
 }
 
 
+
 -(IBAction)displayDate:(id)sender{
     NSDate * selected = [picker date];
-	NSString * date = [selected description];
-    ex3c1.text=date;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:selected];
+    NSDate *date1 = [dateFormatter dateFromString:dateString];
+    [dateFormatter setDateFormat:@"dd/MM yyyy"];
+    NSString *date3  = [dateFormatter stringFromDate:date1];
+    ex3c1.text=date3;
 }
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

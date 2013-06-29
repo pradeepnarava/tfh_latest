@@ -15,68 +15,86 @@
     NSString *databasePath;
     
     UILabel *label;
-    UITextView *StagC1;
-    UITextView *StagC2;
-    UITextView *overC1;
-    UITextView *overC2;
-    UITextView *TankeC1;
-    UITextView *TankeC2;
-    UITextView *PerC1;
-    UITextView *PerC2;
-    UITextView *DiskC1;
-    UITextView *DiskC2;
-    UITextView *ForC1;
-    UITextView *ForC2;
-    UITextView *KataC1;
-    UITextView *KataC2;
-    UITextView *AllC1;
-    UITextView *AllC2;
-    UITextView *PliktC1;
-    UITextView *PliktC2;
-    UITextView *SelektC1;
-    UITextView *SelektC2;
-    UITextView *KanslC1;
-    UITextView *KanslC2;
-    
+    //1.
+    UITextView *alltTV1;
+    UITextView *alltTV2;
+    //2.
+    UITextView *kataTV1;
+    UITextView *kataTV2;
+    //3.
+    UITextView *diskTV1;
+    UITextView *diskTV2;
+    //4.
+    UITextView *attTV1;
+    UITextView *attTV2;
+    //5.
+    UITextView *etikTV1;
+    UITextView *etikTV2;
+    //6.
+    UITextView *forTV1;
+    UITextView *forTV2;
+    //7.
+    UITextView *mentTV1;
+    UITextView *mentTV2;
+    //8.
+    UITextView *tankTV1;
+    UITextView *tankTV2;
+    //9.
+    UITextView *overTV1;
+    UITextView *overTV2;
+    //10.
+    UITextView *persTV1;
+    UITextView *persTV2;
+    //11.
+    UITextView *mansTV1;
+    UITextView *mansTV2;
 
     IBOutlet UIScrollView *scroll,*scroll1;
     
-    NSMutableArray *listexercise2;
+
 }
 
-@property(nonatomic, retain)NSMutableArray *listexercise2;
+
 
 
 -(void)getDetailsFromtankefallorDB;
 -(IBAction)Sparabutton:(id)sender;
 -(IBAction)Nyttbutton:(id)sender;
--(IBAction)nextbutton:(id)sender;
 -(IBAction)mainlabelalert:(id)sender;
 
-
-@property(nonatomic, retain)IBOutlet UITextView *StagC1;
-@property(nonatomic, retain)IBOutlet UITextView *StagC2;
-@property(nonatomic, retain)IBOutlet UITextView *overC1;
-@property(nonatomic, retain)IBOutlet  UITextView *overC2;
-@property(nonatomic, retain)IBOutlet  UITextView *TankeC1;
-@property(nonatomic, retain)IBOutlet UITextView *TankeC2;
-@property(nonatomic, retain)IBOutlet UITextView *PerC1;
-@property(nonatomic, retain)IBOutlet UITextView *PerC2;
-@property(nonatomic, retain)IBOutlet  UITextView *DiskC1;
-@property(nonatomic, retain)IBOutlet UITextView *DiskC2;
-@property(nonatomic, retain)IBOutlet  UITextView *ForC1;
-@property(nonatomic, retain)IBOutlet UITextView *ForC2;
-@property(nonatomic, retain)IBOutlet  UITextView *KataC1;
-@property(nonatomic, retain)IBOutlet UITextView *KataC2;
-@property(nonatomic, retain)IBOutlet  UITextView *AllC1;
-@property(nonatomic, retain)IBOutlet UITextView *AllC2;
-@property(nonatomic, retain)IBOutlet  UITextView *PliktC1;
-@property(nonatomic, retain)IBOutlet  UITextView *PliktC2;
-@property(nonatomic, retain)IBOutlet UITextView *SelektC1;
-@property(nonatomic, retain)IBOutlet UITextView *SelektC2;
-@property(nonatomic, retain)IBOutlet UITextView *KanslC1;
-@property(nonatomic, retain)IBOutlet UITextView *KanslC2;
-
+//1.
+@property(nonatomic, retain)IBOutlet UITextView *alltTV1;
+@property(nonatomic, retain)IBOutlet UITextView *alltTV2;
+//2.
+@property(nonatomic, retain)IBOutlet UITextView *kataTV1;
+@property(nonatomic, retain)IBOutlet UITextView *kataTV2;
+//3.
+@property(nonatomic, retain)IBOutlet UITextView *diskTV1;
+@property(nonatomic, retain)IBOutlet UITextView *diskTV2;
+//4.
+@property(nonatomic, retain)IBOutlet UITextView *attTV1;
+@property(nonatomic, retain)IBOutlet UITextView *attTV2;
+//5.
+@property(nonatomic, retain)IBOutlet UITextView *etikTV1;
+@property(nonatomic, retain)IBOutlet UITextView *etikTV2;
+//6.
+@property(nonatomic, retain)IBOutlet UITextView *forTV1;
+@property(nonatomic, retain)IBOutlet UITextView *forTV2;
+//7.
+@property(nonatomic, retain)IBOutlet UITextView *mentTV1;
+@property(nonatomic, retain)IBOutlet UITextView *mentTV2;
+//8.
+@property(nonatomic, retain)IBOutlet UITextView *tankTV1;
+@property(nonatomic, retain)IBOutlet UITextView *tankTV2;
+//9.
+@property(nonatomic, retain)IBOutlet UITextView *overTV1;
+@property(nonatomic, retain)IBOutlet UITextView *overTV2;
+//10.
+@property(nonatomic, retain)IBOutlet UITextView *persTV1;
+@property(nonatomic, retain)IBOutlet UITextView *persTV2;
+//11.
+@property(nonatomic, retain)IBOutlet UITextView *mansTV1;
+@property(nonatomic, retain)IBOutlet UITextView *mansTV2;
 
 
 @end

@@ -98,13 +98,14 @@
     if ([firstString length] == 0) {
         NSLog(@"fisrtString is empty");
     }
-   /* else  {
-        if (btn.tag == 6) {
+    else  {
+        [firstString appendFormat:@", "];
+       /* if (btn.tag == 6) {
             
         }else {
         [firstString appendFormat:@", "];
-        }
-    }*/
+        }*/
+    }
     switch (btn.tag) {
         case 1:
             

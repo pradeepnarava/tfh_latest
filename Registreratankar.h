@@ -10,10 +10,11 @@
 #import <sqlite3.h>
 #import "KanslorViewController.h"
 
-@interface Registreratankar : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>{
+@interface Registreratankar : UIViewController <UITableViewDelegate, UITableViewDataSource,UITextViewDelegate> {
+    
     UILabel *nat,*tanke,*tabellen,*flykt;
     sqlite3 *exerciseDB;
-     NSString        *databasePath;
+    NSString *databasePath;
     UITextView *situation;
     UITextView *negative;
     UITextView *overiga;
@@ -22,22 +23,23 @@
     KanslorViewController *kanslor;
   
     IBOutlet UIScrollView *scroll;
-     IBOutlet UIScrollView *scroll2;
-      sqlite3_stmt    *statement;
-      IBOutlet UIView *listofdates;
+    IBOutlet UIScrollView *scroll2;
+    sqlite3_stmt  *statement;
+    IBOutlet UIView *listofdates;
     UITableView *tableView;
     UITableViewCell *cell;
     NSMutableArray *listexercise1;
-     NSString *SelectedDate;
-     IBOutlet UIView *PopupView1,*PopupView2,*PopupView3;
+    NSString *SelectedDate;
+    IBOutlet UIView *PopupView1,*PopupView2,*PopupView3;
     //IBOutlet UIView *PopupView4;
     IBOutlet UIButton *raderabutton;
     NSMutableArray *exercise1_list;
 }
-@property(nonatomic,retain)IBOutlet UITableView *tableView;
-@property(nonatomic,retain)NSMutableArray *listexercise1;
-@property(nonatomic,retain)NSMutableArray *exercise1_list;
 
+
+@property(nonatomic,retain) IBOutlet UITableView *tableView;
+@property(nonatomic,retain) NSMutableArray *listexercise1;
+@property(nonatomic,retain) NSMutableArray *exercise1_list;
 
 
 @property(nonatomic,retain)IBOutlet UITextView *situation;
@@ -45,13 +47,13 @@
 @property(nonatomic,retain)IBOutlet UITextView *overiga;
 @property(nonatomic,retain)IBOutlet UITextView *beteenden;
 
-
-
 //@property(nonatomic, retain)IBOutlet UILabel *label;
 @property(nonatomic, retain)IBOutlet UILabel *nat;
 @property(nonatomic, retain)IBOutlet UILabel *tanke;
 @property(nonatomic, retain)IBOutlet UILabel *tabellen;
 @property(nonatomic, retain)IBOutlet UILabel *flykt;
+
+
 -(IBAction)Sparabutton:(id)sender;
 -(IBAction)nyttbutton:(id)sender;
 
