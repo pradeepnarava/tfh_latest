@@ -7,15 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Dinaomraden.h"
-#import "DinKompass.h"
 
-@interface Livskompassen : UIViewController{
-    Dinaomraden *dr;
-    DinKompass *dk;
-      
-}
+@interface Livskompassen : UIViewController
+
 -(IBAction)pageB:(id)sender;
 -(IBAction)pageC:(id)sender;
 -(IBAction)iLabel:(id)sender;
+
 @end

@@ -35,7 +35,9 @@
     ListOfKompass *lok;
     UIImageView *tableImageView;
     UIButton *closeButton;
-        
+    
+    BOOL recentBtn1Selected;
+    BOOL recentBtn2Selected;
     BOOL isOmrade1;
 //     UIImage* image;
 }
@@ -50,6 +52,10 @@
 @property (retain, nonatomic) IBOutlet UIButton *recentButton2;
 @property (retain, nonatomic) IBOutlet UILabel *recentLabel1;
 @property (retain, nonatomic) IBOutlet UILabel *recentLabel2;
+@property (retain, nonatomic) IBOutlet UILabel *kiLabel;
+@property (retain, nonatomic) IBOutlet UILabel *settingBLabel;
+@property (retain, nonatomic) IBOutlet UIImageView *settingBImageView;
+@property (retain, nonatomic) IBOutlet UIImageView *settingBTitleImageView;
 
 - (IBAction)skickaButtonClicked:(id)sender;
 
