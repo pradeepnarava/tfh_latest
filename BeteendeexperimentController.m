@@ -63,7 +63,7 @@ int c=0;
 {
     [UIView animateWithDuration:0.5
                      animations:^{
-                         self.view.frame = CGRectMake(self.view.frame.origin.x, -170, self.view.frame.size.width, self.view.frame.size.height);
+                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30) animated:YES];
                      }
                      completion:^(BOOL finished){
                          // whatever you need to do when animations are complete
@@ -104,8 +104,9 @@ int c=0;
     picker.hidden=YES;
     raderabutton.enabled=NO;
     listofdates.hidden=YES;
+    questionView3.hidden =YES;
     scroll.scrollEnabled = YES;
-    [scroll setContentSize:CGSizeMake(320, 1285)];
+    [scroll setContentSize:CGSizeMake(320, 1200)];
      list_exercise4=[[NSMutableArray alloc]init];
     [list_exercise4 addObject:@"Null"];
 
@@ -116,6 +117,8 @@ int c=0;
     UITapGestureRecognizer *tapGesture2 =
     [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(l1alert:)] autorelease];
     [label1 addGestureRecognizer:tapGesture2];
+    
+    
     
     
     NSString *docsDir;
@@ -161,8 +164,6 @@ int c=0;
 
 
 
-
-
 -(void) dueDateChanged:(UIDatePicker *)sender {
     NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateStyle:NSDateFormatterLongStyle];
@@ -178,8 +179,13 @@ int c=0;
 }
 
 
--(IBAction)l1alert:(id)sender{
-     [MTPopupWindow showWindowWithHTMLFile:@"tanke.html" insideView:self.view];
+-(void)l1alert:(id)sender{
+//     [MTPopupWindow showWindowWithHTMLFile:@"tanke.html" insideView:self.view];
+    questionView3.hidden = NO;
+}
+
+-(IBAction)questionCloseBtn:(id)sender{
+    questionView3.hidden = YES;
 }
 
 

@@ -11,23 +11,29 @@
 
 
 @interface BeteendeexperimentController : UIViewController<UITableViewDelegate, UITableViewDataSource>{
+    
+    
     UILabel *label,*label1;
-     IBOutlet UISlider *slider,*slider1;
+    IBOutlet UISlider *slider,*slider1;
+    
     UITextView *ex3c2,*ex3c3,*ex3c4,*ex3c5;
     UITextField *ex3c1;
+    
     UILabel *slabel1,*slabel2;
     sqlite3 *exerciseDB;
-       NSString        *databasePath;
-   
-      IBOutlet UIScrollView *scroll;
+    NSString        *databasePath;
     
-     IBOutlet UIView *listofdates;
+    IBOutlet UIScrollView *scroll;
+    
+    IBOutlet UIView *listofdates, *questionView3;
     
     UITableView *tableview;
- NSMutableArray *listexercise4;
-     NSMutableArray *list_exercise4;
+    NSMutableArray *listexercise4;
+    NSMutableArray *list_exercise4;
     NSString *SelectedDate;
-     sqlite3_stmt    *statement;
+    
+    sqlite3_stmt    *statement;
+    
     IBOutlet UIButton *raderabutton;
     IBOutlet UIDatePicker *picker;
 }
@@ -49,7 +55,7 @@
 @property(nonatomic, retain)IBOutlet UITextView *ex3c4;
 @property(nonatomic, retain)IBOutlet UITextView *ex3c5;
 
--(void)clearalltexts;
+- (void)clearalltexts;
 
 - (IBAction)changeSlider:(id)sender;
 - (IBAction)changeSlider1:(id)sender;
