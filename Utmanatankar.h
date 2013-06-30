@@ -44,6 +44,8 @@
     //Gopal
     UILabel *regLabel1,*regLabel2,*regLabel3,*regLabel4,*regLabel5,*regLabel6,*regLabel7,*regLabel8;
     UIButton *regButton1,*regButton2,*regButton3,*regButton4,*regButton5,*regButton6,*regButton7,*regButton8;
+    
+    
 }
 
 

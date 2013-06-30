@@ -28,9 +28,11 @@
 		24AE0F4E1776EB510073A880 /* Klar_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AE0F4C1776EB510073A880 /* Klar_button@2x.png */; };
 		24BC2FE6177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BC2FE5177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib */; };
 		24DEDD6017807C5500DFB920 /* OveningarViewController_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD5F17807C5500DFB920 /* OveningarViewController_iPhone4.xib */; };
-		24DEDD64178087EF00DFB920 /* Utmanatankar_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD63178087EE00DFB920 /* Utmanatankar_iPhone4.xib */; };
 		24DEDD661780AF1100DFB920 /* BeteendeexperimentController_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD651780AF1100DFB920 /* BeteendeexperimentController_iPhone4.xib */; };
 		24DEDD681780BE9500DFB920 /* Registreratankar_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD671780BE9500DFB920 /* Registreratankar_iPhone4.xib */; };
+		24DEDD6A1780D01700DFB920 /* Utmanatankar_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD691780D01600DFB920 /* Utmanatankar_iPhone4.xib */; };
+		24DEDD6C1780D05C00DFB920 /* Utmanatankar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD6B1780D05C00DFB920 /* Utmanatankar.xib */; };
+		24DEDD6E1780D22500DFB920 /* Utmanatankar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD6D1780D22500DFB920 /* Utmanatankar_iPad.xib */; };
 		24EEB759177A1A8D00024383 /* Interoceptivexponering_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24EEB758177A1A8D00024383 /* Interoceptivexponering_iPhone4.xib */; };
 		25A8FAF91748F9B9000D6BAC /* DayEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A8FAF71748F9B9000D6BAC /* DayEventViewController.m */; };
 		25A8FAFA1748F9B9000D6BAC /* DayEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A8FAF81748F9B9000D6BAC /* DayEventViewController.xib */; };
@@ -67,7 +69,6 @@
 		5E1F3DCE175B7161008A2003 /* popup6.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1F3DCD175B7161008A2003 /* popup6.png */; };
 		5E1F3DD1175B732C008A2003 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1F3DCF175B732C008A2003 /* checked.png */; };
 		5E1F3DD2175B732C008A2003 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E1F3DD0175B732C008A2003 /* unchecked.png */; };
-		5E1F3DD4175B8051008A2003 /* Utmanatankar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1F3DD3175B8051008A2003 /* Utmanatankar_iPad.xib */; };
 		5E210D5B175CDEDD006C8254 /* backbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E210D5A175CDEDD006C8254 /* backbutton.png */; };
 		5E210D61175CFB01006C8254 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E210D60175CFB01006C8254 /* button.png */; };
 		5E2F8B05175766250044AFB5 /* OveningarViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E2F8B04175766250044AFB5 /* OveningarViewController_iPad.xib */; };
@@ -137,7 +138,6 @@
 		5EE97CCC1779E03A005BD961 /* definition-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE97CCB1779E03A005BD961 /* definition-popup.png */; };
 		5EE97CCE1779F5E3005BD961 /* definition-popup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE97CCD1779F5E3005BD961 /* definition-popup@2x.png */; };
 		5EEA724D17316141007F9C37 /* Utmanatankar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA724B17316141007F9C37 /* Utmanatankar.m */; };
-		5EEA724E17316141007F9C37 /* Utmanatankar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EEA724C17316141007F9C37 /* Utmanatankar.xib */; };
 		5EEAA3C617463434005737CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E26311F1743619F00C13878 /* QuartzCore.framework */; };
 		5EEAA3C717463442005737CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EED2B0A173E938400CF77B3 /* CoreData.framework */; };
 		5EED156C174CBC1400C0AD21 /* cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EED156B174CBC1400C0AD21 /* cell.png */; };
@@ -278,9 +278,11 @@
 		24AE0F4C1776EB510073A880 /* Klar_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Klar_button@2x.png"; sourceTree = "<group>"; };
 		24BC2FE5177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TankefallorViewController_iPhone4.xib; sourceTree = "<group>"; };
 		24DEDD5F17807C5500DFB920 /* OveningarViewController_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OveningarViewController_iPhone4.xib; sourceTree = "<group>"; };
-		24DEDD63178087EE00DFB920 /* Utmanatankar_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Utmanatankar_iPhone4.xib; sourceTree = "<group>"; };
 		24DEDD651780AF1100DFB920 /* BeteendeexperimentController_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BeteendeexperimentController_iPhone4.xib; sourceTree = "<group>"; };
 		24DEDD671780BE9500DFB920 /* Registreratankar_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Registreratankar_iPhone4.xib; sourceTree = "<group>"; };
+		24DEDD691780D01600DFB920 /* Utmanatankar_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Utmanatankar_iPhone4.xib; sourceTree = "<group>"; };
+		24DEDD6B1780D05C00DFB920 /* Utmanatankar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Utmanatankar.xib; sourceTree = "<group>"; };
+		24DEDD6D1780D22500DFB920 /* Utmanatankar_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Utmanatankar_iPad.xib; sourceTree = "<group>"; };
 		24EEB758177A1A8D00024383 /* Interoceptivexponering_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Interoceptivexponering_iPhone4.xib; sourceTree = "<group>"; };
 		25A8FAF61748F9B9000D6BAC /* DayEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayEventViewController.h; sourceTree = "<group>"; };
 		25A8FAF71748F9B9000D6BAC /* DayEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayEventViewController.m; sourceTree = "<group>"; };
@@ -322,7 +324,6 @@
 		5E1F3DCD175B7161008A2003 /* popup6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup6.png; sourceTree = "<group>"; };
 		5E1F3DCF175B732C008A2003 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		5E1F3DD0175B732C008A2003 /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked.png; sourceTree = "<group>"; };
-		5E1F3DD3175B8051008A2003 /* Utmanatankar_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Utmanatankar_iPad.xib; sourceTree = "<group>"; };
 		5E210D5A175CDEDD006C8254 /* backbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backbutton.png; sourceTree = "<group>"; };
 		5E210D60175CFB01006C8254 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		5E26311F1743619F00C13878 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -408,7 +409,6 @@
 		5EE97CCD1779F5E3005BD961 /* definition-popup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "definition-popup@2x.png"; sourceTree = "<group>"; };
 		5EEA724A17316141007F9C37 /* Utmanatankar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utmanatankar.h; sourceTree = "<group>"; };
 		5EEA724B17316141007F9C37 /* Utmanatankar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utmanatankar.m; sourceTree = "<group>"; };
-		5EEA724C17316141007F9C37 /* Utmanatankar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Utmanatankar.xib; sourceTree = "<group>"; };
 		5EEAA3C817463ACD005737CC /* TUTSimpleScatterPlot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TUTSimpleScatterPlot.h; sourceTree = "<group>"; };
 		5EEAA3C917463ACD005737CC /* TUTSimpleScatterPlot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TUTSimpleScatterPlot.m; sourceTree = "<group>"; };
 		5EED156B174CBC1400C0AD21 /* cell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell.png; sourceTree = "<group>"; };
@@ -908,9 +908,9 @@
 			children = (
 				5EEA724A17316141007F9C37 /* Utmanatankar.h */,
 				5EEA724B17316141007F9C37 /* Utmanatankar.m */,
-				5EEA724C17316141007F9C37 /* Utmanatankar.xib */,
-				24DEDD63178087EE00DFB920 /* Utmanatankar_iPhone4.xib */,
-				5E1F3DD3175B8051008A2003 /* Utmanatankar_iPad.xib */,
+				24DEDD6B1780D05C00DFB920 /* Utmanatankar.xib */,
+				24DEDD691780D01600DFB920 /* Utmanatankar_iPhone4.xib */,
+				24DEDD6D1780D22500DFB920 /* Utmanatankar_iPad.xib */,
 			);
 			name = Exercise3;
 			sourceTree = "<group>";
@@ -1236,7 +1236,6 @@
 				5EA026E7172E84DC00C37EE4 /* OveningarViewController_iPhone.xib in Resources */,
 				5EA026EC172E8A8B00C37EE4 /* Registreratankar.xib in Resources */,
 				5E5D718C17300E39003A8E44 /* TankefallorViewController.xib in Resources */,
-				5EEA724E17316141007F9C37 /* Utmanatankar.xib in Resources */,
 				5E8F73051732A99C00A7F893 /* BeteendeexperimentController.xib in Resources */,
 				5E068CEC1733E561006FF428 /* Beteendeaktivering.xib in Resources */,
 				5E068CF11733E9A2006FF428 /* Registreringsvecka.xib in Resources */,
@@ -1341,7 +1340,6 @@
 				5E1F3DCE175B7161008A2003 /* popup6.png in Resources */,
 				5E1F3DD1175B732C008A2003 /* checked.png in Resources */,
 				5E1F3DD2175B732C008A2003 /* unchecked.png in Resources */,
-				5E1F3DD4175B8051008A2003 /* Utmanatankar_iPad.xib in Resources */,
 				5E210D5B175CDEDD006C8254 /* backbutton.png in Resources */,
 				5E210D61175CFB01006C8254 /* button.png in Resources */,
 				5EE837DD175E356100E56EE2 /* tillbaka.png in Resources */,
@@ -1422,9 +1420,11 @@
 				5EEE8217177C9C450009598F /* ovningar_tankeovningar_background.png in Resources */,
 				24BC2FE6177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib in Resources */,
 				24DEDD6017807C5500DFB920 /* OveningarViewController_iPhone4.xib in Resources */,
-				24DEDD64178087EF00DFB920 /* Utmanatankar_iPhone4.xib in Resources */,
 				24DEDD661780AF1100DFB920 /* BeteendeexperimentController_iPhone4.xib in Resources */,
 				24DEDD681780BE9500DFB920 /* Registreratankar_iPhone4.xib in Resources */,
+				24DEDD6A1780D01700DFB920 /* Utmanatankar_iPhone4.xib in Resources */,
+				24DEDD6C1780D05C00DFB920 /* Utmanatankar.xib in Resources */,
+				24DEDD6E1780D22500DFB920 /* Utmanatankar_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

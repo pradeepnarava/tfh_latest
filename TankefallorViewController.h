@@ -11,11 +11,9 @@
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 
-<<<<<<< HEAD
-@interface TankefallorViewController : UIViewController<UITextViewDelegate,UIAlertViewDelegate>{
-=======
+
 @interface TankefallorViewController : UIViewController<UITextViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>{
->>>>>>> 1717b938165d23b5010db69a78b3d1efc8427218
+
     
     sqlite3 *tankefallorDB;
     NSString *databasePath;

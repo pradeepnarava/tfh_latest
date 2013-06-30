@@ -11,6 +11,7 @@
 
 int y=0;
 
+
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 
@@ -21,6 +22,7 @@ int y=0;
 @implementation Utmanatankar
 @synthesize  regTankerLabel,strategier,quesitonLabel1,quesitonLabel2,quesitonLabel3,quesitonLabel4,questionLabel5,questionLabel6,c1,c2,c3,c4,c5,c6;
 @synthesize listexercise3,tableview,list_exercise3,isSaved;
+
 //Gopal
 @synthesize regButton1,regButton2,regButton3,regButton4,regButton5,regButton6,regButton7,regButton8,regLabel1,regLabel2,regLabel3,regLabel4,regLabel5,regLabel6,regLabel7,regLabel8;
 
@@ -370,6 +372,7 @@ NSArray *pArray;
     }
 }
 
+
 -(IBAction)newbutton:(id)sender{
     if ([c1.text isEqualToString:@""]&&[c2.text isEqualToString:@""]&&[c4.text isEqualToString:@""]
         &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
@@ -632,6 +635,7 @@ NSArray *pArray;
 }
 
 - (IBAction)skickaButtonClicked:(id)sender {
+    
 }
 
 -(IBAction)Closelistofdates:(id)sender{
@@ -711,6 +715,8 @@ NSArray *pArray;
             break;
     }
 }
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -721,5 +727,6 @@ NSArray *pArray;
     [_skickaButton release];
     [super dealloc];
 }
+
 @end
 
