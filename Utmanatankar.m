@@ -631,6 +631,9 @@ NSArray *pArray;
    
 }
 
+- (IBAction)skickaButtonClicked:(id)sender {
+}
+
 -(IBAction)Closelistofdates:(id)sender{
     listofdates.hidden = YES;
     scroll.scrollEnabled = YES;
@@ -714,5 +717,9 @@ NSArray *pArray;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    [_skickaButton release];
+    [super dealloc];
+}
 @end
 

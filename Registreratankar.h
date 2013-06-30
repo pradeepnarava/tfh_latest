@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 #import "KanslorViewController.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface Registreratankar : UIViewController <UITableViewDelegate, UITableViewDataSource,UITextViewDelegate> {
+@interface Registreratankar : UIViewController <UITableViewDelegate, UITableViewDataSource,UITextViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
     
     UILabel *nat,*tanke,*tabellen,*flykt;
     sqlite3 *exerciseDB;
@@ -52,10 +54,12 @@
 @property(nonatomic, retain)IBOutlet UILabel *tanke;
 @property(nonatomic, retain)IBOutlet UILabel *tabellen;
 @property(nonatomic, retain)IBOutlet UILabel *flykt;
+@property (retain, nonatomic) IBOutlet UIButton *skickaButton;
 
 
 -(IBAction)Sparabutton:(id)sender;
 -(IBAction)nyttbutton:(id)sender;
+- (IBAction)skickaButtonClicked:(id)sender;
 
 -(IBAction)Editbutton:(id)sender;
 -(IBAction)Closelistofdates:(id)sender;

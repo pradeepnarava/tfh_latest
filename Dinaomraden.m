@@ -48,6 +48,9 @@
     _raderaButton.enabled = NO;
     skickaButton.enabled = NO;
     
+    recentBtn1Selected = NO;
+    recentBtn2Selected = NO;
+    
     // Customing the segmented control
     UIImage *segmentSelected = [[UIImage imageNamed:@"segSelected.png"]
      resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
@@ -406,16 +409,18 @@
         omradeLabel1.text=@"";
         omradeLabel2.text = @"";
         textview.text=@"";
-        [averageBt setTitle:@"" forState:UIControlStateNormal];
-        tf1.text=@"";
-        tf2.text=@"";
-        tf3.text=@"";  tf4.text=@"";
-        tf5.text=@"";
-        tf6.text=@"";
-        tf7.text=@"";
-        tf8.text=@"";
-        tf9.text=@"";
-        tf10.text=@"";
+        _textview1.text = @"";
+        [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
+        tf1.text=@"1";
+        tf2.text=@"1";
+        tf3.text=@"1";
+        tf4.text=@"1";
+        tf5.text=@"1";
+        tf6.text=@"1";
+        tf7.text=@"1";
+        tf8.text=@"1";
+        tf9.text=@"1";
+        tf10.text=@"1";
     }
 }
 
@@ -944,7 +949,12 @@
         
         _reminderDatePicker.hidden = NO;
         
-        _weekSegmentControl.enabled = YES;
+        _weekSegmentControl.hidden = NO;
+        
+        _settingBImageView.hidden = NO;
+        _settingBLabel.hidden = NO;
+        _settingBTitleImageView.hidden = NO;
+        _kiLabel.hidden = NO;
     }
     else
     {
@@ -953,7 +963,12 @@
         
         _reminderDatePicker.hidden = YES;
         
-        _weekSegmentControl.enabled = NO;
+        _weekSegmentControl.hidden = YES;
+        
+        _settingBImageView.hidden = YES;
+        _settingBLabel.hidden = YES;
+        _settingBTitleImageView.hidden = YES;
+        _kiLabel.hidden = YES;
     }
     
     [UIView beginAnimations:@"curlInView" context:nil];
@@ -1020,6 +1035,7 @@
             omradeLabel1.text=@"";
             omradeLabel2.text = @"";
             textview.text=@"";
+            _textview1.text = @"";
             tf1.text=@"1";
             tf2.text=@"1";
             tf3.text=@"1";
@@ -1029,7 +1045,7 @@
             tf7.text=@"1";
             tf8.text=@"1";
             tf9.text=@"1";
-            tf10.text=@"";
+            tf10.text=@"1";
             [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
             dateOfCurrentItem = nil;
             _raderaButton.enabled = NO;
@@ -1068,8 +1084,8 @@
 //    {
       UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
                                         delegate:self
-                               cancelButtonTitle:@"Avbryt"
-                               otherButtonTitles:@"Fortsätt utan att spara", nil];
+                               cancelButtonTitle:nil
+                               otherButtonTitles:@"Fortsätt utan att spara", @"Avbryt", nil];
         alert.tag = 1;
         
         [alert show];
@@ -1080,12 +1096,13 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSLog(@"ok");
     
-        if (buttonIndex == 1 && alertView.tag == 1)
+        if (buttonIndex == 0 && alertView.tag == 1)
         {
             NSLog(@"new form");
             omradeLabel1.text=@"";
             omradeLabel2.text = @"";
             textview.text=@"";
+            _textview1.text = @"";
             tf1.text=@"1";
               tf2.text=@"1";
               tf3.text=@"1";
@@ -1102,7 +1119,7 @@
             skickaButton.enabled = NO;
             
         }
-        else if (buttonIndex == 1 && alertView.tag == 2)
+        else if (buttonIndex == 0 && alertView.tag == 2)
         {
             sqlite3_stmt    *statement;
             if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
@@ -1452,8 +1469,8 @@ else if(btn.tag==10){
     {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Är du säker på att du vill radera formuläret?"
                                                      delegate:self
-                                            cancelButtonTitle:@"Avbryt"
-                                            otherButtonTitles:@"Radera", nil];
+                                            cancelButtonTitle:nil
+                                            otherButtonTitles:@"Radera", @"Avbryt", nil];
         alert.tag = 2;
         [alert show];
         [alert release];
@@ -1558,7 +1575,12 @@ else if(btn.tag==10){
         
         _reminderDatePicker.hidden = NO;
         
-        _weekSegmentControl.enabled = YES;
+        _weekSegmentControl.hidden = NO;
+        
+        _settingBImageView.hidden = NO;
+        _settingBLabel.hidden = NO;
+        _settingBTitleImageView.hidden = NO;
+        _kiLabel.hidden = NO;
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Reminder"];
     }
@@ -1570,7 +1592,12 @@ else if(btn.tag==10){
         
         _reminderDatePicker.hidden = YES;
         
-        _weekSegmentControl.enabled = NO;
+        _weekSegmentControl.hidden = YES;
+        
+        _settingBImageView.hidden = YES;
+        _settingBLabel.hidden = YES;
+        _settingBTitleImageView.hidden = YES;
+        _kiLabel.hidden = YES;
         
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Reminder"];
     }
@@ -1581,6 +1608,17 @@ else if(btn.tag==10){
 {
     if ([(UIButton *)sender tag] == 0)
     {
+        if (recentBtn1Selected)
+        {
+            recentBtn1Selected = NO;
+            [_recentButton1 setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+        }
+        else
+        {
+            recentBtn1Selected = YES;
+            [_recentButton1 setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+        }
+        
         if ([omradeLabel1.text isEqualToString:@""])
         {
             omradeLabel1.text = _recentLabel1.text;
@@ -1592,6 +1630,17 @@ else if(btn.tag==10){
     }
     else
     {
+        if (recentBtn2Selected)
+        {
+            recentBtn2Selected = NO;
+            [_recentButton2 setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+        }
+        else
+        {
+            recentBtn2Selected = YES;
+            [_recentButton2 setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+        }
+        
         if ([omradeLabel1.text isEqualToString:@""])
         {
             omradeLabel1.text = _recentLabel2.text;
@@ -1679,6 +1728,10 @@ else if(btn.tag==10){
     [_recentLabel1 release];
     [_recentLabel2 release];
     [_raderaButton release];
+    [_kiLabel release];
+    [_settingBLabel release];
+    [_settingBImageView release];
+    [_settingBTitleImageView release];
     [super dealloc];
 }
 

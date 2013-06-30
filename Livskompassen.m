@@ -8,6 +8,9 @@
 
 #import "Livskompassen.h"
 #import "MTPopupWindow.h"
+#import "Dinaomraden.h"
+#import "DinKompass.h"
+
 @interface Livskompassen ()
 
 @end
@@ -34,35 +37,49 @@
     [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [self.navigationItem setBackBarButtonItem:btnDone];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-    {
-        if ([[UIScreen mainScreen] bounds].size.height > 480)
-        {
-            dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
-            dk = [[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];
-        }
-        else
-        {
-            dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
-            dk = [[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil];
-        }
-    }
-    else
-    {
-        dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden_iPad" bundle:nil];
-        dk = [[DinKompass alloc]initWithNibName:@"DinKompass_iPad" bundle:nil];
-    }
-    
     //[self.view addSubview:scrollView];
     //scrollView.hidden=YES;
     // Do any additional setup after loading the view from its nib.
 }
--(IBAction)pageB:(id)sender{
-
+-(IBAction)pageB:(id)sender
+{
+    Dinaomraden *dr;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        if ([[UIScreen mainScreen] bounds].size.height > 480)
+        {
+            dr = [[[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil] autorelease];
+        }
+        else
+        {
+            dr = [[[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil] autorelease];
+        }
+    }
+    else
+    {
+        dr = [[[Dinaomraden alloc]initWithNibName:@"Dinaomraden_iPad" bundle:nil] autorelease];
+    }
     [self.navigationController pushViewController:dr animated:YES];
 }
--(IBAction)pageC:(id)sender{
- 
+
+-(IBAction)pageC:(id)sender
+{
+    DinKompass *dk;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        if ([[UIScreen mainScreen] bounds].size.height > 480)
+        {
+            dk = [[[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil] autorelease];
+        }
+        else
+        {
+            dk = [[[DinKompass alloc]initWithNibName:@"DinKompass" bundle:nil] autorelease];
+        }
+    }
+    else
+    {
+        dk = [[[DinKompass alloc]initWithNibName:@"DinKompass_iPad" bundle:nil] autorelease];
+    }
      [self.navigationController pushViewController:dk animated:YES];
 }
 -(IBAction)iLabel:(id)sender{
@@ -76,8 +93,6 @@
 
 - (void)dealloc
 {
-    [dk release];
-    [dr release];
     [super dealloc];
 }
 

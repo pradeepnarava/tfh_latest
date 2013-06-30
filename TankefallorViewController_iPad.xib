@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -2359,6 +2359,14 @@
 					<int key="connectionID">335</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">skickaButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="843757174"/>
+					</object>
+					<int key="connectionID">337</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">nextbutton:</string>
 						<reference key="source" ref="655366442"/>
@@ -2384,6 +2392,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">271</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">skickaButtonClicked:</string>
+						<reference key="source" ref="843757174"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">336</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -3511,203 +3528,9 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">335</int>
+			<int key="maxID">337</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">TankefallorViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="CloseButton:">id</string>
-						<string key="Nyttbutton:">id</string>
-						<string key="Sparabutton:">id</string>
-						<string key="aMethod:">id</string>
-						<string key="mainlabelalert:">id</string>
-						<string key="nextbutton:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="CloseButton:">
-							<string key="name">CloseButton:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="Nyttbutton:">
-							<string key="name">Nyttbutton:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="Sparabutton:">
-							<string key="name">Sparabutton:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="aMethod:">
-							<string key="name">aMethod:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="mainlabelalert:">
-							<string key="name">mainlabelalert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="nextbutton:">
-							<string key="name">nextbutton:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="AllC1">UITextView</string>
-						<string key="AllC2">UITextView</string>
-						<string key="DiskC1">UITextView</string>
-						<string key="DiskC2">UITextView</string>
-						<string key="EtikeC1">UITextView</string>
-						<string key="EtikeC2">UITextView</string>
-						<string key="ForC1">UITextView</string>
-						<string key="ForC2">UITextView</string>
-						<string key="KanslC1">UITextView</string>
-						<string key="KanslC2">UITextView</string>
-						<string key="KataC1">UITextView</string>
-						<string key="KataC2">UITextView</string>
-						<string key="PerC1">UITextView</string>
-						<string key="PerC2">UITextView</string>
-						<string key="PliktC1">UITextView</string>
-						<string key="PliktC2">UITextView</string>
-						<string key="SelektC1">UITextView</string>
-						<string key="SelektC2">UITextView</string>
-						<string key="StagC1">UITextView</string>
-						<string key="StagC2">UITextView</string>
-						<string key="TankeC1">UITextView</string>
-						<string key="TankeC2">UITextView</string>
-						<string key="listofdates">UIView</string>
-						<string key="overC1">UITextView</string>
-						<string key="overC2">UITextView</string>
-						<string key="raderaButton">UIButton</string>
-						<string key="scroll">UIScrollView</string>
-						<string key="scroll1">UIScrollView</string>
-						<string key="tableView">UITableView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="AllC1">
-							<string key="name">AllC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="AllC2">
-							<string key="name">AllC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="DiskC1">
-							<string key="name">DiskC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="DiskC2">
-							<string key="name">DiskC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="EtikeC1">
-							<string key="name">EtikeC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="EtikeC2">
-							<string key="name">EtikeC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ForC1">
-							<string key="name">ForC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ForC2">
-							<string key="name">ForC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="KanslC1">
-							<string key="name">KanslC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="KanslC2">
-							<string key="name">KanslC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="KataC1">
-							<string key="name">KataC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="KataC2">
-							<string key="name">KataC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="PerC1">
-							<string key="name">PerC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="PerC2">
-							<string key="name">PerC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="PliktC1">
-							<string key="name">PliktC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="PliktC2">
-							<string key="name">PliktC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="SelektC1">
-							<string key="name">SelektC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="SelektC2">
-							<string key="name">SelektC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="StagC1">
-							<string key="name">StagC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="StagC2">
-							<string key="name">StagC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="TankeC1">
-							<string key="name">TankeC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="TankeC2">
-							<string key="name">TankeC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="listofdates">
-							<string key="name">listofdates</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="overC1">
-							<string key="name">overC1</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="overC2">
-							<string key="name">overC2</string>
-							<string key="candidateClassName">UITextView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="raderaButton">
-							<string key="name">raderaButton</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="scroll">
-							<string key="name">scroll</string>
-							<string key="candidateClassName">UIScrollView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="scroll1">
-							<string key="name">scroll1</string>
-							<string key="candidateClassName">UIScrollView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tableView">
-							<string key="name">tableView</string>
-							<string key="candidateClassName">UITableView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TankefallorViewController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

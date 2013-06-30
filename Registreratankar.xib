@@ -1298,6 +1298,14 @@ b3RhzIhja3TigJ0pLg</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">skickaButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="683323402"/>
+					</object>
+					<int key="connectionID">9928</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="791695878"/>
 						<reference key="destination" ref="372490531"/>
@@ -1345,6 +1353,15 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">9694</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">skickaButtonClicked:</string>
+						<reference key="source" ref="683323402"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">9929</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1771,7 +1788,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">9927</int>
+			<int key="maxID">9929</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
