@@ -43,15 +43,31 @@ int c=0;
 {
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
-        
+        if (textView == ex3c5) {
+            
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
         [UIView animateWithDuration:0.5
                          animations:^{
-                             self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
+                              [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 753) animated:YES];
                          }
                          completion:^(BOOL finished){
                              // whatever you need to do when animations are complete
                              
                          }];
+                }
+                else {
+                    [UIView animateWithDuration:0.5
+                                     animations:^{
+                                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 840) animated:YES];
+                                     }
+                                     completion:^(BOOL finished){
+                                         // whatever you need to do when animations are complete
+                                         
+                                     }];
+                }
+            }
+        }
     }
     else {
         return YES;
@@ -106,7 +122,7 @@ int c=0;
     listofdates.hidden=YES;
     questionView3.hidden =YES;
     scroll.scrollEnabled = YES;
-    [scroll setContentSize:CGSizeMake(320, 1200)];
+    [scroll setContentSize:CGSizeMake(320, 1253)];
      list_exercise4=[[NSMutableArray alloc]init];
     [list_exercise4 addObject:@"Null"];
 
@@ -355,8 +371,8 @@ int c=0;
 -(void)clearalltexts {
     ex3c1.text=@"";
     ex3c2.text=@""; ex3c3.text=@""; ex3c4.text=@""; ex3c5.text=@"";
-    slabel1.text=@"";
-    slabel2.text=@"";
+    slabel1.text=@"0%";
+    slabel2.text=@"0%";
     slider.value=0.0;
     slider1.value=0.0;
 }

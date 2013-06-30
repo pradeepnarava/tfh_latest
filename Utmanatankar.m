@@ -14,16 +14,15 @@ int y=0;
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 
-
-
-
 @interface Utmanatankar ()
 @property (nonatomic) BOOL isSaved;
 @end
 
 @implementation Utmanatankar
-@synthesize  label1,strategier,quesitonLabel1,quesitonLabel2,quesitonLabel3,quesitonLabel4,questionLabel5,questionLabel6,c1,c2,c3,c4,c5,c6;
+@synthesize  regTankerLabel,strategier,quesitonLabel1,quesitonLabel2,quesitonLabel3,quesitonLabel4,questionLabel5,questionLabel6,c1,c2,c3,c4,c5,c6;
 @synthesize listexercise3,tableview,list_exercise3,isSaved;
+//Gopal
+@synthesize regButton1,regButton2,regButton3,regButton4,regButton5,regButton6,regButton7,regButton8,regLabel1,regLabel2,regLabel3,regLabel4,regLabel5,regLabel6,regLabel7,regLabel8;
 
 NSArray *pArray;
 
@@ -44,17 +43,32 @@ NSArray *pArray;
     if([text isEqualToString:@"\n"])
     {
         [textView resignFirstResponder];
+        if (textView == c6) {
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
+                    [UIView animateWithDuration:0.5
+                                     animations:^{
+                                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 850) animated:YES];
+                                     }
+                                     completion:^(BOOL finished){
+                                         // whatever you need to do when animations are complete
+                                         
+                                     }];
+                }
+                else {
+                    [UIView animateWithDuration:0.5
+                                     animations:^{
+                                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 940) animated:YES];
+                                     }
+                                     completion:^(BOOL finished){
+                                         // whatever you need to do when animations are complete
+                                         
+                                     }];
+                }
+            }
+        }
         
-        [UIView animateWithDuration:0.5
-                         animations:^{
-                             self.view.frame = CGRectMake(self.view.frame.origin.x
-                                                          , 0, self.view.frame.size.width, self.view.frame.size.height);
-                         }
-                         completion:^(BOOL finished){
-                             // whatever you need to do when animations are complete
-                             
-                         }];
-    }
+        }
     else {
         return YES;
     }
@@ -85,10 +99,10 @@ NSArray *pArray;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
-            [scroll setContentSize:CGSizeMake(320, 1249)];
+            [scroll setContentSize:CGSizeMake(320, 1353)];
         }
         else {
-            [scroll setContentSize:CGSizeMake(320, 1249)];
+            [scroll setContentSize:CGSizeMake(320, 1353)];
         }
     }
     
@@ -109,11 +123,11 @@ NSArray *pArray;
     self.navigationItem.backBarButtonItem = backButton;
     
     
-    
-    label1.userInteractionEnabled = YES;
+    //Gopal
+    regTankerLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture2 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(label1alert:)] autorelease];
-    [label1 addGestureRecognizer:tapGesture2];
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(registerTankerView:)] autorelease];
+    [regTankerLabel addGestureRecognizer:tapGesture2];
     
     
     strategier.userInteractionEnabled = YES;
@@ -204,7 +218,8 @@ NSArray *pArray;
 }
 
 
--(IBAction)label1alert:(id)sender{
+-(void)registerTankerView:(id)sender {
+    NSLog(@"Gopal");
     
     scroll.scrollEnabled = NO;
     [self.view bringSubviewToFront:Label1Popup];
@@ -465,6 +480,7 @@ NSArray *pArray;
     [UIView commitAnimations];
     [self getlistofDates3];
 }
+
 -(void)getlistofDates3{
     const char *dbpath = [databasePath UTF8String];
     
@@ -504,6 +520,7 @@ NSArray *pArray;
     }
     [self.tableview reloadData];
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.listexercise3 count];
 }

@@ -20,6 +20,7 @@
 @property (nonatomic, assign) int minutes;
 @property (nonatomic, assign) int Reseconds;
 @property (nonatomic, assign) int Reminutes;
+
 @property (nonatomic, assign) NSString *scb;
 
 @property (nonatomic) BOOL isSaved;

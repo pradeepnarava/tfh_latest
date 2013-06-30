@@ -16,7 +16,7 @@
 
 @interface TankefallorViewController ()
 
-@property (nonatomic) BOOL isSaved;
+@property (nonatomic) BOOL isSaved,isExit;
 
 @end
 
@@ -24,7 +24,7 @@
 @synthesize alltTV1,alltTV2,attTV1,attTV2,overTV1,overTV2,diskTV1,diskTV2,etikTV1,etikTV2;
 @synthesize mansTV1,mansTV2,mentTV1,mentTV2,forTV1,forTV2,tankTV1,tankTV2,persTV1,persTV2;
 @synthesize kataTV1,kataTV2;
-@synthesize isSaved;
+@synthesize isSaved,isExit;
 
 
 
@@ -42,17 +42,33 @@
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    isSaved = YES;
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
-        
+        if (textView == mansTV2) {
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
         [UIView animateWithDuration:0.5
                          animations:^{
-                            [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y) animated:YES];
+                            [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 3525) animated:YES];
                          }
                          completion:^(BOOL finished){
                              // whatever you need to do when animations are complete
                              
                          }];
+                }
+                else {
+                    [UIView animateWithDuration:0.5
+                                     animations:^{
+                                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 3610) animated:YES];
+                                     }
+                                     completion:^(BOOL finished){
+                                         // whatever you need to do when animations are complete
+                                         
+                                     }];
+                }
+            }
+        }
     }
     else {
         return YES;
@@ -131,7 +147,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    isSaved = YES;
+
+
 }
 
 
@@ -167,30 +184,29 @@
         
     }
     else if (sqlite3_open(dbpath, &tankefallorDB) == SQLITE_OK) {
-        if (isSaved == YES) {
         
+        if (isExit == NO) {
+            
             NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISETWO (date,allc1,allc2,katac1,katac2,diskc1,diskc2,attc1,attc2,etikc1,etikc2,forc1,forc2,mentc1,mentc2,tankc1,tankc2,overc1,overc2,persc1,persc2,mansc1,mansc2) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\")", str, alltTV1.text,alltTV2.text,kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
             
             const char *insert_stmt = [insertSQL UTF8String];
             
-            /*NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO EXERCISETWO (date,allc1,allc2,katac1,katac2,diskc1,diskc2,attc1,attc2,etikc1,etikc2,forc1,forc2,mentc1,mentc2,tankc1,tankc2,overc1,overc2,persc1,persc2,mansc1,mansc2) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\",\"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", str, alltTV1.text,alltTV2.text,kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
-            
-            const char *insert_stmt = [insertSQL UTF8String];*/
-            
             sqlite3_prepare_v2(tankefallorDB, insert_stmt, -1, &statement, NULL);
+           
             if (sqlite3_step(statement) == SQLITE_DONE)
             {
+                isExit = YES;
                 isSaved = NO;
                 NSLog(@"Save");
-                
-            } else {
+            }
+            else {
                 NSLog(@"Failed to add tankefallor");
             }
             sqlite3_finalize(statement);
             sqlite3_close(tankefallorDB);
         }
         else {
-            NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET allc1='%@',allc2='%@',katac1='%@',katac2='%@',diskc1='%@',diskc2='%@',attc1='%@',attc2='%@',etikc1='%@',etikc2='%@',forc1='%@',forc2='%@',mentc1='%@',mentc2='%@',tankc1='%@',tankc2='%@',overc1='%@',overc2='%@',perstc1='%@',persc2='%@',mansc1='%@',mansc2='%@'",alltTV1.text,alltTV2.text, kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
+            NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET allc1='%@',allc2='%@',katac1='%@',katac2='%@',diskc1='%@',diskc2='%@',attc1='%@',attc2='%@',etikc1='%@',etikc2='%@',forc1='%@',forc2='%@',mentc1='%@',mentc2='%@',tankc1='%@',tankc2='%@',overc1='%@',overc2='%@',persc1='%@',persc2='%@',mansc1='%@',mansc2='%@'",alltTV1.text,alltTV2.text, kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
             
             const char *del_stmt = [query UTF8String];
             
@@ -199,25 +215,27 @@
                     NSLog(@"Error while updating. %s", sqlite3_errmsg(tankefallorDB));
                 NSLog(@"sss");
                 isSaved = NO;
-                //[self clearalltexts];
+                isExit = YES;
             
             }
         
             sqlite3_finalize(statement);
             sqlite3_close(tankefallorDB);
         }
+        UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert1 show];
+        [alert1 release];
     }
-    UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-    [alert1 show];
-    [alert1 release];
 }
   
--(IBAction)Nyttbutton:(id)sender {
+-(IBAction)Nyttbutton:(id)sender  {
+    
     if([alltTV1.text isEqualToString:@""] && [alltTV2.text isEqualToString:@""] && [kataTV1.text isEqualToString:@""] && [kataTV2.text isEqualToString:@""]&& [diskTV1.text isEqualToString:@""] && [diskTV2.text isEqualToString:@""] && [attTV1.text isEqualToString:@""] && [attTV2.text isEqualToString:@""] && [etikTV1.text isEqualToString:@""] && [etikTV2.text isEqualToString:@""]&& [forTV1.text isEqualToString:@""] && [forTV2.text isEqualToString:@""] && [tankTV1.text isEqualToString:@""] && [tankTV2.text isEqualToString:@""] && [overTV1.text isEqualToString:@""] && [overTV2.text isEqualToString:@""]&& [persTV1.text isEqualToString:@""] && [persTV2.text isEqualToString:@""] && [mansTV1.text isEqualToString:@""] && [mansTV2.text isEqualToString:@""] && [mentTV1.text isEqualToString:@""] && [mentTV2.text isEqualToString:@""]){
         
     }else {
         if (isSaved == YES) {
-            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+            
+            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Vill du ta bort all text som du skrivit ner i övningen?"
                                             delegate:self
                                    cancelButtonTitle:@"Forsätt"
                                    otherButtonTitles:@"Avbryt", nil];
@@ -227,12 +245,38 @@
         }
         else {
             [self clearalltexts];
-    
-            isSaved = YES;
+            sqlite3_stmt    *statement;
+            
+            const char *dbpath = [databasePath UTF8String];
+            
+            if (sqlite3_open(dbpath, &tankefallorDB) == SQLITE_OK) {
+                
+                NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET allc1='%@',allc2='%@',katac1='%@',katac2='%@',diskc1='%@',diskc2='%@',attc1='%@',attc2='%@',etikc1='%@',etikc2='%@',forc1='%@',forc2='%@',mentc1='%@',mentc2='%@',tankc1='%@',tankc2='%@',overc1='%@',overc2='%@',persc1='%@',persc2='%@',mansc1='%@',mansc2='%@'",alltTV1.text,alltTV2.text, kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
+                
+                const char *del_stmt = [query UTF8String];
+                
+                if (sqlite3_prepare_v2(tankefallorDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
+                    if(SQLITE_DONE != sqlite3_step(statement))
+                        NSLog(@"Error while updating. %s", sqlite3_errmsg(tankefallorDB));
+                    NSLog(@"sss");
+                    
+                }
+                sqlite3_finalize(statement);
+                sqlite3_close(tankefallorDB);
+            }
         }
     }
 }
 
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == kAlertViewOne) {
+        if (buttonIndex == 0) {
+            [self clearalltexts];
+        }
+    }
+}
 
 -(void)getDetailsFromtankefallorDB {
     
@@ -248,9 +292,9 @@
         
         if (sqlite3_prepare_v2(tankefallorDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
         {
-
+            
             while  (sqlite3_step(statement) == SQLITE_ROW) {
-                isSaved = YES;
+                
                 char* c1 = (char*) sqlite3_column_text(statement,2);
                 
                 if (c1 != NULL){
@@ -404,7 +448,7 @@
                     NSLog(@"value form db :%@",mansTV2.text);
                     
                 }
-                
+                isExit = YES;
             }
         }
         sqlite3_finalize(statement);

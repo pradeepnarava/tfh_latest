@@ -39,16 +39,33 @@ int s=0;
     if([text isEqualToString:@"\n"])
     {
         [textView resignFirstResponder];
+        if (textView == overiga) {
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
+                    [UIView animateWithDuration:0.5
+                                     animations:^{
+                                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 500 ) animated:YES];
+                                     }
+                                     completion:^(BOOL finished){
+                                         // whatever you need to do when animations are complete
+                                         
+                                     }];
+                }
+                else {
+                    [UIView animateWithDuration:0.5
+                                     animations:^{
+                                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 590 ) animated:YES];
+                                     }
+                                     completion:^(BOOL finished){
+                                         // whatever you need to do when animations are complete
+                                         
+                                     }];
+                    
+                }
+            }
+            
+        }
         
-        [UIView animateWithDuration:0.5
-                         animations:^{
-                             self.view.frame = CGRectMake(self.view.frame.origin.x
-                                                          , 0, self.view.frame.size.width, self.view.frame.size.height);
-                         }
-                         completion:^(BOOL finished){
-                             // whatever you need to do when animations are complete
-                             
-                         }];
     }
     else {
         return YES;
@@ -154,7 +171,7 @@ int s=0;
     
     
     scroll.scrollEnabled = YES;
-    [scroll setContentSize:CGSizeMake(320, 1100)];
+    [scroll setContentSize:CGSizeMake(320, 1006)];
     
     scroll2.scrollEnabled = YES;
     [scroll2 setContentSize:CGSizeMake(768, 1395)];

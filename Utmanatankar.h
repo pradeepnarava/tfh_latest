@@ -12,7 +12,7 @@
 
 @interface Utmanatankar : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>
 {
-    UILabel *label2,*strategier,*quesitonLabel1,*questionLabel2,*questionLabel3,*questionLabel4,*questionLabel5,*questionLabel6;
+    UILabel *regTankerLabel,*strategier,*quesitonLabel1,*questionLabel2,*questionLabel3,*questionLabel4,*questionLabel5,*questionLabel6;
     UITextView *c1,*c2,*c4,*c5,*c6;
     UILabel *c3;
     sqlite3 *exerciseDB;
@@ -37,12 +37,21 @@
     
     IBOutlet UIView *Label1Popup;
     IBOutlet UIButton *raderaButton;
+    
+    
+    //Gopal
+    UILabel *regLabel1,*regLabel2,*regLabel3,*regLabel4,*regLabel5,*regLabel6,*regLabel7,*regLabel8;
+    UIButton *regButton1,*regButton2,*regButton3,*regButton4,*regButton5,*regButton6,*regButton7,*regButton8;
 }
 
 
+//Gopal ******
+@property(nonatomic, retain)IBOutlet UILabel *regLabel1,*regLabel2,*regLabel3,*regLabel4,*regLabel5,*regLabel6,*regLabel7,*regLabel8;
+@property(nonatomic, retain)IBOutlet UIButton *regButton1,*regButton2,*regButton3,*regButton4,*regButton5,*regButton6,*regButton7,*regButton8;
+///Gopal **********
 
 
-@property(nonatomic, retain)IBOutlet UILabel *label1;
+@property(nonatomic, retain)IBOutlet UILabel *regTankerLabel;
 
 @property(nonatomic, retain)IBOutlet UILabel *strategier;
 
