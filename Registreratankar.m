@@ -8,6 +8,7 @@
 
 #import "Registreratankar.h"
 #import "MTPopupWindow.h"
+#import <QuartzCore/QuartzCore.h>
 
 int s=0;
 
@@ -91,6 +92,7 @@ int s=0;
     exercise1_list=[[NSMutableArray alloc]init];
     [exercise1_list addObject:@"Null" ];
     raderabutton.enabled=NO;
+    _skickaButton.enabled = NO;
     
     nat.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture2 =
@@ -262,6 +264,7 @@ int s=0;
     NSLog(@"date%@",str);
     
     raderabutton.enabled=NO;
+    _skickaButton.enabled = NO;
     
     if([negative.text isEqualToString:@""] &&[situation.text isEqualToString:@""] &&[beteenden.text isEqualToString:@""] && [overiga.text isEqualToString:@""]) {
         
@@ -348,6 +351,7 @@ int s=0;
             overiga.text = @"";
             beteenden.text=@"";
             raderabutton.enabled=NO;
+            _skickaButton.enabled = NO;
             [exercise1_list removeAllObjects];
             s=0;
             [exercise1_list addObject:@"Null"];
@@ -356,6 +360,113 @@ int s=0;
     }
     
     
+}
+
+- (IBAction)skickaButtonClicked:(id)sender
+{
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    cameraActionSheet.tag = 1;
+    [cameraActionSheet showInView:self.view];
+}
+
+- (UIImage *)getFormImage
+{
+    UIImage *tempImage = nil;
+    UIGraphicsBeginImageContext(scroll.contentSize);
+    {
+        CGPoint savedContentOffset = scroll.contentOffset;
+        CGRect savedFrame = scroll.frame;
+        
+        scroll.contentOffset = CGPointZero;
+        scroll.frame = CGRectMake(0, 0, scroll.contentSize.width, scroll.contentSize.height);
+        
+        [scroll.layer renderInContext: UIGraphicsGetCurrentContext()];
+        tempImage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        scroll.contentOffset = savedContentOffset;
+        scroll.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    return tempImage;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
+	if (buttonIndex == 0)
+    {
+        UIImage *image = [self getFormImage];
+        if (image)
+        {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Image downloaded" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+    }
+    else if (buttonIndex == 1)
+    {
+        if ([MFMailComposeViewController canSendMail])
+        {
+            MFMailComposeViewController *emailDialog = [[MFMailComposeViewController alloc] init];
+            emailDialog.mailComposeDelegate = self;
+            NSMutableString *htmlMsg = [NSMutableString string];
+            [htmlMsg appendString:@"<html><body><p>"];
+            [htmlMsg appendString:[NSString stringWithFormat:@"Please find the attached form on %@", SelectedDate]];
+            [htmlMsg appendString:@": </p></body></html>"];
+            
+            NSData *jpegData = UIImageJPEGRepresentation([self getFormImage], 1);
+            
+            NSString *fileName = [NSString stringWithString:SelectedDate];
+            fileName = [fileName stringByAppendingPathExtension:@"jpeg"];
+            [emailDialog addAttachmentData:jpegData mimeType:@"image/jpeg" fileName:fileName];
+            
+            [emailDialog setSubject:@"Form"];
+            [emailDialog setMessageBody:htmlMsg isHTML:YES];
+            
+            
+            [self presentViewController:emailDialog animated:YES completion:nil];
+        }
+        else
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail cannot be send now. Please check mail has been configured in your device and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    // Notifies users about errors associated with the interface
+    switch (result)
+    {
+            
+        case MFMailComposeResultCancelled:
+            break;
+        case MFMailComposeResultSaved:
+            break;
+        case MFMailComposeResultSent:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail sent successfully" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+            break;
+        case MFMailComposeResultFailed:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail send failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+            break;
+        default:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail was not sent." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -368,6 +479,7 @@ int s=0;
             overiga.text = @"";
             beteenden.text=@"";
             raderabutton.enabled=NO;
+            _skickaButton.enabled = NO;
             [exercise1_list removeAllObjects];
             s=0;
             [exercise1_list addObject:@"Null"];
@@ -391,6 +503,7 @@ int s=0;
                     
                 }
                 raderabutton.enabled=NO;
+                _skickaButton.enabled = NO;
                 situation.text = @"";
                 negative.text = @"";
                 overiga.text = @"";
@@ -505,6 +618,7 @@ int s=0;
     SelectedDate=[NSString stringWithFormat:@"%@", dictionary];
     NSLog(@"%@",SelectedDate);
     raderabutton.enabled=YES;
+    _skickaButton.enabled = YES;
     [exercise1_list removeAllObjects];
     [exercise1_list addObject:SelectedDate];
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
@@ -581,5 +695,9 @@ int s=0;
      PopupView3.hidden=YES;
      PopupView2.hidden=YES;
     NSLog(@"value of s%@",[listexercise1 objectAtIndex:s]);
+}
+- (void)dealloc {
+    [_skickaButton release];
+    [super dealloc];
 }
 @end

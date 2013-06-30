@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface TankefallorViewController : UIViewController<UITextViewDelegate>{
+@interface TankefallorViewController : UIViewController<UITextViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>{
     
     sqlite3 *tankefallorDB;
     NSString *databasePath;
@@ -61,7 +63,9 @@
 -(IBAction)Sparabutton:(id)sender;
 -(IBAction)Nyttbutton:(id)sender;
 -(IBAction)mainlabelalert:(id)sender;
+- (IBAction)skickaButtonClicked:(id)sender;
 
+@property (retain, nonatomic) IBOutlet UIButton *skickaButton;
 //1.
 @property(nonatomic, retain)IBOutlet UITextView *alltTV1;
 @property(nonatomic, retain)IBOutlet UITextView *alltTV2;

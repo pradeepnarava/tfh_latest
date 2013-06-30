@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 
-@interface Utmanatankar : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>
+@interface Utmanatankar : UIViewController<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 {
     UILabel *label2,*strategier,*quesitonLabel1,*questionLabel2,*questionLabel3,*questionLabel4,*questionLabel5,*questionLabel6;
     UITextView *c1,*c2,*c4,*c5,*c6;
@@ -59,6 +61,7 @@
 @property(nonatomic, retain)IBOutlet  UITextView *c4;
 @property(nonatomic, retain)IBOutlet  UITextView *c5;
 @property(nonatomic, retain)IBOutlet  UITextView *c6;
+@property (retain, nonatomic) IBOutlet UIButton *skickaButton;
 
 -(IBAction)changeSlider:(id)sender ;
 -(IBAction)sparabutton:(id)sender;
@@ -70,6 +73,7 @@
 
 -(IBAction)SelectChekBoxs:(id)sender;
 -(IBAction)aMethod:(id)sender;
+- (IBAction)skickaButtonClicked:(id)sender;
 
 @property(nonatomic, retain) IBOutlet UITableView *tableview;
 @property(nonatomic, retain) NSMutableArray *listexercise3;

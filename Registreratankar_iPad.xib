@@ -1258,6 +1258,14 @@ b3RhzIhja3TigJ0pLg</bytes>
 					<int key="connectionID">83</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">skickaButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="689018675"/>
+					</object>
+					<int key="connectionID">84</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">mainlabelalert:</string>
 						<reference key="source" ref="634432113"/>
@@ -1290,6 +1298,15 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">45</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">skickaButtonClicked:</string>
+						<reference key="source" ref="689018675"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">85</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1714,7 +1731,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">83</int>
+			<int key="maxID">85</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1730,6 +1747,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<string key="mainlabelalert:">id</string>
 						<string key="natalert:">id</string>
 						<string key="nyttbutton:">id</string>
+						<string key="skickaButtonClicked:">id</string>
 						<string key="tankealert:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -1765,6 +1783,10 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<string key="name">nyttbutton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="skickaButtonClicked:">
+							<string key="name">skickaButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="tankealert:">
 							<string key="name">tankealert:</string>
 							<string key="candidateClassName">id</string>
@@ -1784,6 +1806,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<string key="scroll">UIScrollView</string>
 						<string key="scroll2">UIScrollView</string>
 						<string key="situation">UITextView</string>
+						<string key="skickaButton">UIButton</string>
 						<string key="tabellen">UILabel</string>
 						<string key="tableView">UITableView</string>
 						<string key="tanke">UILabel</string>
@@ -1840,6 +1863,10 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<object class="IBToOneOutletInfo" key="situation">
 							<string key="name">situation</string>
 							<string key="candidateClassName">UITextView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="skickaButton">
+							<string key="name">skickaButton</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tabellen">
 							<string key="name">tabellen</string>
