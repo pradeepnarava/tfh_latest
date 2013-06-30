@@ -45,6 +45,9 @@
     [super viewDidLoad];
     self.navigationItem.title=@"Dina områden";
     
+    _raderaButton.enabled = NO;
+    skickaButton.enabled = NO;
+    
     // Customing the segmented control
     UIImage *segmentSelected = [[UIImage imageNamed:@"segSelected.png"]
      resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
@@ -939,7 +942,7 @@
         _reminderOnButton.enabled = NO;
         _reminderOffButton.enabled = YES;
         
-        _reminderDatePicker.enabled = YES;
+        _reminderDatePicker.hidden = NO;
         
         _weekSegmentControl.enabled = YES;
     }
@@ -948,7 +951,7 @@
         _reminderOnButton.enabled = NO;
         _reminderOffButton.enabled = YES;
         
-        _reminderDatePicker.enabled = NO;
+        _reminderDatePicker.hidden = YES;
         
         _weekSegmentControl.enabled = NO;
     }
@@ -1014,26 +1017,32 @@
         sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-//            label.text=@"";
-//            textview.text=@"";
-//       [averageBt setTitle:@"" forState:UIControlStateNormal];
-//            tf1.text=@"";
-//            tf2.text=@"";
-//            tf3.text=@"";  tf4.text=@"";
-//            tf5.text=@"";
-//            tf6.text=@"";
-//            tf7.text=@"";
-//            tf8.text=@"";
-//            tf9.text=@"";
-//            tf10.text=@"";
+            omradeLabel1.text=@"";
+            omradeLabel2.text = @"";
+            textview.text=@"";
+            tf1.text=@"1";
+            tf2.text=@"1";
+            tf3.text=@"1";
+            tf4.text=@"1";
+            tf5.text=@"1";
+            tf6.text=@"1";
+            tf7.text=@"1";
+            tf8.text=@"1";
+            tf9.text=@"1";
+            tf10.text=@"";
+            [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
+            dateOfCurrentItem = nil;
+            _raderaButton.enabled = NO;
+            skickaButton.enabled = NO;
+            
             if (rows == 0)
             {
-                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form Saved Successfully" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
                 [insertAlert show];
             }
             else
             {
-                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form Updated Successfully" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
                 [insertAlert show];
             }
             
@@ -1077,17 +1086,20 @@
             omradeLabel1.text=@"";
             omradeLabel2.text = @"";
             textview.text=@"";
-            tf1.text=@"";
-              tf2.text=@"";
-              tf3.text=@"";  tf4.text=@"";
-              tf5.text=@"";
-              tf6.text=@"";
-              tf7.text=@"";
-              tf8.text=@"";
-              tf9.text=@"";
-              tf10.text=@"";
-               [averageBt setTitle:@"" forState:UIControlStateNormal];
+            tf1.text=@"1";
+              tf2.text=@"1";
+              tf3.text=@"1";
+            tf4.text=@"1";
+              tf5.text=@"1";
+              tf6.text=@"1";
+              tf7.text=@"1";
+              tf8.text=@"1";
+              tf9.text=@"1";
+              tf10.text=@"1";
+               [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
             dateOfCurrentItem = nil;
+            _raderaButton.enabled = NO;
+            skickaButton.enabled = NO;
             
         }
         else if (buttonIndex == 1 && alertView.tag == 2)
@@ -1104,6 +1116,10 @@
                 if (sqlite3_step(statement) == SQLITE_ROW) {
                     
                     NSLog(@"Deleted");
+                    UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Raderat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+                    [alert1 show];
+                    [alert1 release];
+                    
                     dateOfCurrentItem = nil;
                     [self updateCurrentItem];
                 }
@@ -1204,16 +1220,16 @@
 
 - (void)didSelectDate:(NSString *)date
 {
+    _raderaButton.enabled = YES;
+    skickaButton.enabled = YES;
     dateOfCurrentItem = [[NSString alloc] initWithString:date];
-    NSLog(@"Date of Selected Item = %@", dateOfCurrentItem);
     [self updateCurrentItem];
     [lok.tableView removeFromSuperview];
     [closeButton removeFromSuperview];
     [lok.tableView removeFromSuperview];
     [tableImageView removeFromSuperview];
     [lok release];
-    NSLog(@"CHECKING...");
-    NSLog(@"CHECKING ITEM = %@", dateOfCurrentItem);
+    NSLog(@"Selected ITEM = %@", dateOfCurrentItem);
 }
 
 -(IBAction)Increase:(id)sender
@@ -1540,7 +1556,7 @@ else if(btn.tag==10){
         _reminderOnButton.enabled = NO;
         _reminderOffButton.enabled = YES;
         
-        _reminderDatePicker.enabled = YES;
+        _reminderDatePicker.hidden = NO;
         
         _weekSegmentControl.enabled = YES;
         
@@ -1552,7 +1568,7 @@ else if(btn.tag==10){
         _reminderOffButton.enabled = NO;
         _reminderOnButton.enabled = YES;
         
-        _reminderDatePicker.enabled = NO;
+        _reminderDatePicker.hidden = YES;
         
         _weekSegmentControl.enabled = NO;
         
@@ -1662,6 +1678,7 @@ else if(btn.tag==10){
     [_recentButton2 release];
     [_recentLabel1 release];
     [_recentLabel2 release];
+    [_raderaButton release];
     [super dealloc];
 }
 
@@ -1669,7 +1686,7 @@ else if(btn.tag==10){
 {
     if (dateOfCurrentItem)
     {
-        UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Bluetooth", @"Email", @"Print", nil];
+        UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
         cameraActionSheet.tag = 1;
         [cameraActionSheet showInView:self.view];
     }
@@ -1708,13 +1725,14 @@ else if(btn.tag==10){
     
 	if (buttonIndex == 0)
     {
-        peerPicker = [[GKPeerPickerController alloc] init];
-        peerPicker.delegate = self;
-        peerPicker.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
-        
-//        [connect setHidden:YES];
-//        [disconnect setHidden:NO];
-        [peerPicker show];
+        UIImage *image = [self getFormImage];
+        if (image)
+        {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Image downloaded" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
     }
     else if (buttonIndex == 1)
     {
@@ -1743,40 +1761,6 @@ else if(btn.tag==10){
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail cannot be send now. Please check mail has been configured in your device and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
-        }
-    }
-    else if (buttonIndex == 2)
-    {
-        UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
-        //pic.delegate = del;
-        
-        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-        printInfo.outputType = UIPrintInfoOutputGeneral;
-        printInfo.jobName = [NSString stringWithFormat:@"Form on %@", dateOfCurrentItem];
-        pic.printInfo = printInfo;
-        pic.printingItem = [self getFormImage];
-        
-        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) =
-        ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
-            if (!completed && error) {
-                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error."
-                                                             message:[NSString stringWithFormat:@"An error occured while printing: %@", error]
-                                                            delegate:nil
-                                                   cancelButtonTitle:@"OK"
-                                                   otherButtonTitles:nil, nil];
-                
-                [av show];
-                [av release];
-            }
-        };
-        
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [pic presentFromRect:skickaButton.frame inView:self.view animated:YES completionHandler:nil];
-        }
-        else
-        {
-            [pic presentAnimated:YES completionHandler:completionHandler];
         }
     }
 }
@@ -1811,85 +1795,6 @@ else if(btn.tag==10){
             break;
     }
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma Bluetooth Methods
-
-- (void)peerPickerController:(GKPeerPickerController *)picker
-              didConnectPeer:(NSString *)peerID
-                   toSession:(GKSession *) session {
-    currentSession = session;
-    session.delegate = self;
-    [session setDataReceiveHandler:self withContext:nil];
-    
-    picker.delegate = nil;
-    
-    [picker dismiss];
-    [picker autorelease];
-}
-
-- (GKSession *)peerPickerController:(GKPeerPickerController *)picker sessionForConnectionType:(GKPeerPickerConnectionType)type
-{
-    //create ID for session
-    NSString *sessionIDString = @"MTBluetoothSessionID";
-    //create GKSession object
-    GKSession *session = [[GKSession alloc] initWithSessionID:sessionIDString displayName:nil sessionMode:GKSessionModePeer];
-    return session;
-}
-
-- (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker
-{
-    picker.delegate = nil;
-    [picker autorelease];
-    
-//    [connect setHidden:NO];
-//    [disconnect setHidden:YES];
-}
-
-- (void)session:(GKSession *)session
-           peer:(NSString *)peerID
- didChangeState:(GKPeerConnectionState)state
-{
-    switch (state)
-    {
-        case GKPeerStateConnected:
-        {
-            [currentSession sendDataToAllPeers:UIImageJPEGRepresentation([self getFormImage], 0)
-                                       withDataMode:GKSendDataReliable
-                                              error:nil];
-        }
-            break;
-        case GKPeerStateDisconnected:
-            NSLog(@"disconnected");
-            [currentSession release];
-            currentSession = nil;
-            
-//            [connect setHidden:NO];
-//            [disconnect setHidden:YES];
-            break;
-        case GKPeerStateAvailable:
-            NSLog(@"Available");
-            break;
-        case GKPeerStateUnavailable:
-            NSLog(@"Unavailable");
-            break;
-        case GKPeerStateConnecting:
-            NSLog(@"Connecting..");
-            break;
-    }
-}
-
-- (void) receiveData:(NSData *)data
-            fromPeer:(NSString *)peer
-           inSession:(GKSession *)session
-             context:(void *)context {
-    
-    //---convert the NSData to NSString---
-    UIImageWriteToSavedPhotosAlbum([UIImage imageWithData:data], nil, nil, nil);
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form saved to Photo Album successfully." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alert show];
-    
 }
 
 @end

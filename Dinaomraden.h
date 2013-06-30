@@ -11,9 +11,8 @@
 #import "ListOfKompass.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
-#import <GameKit/GameKit.h>
 
-@interface Dinaomraden : UIViewController <ListOfKompassDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, GKSessionDelegate, GKPeerPickerControllerDelegate>
+@interface Dinaomraden : UIViewController <ListOfKompassDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
 {
         IBOutlet UIView *subView;
      IBOutlet UIView *settingsView;
@@ -36,13 +35,11 @@
     ListOfKompass *lok;
     UIImageView *tableImageView;
     UIButton *closeButton;
-    
-    GKSession *currentSession;
-    GKPeerPickerController *peerPicker;
-    
+        
     BOOL isOmrade1;
 //     UIImage* image;
 }
+@property (retain, nonatomic) IBOutlet UIButton *raderaButton;
 
 @property (retain, nonatomic) IBOutlet UIDatePicker *reminderDatePicker;
 @property (retain, nonatomic) IBOutlet UISegmentedControl *weekSegmentControl;
