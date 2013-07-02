@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">11G63</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -809,7 +809,6 @@
 								<string key="NSFrame">{{17, 1306}, {280, 43}}</string>
 								<reference key="NSSuperview" ref="724491549"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1311,7 +1310,7 @@
 										<reference key="IBUIFont" ref="561171054"/>
 									</object>
 								</array>
-								<string key="NSFrame">{{20, 91}, {280, 379}}</string>
+								<string key="NSFrame">{{20, 48}, {280, 364}}</string>
 								<reference key="NSSuperview" ref="724491549"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="410528495"/>
@@ -2306,14 +2305,6 @@ b3RhzIhja3TigJ0pLg</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">Label1Popup</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="993843794"/>
-					</object>
-					<int key="connectionID">449</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">questionView6</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="46560639"/>
@@ -2359,6 +2350,150 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<reference key="destination" ref="75355296"/>
 					</object>
 					<int key="connectionID">531</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regTankerLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="544123568"/>
+					</object>
+					<int key="connectionID">554</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regButton4</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="69215956"/>
+					</object>
+					<int key="connectionID">541</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regButton2</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="157218907"/>
+					</object>
+					<int key="connectionID">539</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regButton1</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="672381486"/>
+					</object>
+					<int key="connectionID">538</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regLabel8</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="96703650"/>
+					</object>
+					<int key="connectionID">553</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regLabel4</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="19315245"/>
+					</object>
+					<int key="connectionID">549</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regLabel2</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="489204862"/>
+					</object>
+					<int key="connectionID">547</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regButton5</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1054818860"/>
+					</object>
+					<int key="connectionID">542</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regButton3</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="952476293"/>
+					</object>
+					<int key="connectionID">540</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regLabel6</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="285814314"/>
+					</object>
+					<int key="connectionID">551</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regLabel1</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="281928172"/>
+					</object>
+					<int key="connectionID">546</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regLabel5</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="827328527"/>
+					</object>
+					<int key="connectionID">550</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">Label1Popup</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="993843794"/>
+					</object>
+					<int key="connectionID">449</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regLabel7</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="713338966"/>
+					</object>
+					<int key="connectionID">552</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regButton8</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="453217050"/>
+					</object>
+					<int key="connectionID">545</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regButton7</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="945705482"/>
+					</object>
+					<int key="connectionID">544</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regLabel3</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="776853517"/>
+					</object>
+					<int key="connectionID">548</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">regButton6</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="347057125"/>
+					</object>
+					<int key="connectionID">543</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -2562,12 +2697,12 @@ b3RhzIhja3TigJ0pLg</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">Closelistofdates:</string>
+						<string key="label">karClickedButton:</string>
 						<reference key="source" ref="604918204"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">440</int>
+					<int key="connectionID">555</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -3311,7 +3446,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">537</int>
+			<int key="maxID">555</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3323,11 +3458,19 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<string key="SelectChekBoxs:">id</string>
 						<string key="aMethod:">id</string>
 						<string key="changeSlider:">id</string>
+						<string key="karClickedButton:">id</string>
 						<string key="labelalert:">id</string>
 						<string key="newbutton:">id</string>
 						<string key="nextbutton:">id</string>
+						<string key="questionCloseBtn1:">id</string>
+						<string key="questionCloseBtn2:">id</string>
+						<string key="questionCloseBtn3:">id</string>
+						<string key="questionCloseBtn4:">id</string>
+						<string key="questionCloseBtn5:">id</string>
+						<string key="questionCloseBtn6:">id</string>
 						<string key="skickaButtonClicked:">id</string>
 						<string key="sparabutton:">id</string>
+						<string key="strategieralert:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="Closelistofdates:">
@@ -3346,6 +3489,10 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<string key="name">changeSlider:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="karClickedButton:">
+							<string key="name">karClickedButton:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="labelalert:">
 							<string key="name">labelalert:</string>
 							<string key="candidateClassName">id</string>
@@ -3358,12 +3505,40 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<string key="name">nextbutton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="questionCloseBtn1:">
+							<string key="name">questionCloseBtn1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="questionCloseBtn2:">
+							<string key="name">questionCloseBtn2:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="questionCloseBtn3:">
+							<string key="name">questionCloseBtn3:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="questionCloseBtn4:">
+							<string key="name">questionCloseBtn4:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="questionCloseBtn5:">
+							<string key="name">questionCloseBtn5:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="questionCloseBtn6:">
+							<string key="name">questionCloseBtn6:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="skickaButtonClicked:">
 							<string key="name">skickaButtonClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="sparabutton:">
 							<string key="name">sparabutton:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="strategieralert:">
+							<string key="name">strategieralert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

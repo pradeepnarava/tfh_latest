@@ -22,6 +22,9 @@ int y=0;
 @implementation Utmanatankar
 @synthesize  regTankerLabel,strategier,quesitonLabel1,quesitonLabel2,quesitonLabel3,quesitonLabel4,questionLabel5,questionLabel6,c1,c2,c3,c4,c5,c6;
 @synthesize listexercise3,tableview,list_exercise3,isSaved;
+//Gopal
+@synthesize selectedRegistreraTankars;
+@synthesize registreraTankars;
 
 //Gopal
 @synthesize regButton1,regButton2,regButton3,regButton4,regButton5,regButton6,regButton7,regButton8,regLabel1,regLabel2,regLabel3,regLabel4,regLabel5,regLabel6,regLabel7,regLabel8;
@@ -96,6 +99,7 @@ NSArray *pArray;
 
 - (void)viewDidLoad
 {
+    selectedRegistreraTankars = [[NSMutableArray alloc] init];
     self.navigationItem.title=@"Utmana tankar";
     scroll.scrollEnabled = YES;
     
@@ -114,6 +118,24 @@ NSArray *pArray;
     questionView4.hidden = YES;
     questionView5.hidden = YES;
     questionView6.hidden = YES;
+    
+    regLabel1.hidden = YES;
+    regLabel2.hidden =YES;
+    regLabel3.hidden = YES;
+    regLabel4.hidden =YES;
+    regLabel5.hidden = YES;
+    regLabel6.hidden =YES;
+    regLabel7.hidden = YES;
+    regLabel8.hidden =YES;
+    regButton1.hidden = YES;
+    regButton2.hidden =YES;
+    regButton3.hidden = YES;
+    regButton4.hidden =YES;
+    regButton5.hidden = YES;
+    regButton6.hidden =YES;
+    regButton7.hidden = YES;
+    regButton8.hidden =YES;
+    
     
     scroll1.scrollEnabled = YES;
     [scroll1 setContentSize:CGSizeMake(320, 1600)];
@@ -188,7 +210,7 @@ NSArray *pArray;
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         char *errMsg;
-        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE3 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,  NEGATIVE TEXT ,DINA TEXT,HUR TEXT, MOTBEVIS TEXT,TANKEFALLA TEXT,ALTERNATIV TEXT)";
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE3 (ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT,NEGATIVE TEXT,DINA TEXT,HUR TEXT,MOTBEVIS TEXT,TANKEFALLA TEXT,ALTERNATIV TEXT)";
         
         if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
@@ -205,16 +227,33 @@ NSArray *pArray;
     listofdates.hidden=YES;
     [self.view addSubview:Label1Popup];
     Label1Popup.hidden=YES;
+    [self getDataFromtheRegistreratanker];
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
 }
+
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     isSaved = YES;
 }
 
-// Lasdel 
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"Gopal");
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+        NSLog(@"Gopal");
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+        NSLog(@"Gopal");
+}
+
+// Lasdel
 -(IBAction)labelalert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"Utmanatankar.html" insideView:self.view];
 }
@@ -222,13 +261,56 @@ NSArray *pArray;
 
 -(void)registerTankerView:(id)sender {
     NSLog(@"Gopal");
-    
+    for (int i = 0 ; i < [registreraTankars count];i++) {
+        if (i == 0) {
+             regLabel1.hidden = NO;
+            regLabel1.text = [registreraTankars objectAtIndex:i];
+            regButton1.hidden = NO;
+        }
+        if (i == 1) {
+             regLabel2.hidden = NO;
+            regLabel2.text = [registreraTankars objectAtIndex:i];
+            regButton2.hidden= NO;
+        }
+        if (i == 2) {
+             regLabel3.hidden = NO;
+            regLabel3.text = [registreraTankars objectAtIndex:i];
+            regButton3.hidden = NO;
+        }
+        if (i == 3) {
+             regLabel4.hidden = NO;
+            regLabel4.text = [registreraTankars objectAtIndex:i];
+            regButton4.hidden= NO;
+        }
+        if (i == 4) {
+             regLabel5.hidden = NO;
+            regLabel5.text = [registreraTankars objectAtIndex:i];
+            regButton5.hidden = NO;
+        }
+        if (i == 5) {
+             regLabel6.hidden = NO;
+            regLabel6.text = [registreraTankars objectAtIndex:i];
+            regButton6.hidden= NO;
+        }
+        if (i == 6) {
+             regLabel7.hidden = NO;
+            regLabel7.text = [registreraTankars objectAtIndex:i];
+            regButton7.hidden = NO;
+        }
+        if (i == 7) {
+             regLabel8.hidden = NO;
+            regLabel8.text = [registreraTankars objectAtIndex:i];
+            regButton8.hidden= NO;
+        }
+    }
     scroll.scrollEnabled = NO;
     [self.view bringSubviewToFront:Label1Popup];
     Label1Popup.hidden = NO;
     [UIView beginAnimations:@"curlInView" context:nil];
     [UIView setAnimationDuration:1.0];
     [UIView commitAnimations];
+    
+   
 }
 
 
@@ -240,6 +322,7 @@ NSArray *pArray;
 
 //1.
 -(void)questionTap1:(id)sender {
+    
     questionView1.hidden = NO;
 }
 
@@ -254,6 +337,7 @@ NSArray *pArray;
 -(IBAction)questionCloseBtn2:(id)sender{
     questionView2.hidden =YES;
 }
+
 
 //3.
 -(void)questionTap3:(id)sender {
@@ -299,6 +383,37 @@ NSArray *pArray;
     self.c3.text=str;
 }
 
+-(void)getDataFromtheRegistreratanker {
+    registreraTankars = [[NSMutableArray alloc] init];
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM EXERCISEONE  ORDER BY date DESC"];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB,query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            NSLog(@"%u",SQLITE_ROW);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                NSLog(@"%u",SQLITE_ROW);
+                char* _c1 = (char*) sqlite3_column_text(statement,3);
+                
+                if (_c1 != NULL){
+                    [registreraTankars addObject:[NSString stringWithUTF8String:_c1]];
+                    regLabel1.text= [NSString stringWithUTF8String:_c1];
+                    NSLog(@" StagC1.text :%@",regLabel1.text);
+                    
+                }
+            }
+            
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(exerciseDB);
+    }
+    NSLog(@"%@",registreraTankars);
+}
 
 -(IBAction)sparabutton:(id)sender{
     
@@ -327,22 +442,28 @@ NSArray *pArray;
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
+            
             if([[list_exercise3 objectAtIndex:0] isEqualToString:@"Null"]){
-                NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE3 (date,negative,dina,hur,motbevis,tankefalla,alternativ) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\",\"%@\")", str1, c1.text,c2.text, c3.text ,c4.text,c5.text,c6.text];
+                
+                NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE3 (date,negative,dina,hur,motbevis,tankefalla,alternativ) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\", \"%@\", \"%@\")",str1,c1.text,c2.text,c3.text,c4.text,c5.text,c6.text];
                 
                 const char *insert_stmt = [insertSQL UTF8String];
-                
+
                 sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+                
                 if (sqlite3_step(statement) == SQLITE_DONE)
                 {
-                    isSaved = NO;
-                    //isSaved
                     
-                } else {
-                    NSLog(@"no");
+                    isSaved = NO;
+                    NSLog(@"Save");
+                }
+                else {
+                    NSLog(@"Failed to add tankefallor");
                 }
                 sqlite3_finalize(statement);
                 sqlite3_close(exerciseDB);
+                
+                
             }
             else{
                 NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE3 SET  negative='%@',dina='%@', hur='%@', motbevis='%@', tankefalla='%@',alternativ='%@' WHERE date='%@'",c1.text,c2.text, c3.text,c4.text, c5.text,c6.text,[listexercise3 objectAtIndex:y] ];
@@ -350,6 +471,7 @@ NSArray *pArray;
                 
                 const char *del_stmt = [query UTF8String];
                 
+        
                 if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK){
                     if(SQLITE_DONE != sqlite3_step(statement))
                         NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
@@ -647,21 +769,38 @@ NSArray *pArray;
 
 -(IBAction)SelectChekBoxs:(id)sender{
     UIButton *btn=(UIButton *)sender;
+    
     switch (btn.tag) {
         case 1:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                [selectedRegistreraTankars addObject:regLabel1.text];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+              
+                    for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                    
+                    if ([regLabel1.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
+                        [selectedRegistreraTankars removeObjectAtIndex:i];
+                    }
+                    }
+            
             }
             break;
         case 2:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                [selectedRegistreraTankars addObject:regLabel2.text];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+                for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                    
+                    if ([regLabel2.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
+                        [selectedRegistreraTankars removeObjectAtIndex:i];
+                    }
+                }
             }
             break;
         case 3:
@@ -695,14 +834,16 @@ NSArray *pArray;
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
             }
-            break;case 7:
+            break;
+        case 7:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
             }
-            break;case 8:
+            break;
+        case 8:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
                 
@@ -714,6 +855,27 @@ NSArray *pArray;
         default:
             break;
     }
+    NSLog(@"%@",selectedRegistreraTankars);
+}
+
+-(IBAction)karClickedButton:(id)sender
+{
+    NSLog(@"%@",selectedRegistreraTankars);
+    listofdates.hidden = YES;
+    scroll.scrollEnabled = YES;
+    Label1Popup.hidden=YES;
+    NSMutableString *tempString = [[NSMutableString alloc] init];
+    for (int i =0; i < [selectedRegistreraTankars count]; i++) {
+        if (i == 0) {
+            [tempString appendString:[selectedRegistreraTankars objectAtIndex:i]];
+        }
+        else {
+            [tempString appendFormat:@", "];
+             [tempString appendString:[selectedRegistreraTankars objectAtIndex:i]];
+        }
+    }
+    c1.text = tempString;
+    [tempString release];
 }
 
 

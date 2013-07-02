@@ -47,7 +47,9 @@
     
     
 }
-
+//Gopal
+@property (nonatomic, retain) NSMutableArray *selectedRegistreraTankars;
+@property (nonatomic, retain) NSMutableArray *registreraTankars;
 
 //Gopal ******
 @property(nonatomic, retain)IBOutlet UILabel *regLabel1,*regLabel2,*regLabel3,*regLabel4,*regLabel5,*regLabel6,*regLabel7,*regLabel8;
@@ -79,6 +81,8 @@
 -(IBAction)newbutton:(id)sender;
 -(IBAction)nextbutton:(id)sender;
 -(IBAction)labelalert:(id)sender;
+
+-(void)getDataFromtheRegistreratanker;
 
 -(IBAction)Closelistofdates:(id)sender;
 
