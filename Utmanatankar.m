@@ -45,6 +45,7 @@ NSArray *pArray;
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    isSaved = YES;
     if([text isEqualToString:@"\n"])
     {
         [textView resignFirstResponder];
@@ -237,7 +238,7 @@ NSArray *pArray;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    isSaved = YES;
+   //isSaved = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -401,10 +402,12 @@ NSArray *pArray;
                 char* _c1 = (char*) sqlite3_column_text(statement,3);
                 
                 if (_c1 != NULL){
-                    [registreraTankars addObject:[NSString stringWithUTF8String:_c1]];
-                    regLabel1.text= [NSString stringWithUTF8String:_c1];
-                    NSLog(@" StagC1.text :%@",regLabel1.text);
-                    
+                    NSString *tempString = [NSString stringWithUTF8String:_c1];
+                    if (![tempString isEqualToString:@""]) {
+                        [registreraTankars addObject:tempString];
+                        regLabel1.text= [NSString stringWithUTF8String:_c1];
+                        NSLog(@" StagC1.text :%@",regLabel1.text);
+                    }
                 }
             }
             
@@ -521,7 +524,7 @@ NSArray *pArray;
             [listexercise3 removeAllObjects];
             y=0;
             [listexercise3 addObject:@"Null"];
-            isSaved = YES;
+            //isSaved = YES;
         }
     }
 }
@@ -543,9 +546,9 @@ NSArray *pArray;
             [list_exercise3 removeAllObjects];
             y=0;
             [list_exercise3 addObject:@"Null"];
-            isSaved = YES;
+            //isSaved = YES;
         }else{
-            isSaved = YES;
+            //isSaved = YES;
         }
     } else if(alert.tag == kAlertViewTwo) {
         if (buttonIndex == 0) {
@@ -778,14 +781,14 @@ NSArray *pArray;
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
-              
-                    for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                
+                for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
                     
                     if ([regLabel1.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
                         [selectedRegistreraTankars removeObjectAtIndex:i];
                     }
-                    }
-            
+                }
+                
             }
             break;
         case 2:
@@ -806,49 +809,91 @@ NSArray *pArray;
         case 3:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                [selectedRegistreraTankars addObject:regLabel3.text];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+                for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                    
+                    if ([regLabel3.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
+                        [selectedRegistreraTankars removeObjectAtIndex:i];
+                    }
+                }
             }
             break;
         case 4:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                [selectedRegistreraTankars addObject:regLabel4.text];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+                for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                    
+                    if ([regLabel4.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
+                        [selectedRegistreraTankars removeObjectAtIndex:i];
+                    }
+                }
             }
             break;
         case 5:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                [selectedRegistreraTankars addObject:regLabel5.text];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+                for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                    
+                    if ([regLabel5.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
+                        [selectedRegistreraTankars removeObjectAtIndex:i];
+                    }
+                }
             }
             break;
         case 6:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                [selectedRegistreraTankars addObject:regLabel6.text];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+                for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                    
+                    if ([regLabel6.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
+                        [selectedRegistreraTankars removeObjectAtIndex:i];
+                    }
+                }
             }
             break;
         case 7:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                [selectedRegistreraTankars addObject:regLabel7.text];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+                for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                    
+                    if ([regLabel7.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
+                        [selectedRegistreraTankars removeObjectAtIndex:i];
+                    }
+                }
             }
             break;
         case 8:
             if (btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
                 [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+                [selectedRegistreraTankars addObject:regLabel8.text];
                 
             }else{
                 [btn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+                for (int i = 0; i < [selectedRegistreraTankars count]; i++) {
+                    
+                    if ([regLabel8.text isEqualToString:[selectedRegistreraTankars objectAtIndex:i]]) {
+                        [selectedRegistreraTankars removeObjectAtIndex:i];
+                    }
+                }
             }
             break;
             
@@ -857,6 +902,8 @@ NSArray *pArray;
     }
     NSLog(@"%@",selectedRegistreraTankars);
 }
+
+
 
 -(IBAction)karClickedButton:(id)sender
 {
@@ -874,9 +921,11 @@ NSArray *pArray;
              [tempString appendString:[selectedRegistreraTankars objectAtIndex:i]];
         }
     }
+    
     c1.text = tempString;
     [tempString release];
 }
+
 
 
 - (void)didReceiveMemoryWarning

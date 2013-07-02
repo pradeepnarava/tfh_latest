@@ -37,6 +37,7 @@ int s=0;
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    isSaved = YES;
     if([text isEqualToString:@"\n"])
     {
         [textView resignFirstResponder];
@@ -64,14 +65,11 @@ int s=0;
                     
                 }
             }
-            
         }
-        
     }
     else {
         return YES;
     }
-    
     return 0;
 }
 
@@ -86,7 +84,7 @@ int s=0;
                      }
                      completion:^(BOOL finished){
                          // whatever you need to do when animations are complete
-                         
+                         NSLog(@"Animation Finished");
                      }];
     
     return YES;
@@ -94,9 +92,8 @@ int s=0;
 
 - (void)viewDidLoad
 {
-    
     self.navigationItem.title=@"Registrera tankar";
-    // eevc=[[EditExerciseViewController alloc]initWithNibName:@"EditExerciseViewController" bundle:nil];
+
     UIBarButtonItem *bButton = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka"
                                                                 style:UIBarButtonItemStylePlain target:nil action:nil];
     UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
@@ -107,7 +104,7 @@ int s=0;
     
     kanslor.allstrings=[[NSString alloc]init];
     exercise1_list=[[NSMutableArray alloc]init];
-    [exercise1_list addObject:@"Null" ];
+    [exercise1_list addObject:@"Null"];
     raderabutton.enabled=NO;
     _skickaButton.enabled = NO;
     
@@ -157,31 +154,26 @@ int s=0;
         sqlite3_close(exerciseDB);
         
     } else {
-        //status.text = @"Failed to open/create database";
+        NSLog(@"Failed to open/create database");
     }
     
     
     [self.view addSubview:listofdates];
+
     listofdates.hidden=YES;
-    //  [self.view addSubview:PopupView1];
     PopupView1.hidden=YES;
-    //[self.view addSubview:PopupView2];
     PopupView2.hidden=YES;
-    
-    //[self.view addSubview:PopupView3];
     PopupView3.hidden=YES;
-    
-    
     scroll.scrollEnabled = YES;
+    
     [scroll setContentSize:CGSizeMake(320, 1006)];
     
     scroll2.scrollEnabled = YES;
     [scroll2 setContentSize:CGSizeMake(768, 1395)];
     
-    //scroll1.scrollEnabled = YES;
-    // [scroll1 setContentSize:CGSizeMake(320, 700)];
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
 }
 
 
@@ -206,11 +198,11 @@ int s=0;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-             kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController" bundle:nil];
+            kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController" bundle:nil];
         }else{
             kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController_iPhone4" bundle:nil];
         }
-       
+        
     }
     else{
         kanslor=[[KanslorViewController alloc]initWithNibName:@"KanslorViewController_iPad" bundle:nil];
@@ -240,7 +232,6 @@ int s=0;
    // [UIView commitAnimations];
 }
 -(IBAction)flyktalert:(id)sender{
-   
     
    // [self.view bringSubviewToFront:PopupView4];
     PopupView3.hidden = NO;
@@ -250,15 +241,15 @@ int s=0;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-   
+    
     if(kanslor.allstrings== nil){
-       
+        
     }else{
         NSLog(@"%@",kanslor.allstrings);
         beteenden.text=kanslor.allstrings;
     }
     [super viewWillAppear:animated];
-    isSaved = YES;
+    //isSaved = YES;
 }
 
 
@@ -333,7 +324,7 @@ int s=0;
                     [listexercise1 removeAllObjects];
                     s=0;
                     [listexercise1 addObject:@"Null"];*/
-                     isSaved = YES;
+                    isSaved = NO;
                 }
     
                 sqlite3_finalize(statement);
@@ -372,19 +363,19 @@ int s=0;
             [exercise1_list removeAllObjects];
             s=0;
             [exercise1_list addObject:@"Null"];
-            isSaved = YES;
+            //isSaved = YES;
         }
     }
-    
-    
 }
 
 - (IBAction)skickaButtonClicked:(id)sender
 {
-    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
     cameraActionSheet.tag = 1;
     [cameraActionSheet showInView:self.view];
 }
+
+
 
 - (UIImage *)getFormImage
 {
@@ -500,9 +491,9 @@ int s=0;
             [exercise1_list removeAllObjects];
             s=0;
             [exercise1_list addObject:@"Null"];
-            isSaved = YES;
+            //isSaved = YES;
         }else{
-            isSaved = YES;
+            //isSaved = YES;
         }
     } else if(alert.tag == kAlertViewTwo) {
         if (buttonIndex == 0) {
