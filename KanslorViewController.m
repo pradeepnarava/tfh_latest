@@ -84,11 +84,9 @@
                     [button setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 }
             }
-            
         }
     }
     NSLog(@"%@",seletedStrings);
-
 }
 
 
