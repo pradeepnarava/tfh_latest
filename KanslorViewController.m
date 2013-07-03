@@ -26,14 +26,20 @@
     return self;
 }
 
+
+#pragma mark Viewlife Cycle 
+
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     seletedStrings  = [[NSMutableArray alloc] init];
     self.navigationItem.title=@"Kanslor";
     firstString = [[NSMutableString alloc]init];
+    
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 1350)];
-    [super viewDidLoad];
+    
+    
     
     UIImage *image = [UIImage imageNamed:@"Klar_button.png"];
     UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -53,14 +59,7 @@
    
 }
 
--(void)OkButtonClicked {
-   
-    NSLog(@"stringssss%@", firstString);
-    allstrings = [NSString stringWithString:firstString];
-    NSLog(@"%@", allstrings);
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -69,11 +68,8 @@
         
     }
     else{
-        NSLog(@"%@",selectedstrings);
-        [firstString appendString:selectedstrings];
-
         NSArray* myArray = [selectedstrings componentsSeparatedByString:@", "];
-        
+       // NSMutableString *tempString = [[NSMutableString alloc] init];
         for(int i=0;i<myArray.count;i++){
             NSString* firstStrings = [myArray objectAtIndex:i];
             
@@ -82,12 +78,41 @@
                 UIButton *button = [buttonsArray objectAtIndex:g];
                 NSString *secondString = [button currentTitle];
                 if ([[firstStrings stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:secondString]) {
+
+                    [seletedStrings addObject:firstStrings];
                     
                     [button setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 }
             }
+            
         }
     }
+    NSLog(@"%@",seletedStrings);
+
+}
+
+
+
+-(void)OkButtonClicked {
+    
+    NSMutableString *tempString = [[NSMutableString alloc] init];
+    for (int i =0; i < [seletedStrings count]; i++) {
+        if (i == 0) {
+            [tempString appendString:[seletedStrings objectAtIndex:i]];
+        }
+        else {
+            [tempString appendFormat:@", "];
+            [tempString appendString:[seletedStrings objectAtIndex:i]];
+        }
+    }
+    
+    allstrings = tempString;
+    
+   /* NSLog(@"stringssss%@", firstString);
+    allstrings = [NSString stringWithString:firstString];
+    NSLog(@"%@", allstrings);*/
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -95,26 +120,17 @@
     UIButton *btn=(UIButton *)sender;
     
     NSLog(@"%u",btn.tag);
-    NSLog(@"firstString is : %@",firstString);
-    if ([firstString length] == 0) {
-        NSLog(@"fisrtString is empty");
-    }
-    else  {
-        [firstString appendFormat:@", "];
-       /* if (btn.tag == 6) {
-            
-        }else {
-        [firstString appendFormat:@", "];
-        }*/
-    }
+    
+    NSLog(@"%@",seletedStrings);
+    
     switch (btn.tag) {
         case 1:
             
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
-                NSLog(@"%@", firstString);
+                
+                
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
                 
@@ -133,10 +149,17 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
-                NSLog(@"%@", firstString);
+               
+
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -144,10 +167,16 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-               [firstString appendString:[btn currentTitle]];
+               
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                // beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
+
             }
             
             break;
@@ -155,10 +184,16 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-               [firstString appendString:[btn currentTitle]];
+               
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
+
             }
             
             break;
@@ -166,22 +201,33 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                // beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
+
             }
             
             break;
         case 6:
-            //btn.enabled = NO;
+
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:@"Exalterad"];
+                
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -189,10 +235,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -200,10 +251,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -211,10 +267,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -222,10 +283,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -233,10 +299,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -244,10 +315,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -255,10 +331,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -266,10 +347,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -277,10 +363,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -288,10 +379,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -299,10 +395,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -310,10 +411,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -321,10 +427,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -332,10 +443,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -343,10 +459,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
            [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -355,10 +476,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
-                NSLog(@"%@",firstString);
+        
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
                 
             }
             
@@ -367,10 +493,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
-                NSLog(@"%@",firstString);
+        
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -378,10 +509,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                // beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -389,10 +525,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -400,10 +541,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                // beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -411,10 +557,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -422,10 +573,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
              [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -433,10 +589,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
               [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -444,10 +605,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -455,10 +621,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -466,10 +637,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -477,10 +653,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -488,10 +669,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -499,10 +685,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
              [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -510,10 +701,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -521,10 +717,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -532,10 +733,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -543,10 +749,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -554,10 +765,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -565,10 +781,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -576,10 +797,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -588,10 +814,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -599,10 +830,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
              [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -610,10 +846,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -621,10 +862,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -632,10 +878,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -643,10 +894,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -654,10 +910,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -665,10 +926,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -676,10 +942,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
-               // [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -687,10 +958,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -699,10 +975,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+               
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -710,10 +991,15 @@
             if(btn.currentBackgroundImage==[UIImage imageNamed:@"buttonnp.png"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"buttonp.png"]  forState:UIControlStateNormal];
                 [seletedStrings  addObject:[btn currentTitle]];
-                [firstString appendString:[btn currentTitle]];
+                
             }else{
-                //[btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
-                //beteenden.text=@"";
+                [btn setBackgroundImage:[UIImage imageNamed:@"buttonnp.png"]  forState:UIControlStateNormal];
+                for (int i = 0; i < [seletedStrings count]; i++) {
+                    
+                    if ([[btn currentTitle] isEqualToString:[seletedStrings objectAtIndex:i]]) {
+                        [seletedStrings removeObjectAtIndex:i];
+                    }
+                }
             }
             
             break;
@@ -721,17 +1007,21 @@
         default:
             break;
     }
+    
+    NSLog(@"%@",seletedStrings);
 }
 
-
-- (void)viewWillDisappear:(BOOL)animated {
-
-}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
    
+}
+
+-(void)dealloc {
+    [buttonsArray release];
+    [seletedStrings release];
+    [super dealloc];
 }
 
 @end
