@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
-@interface Interoceptivexponering : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface Interoceptivexponering : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {
     NSString *inStr,*instr1;
     NSMutableString *str1,*str2,*str3, *str11,*str21,*str31;
@@ -32,6 +32,7 @@
     NSString *SelectedDate;
     IBOutlet UIButton *raderaButton;
 }
+
 //-(IBAction)switchStateChanged:(id)sender;
 @property (nonatomic, retain)IBOutlet UILabel *prc;
 @property (nonatomic, retain)IBOutlet UILabel *text1;

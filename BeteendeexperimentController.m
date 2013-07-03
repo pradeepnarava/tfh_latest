@@ -41,6 +41,7 @@ int c=0;
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    isSaved = YES;
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         if (textView == ex3c5) {
@@ -175,7 +176,7 @@ int c=0;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    isSaved = YES;
+    
 }
 
 
@@ -259,7 +260,7 @@ int c=0;
                 if (sqlite3_step(statement) == SQLITE_DONE)
                 {
                     
-                    isSaved = NO;
+                    //isSaved = NO;
                 
                 } else {
                     NSLog(@"no");
@@ -274,7 +275,7 @@ int c=0;
                     if(SQLITE_DONE != sqlite3_step(statement))
                         NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
                     NSLog(@"sss");
-                    isSaved = NO;
+                    //isSaved = NO;
         
                 }
             
@@ -309,7 +310,7 @@ int c=0;
             [list_exercise4 removeAllObjects];
             c=0;
             [list_exercise4 addObject:@"Null"];
-            isSaved = YES;
+            //isSaved = YES;
         }
     }
 }
@@ -325,9 +326,9 @@ int c=0;
             [list_exercise4 removeAllObjects];
             c=0;
             [list_exercise4 addObject:@"Null"];
-            isSaved = YES;
+            //isSaved = YES;
         }else{
-            isSaved = YES;
+           //isSaved = YES;
         }
     } else if(alertView.tag == kAlertViewTwo) {
         if (buttonIndex == 0) {
@@ -380,7 +381,6 @@ int c=0;
 
 -(IBAction)nextButton:(id)sender{
    
-    
     scroll.scrollEnabled = NO;
     listexercise4=[[NSMutableArray alloc]init];
     [listexercise4 removeAllObjects];
@@ -391,7 +391,10 @@ int c=0;
     [UIView commitAnimations];
       [self getlistofDates];
 }
--(void)getlistofDates{
+
+
+-(void)getlistofDates {
+    
     const char *dbpath = [databasePath UTF8String];
     
     
@@ -429,10 +432,11 @@ int c=0;
     }
     
     [self.tableview reloadData];
-    
-
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [self.listexercise4 count];
 }
 
@@ -539,6 +543,7 @@ int c=0;
     }
     scroll.scrollEnabled = YES;
     listofdates.hidden = YES;
+    isSaved = NO;
 }
 
 -(IBAction)CloseButton:(id)sender{

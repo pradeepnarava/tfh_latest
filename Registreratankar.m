@@ -681,6 +681,7 @@ int s=0;
     PopupView1.hidden=YES;
     PopupView3.hidden=YES;
     PopupView2.hidden=YES;
+    isSaved = NO;
     NSLog(@"value of s%@",[listexercise1 objectAtIndex:s]);
 }
 -(IBAction)aMethod:(id)sender{

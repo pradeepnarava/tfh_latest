@@ -748,6 +748,7 @@ NSArray *pArray;
     listofdates.hidden = YES;
     scroll.scrollEnabled = YES;
     Label1Popup.hidden=YES;
+    isSaved = NO;
 }
 
 
