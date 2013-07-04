@@ -64,6 +64,7 @@ int s;
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    isSaved = YES;
     if([text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
           instr1=textView.text;
@@ -87,6 +88,7 @@ int s;
 {
     [super viewDidLoad];
     self.navigationItem.title=@"Interoceptiv Exponering";
+    
     //iPhone ScrollView
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 663)];
@@ -118,7 +120,7 @@ int s;
     
     
     scb=@"";
-    inStr=@"0";
+    inStr=@"00";
     
     pupview.hidden=YES;
     timerview.hidden=YES;
@@ -197,11 +199,14 @@ int s;
 //First Question TapGesture
 
 -(void)ovninglabelalert:(id)sender{
-    //
-    [self.view bringSubviewToFront:pupview];
-    pupview.hidden = NO;
-    scroll.scrollEnabled=NO;
     
+
+    scroll.scrollEnabled=NO;
+    pupview.hidden = NO;
+
+    [self.view bringSubviewToFront:pupview];
+    
+    /*
     if ([inStr isEqualToString:@"0"]) {
         [listof_sliderValue insertObject:inStr atIndex:0];
     }else{
@@ -210,7 +215,8 @@ int s;
         }else{
             [listof_sliderValue insertObject:inStr atIndex:listofovningars.count-1];
         }
-    }
+    }*/
+    
     [UIView beginAnimations:@"curlInView" context:nil];
     
     [UIView setAnimationDuration:3.0];
@@ -223,24 +229,15 @@ int s;
 
 - (IBAction)closeBtn:(id)sender
 {
-    [cb1 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb2 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb3 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb4 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb5 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb6 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb7 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb8 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb9 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    [cb10 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-    pupview.hidden=YES;
     
+    pupview.hidden=YES;
+    /*
     if(listofovningars1.count>0){
         [listofovningars1 insertObject:ovning.text atIndex:s];
     }else{
         [listofovningars addObject:ovning.text];
     }
-
+    */
     [self.tblView reloadData];
     egen.hidden=NO;
     slider.hidden=NO;
@@ -254,7 +251,6 @@ int s;
     [UIView setAnimationDuration:3.0];
     
     [UIView commitAnimations];
-    
     
     self.secondsDisplay.text = [NSString
                                 stringWithFormat:@"%d", self.seconds];
@@ -275,8 +271,8 @@ int s;
     prc.hidden=NO;
     [self.secondsTimer invalidate];
     self.secondsTimer= nil;
-    secondsDisplay.text=@"0 0";
-    minutesDisplay.text=@"0 0";
+    secondsDisplay.text=@"00";
+    minutesDisplay.text=@"00";
 }
 
 - (IBAction)starttimer:(id)sender{
@@ -312,11 +308,78 @@ int s;
     self.secondsTimer= nil;
 }
 
+
+
 //Popover List View
 -(IBAction)selectedcheckbox:(id)sender{
     UIButton *btn = (UIButton *)sender;
+    NSLog(@"%i",btn.tag);
+    for (UIButton *radioButton in [pupview  subviews]) {
+        if (radioButton.tag != btn.tag && [radioButton isKindOfClass:[UIButton class]] &&  radioButton.tag != 11 && radioButton.tag != 12) {
+            [radioButton setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+        }
+    }
     
-    if (btn.tag == 1)
+    [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+   
+    switch (btn.tag) {
+        case 1:
+            ovning.text=@"Skaka huvudet (30 sek)";
+            self.seconds=30;
+            self.minutes=00;
+            break;
+        case 2:
+            ovning.text=@"Tajta kläder (60 min)";
+            NSLog(@"%@",ovning.text);
+            self.minutes=00;
+            self.seconds=60;
+            break;
+        case 3:
+            ovning.text=@"Huvudet mellan benen (90 sek)";
+            NSLog(@"%@",ovning.text);
+            self.minutes=01;
+            self.seconds=30;
+            break;
+        case 4:
+
+            ovning.text=@"Spring på stället (2 min)";
+            NSLog(@"%@",ovning.text);
+            self.minutes=01;
+            self.seconds=60;
+            break;
+        case 5:
+            ovning.text=@"Fullständig kroppsspänning (1 min)";
+            NSLog(@"%@",ovning.text);
+            self.minutes=00;
+            self.seconds=60;
+            break;
+        case 6:
+            ovning.text=@"Hyperventilera (90 sek)";
+            NSLog(@"%@",ovning.text);
+            self.minutes=1;
+            self.seconds=30;
+            break;
+        case 7:
+            ovning.text=@"Svälj snabbt (fem gånger)";
+            timerview.hidden = YES;
+            //pupview.hidden = YES;
+            break;
+        case 8:
+            ovning.text=@"Drick kaffe";
+            //self.seconds=00;
+            //self.minutes=00;
+            break;
+        case 9:
+            ovning.text=@"Vatten i munnen (2 min)";
+            NSLog(@"%@",ovning.text);
+            self.minutes=1;
+            self.seconds=60;
+            break;
+            
+        default:
+            break;
+    }
+    /*if (btn.tag == 1)
     {
         if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
             NSLog(@"%@",scb);
@@ -499,7 +562,9 @@ int s;
         }
     }else{
         
-    }
+    }*/
+    
+    timerQuestionLabel.text = ovning.text;
 }
 
 -(IBAction)updateside:(id)sender
@@ -518,7 +583,7 @@ int s;
         NSLog(@"inStr Value: %@", inStr);
         [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
         [cellButton setTitle:inStr forState:UIControlStateNormal];
-        // [self.tblView reloadData];
+      
     }
 }
 

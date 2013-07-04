@@ -12,23 +12,30 @@
 
 @interface Interoceptivexponering : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {
-    //Gopal
+    //Gopal DataBase
     sqlite3 *exerciseDB;
     NSString        *databasePath;
     sqlite3_stmt    *statement;
 
-    //Gopal
+    //Gopal Timer
     UILabel *timerQuestionLabel;
     
     UITableView *tblView;
     
+    //Labels
     UILabel *ovning;
     UITextView *egen;
     UISlider *slider;
     UILabel *prc;
     
+    //Views
     IBOutlet UIView *pupview;
     IBOutlet UIView *timerview;
+    
+    IBOutlet UIScrollView *scroll,*scroll1;
+    
+    //PopupView Labels
+    IBOutlet UILabel *cb1,*cb2,*cb3,*cb4,*cb5,*cb6,*cb7,*cb8,*cb9,*cb10;
     
     //
     NSString *inStr,*instr1;
@@ -38,10 +45,6 @@
     
     int noOfSection;
     UIButton *cellButton;
-
-    IBOutlet UIScrollView *scroll,*scroll1;
-
-    IBOutlet UIButton *cb1,*cb2,*cb3,*cb4,*cb5,*cb6,*cb7,*cb8,*cb9,*cb10;
 
     NSMutableArray *listofovningars,*listof_sliderValue,*listexercise5,*list_exercise5,*list_egen,*listofovningars1,*listof_sliderValue1,*list_egen1;
     NSString *SelectedDate;
