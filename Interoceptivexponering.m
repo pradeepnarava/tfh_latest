@@ -20,6 +20,7 @@
 @property (nonatomic, assign) int Reseconds;
 @property (nonatomic, assign) int Reminutes;
 
+
 @property (nonatomic, assign) NSString *scb;
 
 @property (nonatomic) BOOL isSaved;
@@ -33,13 +34,19 @@
 @synthesize secondsTimer;
 @synthesize seconds;
 @synthesize minutes;
+@synthesize allItems;
+@synthesize items;
+@synthesize question,anwser,vlues;
+
 
 //Gopal
 @synthesize isSaved;
 @synthesize timerQuestionLabel;
 
+
 int d=0;
 int s;
+int tagValueForBtn;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -64,6 +71,8 @@ int s;
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     isSaved = YES;
+    
+    
     if([text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
           instr1=textView.text;
@@ -95,6 +104,12 @@ int s;
     //iPad ScrollView
     scroll1.scrollEnabled = YES;
     [scroll1 setContentSize:CGSizeMake(320, 1010)];
+    
+    question = [[NSString alloc] init];
+    anwser   = [[NSString alloc] init];
+    vlues    = [[NSString alloc] init];
+    allItems = [[NSMutableArray alloc] init];
+    items    = [[NSMutableDictionary alloc] init];
     
     
     inStr =[[NSString alloc]init];
@@ -157,6 +172,9 @@ int s;
     }
 }
 
+
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [self.tblView reloadData];
 }
@@ -172,6 +190,8 @@ int s;
     [MTPopupWindow showWindowWithHTMLFile:@"ovningsbeskrivningar.html" insideView:self.view];
 }
 
+
+
 //time Method
 - (void)timerFireMethod:(NSTimer *) theTimer
 {
@@ -184,14 +204,10 @@ int s;
             self.minutes--;
             self.seconds = 60;
         }
-        
     }
+    self.secondsDisplay.text = [NSString stringWithFormat:@"%d", self.seconds];
     
-    self.secondsDisplay.text = [NSString
-                                stringWithFormat:@"%d", self.seconds];
-    
-    self.minutesDisplay.text = [NSString
-                                stringWithFormat:@"%d", self.minutes];
+    self.minutesDisplay.text = [NSString stringWithFormat:@"%d", self.minutes];
 }
 
 
@@ -204,6 +220,13 @@ int s;
     pupview.hidden = NO;
 
     [self.view bringSubviewToFront:pupview];
+
+    
+    [UIView beginAnimations:@"curlInView" context:nil];
+    
+    [UIView setAnimationDuration:3.0];
+    
+    [UIView commitAnimations];
     
     /*
     if ([inStr isEqualToString:@"0"]) {
@@ -215,21 +238,33 @@ int s;
             [listof_sliderValue insertObject:inStr atIndex:listofovningars.count-1];
         }
     }*/
-    
-    [UIView beginAnimations:@"curlInView" context:nil];
-    
-    [UIView setAnimationDuration:3.0];
-    
-    [UIView commitAnimations];
-
 }
+
+
 
 //Close Button Clicked
 
 - (IBAction)closeBtn:(id)sender
 {
-    
     pupview.hidden=YES;
+    
+    if (tagValueForBtn == 10 || tagValueForBtn == 11) {
+        timerview.hidden = YES;
+    }else {
+        [self.view bringSubviewToFront:timerview];
+        timerview.hidden = NO;
+    }
+    egen.hidden=NO;
+    slider.hidden=NO;
+    prc.hidden=NO;
+    
+    if ([items count] > 0) {
+        
+        
+    }else {
+        [items setValue:timerQuestionLabel.text forKey:@"question"];
+        [allItems addObject:items];
+    }
     /*
     if(listofovningars1.count>0){
         [listofovningars1 insertObject:ovning.text atIndex:s];
@@ -237,14 +272,7 @@ int s;
         [listofovningars addObject:ovning.text];
     }
     */
-    [self.tblView reloadData];
-    egen.hidden=NO;
-    slider.hidden=NO;
-    prc.hidden=NO;
-    [self.view bringSubviewToFront:timerview];
-    
-    timerview.hidden = NO;
-    
+
     [UIView beginAnimations:@"curlInView" context:nil];
     
     [UIView setAnimationDuration:3.0];
@@ -260,8 +288,12 @@ int s;
     self.Reminutes=self.minutes;
 }
 
+
 //Close Timer View
 - (IBAction)closetimer:(id)sender{
+    
+    NSLog(@"%@",allItems);
+    NSLog(@"%@",[[allItems objectAtIndex:0] valueForKey:@"question"]);
     timerview.hidden=YES;
     scroll.scrollEnabled=YES;
     //ovning.text=scb;
@@ -274,7 +306,11 @@ int s;
     minutesDisplay.text=@"00";
 }
 
+
+//Timer Start
 - (IBAction)starttimer:(id)sender{
+    UIButton *button = (UIButton *)sender;
+    button.enabled = NO;
     self.secondsTimer = [NSTimer
                          scheduledTimerWithTimeInterval:1.0
                          target:self
@@ -283,6 +319,7 @@ int s;
                          repeats:YES];
 }
 
+//Timer Reset
 - (IBAction)Restarttimer:(id)sender {
     [self.secondsTimer invalidate];
     self.secondsTimer= nil;
@@ -301,7 +338,7 @@ int s;
                          repeats:YES];
 }
 
-
+//Timer Stop
 - (IBAction)stoptimer:(id)sender{
     [self.secondsTimer invalidate];
     self.secondsTimer= nil;
@@ -312,7 +349,9 @@ int s;
 //Popover List View
 -(IBAction)selectedcheckbox:(id)sender{
     UIButton *btn = (UIButton *)sender;
+    tagValueForBtn = btn.tag;
     NSLog(@"%i",btn.tag);
+    
     for (UIButton *radioButton in [pupview  subviews]) {
         if (radioButton.tag != btn.tag && [radioButton isKindOfClass:[UIButton class]] &&  radioButton.tag != 11 && radioButton.tag != 12) {
             [radioButton setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
@@ -329,242 +368,54 @@ int s;
             break;
         case 2:
             ovning.text=@"Tajta kläder (60 min)";
-            NSLog(@"%@",ovning.text);
             self.minutes=00;
             self.seconds=60;
             break;
         case 3:
             ovning.text=@"Huvudet mellan benen (90 sek)";
-            NSLog(@"%@",ovning.text);
             self.minutes=01;
             self.seconds=30;
             break;
         case 4:
-
             ovning.text=@"Spring på stället (2 min)";
-            NSLog(@"%@",ovning.text);
             self.minutes=01;
             self.seconds=60;
             break;
         case 5:
             ovning.text=@"Fullständig kroppsspänning (1 min)";
-            NSLog(@"%@",ovning.text);
             self.minutes=00;
             self.seconds=60;
             break;
         case 6:
+            ovning.text=@"Hålla andan (30 sek)";
+            self.seconds=30;
+            self.minutes=00;
+            break;
+        case 7:
+            
             ovning.text=@"Hyperventilera (90 sek)";
-            NSLog(@"%@",ovning.text);
             self.minutes=1;
             self.seconds=30;
             break;
-        case 7:
-            ovning.text=@"Svälj snabbt (fem gånger)";
-            timerview.hidden = YES;
-            //pupview.hidden = YES;
-            break;
         case 8:
-            ovning.text=@"Drick kaffe";
-            //self.seconds=00;
-            //self.minutes=00;
+            ovning.text=@"Svälj snabbt (fem gånger)";
             break;
         case 9:
+            ovning.text=@"Drick kaffe";
+            break;
+        case 10:
             ovning.text=@"Vatten i munnen (2 min)";
-            NSLog(@"%@",ovning.text);
             self.minutes=1;
             self.seconds=60;
             break;
-            
         default:
             break;
     }
-    /*if (btn.tag == 1)
-    {
-        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-            NSLog(@"%@",scb);
-          
-                [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-                ovning.text=@"Skaka huvudet (30 sek)";
-            
-                NSLog(@"%@",  ovning.text);
-                self.seconds=30;
-                 self.minutes=0;
-         
-        
-            
-        }else{
-            [btn
-             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-            ovning.text=@"";
-            NSLog(@"%@",  ovning.text);
-            self.seconds=00;
-            self.minutes=00;
-        }
-              
-    }else if(btn.tag == 2){
-         if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-           
-        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-       ovning.text=@"Tajta kläder (60 min)";
-        NSLog(@"%@",ovning.text);
-                self.minutes=00;
-                self.seconds=60;
-         
-         }else{
-             [btn
-              setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-             ovning.text=@"";
-             NSLog(@"%@",ovning.text);
-             self.seconds=00;
-             self.minutes=00;
-         }
-
-    }else if(btn.tag == 3){
-        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-         
-        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-        ovning.text=@"Huvudet mellan benen (90 sek)";
-        NSLog(@"%@",ovning.text);
-                self.seconds=30;
-                self.minutes=1;
-           
-        }else{
-            [btn
-             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-            ovning.text=@"";
-            NSLog(@"%@",ovning.text);
-            self.seconds=00;
-             self.minutes=00;
-        }
-
-    }
-    
-    else if(btn.tag == 4){
-            if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-        
-        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-      ovning.text=@"Spring på stället (2 min)";
-        NSLog(@"%@",ovning.text);
-                self.minutes=1;
-                self.seconds=60;
-           
-            }else{
-                [btn
-                 setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-                ovning.text=@"";
-                NSLog(@"%@",ovning.text);
-                self.seconds=00;
-                self.minutes=00;
-            }
-
-    }else if(btn.tag == 5){
-           if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-          
-        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-       ovning.text=@"Fullständig kroppsspänning (1 min)";
-        NSLog(@"%@",ovning.text);
-                self.minutes=00;
-                self.seconds=60;
-                
-          
-           }else{
-               [btn
-                setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-               ovning.text=@"";
-               NSLog(@"%@",ovning.text);
-               self.seconds=00;
-               self.minutes=00;
-           }
-
-    }else if(btn.tag == 6){
-        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-       
-        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-       ovning.text=@"Hålla andan (30 sek)";
-        NSLog(@"%@",ovning.text);
-                self.seconds=30;
-                self.minutes=00;
-          
-        }else{
-            [btn
-             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-            ovning.text=@"";
-            NSLog(@"%@",ovning.text);
-            self.seconds=00;
-            self.minutes=00;        }
-    }else if(btn.tag == 7){
-         if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-        
-        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-        ovning.text=@"Hyperventilera (90 sek)";
-        NSLog(@"%@",ovning.text);
-                self.seconds=30;
-                self.minutes=1;
-     
-         }else{
-             [btn
-              setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-             ovning.text=@"";
-             NSLog(@"%@",ovning.text);
-             self.seconds=00;
-              self.minutes=00;
-         }
-    }else if(btn.tag == 8){
-          if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-                  [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-     ovning.text=@"Svälj snabbt (fem gånger)";
-              self.seconds=00;
-              self.minutes=00;
-        NSLog(@"%@",ovning.text);
-      
-          }else{
-              [btn
-               setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-              ovning.text=@"";
-              NSLog(@"%@",ovning.text);
-              self.seconds=00;
-              self.minutes=00;
-          }
-    }else if(btn.tag == 9){
-        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-         
-        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-        ovning.text=@"Drick kaffe";
-            self.seconds=00;
-            self.minutes=00;
-        NSLog(@"%@",ovning.text);
-    
-        }else{
-            [btn
-             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-            ovning.text=@"";
-            NSLog(@"%@",ovning.text);
-            self.seconds=00;
-            self.minutes=00;
-        }
-    }else if(btn.tag == 10){
-        if(btn.currentImage==[UIImage imageNamed:@"unchecked.png"]){
-            
-        [btn setImage:[UIImage imageNamed:@"checked.png"]  forState:UIControlStateNormal];
-       ovning.text=@"Vatten i munnen (2 min)";
-        NSLog(@"%@",ovning.text);
-                self.minutes=1;
-                 self.seconds=60;
-      
-        }else{
-            [btn
-             setImage:[UIImage imageNamed:@"unchecked.png"]  forState:UIControlStateNormal];
-            ovning.text=@"";
-            NSLog(@"%@",ovning.text);
-            self.seconds=00;
-            self.minutes=00;
-        }
-    }else{
-        
-    }*/
     
     timerQuestionLabel.text = ovning.text;
 }
+
+
 
 -(IBAction)updateside:(id)sender
 {
@@ -577,7 +428,6 @@ int s;
         NSNumber *myNumber = [NSNumber numberWithDouble: [slider value]];
         NSInteger myInt = [myNumber intValue];
         inStr = [NSString stringWithFormat:@"%d", myInt];
-        //  inStr = [inStr stringByAppendingString:@" %"];
         prc.text=inStr;
         NSLog(@"inStr Value: %@", inStr);
         [cellButton setBackgroundImage:[UIImage imageNamed:@"listbuttons.png"] forState:UIControlStateNormal];
@@ -585,6 +435,7 @@ int s;
       
     }
 }
+
 
 #pragma mark -- TableView DataSource Methods
 
@@ -678,6 +529,8 @@ int s;
     [list_egen removeAllObjects];
     [listofovningars removeAllObjects];
 }
+
+
 
 -(IBAction)SparaButton:(id)sender{
     
@@ -774,7 +627,8 @@ int s;
 }
 
 
--(IBAction)newcolm:(id)sender{
+-(IBAction)newcolm:(id)sender
+{
     if([ovning.text isEqualToString:@""] &&[egen.text isEqualToString:@""] && [prc.text isEqualToString:@""] ){
         
     }else{
@@ -798,7 +652,7 @@ int s;
             [listof_sliderValue removeAllObjects];
             [tblView reloadData];
             
-            isSaved = YES;
+            
         }
     }
 }

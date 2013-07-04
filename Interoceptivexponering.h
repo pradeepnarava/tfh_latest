@@ -19,7 +19,6 @@
 
     //Gopal Timer
     UILabel *timerQuestionLabel;
-    
     UITableView *tblView;
     
     //Labels
@@ -37,12 +36,16 @@
     //PopupView Labels
     IBOutlet UILabel *cb1,*cb2,*cb3,*cb4,*cb5,*cb6,*cb7,*cb8,*cb9,*cb10;
     
+    //DataStore
+    NSMutableDictionary *items;
+    NSMutableArray *allItems;
+    NSString *question,*anwser,*vlues;
+    
     //
     NSString *inStr,*instr1;
     NSMutableString *str1,*str2,*str3, *str11,*str21,*str31;
 
 
-    
     int noOfSection;
     UIButton *cellButton;
 
@@ -58,6 +61,11 @@
 @property (nonatomic, retain) IBOutlet UITextView *egen;
 @property (nonatomic, retain) IBOutlet UISlider *slider;
 @property (nonatomic, retain) IBOutlet UITableView *tblView;
+@property (nonatomic, retain) NSString *question,*anwser,*vlues;
+
+//DataSotre
+@property (nonatomic, retain) NSMutableDictionary *items;
+@property (nonatomic, retain) NSMutableArray *allItems;
 
 
 //timer
@@ -72,6 +80,7 @@
 @property(nonatomic ,retain)NSMutableArray *listofovningars1;
 @property(nonatomic ,retain)NSMutableArray *listof_sliderValue1;
 @property(nonatomic ,retain)NSMutableArray *list_egen1;
+
 
 
 - (IBAction)newcolm:(id)sender;
