@@ -15,7 +15,6 @@
 
 @interface Interoceptivexponering ()
 
-
 @property (nonatomic, assign) int seconds;
 @property (nonatomic, assign) int minutes;
 @property (nonatomic, assign) int Reseconds;
@@ -780,7 +779,7 @@ int s;
         
     }else{
         if (isSaved == YES) {
-            UIAlertView  *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+            UIAlertView  *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Vill du ta bort all text som du skrivit ner i övningen?"
                                                           delegate:self
                                                  cancelButtonTitle:@"Forsätt"
                                                  otherButtonTitles:@"Avbryt", nil];

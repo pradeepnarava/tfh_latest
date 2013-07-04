@@ -1895,12 +1895,13 @@
 								<string key="NSFrame">{{226, 3974}, {81, 34}}</string>
 								<reference key="NSSuperview" ref="335426406"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUINormalTitle">Nytt</string>
+								<string key="IBUINormalTitle">Rensa</string>
 								<reference key="IBUIHighlightedTitleColor" ref="287669261"/>
 								<reference key="IBUINormalTitleColor" ref="287669261"/>
 								<reference key="IBUINormalTitleShadowColor" ref="35504540"/>
@@ -3169,6 +3170,7 @@
 						<string key="Nyttbutton:">id</string>
 						<string key="Sparabutton:">id</string>
 						<string key="mainlabelalert:">id</string>
+						<string key="nextbutton:">id</string>
 						<string key="skickaButtonClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -3182,6 +3184,10 @@
 						</object>
 						<object class="IBActionInfo" key="mainlabelalert:">
 							<string key="name">mainlabelalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="nextbutton:">
+							<string key="name">nextbutton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="skickaButtonClicked:">

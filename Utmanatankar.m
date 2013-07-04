@@ -315,7 +315,6 @@ NSArray *pArray;
 }
 
 
-
 -(IBAction)strategieralert:(id)sender{
     [MTPopupWindow showWindowWithHTMLFile:@"tankefallar.html" insideView:self.view];
 }
@@ -418,6 +417,7 @@ NSArray *pArray;
     NSLog(@"%@",registreraTankars);
 }
 
+
 -(IBAction)sparabutton:(id)sender{
     
     NSLog(@"c2%@",c2.text);
@@ -504,7 +504,7 @@ NSArray *pArray;
         
     }else{
         if (isSaved == YES) {
-            alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+            alert=[[UIAlertView alloc] initWithTitle:nil message:@"Vill du ta bort all text som du skrivit ner i övningen?"
                                             delegate:self
                                    cancelButtonTitle:@"Forsätt"
                                    otherButtonTitles:@"Avbryt", nil];
