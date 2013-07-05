@@ -117,6 +117,7 @@
     
     NSString *docsDir;
     NSArray *dirPaths;
+    sqlite3 *exerciseDB;
     
     // Get the documents directory
     dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -166,6 +167,7 @@
 {    
     NSString *docsDir;
     NSArray *dirPaths;
+    sqlite3 *exerciseDB;
     
     // Get the documents directory
     dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -195,14 +197,14 @@
             NSString *tmp1;
             if (c1 != NULL){
                 tmp1 = [NSString stringWithUTF8String:c1];
-                NSLog(@"value form db :%@",tmp1);
+//                NSLog(@"value form db :%@",tmp1);
                 rLabel1 = [NSString stringWithString:tmp1];
             }
             char* c2 = (char*) sqlite3_column_text(statement,3);
             NSString *tmp2;
             if (c2 != NULL){
                 tmp2 = [NSString stringWithUTF8String:c2];
-                NSLog(@"value form db :%@",tmp2);
+//                NSLog(@"value form db :%@",tmp2);
                 rTextView1 = [NSString stringWithString:tmp2];
             }
             
@@ -210,14 +212,14 @@
             NSString *tmp14;
             if (c14 != NULL){
                 tmp14 = [NSString stringWithUTF8String:c14];
-                NSLog(@"value form db :%@",tmp14);
+//                NSLog(@"value form db :%@",tmp14);
                 rLabel2 = [NSString stringWithString:tmp14];
             }
             char* c15 = (char*) sqlite3_column_text(statement,5);
             NSString *tmp15;
             if (c15 != NULL){
                 tmp15 = [NSString stringWithUTF8String:c15];
-                NSLog(@"value form db :%@",tmp15);
+//                NSLog(@"value form db :%@",tmp15);
                 rTextView2 = [NSString stringWithString:tmp15];
             }
             
@@ -261,6 +263,7 @@
     {
         NSString *docsDir;
         NSArray *dirPaths;
+        sqlite3 *exerciseDB;
         
         // Get the documents directory
         dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -284,14 +287,14 @@
                 NSString *tmp1;
                 if (c1 != NULL){
                     tmp1 = [NSString stringWithUTF8String:c1];
-                    NSLog(@"value form db :%@",tmp1);
+//                    NSLog(@"value form db :%@",tmp1);
                     omradeLabel1.text=tmp1;
                 }
                 char* c2 = (char*) sqlite3_column_text(statement,3);
                 NSString *tmp2;
                 if (c2 != NULL){
                     tmp2 = [NSString stringWithUTF8String:c2];
-                    NSLog(@"value form db :%@",tmp2);
+//                    NSLog(@"value form db :%@",tmp2);
                     textview.text=tmp2;
                 }
                 
@@ -299,14 +302,14 @@
                 NSString *tmp14;
                 if (c14 != NULL){
                     tmp14 = [NSString stringWithUTF8String:c14];
-                    NSLog(@"value form db :%@",tmp14);
+//                    NSLog(@"value form db :%@",tmp14);
                     omradeLabel2.text=tmp14;
                 }
                 char* c15 = (char*) sqlite3_column_text(statement,5);
                 NSString *tmp15;
                 if (c15 != NULL){
                     tmp15 = [NSString stringWithUTF8String:c15];
-                    NSLog(@"value form db :%@",tmp15);
+//                    NSLog(@"value form db :%@",tmp15);
                     self.textview1.text=tmp15;
                 }
                 
@@ -314,7 +317,7 @@
                 NSString *tmp3;
                 if (c3!= NULL){
                     tmp3= [NSString stringWithUTF8String:c3];
-                    NSLog(@"value form db :%@",tmp3);
+//                    NSLog(@"value form db :%@",tmp3);
                     [averageBt setTitle:tmp3 forState:UIControlStateNormal];
                 }
                 
@@ -322,7 +325,7 @@
                 NSString *tmp4;
                 if (c4!= NULL){
                     tmp4= [NSString stringWithUTF8String:c4];
-                    NSLog(@"value form db :%@",tmp4);
+//                    NSLog(@"value form db :%@",tmp4);
                     tf1.text = tmp4;
                 }
                 
@@ -330,7 +333,7 @@
                 NSString *tmp5;
                 if (c5!= NULL){
                     tmp5= [NSString stringWithUTF8String:c5];
-                    NSLog(@"value form db :%@",tmp5);
+//                    NSLog(@"value form db :%@",tmp5);
                     tf2.text = tmp5;
                 }
                 
@@ -338,7 +341,7 @@
                 NSString *tmp6;
                 if (c6!= NULL){
                     tmp6= [NSString stringWithUTF8String:c6];
-                    NSLog(@"value form db :%@",tmp6);
+//                    NSLog(@"value form db :%@",tmp6);
                     tf3.text = tmp6;
                 }
                 
@@ -346,7 +349,7 @@
                 NSString *tmp7;
                 if (c7!= NULL){
                     tmp7= [NSString stringWithUTF8String:c7];
-                    NSLog(@"value form db :%@",tmp7);
+//                    NSLog(@"value form db :%@",tmp7);
                     tf4.text = tmp7;
                 }
                 
@@ -354,7 +357,7 @@
                 NSString *tmp8;
                 if (c8!= NULL){
                     tmp8= [NSString stringWithUTF8String:c8];
-                    NSLog(@"value form db :%@",tmp8);
+//                    NSLog(@"value form db :%@",tmp8);
                     tf5.text = tmp8;
                 }
                 
@@ -362,7 +365,7 @@
                 NSString *tmp9;
                 if (c9!= NULL){
                     tmp9= [NSString stringWithUTF8String:c9];
-                    NSLog(@"value form db :%@",tmp9);
+//                    NSLog(@"value form db :%@",tmp9);
                     tf6.text = tmp9;
                 }
                 
@@ -370,7 +373,7 @@
                 NSString *tmp10;
                 if (c10!= NULL){
                     tmp10= [NSString stringWithUTF8String:c10];
-                    NSLog(@"value form db :%@",tmp10);
+//                    NSLog(@"value form db :%@",tmp10);
                     tf7.text = tmp10;
                 }
                 
@@ -378,7 +381,7 @@
                 NSString *tmp11;
                 if (c11!= NULL){
                     tmp11= [NSString stringWithUTF8String:c11];
-                    NSLog(@"value form db :%@",tmp11);
+//                    NSLog(@"value form db :%@",tmp11);
                    tf8.text = tmp11;
                 }
                 
@@ -386,7 +389,7 @@
                 NSString *tmp12;
                 if (c12!= NULL){
                     tmp12= [NSString stringWithUTF8String:c12];
-                    NSLog(@"value form db :%@",tmp12);
+//                    NSLog(@"value form db :%@",tmp12);
                     tf9.text = tmp12;
                 }
                 
@@ -394,7 +397,7 @@
                 NSString *tmp13;
                 if (c13!= NULL){
                     tmp13= [NSString stringWithUTF8String:c13];
-                    NSLog(@"value form db :%@",tmp13);
+//                    NSLog(@"value form db :%@",tmp13);
                     tf10.text = tmp13;
                 }
              }
@@ -908,7 +911,7 @@
 -(IBAction)averagevalue
 {
     int box1=[tf1.text intValue];
-    NSLog(@"%d",box1);
+//    NSLog(@"%d",box1);
      int box2=[tf2.text intValue];
    int box3=[tf3.text intValue];
    int box4=[tf4.text intValue];
@@ -989,12 +992,12 @@
     
     //Set the required date format
     
-    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
+    [formatter setDateFormat:@"MMM d YYYY"];
     
     //Get the string date
     
     NSString* str = [formatter stringFromDate:date];
-    
+    sqlite3 *exerciseDB;
     NSLog(@"date%@",str);
     sqlite3_stmt    *statement;
     
@@ -1004,7 +1007,7 @@
     {
         int rows = 0;
         
-        NSString *sql = [NSString stringWithFormat: @"SELECT COUNT(*) FROM EXERCISE7 WHERE date='%@'", str];
+        NSString *sql = [NSString stringWithFormat: @"SELECT date FROM EXERCISE7"];
         
         const char *query_stmt = [sql UTF8String];
         
@@ -1012,11 +1015,30 @@
         {
             while (sqlite3_step(statement) == SQLITE_ROW)
             {
-                rows = sqlite3_column_int(statement, 0);
+                char* date = (char*) sqlite3_column_text(statement,0);
+                NSString *tmp;
+                if (date != NULL)
+                {
+                    tmp = [NSString stringWithUTF8String:date];
+                    NSLog(@"STR VALUE = %@", str);
+                    NSLog(@"TEMP VALUE = %@",tmp);
+                    NSArray *array = [[NSArray alloc] initWithArray:[tmp componentsSeparatedByString:@" "]];
+                    
+                    if ([str isEqualToString:[NSString stringWithFormat:@"%@ %@ %@", [array objectAtIndex:0], [array objectAtIndex:1], [array objectAtIndex:2]]])
+                    {
+                        NSLog(@"Came Here");
+                        rows++;
+                        break;
+                    }
+                }
             }
         }
         
+        NSLog(@"ROW COUNT = %i", rows);
         NSString *insertSQL;
+        
+//        [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
+//        str = [formatter stringFromDate:date];
         
         if (rows == 0)
         {
@@ -1051,6 +1073,12 @@
             _raderaButton.enabled = NO;
             skickaButton.enabled = NO;
             
+            _recentButton1.hidden = YES;
+            _recentLabel1.hidden = YES;
+            
+            _recentButton2.hidden = YES;
+            _recentLabel2.hidden = YES;
+            
             if (rows == 0)
             {
                 UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
@@ -1066,6 +1094,7 @@
             
         } else {
             NSLog(@"no");
+            NSLog(@"error: %s", sqlite3_errmsg(exerciseDB));
             UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form Update/Save Failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
             [insertAlert show];
         }
@@ -1121,6 +1150,7 @@
         }
         else if (buttonIndex == 0 && alertView.tag == 2)
         {
+            sqlite3 *exerciseDB;
             sqlite3_stmt    *statement;
             if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
                 
@@ -1130,7 +1160,7 @@
                 const char *del_stmt = [sql UTF8String];
                 
                 sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
-                if (sqlite3_step(statement) == SQLITE_ROW) {
+                if (sqlite3_step(statement) == SQLITE_DONE) {
                     
                     NSLog(@"Deleted");
                     UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Raderat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
@@ -1160,6 +1190,7 @@
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     // const char *dbpath = [databasePath UTF8String];
+    sqlite3 *exerciseDB;
     sqlite3_stmt    *statement;
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK)
     {
@@ -1257,9 +1288,7 @@
         if(box1 != 10){
             box1++;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf1.text=str;
-            NSLog(@"%@",tf1.text);
         }
       
     }
@@ -1268,9 +1297,7 @@ else if(btn.tag==2){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf2.text=str;
-        NSLog(@"%@",tf2.text);
     }
 }
 else if(btn.tag==3){
@@ -1278,9 +1305,7 @@ else if(btn.tag==3){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf3.text=str;
-        NSLog(@"%@",tf3.text);
     }
 }
 else if(btn.tag==4){
@@ -1288,9 +1313,7 @@ else if(btn.tag==4){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf4.text=str;
-        NSLog(@"%@",tf4.text);
     }
 }
 else if(btn.tag==5){
@@ -1298,9 +1321,7 @@ else if(btn.tag==5){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf5.text=str;
-        NSLog(@"%@",tf5.text);
     }
 }
 else if(btn.tag==6){
@@ -1308,9 +1329,7 @@ else if(btn.tag==6){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf6.text=str;
-        NSLog(@"%@",tf6.text);
     }
 }
 else if(btn.tag==7){
@@ -1318,9 +1337,7 @@ else if(btn.tag==7){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf7.text=str;
-        NSLog(@"%@",tf7.text);
     }
 }
 else if(btn.tag==8){
@@ -1328,9 +1345,7 @@ else if(btn.tag==8){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf8.text=str;
-        NSLog(@"%@",tf8.text);
     }
 }
 else if(btn.tag==9){
@@ -1338,9 +1353,7 @@ else if(btn.tag==9){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf9.text=str;
-        NSLog(@"%@",tf9.text);
     }
 }
 else if(btn.tag==10){
@@ -1348,9 +1361,7 @@ else if(btn.tag==10){
     if(box1 != 10){
         box1++;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf10.text=str;
-        NSLog(@"%@",tf10.text);
     }
 }
     
@@ -1365,9 +1376,7 @@ else if(btn.tag==10){
           if(box1 != 1){
         box1--;
         NSString *str=[NSString stringWithFormat: @"%d", box1];
-        NSLog(@"%@",str);
         tf1.text=str;
-        NSLog(@"%@",tf1.text);
           }
     }
     else if(btn.tag==2){
@@ -1375,9 +1384,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf2.text=str;
-            NSLog(@"%@",tf2.text);
         }
     }
     else if(btn.tag==3){
@@ -1385,9 +1392,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf3.text=str;
-            NSLog(@"%@",tf3.text);
         }
     }
     else if(btn.tag==4){
@@ -1395,9 +1400,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf4.text=str;
-            NSLog(@"%@",tf4.text);
         }
     }
     else if(btn.tag==5){
@@ -1405,9 +1408,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf5.text=str;
-            NSLog(@"%@",tf5.text);
         }
     }
     else if(btn.tag==6){
@@ -1415,9 +1416,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf6.text=str;
-            NSLog(@"%@",tf6.text);
         }
     }
     else if(btn.tag==7){
@@ -1425,9 +1424,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf7.text=str;
-            NSLog(@"%@",tf7.text);
         }
     }
     else if(btn.tag==8){
@@ -1435,9 +1432,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf8.text=str;
-            NSLog(@"%@",tf8.text);
         }
     }
     else if(btn.tag==9){
@@ -1445,9 +1440,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf9.text=str;
-            NSLog(@"%@",tf9.text);
         }
     }
     else if(btn.tag==10){
@@ -1455,9 +1448,7 @@ else if(btn.tag==10){
         if(box1 != 1){
             box1--;
             NSString *str=[NSString stringWithFormat: @"%d", box1];
-            NSLog(@"%@",str);
             tf10.text=str;
-            NSLog(@"%@",tf10.text);
         }
     }
     [self averagevalue];
@@ -1489,7 +1480,7 @@ else if(btn.tag==10){
 - (IBAction)generateGraph:(id)sender
 {
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
+    [formatter setDateFormat:@"MMM d YYYY"];
     
     NSString *olderDate = nil;
     
@@ -1507,6 +1498,7 @@ else if(btn.tag==10){
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     const char *dbpath = [databasePath UTF8String];
     sqlite3_stmt  *statement;
+    sqlite3 *exerciseDB;
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {

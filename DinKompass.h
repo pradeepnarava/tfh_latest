@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
 #import "DateSelectingViewController.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface DinKompass : UIViewController <CPTPlotDataSource, DateSelectingViewControllerDelegate, UIAlertViewDelegate>
+@interface DinKompass : UIViewController <CPTPlotDataSource, DateSelectingViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 {
     NSMutableArray *presentArray;
     NSMutableArray *olderArray;

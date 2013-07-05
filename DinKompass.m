@@ -38,7 +38,116 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 //    self.view.backgroundColor = [UIColor greenColor];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"Skicka" forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"bbutton.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(skickaButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake(0, 0, 80, 30);
+    
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem = rightButton;
+    
     [self performSelector:@selector(setupGraphType) withObject:nil afterDelay:0.2];
+}
+
+- (void)skickaButtonClicked
+{
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    cameraActionSheet.tag = 1;
+    [cameraActionSheet showInView:self.view];
+}
+
+- (UIImage *)getFormImage
+{
+    UIImage *tempImage = nil;
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    {
+        [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+        tempImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    UIGraphicsEndImageContext();
+    
+    return tempImage;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
+	if (buttonIndex == 0)
+    {
+        UIImage *image = [self getFormImage];
+        if (image)
+        {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Image downloaded" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+    else if (buttonIndex == 1)
+    {
+        if ([MFMailComposeViewController canSendMail])
+        {
+            MFMailComposeViewController *emailDialog = [[MFMailComposeViewController alloc] init];
+            emailDialog.mailComposeDelegate = self;
+            NSMutableString *htmlMsg = [NSMutableString string];
+            [htmlMsg appendString:@"<html><body><p>"];
+            [htmlMsg appendString:[NSString stringWithFormat:@"Please find the attached Graph"]];
+            [htmlMsg appendString:@": </p></body></html>"];
+            
+            NSData *jpegData = UIImageJPEGRepresentation([self getFormImage], 1);
+            
+            NSString *fileName = @"Graph";
+            fileName = [fileName stringByAppendingPathExtension:@"jpeg"];
+            [emailDialog addAttachmentData:jpegData mimeType:@"image/jpeg" fileName:fileName];
+            
+            [emailDialog setSubject:@"Form"];
+            [emailDialog setMessageBody:htmlMsg isHTML:YES];
+            
+            
+            [self presentViewController:emailDialog animated:YES completion:nil];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail cannot be send now. Please check mail has been configured in your device and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    // Notifies users about errors associated with the interface
+    switch (result)
+    {
+            
+        case MFMailComposeResultCancelled:
+            break;
+        case MFMailComposeResultSaved:
+            break;
+        case MFMailComposeResultSent:
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail sent successfully" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+            break;
+        case MFMailComposeResultFailed:
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail send failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+            break;
+        default:
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail was not sent." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+        }
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,8 +201,8 @@
         presentArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:_presentDate]];
         olderArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:_oldDate]];
         
-        NSLog(@"PRESENT ARRAY = %@", presentArray);
-        NSLog(@"OLDER ARRAY = %@", olderArray);
+//        NSLog(@"PRESENT ARRAY = %@", presentArray);
+//        NSLog(@"OLDER ARRAY = %@", olderArray);
         [self initPlot];
     }
     else
@@ -187,8 +296,8 @@
             sqlite3_finalize(statement);
             sqlite3_close(exerciseDB);
         }
-        NSLog(@"AVERAGES ARRAY = %@", averageArray);
-        NSLog(@"DATES ARRAY = %@", datesArray);
+//        NSLog(@"AVERAGES ARRAY = %@", averageArray);
+//        NSLog(@"DATES ARRAY = %@", datesArray);
         if ([datesArray count] > 0 && [averageArray count] > 0)
         {
             _presentDate = [NSString stringWithString:[datesArray lastObject]];
@@ -256,7 +365,7 @@
     }
     else
     {
-        title = [NSString stringWithFormat:@"Utveckling %@ - %@", [datesArray lastObject], [datesArray objectAtIndex:0]];
+        title = [NSString stringWithFormat:@"Utveckling %@ - %@", [[datesArray lastObject] stringByReplacingOccurrencesOfString:@"\n" withString:@""], [[datesArray objectAtIndex:0] stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
     }
 	graph.title = title;
 	// 3 - Create and set text style
@@ -268,11 +377,11 @@
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 	graph.titleDisplacement = CGPointMake(0.0f, 10.0f);
 	// 4 - Set padding for plot area
-	[graph.plotAreaFrame setPaddingLeft:10.0f];
-	[graph.plotAreaFrame setPaddingBottom:10.0f];
+	[graph.plotAreaFrame setPaddingLeft:40.0f];
+	[graph.plotAreaFrame setPaddingBottom:45.0f];
 	// 5 - Enable user interactions for plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
-	plotSpace.allowsUserInteraction = YES;
+	plotSpace.allowsUserInteraction = NO;
 }
 
 -(void)configurePlots {
@@ -297,13 +406,15 @@
         
         // 3 - Set up plot space
 //        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, oldPlot, nil]];
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(11)];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(11)];
         
-        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
-        plotSpace.xRange = xRange;
-        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
-        plotSpace.yRange = yRange;
+//        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+//        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
+//        plotSpace.xRange = xRange;
+//        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
+//        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
+//        plotSpace.yRange = yRange;
         // 4 - Create styles and symbols
         CPTMutableLineStyle *presentLineStyle = [presentPlot.dataLineStyle mutableCopy];
         presentLineStyle.lineWidth = 2.5;
@@ -339,13 +450,14 @@
         
         // 3 - Set up plot space
 //        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, nil]];
-        
-        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
-        plotSpace.xRange = xRange;
-        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
-        plotSpace.yRange = yRange;
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(11)];
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([datesArray count] + 1)];
+//        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+//        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
+//        plotSpace.xRange = xRange;
+//        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
+//        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
+//        plotSpace.yRange = yRange;
         
         // 4 - Create styles and symbols
         CPTMutableLineStyle *presentLineStyle = [presentPlot.dataLineStyle mutableCopy];
@@ -388,7 +500,7 @@
 	x.titleTextStyle = axisTitleStyle;
     if (_isComparisonGraph)
     {
-        x.titleOffset = 15.0f;
+        x.titleOffset = 30.0f;
         x.title = @"Områden";
     }
     else
@@ -413,12 +525,12 @@
     if (_isComparisonGraph)
     {
         array = [[NSArray alloc] initWithObjects:@"Fam", @"Vän", @"Kär", @"Arb", @"Eko", @"Kost", @"Mot", @"Vila", @"Frit", @"Sömn", nil];
-        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
+//        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
     }
     else
     {
         array = [[NSArray alloc] initWithArray:datesArray];
-        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([datesArray count])];
+//        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([datesArray count])];
     }
     
 	for (NSString *date in array)
@@ -450,7 +562,7 @@
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
-    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
+//    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
 	NSInteger majorIncrement = 1;
 	NSInteger minorIncrement = 1;
 	CGFloat yMax = 10.0f;  // should determine dynamically based on max price
@@ -512,7 +624,7 @@
             NSString *tmp4;
             if (c4!= NULL){
                 tmp4= [NSString stringWithUTF8String:c4];
-                NSLog(@"value form db :%@",tmp4);
+//                NSLog(@"value form db :%@",tmp4);
                 [array addObject:[NSNumber numberWithInt:[tmp4 intValue]]];
 //                tf1.text = tmp4;
             }
@@ -521,7 +633,7 @@
             NSString *tmp5;
             if (c5!= NULL){
                 tmp5= [NSString stringWithUTF8String:c5];
-                NSLog(@"value form db :%@",tmp5);
+//                NSLog(@"value form db :%@",tmp5);
                 [array addObject:[NSNumber numberWithInt:[tmp5 intValue]]];
 //                tf2.text = tmp5;
             }
@@ -530,7 +642,7 @@
             NSString *tmp6;
             if (c6!= NULL){
                 tmp6= [NSString stringWithUTF8String:c6];
-                NSLog(@"value form db :%@",tmp6);
+//                NSLog(@"value form db :%@",tmp6);
                 [array addObject:[NSNumber numberWithInt:[tmp6 intValue]]];
 //                tf3.text = tmp6;
             }
@@ -539,7 +651,7 @@
             NSString *tmp7;
             if (c7!= NULL){
                 tmp7= [NSString stringWithUTF8String:c7];
-                NSLog(@"value form db :%@",tmp7);
+//                NSLog(@"value form db :%@",tmp7);
                 [array addObject:[NSNumber numberWithInt:[tmp7 intValue]]];
 //                tf4.text = tmp7;
             }
@@ -548,7 +660,7 @@
             NSString *tmp8;
             if (c8!= NULL){
                 tmp8= [NSString stringWithUTF8String:c8];
-                NSLog(@"value form db :%@",tmp8);
+//                NSLog(@"value form db :%@",tmp8);
                 [array addObject:[NSNumber numberWithInt:[tmp8 intValue]]];
 //                tf5.text = tmp8;
             }
@@ -557,7 +669,7 @@
             NSString *tmp9;
             if (c9!= NULL){
                 tmp9= [NSString stringWithUTF8String:c9];
-                NSLog(@"value form db :%@",tmp9);
+//                NSLog(@"value form db :%@",tmp9);
                 [array addObject:[NSNumber numberWithInt:[tmp9 intValue]]];
 //                tf6.text = tmp9;
             }
@@ -566,7 +678,7 @@
             NSString *tmp10;
             if (c10!= NULL){
                 tmp10= [NSString stringWithUTF8String:c10];
-                NSLog(@"value form db :%@",tmp10);
+//                NSLog(@"value form db :%@",tmp10);
                 [array addObject:[NSNumber numberWithInt:[tmp10 intValue]]];
 //                tf7.text = tmp10;
             }
@@ -575,7 +687,7 @@
             NSString *tmp11;
             if (c11!= NULL){
                 tmp11= [NSString stringWithUTF8String:c11];
-                NSLog(@"value form db :%@",tmp11);
+//                NSLog(@"value form db :%@",tmp11);
                 [array addObject:[NSNumber numberWithInt:[tmp11 intValue]]];
 //                tf8.text = tmp11;
             }
@@ -584,7 +696,7 @@
             NSString *tmp12;
             if (c12!= NULL){
                 tmp12= [NSString stringWithUTF8String:c12];
-                NSLog(@"value form db :%@",tmp12);
+//                NSLog(@"value form db :%@",tmp12);
                 [array addObject:[NSNumber numberWithInt:[tmp12 intValue]]];
 //                tf9.text = tmp12;
             }
@@ -593,7 +705,7 @@
             NSString *tmp13;
             if (c13!= NULL){
                 tmp13= [NSString stringWithUTF8String:c13];
-                NSLog(@"value form db :%@",tmp13);
+//                NSLog(@"value form db :%@",tmp13);
                 [array addObject:[NSNumber numberWithInt:[tmp13 intValue]]];
 //                tf10.text = tmp13;
             }

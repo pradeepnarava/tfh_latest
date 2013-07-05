@@ -64,7 +64,7 @@
                 NSString *tmp;
                 if (date != NULL){
                     tmp = [NSString stringWithUTF8String:date];
-                    NSLog(@"value form db :%@",tmp);
+//                    NSLog(@"value form db :%@",tmp);
                     [listexercise7 addObject:tmp];
                 }
                 
