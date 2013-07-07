@@ -70,6 +70,11 @@
                 }
             }
         }
+        else {
+            if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
+                
+            }
+        }
     }
     else {
         return YES;
@@ -79,18 +84,53 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30) animated:YES];
-                     }
-                     completion:^(BOOL finished){
-                         // whatever you need to do when animations are complete
-                         
-                     }];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30) animated:YES];
+                         }
+                         completion:^(BOOL finished){
+                             // whatever you need to do when animations are complete
+                             
+                         }];
+    }else {
+        if (textView == mansTV1) {
+            
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 [scroll1 setContentOffset:CGPointMake(scroll1.frame.origin.x, textView.frame.origin.y - 350) animated:YES];
+                             }
+                             completion:^(BOOL finished){
+                                 // whatever you need to do when animations are complete
+                                 
+                             }];
+        }
+        
+        
+    }
     
     return YES;
 }
 
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
+        if (textView == mansTV2 || textView == mansTV1) {
+            
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 [scroll1 setContentOffset:CGPointMake(scroll1.frame.origin.x, scroll1.frame.origin.y + 3145) animated:YES];
+                             }
+                             completion:^(BOOL finished){
+                                 // whatever you need to do when animations are complete
+                                 
+                             }];
+        }
+    }
+}
 
 #pragma mark ViewLifeCycle Methods
 
@@ -105,7 +145,7 @@
     [scroll setContentSize:CGSizeMake(320, 4029)];
     scroll1.scrollEnabled = YES;
     
-    [scroll1 setContentSize:CGSizeMake(320, 4418)];
+    [scroll1 setContentSize:CGSizeMake(320, 4105)];
    
     // Get the documents directory
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

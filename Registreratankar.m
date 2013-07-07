@@ -64,6 +64,16 @@ int s=0;
                                      }];
                     
                 }
+            }else {
+                [UIView animateWithDuration:0.5
+                                 animations:^{
+                                     [scroll2 setContentOffset:CGPointMake(scroll2.frame.origin.x, scroll2.frame.origin.y + 250) animated:YES];
+                                 }
+                                 completion:^(BOOL finished){
+                                     // whatever you need to do when animations are complete
+                                     
+                                 }];
+                
             }
         }
     }
@@ -73,34 +83,102 @@ int s=0;
     return 0;
 }
 
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
+        if (textView == overiga) {
+            
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 [scroll2 setContentOffset:CGPointMake(scroll2.frame.origin.x, scroll2.frame.origin.y + 250) animated:YES];
+                             }
+                             completion:^(BOOL finished){
+                                 // whatever you need to do when animations are complete
+                                 
+                             }];
+        }
+    }
+}
+
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         
-                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30 ) animated:YES];
-//                         self.view.frame = CGRectMake(self.view.frame.origin.x
-//                                                , -170, self.view.frame.size.width, self.view.frame.size.height);
-                     }
-                     completion:^(BOOL finished){
-                         // whatever you need to do when animations are complete
-                         NSLog(@"Animation Finished");
-                     }];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
+            
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 
+                                 [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30 ) animated:YES];
+                                 //                         self.view.frame = CGRectMake(self.view.frame.origin.x, -170,self.view.frame.size.width,self.view.frame.size.height);
+                             }
+                             completion:^(BOOL finished){
+                                 // whatever you need to do when animations are complete
+                                 NSLog(@"Animation Finished");
+                             }];
+        }
+        else {
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 
+                                 [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 40 ) animated:YES];
+                             }
+                             completion:^(BOOL finished){
+                                 // whatever you need to do when animations are complete
+                                 NSLog(@"Animation Finished");
+                             }];
+
+        }
+    }else {
+        if (textView == beteenden ) {
+            NSLog(@"teview ipad");
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 
+                                 [scroll2 setContentOffset:CGPointMake(scroll2.frame.origin.x, textView.frame.origin.y - 150) animated:YES];
+                                 
+                             }
+                             completion:^(BOOL finished){
+                                 
+                                 NSLog(@"Animation Finished");
+                             }];
+            
+        }
+    }
     
     return YES;
 }
 
+
+
 - (void)viewDidLoad
 {
-    self.navigationItem.title=@"Registrera tankar";
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        self.navigationItem.title=@"Registrera tankar";
 
-    UIBarButtonItem *bButton = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka"
-                                                                style:UIBarButtonItemStylePlain target:nil action:nil];
-    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
-    [bButton setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = bButton;
-    
-    
+        UIImage *image = [UIImage imageNamed:@"tillbakabutton.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        //[okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
+        //self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        
+    }
+    else {
+       
+        self.navigationItem.title=@"Registrera tankar";
+        UIImage *image = [UIImage imageNamed:@"tillbaka-button_ipad.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        //[okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
+        
+    }
     
     kanslor.allstrings=[[NSString alloc]init];
     exercise1_list=[[NSMutableArray alloc]init];
@@ -169,7 +247,7 @@ int s=0;
     [scroll setContentSize:CGSizeMake(320, 1006)];
     
     scroll2.scrollEnabled = YES;
-    [scroll2 setContentSize:CGSizeMake(768, 1395)];
+    [scroll2 setContentSize:CGSizeMake(768, 1211)];
     
     
     [super viewDidLoad];

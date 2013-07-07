@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "OveningarViewController.h"
 #import <sqlite3.h> 
+
+
 @interface Va_lkommenViewController : UIViewController{
-    OveningarViewController *ovc;
+
     sqlite3 *exerciseDB;
     NSString        *databasePath;
 }
+@property (nonatomic, strong) OveningarViewController *ovc;
+
 -(IBAction)introduktion:(id)sender;
 -(IBAction)om:(id)sender;
 -(IBAction)lashorna:(id)sender;

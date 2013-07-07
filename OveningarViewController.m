@@ -26,17 +26,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 640)];
-  self.navigationItem.title=@"Övningar";
     
+    self.title=@"Övningar";
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        /*UIImage *image = [UIImage imageNamed:@"tillbaka.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        //[okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
+        //self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];*/
 
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    // [btnDone setTintColor:[UIColor Color]];
-    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
-    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.navigationItem setBackBarButtonItem:btnDone];      
-   
+    }
+    else {
+       
+       /* UIImage *image = [UIImage imageNamed:@"tillbaka.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        //[okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
+       //self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];*/
+    }
+}
+
+-(void)backButon {
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,21 +69,24 @@
 
 
 -(IBAction)exercise1:(id)sender{
-         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-               if ([[UIScreen mainScreen] bounds].size.height > 480) {
-    rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar" bundle:nil];
-               }else{
-                    rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar_iPhone4" bundle:nil];
-               }
-         }
-         else{
-               rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar_iPad" bundle:nil];
-         }
+   
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar" bundle:nil];
+        }else{
+            rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar_iPhone4" bundle:nil];
+        }
+    }
+    else{
+        rt=[[Registreratankar alloc]initWithNibName:@"Registreratankar_iPad" bundle:nil];
+    }
+    
     [self.navigationController pushViewController:rt animated:YES];
 }
 
 
 -(IBAction)exercise2:(id)sender {
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height >  480) {
             tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController" bundle:nil];
@@ -72,6 +97,7 @@
     {
         tfvc=[[TankefallorViewController alloc]initWithNibName:@"TankefallorViewController_iPad" bundle:nil];
     }
+    
     [self.navigationController pushViewController:tfvc animated:YES];
 }
 
@@ -92,56 +118,58 @@
 
 
 -(IBAction)exercise4:(id)sender{
-         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                    if ([[UIScreen mainScreen] bounds].size.height > 480) {
-                 bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController" bundle:nil];
-                   }else{
-                      bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController_iPhone4" bundle:nil];
-                }
-         }else
-         {
-             
-         }
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController" bundle:nil];
+        }else{
+            bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController_iPhone4" bundle:nil];
+        }
+    }else
+    {
+        bec=[[BeteendeexperimentController alloc]initWithNibName:@"BeteendeexperimentController_iPad" bundle:nil];
+        
+    }
     [self.navigationController pushViewController:bec animated:YES];
 }
 
 
 -(IBAction)exercise5:(id)sender{
-         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-              if ([[UIScreen mainScreen] bounds].size.height >  480) {
-                  ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering" bundle:nil];
-              }else{
-                    ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering_iPhone4" bundle:nil];
-              }
-            }else
-         {
-              ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering_iPad" bundle:nil];
-         }
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height >  480) {
+            ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering" bundle:nil];
+        }else{
+            ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering_iPhone4" bundle:nil];
+        }
+    }else
+    {
+        ice=[[Interoceptivexponering alloc]initWithNibName:@"Interoceptivexponering_iPad" bundle:nil];
+    }
     [self.navigationController pushViewController:ice animated:YES];
 }
 
 
 -(IBAction)exercise6:(id)sender{
-         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-      
-             ba=[[Beteendeaktivering alloc]initWithNibName:@"Beteendeaktivering" bundle:nil];
-
-         }else
-         {
-             
-         }
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        ba=[[Beteendeaktivering alloc]initWithNibName:@"Beteendeaktivering" bundle:nil];
+        
+    }else
+    {
+        
+    }
     [self.navigationController pushViewController:ba animated:YES];
 }
 
 
 
 -(IBAction)exercise7:(id)sender{
-         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-    lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen" bundle:nil];
-         }else
-         {
-             lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen_iPad" bundle:nil];
-         }
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen" bundle:nil];
+    }else
+    {
+        lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen_iPad" bundle:nil];
+    }
     [self.navigationController pushViewController:lsp animated:YES];
 }
 

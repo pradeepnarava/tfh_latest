@@ -11,15 +11,12 @@
 @class Va_lkommenViewController;
 
 @interface Va_lkommenAppDelegate : UIResponder <UIApplicationDelegate>{
-    UINavigationController *nav;
-    UIViewController *mainObj;
 
 }
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) Va_lkommenViewController *viewController;
-
+@property (strong, nonatomic) UIViewController *viewController;
 @property (strong, nonatomic) NSDate *dateSelected;
 
 @end

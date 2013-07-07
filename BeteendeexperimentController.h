@@ -23,7 +23,7 @@
     sqlite3 *exerciseDB;
     NSString        *databasePath;
     
-    IBOutlet UIScrollView *scroll;
+    IBOutlet UIScrollView *scroll,*scroll1;
     
     IBOutlet UIView *listofdates, *questionView3;
     

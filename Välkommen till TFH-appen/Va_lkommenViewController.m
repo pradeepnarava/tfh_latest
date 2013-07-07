@@ -9,33 +9,61 @@
 #import "Va_lkommenViewController.h"
 #import "MTPopupWindow.h"
 
+/*
+@implementation UINavigationBar (CustomImage)
+- (void)drawRect:(CGRect)rect {
+    UIImage *image = [UIImage imageNamed:@"topbar_ipad.png"];
+    [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+}
+@end
+*/
+
+
 @interface Va_lkommenViewController ()
 
 @end
 
 @implementation Va_lkommenViewController
+@synthesize ovc;
 
 - (void)viewDidLoad
 {
+ 
     [super viewDidLoad];
-    self.navigationItem.title=@"KBT Appen";
 
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    // [btnDone setTintColor:[UIColor Color]];
-    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
-    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.navigationItem setBackBarButtonItem:btnDone];
-	// Do any additional setup after loading the view, typically from a nib.
-   
-  
+    self.title = @"KBT Appen";
+    
     UINavigationBar *navBar = self.navigationController.navigationBar;
-      if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-    UIImage *image = [UIImage imageNamed:@"topbar2.png"];
-          [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-      }else{
-         UIImage *image = [UIImage imageNamed:@"topbar4.png"];
-        [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-      }
+
+    /*if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        //self.navigationItem.title=@"KBT Appen";
+        UIImage *image1 = [UIImage imageNamed:@"topbar2.png"];
+        [navBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
+        UIImage *image = [UIImage imageNamed:@"tillbakabutton.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        //[okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
+        //self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        
+    }
+    else {
+        UIImage *image1 = [UIImage imageNamed:@"topbar4.png"];
+        [navBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
+        //self.navigationItem.title=@"KBT Appen";
+        UIImage *image = [UIImage imageNamed:@"tillbakabutton.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        //[okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
+        //self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        
+    }*/
+
     NSString *docsDir;
     NSArray *dirPaths;
     
@@ -59,12 +87,12 @@
     }else{
         ovc=[[OveningarViewController alloc]initWithNibName:@"OveningarViewController_iPad" bundle:nil];
     }
+    
     [self.navigationController pushViewController:ovc animated:YES];
 }
 
 -(IBAction)introduktion:(id)sender{
-    //[MTPopupWindow showWindowWithHTMLFile:@"info.html"];
-    
+
   [MTPopupWindow showWindowWithHTMLFile:@"Introduktion.html" insideView:self.view];
 }
 
@@ -83,5 +111,11 @@
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
+}
+
+
+-(void)dealloc {
+    [super dealloc];
+    [ovc release];
 }
 @end

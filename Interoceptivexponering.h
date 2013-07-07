@@ -10,7 +10,7 @@
 #import <sqlite3.h>
 
 
-@interface Interoceptivexponering : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface Interoceptivexponering : UIViewController <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     //Gopal DataBase
     sqlite3 *exerciseDB;
@@ -32,26 +32,17 @@
     IBOutlet UIView *timerview;
     
     IBOutlet UIScrollView *scroll,*scroll1;
-    
+    IBOutlet UIButton *startTime;
     //PopupView Labels
     IBOutlet UILabel *cb1,*cb2,*cb3,*cb4,*cb5,*cb6,*cb7,*cb8,*cb9,*cb10;
     
     //DataStore
     NSMutableDictionary *items;
-    NSMutableArray *allItems;
-    NSString *question,*anwser,*vlues;
-    
+    NSDictionary *selectedDic;
+
     //
-    NSString *inStr,*instr1;
-    NSMutableString *str1,*str2,*str3, *str11,*str21,*str31;
-
-
-    int noOfSection;
-    UIButton *cellButton;
-
-    NSMutableArray *listofovningars,*listof_sliderValue,*listexercise5,*list_exercise5,*list_egen,*listofovningars1,*listof_sliderValue1,*list_egen1;
-    NSString *SelectedDate;
-
+    NSString *inStr;
+    
 }
 
 //Gopal
@@ -61,11 +52,10 @@
 @property (nonatomic, retain) IBOutlet UITextView *egen;
 @property (nonatomic, retain) IBOutlet UISlider *slider;
 @property (nonatomic, retain) IBOutlet UITableView *tblView;
-@property (nonatomic, retain) NSString *question,*anwser,*vlues;
 
 //DataSotre
-@property (nonatomic, retain) NSMutableDictionary *items;
 @property (nonatomic, retain) NSMutableArray *allItems;
+@property (nonatomic, retain) NSDictionary *selectedDic;
 
 
 //timer
@@ -74,13 +64,8 @@
 @property (nonatomic, retain) NSTimer *secondsTimer;
 
 
-
-@property(nonatomic ,retain)NSMutableArray *listexercise5;
-@property(nonatomic ,retain)NSMutableArray *list_exercise5;
-@property(nonatomic ,retain)NSMutableArray *listofovningars1;
-@property(nonatomic ,retain)NSMutableArray *listof_sliderValue1;
-@property(nonatomic ,retain)NSMutableArray *list_egen1;
-
+//**********************************************************************
+-(void)getDetailsFromInteroceptivexponeringDB;
 
 
 - (IBAction)newcolm:(id)sender;

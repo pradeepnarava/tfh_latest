@@ -13,6 +13,7 @@
 
 @implementation Va_lkommenAppDelegate
 
+@synthesize viewController = _viewController;
 @synthesize dateSelected;
 
 - (void)dealloc
@@ -26,27 +27,29 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
+    
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
             
-            mainObj = [[[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone" bundle:nil] autorelease];
-            
-            nav = [[UINavigationController alloc]initWithRootViewController:mainObj];
+            self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone" bundle:[NSBundle mainBundle]];
+    
         } else {
             
-            mainObj = [[[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone4" bundle:nil] autorelease];
+            self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone4" bundle:[NSBundle mainBundle]];
             
-            nav = [[UINavigationController alloc]initWithRootViewController:mainObj];        }
-       
+        }
+        
         
     } else {
-      mainObj = [[[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPad" bundle:nil] autorelease];
-          nav = [[UINavigationController alloc]initWithRootViewController:mainObj];
+        self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPad" bundle:[NSBundle mainBundle]];
     }
-      [self.window addSubview:nav.view];
-       [self.window makeKeyAndVisible];
     
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    //[navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"topbar2.png"] forBarMetrics:UIBarMetricsDefault];
     
+    [self.window setRootViewController:navController];
+    [self.window makeKeyAndVisible];
     
     UILocalNotification *localNotif =
 	[launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
@@ -55,8 +58,6 @@
     {
 		NSLog(@"Recieved Notification %@",localNotif);
 	}
-	
- 
     
     return YES;
     
@@ -68,31 +69,34 @@
     NSLog(@"Recieved Notification %@",notif.userInfo);
     if ([[notif.userInfo valueForKey:@"notifyKey"] isEqualToString:@"Reminder"])
     {
+        Dinaomraden *dr;
+        
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         {
             if ([[UIScreen mainScreen] bounds].size.height > 480)
             {
-                Dinaomraden *dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
-                [nav pushViewController:dr animated:YES];
+                dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
             }
             else
             {
-                Dinaomraden *dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
-                [nav pushViewController:dr animated:YES];
+                dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
+                
             }
         }
         else
         {
-            Dinaomraden *dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden_iPad" bundle:nil];
-            [nav pushViewController:dr animated:YES];
+            dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden_iPad" bundle:nil];
         }
+        
+        UINavigationController *nav = [[UINavigationController alloc] init];
+        [nav pushViewController:dr animated:YES];
         
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     }
     else
     {
         AktivitetsplanenViewController *asvc=[[AktivitetsplanenViewController alloc]initWithNibName:@"" bundle:[NSBundle mainBundle]];
-        nav = [[UINavigationController alloc]initWithRootViewController:asvc];
+         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:asvc];
         [self.window addSubview:nav.view];
     }
 }

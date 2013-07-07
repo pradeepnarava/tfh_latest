@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -42,6 +42,7 @@
 						<string key="NSFrameSize">{768, 1004}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="732354700"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -62,29 +63,30 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{2, 3}</string>
+						<string key="IBUINormalTitle">Introduktion</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="647615452">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<object class="NSColor" key="IBUINormalTitleShadowColor" id="157553687">
+						<reference key="IBUINormalTitleColor" ref="647615452"/>
+						<object class="NSColor" key="IBUINormalTitleShadowColor" id="244236932">
 							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC41AA</bytes>
+							<bytes key="NSWhite">MAA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalImage">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="889527615">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">introduktion.png</string>
+							<string key="NSResourceName">startsida-button_ipad.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="415389046">
-							<int key="type">2</int>
-							<double key="pointSize">29</double>
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="874187441">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
+							<double key="pointSize">60</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="787700186">
-							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">29</double>
+						<object class="NSFont" key="IBUIFont" id="690677183">
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">60</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
@@ -100,23 +102,19 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{2, 3}</string>
+						<string key="IBUINormalTitle">Övningar</string>
 						<reference key="IBUIHighlightedTitleColor" ref="647615452"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="157553687"/>
-						<object class="NSCustomResource" key="IBUINormalImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">ovningar.png</string>
-						</object>
-						<reference key="IBUIFontDescription" ref="415389046"/>
-						<reference key="IBUIFont" ref="787700186"/>
+						<reference key="IBUINormalTitleColor" ref="647615452"/>
+						<reference key="IBUINormalTitleShadowColor" ref="244236932"/>
+						<reference key="IBUINormalBackgroundImage" ref="889527615"/>
+						<reference key="IBUIFontDescription" ref="874187441"/>
+						<reference key="IBUIFont" ref="690677183"/>
 					</object>
 					<object class="IBUIButton" id="737184091">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{146, 501}, {488, 122}}</string>
+						<string key="NSFrame">{{98, 501}, {589, 122}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="570679427"/>
@@ -125,23 +123,19 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{2, 3}</string>
+						<string key="IBUINormalTitle">Om psykisk ohälsa</string>
 						<reference key="IBUIHighlightedTitleColor" ref="647615452"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="157553687"/>
-						<object class="NSCustomResource" key="IBUINormalImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">ompsykisk.png</string>
-						</object>
-						<reference key="IBUIFontDescription" ref="415389046"/>
-						<reference key="IBUIFont" ref="787700186"/>
+						<reference key="IBUINormalTitleColor" ref="647615452"/>
+						<reference key="IBUINormalTitleShadowColor" ref="244236932"/>
+						<reference key="IBUINormalBackgroundImage" ref="889527615"/>
+						<reference key="IBUIFontDescription" ref="874187441"/>
+						<reference key="IBUIFont" ref="690677183"/>
 					</object>
 					<object class="IBUIButton" id="570679427">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{233, 711}, {303, 123}}</string>
+						<string key="NSFrame">{{221, 728}, {338, 123}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -149,24 +143,23 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUITitleShadowOffset">{2, 3}</string>
+						<string key="IBUINormalTitle">Om appen</string>
 						<reference key="IBUIHighlightedTitleColor" ref="647615452"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="157553687"/>
-						<object class="NSCustomResource" key="IBUINormalImage">
+						<reference key="IBUINormalTitleColor" ref="647615452"/>
+						<reference key="IBUINormalTitleShadowColor" ref="244236932"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">om.png</string>
+							<string key="NSResourceName">om-button_ipad.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="415389046"/>
-						<reference key="IBUIFont" ref="787700186"/>
+						<reference key="IBUIFontDescription" ref="874187441"/>
+						<reference key="IBUIFont" ref="690677183"/>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {768, 1004}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="732354700"/>
+				<reference key="NSNextKeyView" ref="277773390"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -305,7 +298,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">80</int>
+			<int key="maxID">88</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -349,10 +342,8 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background-iPad.png">{1280, 1920}</string>
-			<string key="introduktion.png">{500, 116}</string>
-			<string key="om.png">{328, 116}</string>
-			<string key="ompsykisk.png">{500, 116}</string>
-			<string key="ovningar.png">{500, 116}</string>
+			<string key="om-button_ipad.png">{303, 108}</string>
+			<string key="startsida-button_ipad.png">{488, 114}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

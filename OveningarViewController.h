@@ -14,6 +14,8 @@
 #import "Beteendeaktivering.h"
 #import "Interoceptivexponering.h"
 #import "Livskompassen.h"
+
+
 @interface OveningarViewController : UIViewController{
    
     Registreratankar *rt;
@@ -26,6 +28,7 @@
     
     IBOutlet UIScrollView *scroll;
 }
+
 -(IBAction)exercise1:(id)sender;
 -(IBAction)exercise2:(id)sender;
 -(IBAction)exercise3:(id)sender;
@@ -33,4 +36,6 @@
 -(IBAction)exercise5:(id)sender;
 -(IBAction)exercise6:(id)sender;
 -(IBAction)exercise7:(id)sender;
+
+
 @end

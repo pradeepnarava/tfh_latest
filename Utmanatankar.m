@@ -113,6 +113,8 @@ NSArray *pArray;
         }
     }
     
+    [scroll1 setContentSize:CGSizeMake(768, 1570)];
+    
     questionView1.hidden = YES;
     questionView2.hidden = YES;
     questionView3.hidden = YES;

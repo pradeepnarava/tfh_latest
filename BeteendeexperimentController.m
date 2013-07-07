@@ -123,10 +123,11 @@ int c=0;
     listofdates.hidden=YES;
     questionView3.hidden =YES;
     scroll.scrollEnabled = YES;
+    scroll1.scrollEnabled = YES;
+    [scroll1 setContentSize:CGSizeMake(768, 1298)];
     [scroll setContentSize:CGSizeMake(320, 1253)];
      list_exercise4=[[NSMutableArray alloc]init];
     [list_exercise4 addObject:@"Null"];
-
     
     label1.userInteractionEnabled = YES;
     
