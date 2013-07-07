@@ -24,7 +24,7 @@
     IBOutlet UILabel *omradeLabel2;
     NSString *scb;
     IBOutlet UIButton *cb1,*cb2,*cb3,*cb4,*cb5,*cb6,*cb7,*cb8,*cb9,*cb10;
-    sqlite3 *exerciseDB;
+//    sqlite3 *exerciseDB;
     NSString        *databasePath;
 //    ListOfKompass *lok;
     IBOutlet UIScrollView *scrollView;
