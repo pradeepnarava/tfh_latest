@@ -153,31 +153,26 @@ int s=0;
 
 - (void)viewDidLoad
 {
+    self.navigationItem.title=@"Registrera tankar";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.navigationItem.title=@"Registrera tankar";
 
-        UIImage *image = [UIImage imageNamed:@"tillbakabutton.png"];
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
         [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-        //[okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
-        //self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
         
     }
     else {
-       
-        self.navigationItem.title=@"Registrera tankar";
-        UIImage *image = [UIImage imageNamed:@"tillbaka-button_ipad.png"];
+
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
         [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-        //[okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
-        
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+       self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn]; 
     }
     
     kanslor.allstrings=[[NSString alloc]init];
@@ -252,6 +247,12 @@ int s=0;
     
     [super viewDidLoad];
     
+}
+
+
+-(void)backButon {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

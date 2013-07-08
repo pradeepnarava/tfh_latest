@@ -46,7 +46,11 @@
     }
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-    //[navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"topbar2.png"] forBarMetrics:UIBarMetricsDefault];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPhone.png"] forBarMetrics:UIBarMetricsDefault];
+    }else {
+       [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPad.png"] forBarMetrics:UIBarMetricsDefault]; 
+    }
     
     [self.window setRootViewController:navController];
     [self.window makeKeyAndVisible];

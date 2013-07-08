@@ -120,6 +120,26 @@ int tagValueForBtn;
     [super viewDidLoad];
     self.navigationItem.title=@"Interoceptiv Exponering";
     
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        
+    }
+    else {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    }
+    
     //iPhone ScrollView
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 663)];
@@ -172,6 +192,11 @@ int tagValueForBtn;
     } else {
         NSLog(@"Failed to open/create database");
     }
+}
+
+-(void)backButon {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

@@ -111,6 +111,20 @@ NSArray *pArray;
         else {
             [scroll setContentSize:CGSizeMake(320, 1353)];
         }
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    }
+    else {
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
     
     [scroll1 setContentSize:CGSizeMake(768, 1570)];
@@ -235,6 +249,13 @@ NSArray *pArray;
     
     // Do any additional setup after loading the view from its nib.
 }
+
+
+-(void)backButon {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 

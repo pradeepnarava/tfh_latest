@@ -31,36 +31,36 @@
  
     [super viewDidLoad];
 
-    self.title = @"KBT Appen";
+    self.navigationItem.title = @"KBT Appen";
     
     //UINavigationBar *navBar = self.navigationController.navigationBar;
 
     /*if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         //self.navigationItem.title=@"KBT Appen";
-        UIImage *image1 = [UIImage imageNamed:@"topbar2.png"];
-        [navBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
-        UIImage *image = [UIImage imageNamed:@"tillbakabutton.png"];
+        //UIImage *image1 = [UIImage imageNamed:@"topbar2.png"];
+        //[navBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
         [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
         [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-        //[okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
-        //self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        //[self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
         
     }
     else {
-        UIImage *image1 = [UIImage imageNamed:@"topbar4.png"];
-        [navBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
+        //UIImage *image1 = [UIImage imageNamed:@"topbar4.png"];
+        //[navBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
         //self.navigationItem.title=@"KBT Appen";
-        UIImage *image = [UIImage imageNamed:@"tillbakabutton.png"];
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
         [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
         [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-        //[okBtn addTarget:self action:@selector(OkButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
-        //self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        //[self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
         
     }*/
 

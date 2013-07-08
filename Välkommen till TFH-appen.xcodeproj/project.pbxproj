@@ -25,6 +25,11 @@
 		248C08801773F935007B660A /* läsdel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248C087C1773F935007B660A /* läsdel@2x.png */; };
 		248C08811773F935007B660A /* läsdel@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 248C087D1773F935007B660A /* läsdel@2x~ipad.png */; };
 		248C08821773F935007B660A /* läsdel~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 248C087E1773F935007B660A /* läsdel~ipad.png */; };
+		248D1579178B37AA0045AADB /* tillbaka1.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D1577178B37AA0045AADB /* tillbaka1.png */; };
+		248D157D178B429C0045AADB /* navigationbar_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D157B178B429C0045AADB /* navigationbar_iPhone.png */; };
+		248D157E178B429C0045AADB /* navigationbar_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D157C178B429C0045AADB /* navigationbar_iPhone@2x.png */; };
+		248D1581178B43A50045AADB /* navigationbar_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D157F178B43A50045AADB /* navigationbar_iPad.png */; };
+		248D1582178B43A50045AADB /* navigationbar_iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D1580178B43A50045AADB /* navigationbar_iPad@2x.png */; };
 		24AE0F3E1776181C0073A880 /* exempel-från-livet-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AE0F361776181C0073A880 /* exempel-från-livet-background@2x.png */; };
 		24AE0F3F1776181C0073A880 /* shorter-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AE0F371776181C0073A880 /* shorter-bottom.png */; };
 		24AE0F401776181C0073A880 /* shorter-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AE0F381776181C0073A880 /* shorter-bottom@2x.png */; };
@@ -280,6 +285,11 @@
 		248C087C1773F935007B660A /* läsdel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "läsdel@2x.png"; sourceTree = "<group>"; };
 		248C087D1773F935007B660A /* läsdel@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "läsdel@2x~ipad.png"; sourceTree = "<group>"; };
 		248C087E1773F935007B660A /* läsdel~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "läsdel~ipad.png"; sourceTree = "<group>"; };
+		248D1577178B37AA0045AADB /* tillbaka1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tillbaka1.png; sourceTree = "<group>"; };
+		248D157B178B429C0045AADB /* navigationbar_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_iPhone.png; sourceTree = "<group>"; };
+		248D157C178B429C0045AADB /* navigationbar_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_iPhone@2x.png"; sourceTree = "<group>"; };
+		248D157F178B43A50045AADB /* navigationbar_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_iPad.png; sourceTree = "<group>"; };
+		248D1580178B43A50045AADB /* navigationbar_iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_iPad@2x.png"; sourceTree = "<group>"; };
 		24AE0F361776181C0073A880 /* exempel-från-livet-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exempel-från-livet-background@2x.png"; sourceTree = "<group>"; };
 		24AE0F371776181C0073A880 /* shorter-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shorter-bottom.png"; sourceTree = "<group>"; };
 		24AE0F381776181C0073A880 /* shorter-bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shorter-bottom@2x.png"; sourceTree = "<group>"; };
@@ -665,6 +675,8 @@
 		2424F1F0177217BF0012A934 /* NewImage */ = {
 			isa = PBXGroup;
 			children = (
+				248D157B178B429C0045AADB /* navigationbar_iPhone.png */,
+				248D157C178B429C0045AADB /* navigationbar_iPhone@2x.png */,
 				2441519A17894F610087957E /* topbar_ipad.png */,
 				2441519B17894F610087957E /* topbar_ipad@2x.png */,
 				5EEE820C177C9C440009598F /* övningar-button-purple.png */,
@@ -781,6 +793,8 @@
 		5EA026B2172E7CD100C37EE4 /* Välkommen till TFH-appen */ = {
 			isa = PBXGroup;
 			children = (
+				248D157F178B43A50045AADB /* navigationbar_iPad.png */,
+				248D1580178B43A50045AADB /* navigationbar_iPad@2x.png */,
 				2441515B17892DA90087957E /* om-button_ipad.png */,
 				2441515C17892DA90087957E /* startsida-button_ipad.png */,
 				24171D1F1777631600182CF4 /* MTPopupWindow.h */,
@@ -789,8 +803,8 @@
 				5EA026BC172E7CD100C37EE4 /* Va_lkommenAppDelegate.m */,
 				5EA026C4172E7CD100C37EE4 /* Va_lkommenViewController.h */,
 				5EA026C5172E7CD100C37EE4 /* Va_lkommenViewController.m */,
-				5E2F8B0817577A450044AFB5 /* Va_lkommenViewController_iPhone4.xib */,
 				5EA026C7172E7CD100C37EE4 /* Va_lkommenViewController_iPhone.xib */,
+				5E2F8B0817577A450044AFB5 /* Va_lkommenViewController_iPhone4.xib */,
 				5EA026CA172E7CD100C37EE4 /* Va_lkommenViewController_iPad.xib */,
 				5EA026E3172E84DC00C37EE4 /* OveningarViewController.h */,
 				5EA026E4172E84DC00C37EE4 /* OveningarViewController.m */,
@@ -902,6 +916,7 @@
 		5EEAA3C317462C1E005737CC /* Exercise2 */ = {
 			isa = PBXGroup;
 			children = (
+				248D1577178B37AA0045AADB /* tillbaka1.png */,
 				24AE0F361776181C0073A880 /* exempel-från-livet-background@2x.png */,
 				24AE0F4717761B3C0073A880 /* exempel-från-livet-background.png */,
 				24AE0F371776181C0073A880 /* shorter-bottom.png */,
@@ -1446,6 +1461,11 @@
 				24356DAC1789C6D4000CD4B8 /* Interoceptivexponering_iPhone4.xib in Resources */,
 				24396A681789CA7600D8E2FD /* BeteendeexperimentController_iPad.xib in Resources */,
 				5E9187F0178B0BA300FF9BDE /* Interoceptivexponering_iPad.xib in Resources */,
+				248D1579178B37AA0045AADB /* tillbaka1.png in Resources */,
+				248D157D178B429C0045AADB /* navigationbar_iPhone.png in Resources */,
+				248D157E178B429C0045AADB /* navigationbar_iPhone@2x.png in Resources */,
+				248D1581178B43A50045AADB /* navigationbar_iPad.png in Resources */,
+				248D1582178B43A50045AADB /* navigationbar_iPad@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

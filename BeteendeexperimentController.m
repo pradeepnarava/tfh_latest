@@ -114,8 +114,28 @@ int c=0;
 {
     self.navigationItem.title=@"Beteendeexperiment";
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backButton;
+    
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        
+    }
+    else {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    }
+    
     
     [self.view addSubview:listofdates];
     picker.hidden=YES;
@@ -174,6 +194,18 @@ int c=0;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+
+
+-(void)backButon {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+
+
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

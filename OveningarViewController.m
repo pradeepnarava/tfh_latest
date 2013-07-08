@@ -33,32 +33,30 @@
     self.title=@"Övningar";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        /*UIImage *image = [UIImage imageNamed:@"tillbaka.png"];
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
-        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-        //[okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
-        //self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];*/
+        [okBtn setImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
 
     }
     else {
        
-       /* UIImage *image = [UIImage imageNamed:@"tillbaka.png"];
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-        [okBtn setTitle:@"Tillbaka" forState:UIControlStateNormal];
         [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-        //[okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:okBtn]];
-       //self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];*/
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        
+       self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
 }
 
 -(void)backButon {
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

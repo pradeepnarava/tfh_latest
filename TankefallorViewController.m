@@ -139,6 +139,26 @@
     
     self.navigationItem.title=@"Tankefällor";
     
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        
+    }
+    else {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    }
+    
   
     scroll.scrollEnabled = YES;
     
@@ -177,45 +197,16 @@
         //status.text = @"Failed to open/create database";
     }
     
-    
-   /*
-    // Get the documents directory
-    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    NSString *docsDir = [dirPaths objectAtIndex:0];
-    
-   databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent:@"tankefallorDB.db"]];
-    
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    
-    if ([filemgr fileExistsAtPath: databasePath ] == NO)
-    {
-		const char *dbpath = [databasePath UTF8String];
-        
-        if (sqlite3_open(dbpath, &tankefallorDB) == SQLITE_OK)
-        {
-            char *errMsg;
-            
-           const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISETWO (ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT,ALLC1 TEXT,ALLC2 TEXT,KATAC1 TEXT,KATAC2 TEXT,DISKC1 TEXT,DISKC2 TEXT,ATTC1 TEXT,ATTC2 TEXT,ETIKC1 TEXT,ETIKC2 TEXT, FORC1 TEXT,FORC2 TEXT,MENTC1 TEXT, MENTC2 TEXT,TANKC1 TEXT,TANKC2 TEXT,OVERC1 TEXT,OVERC2 TEXT,PERSC1 TEXT,PERSC2 TEXT,MANSC1 TEXT,MANSC2 TEXT)";
-            
-            if (sqlite3_exec(tankefallorDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
-            {
-                NSLog(@"Failed to create table");
-            }
-            
-            sqlite3_close(tankefallorDB);
-            
-        } else {
-            NSLog(@"Failed to open or create database");
-        }
-    }else {
-        [self getDetailsFromtankefallorDB];
-    }
-    
-    [filemgr release];*/
+
     [self getDetailsFromtankefallorDB];
     [super viewDidLoad];
 }
+
+-(void)backButon {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 
