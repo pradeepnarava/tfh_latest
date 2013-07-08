@@ -17,7 +17,6 @@
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
 			<string>IBUIScrollView</string>
-			<string>IBUISegmentedControl</string>
 			<string>IBUITextField</string>
 			<string>IBUITextView</string>
 			<string>IBUIView</string>
@@ -1847,7 +1846,7 @@
 					<object class="IBUIButton" id="147419048">
 						<reference key="NSNextResponder" ref="759575719"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{25, 491}, {22, 19}}</string>
+						<string key="NSFrame">{{50, 491}, {18, 18}}</string>
 						<reference key="NSSuperview" ref="759575719"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="519651758"/>
@@ -1872,7 +1871,7 @@
 					<object class="IBUIButton" id="1052950235">
 						<reference key="NSNextResponder" ref="759575719"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{168, 491}, {22, 19}}</string>
+						<string key="NSFrame">{{168, 491}, {18, 18}}</string>
 						<reference key="NSSuperview" ref="759575719"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="586562777"/>
@@ -1895,7 +1894,7 @@
 					<object class="IBUILabel" id="519651758">
 						<reference key="NSNextResponder" ref="759575719"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{63, 489}, {77, 21}}</string>
+						<string key="NSFrame">{{76, 489}, {77, 21}}</string>
 						<reference key="NSSuperview" ref="759575719"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1052950235"/>
@@ -1916,7 +1915,7 @@
 					<object class="IBUILabel" id="586562777">
 						<reference key="NSNextResponder" ref="759575719"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{201, 489}, {84, 21}}</string>
+						<string key="NSFrame">{{194, 489}, {84, 21}}</string>
 						<reference key="NSSuperview" ref="759575719"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="929736469"/>
@@ -2540,7 +2539,7 @@
 						<string key="NSFrame">{{20, 179}, {286, 289}}</string>
 						<reference key="NSSuperview" ref="94860301"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="334953442"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -2666,69 +2665,10 @@
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 						<double key="preferredMaxLayoutWidth">286</double>
 					</object>
-					<object class="IBUISegmentedControl" id="334953442">
-						<reference key="NSNextResponder" ref="94860301"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{32, 193}, {262, 30}}</string>
-						<reference key="NSSuperview" ref="94860301"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="910546073"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBSegmentControlStyle">2</int>
-						<int key="IBNumberOfSegments">7</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>Må</string>
-							<string>Tis</string>
-							<string>Ons</string>
-							<string>Tor</string>
-							<string>Fre</string>
-							<string>Lör</string>
-							<string>Sön</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-							<real value="0.0"/>
-							<real value="0.0"/>
-							<real value="0.0"/>
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<object class="NSNull" id="4"/>
-							<reference ref="4"/>
-							<reference ref="4"/>
-							<reference ref="4"/>
-							<reference ref="4"/>
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
-					</object>
 					<object class="IBUILabel" id="910546073">
 						<reference key="NSNextResponder" ref="94860301"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{56, 313}, {20, 21}}</string>
+						<string key="NSFrame">{{153, 201}, {20, 21}}</string>
 						<reference key="NSSuperview" ref="94860301"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="110699709"/>
@@ -2768,7 +2708,7 @@
 					<object class="IBUIDatePicker" id="110699709">
 						<reference key="NSNextResponder" ref="94860301"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{89, 230}, {185, 216}}</string>
+						<string key="NSFrame">{{20, 230}, {286, 216}}</string>
 						<reference key="NSSuperview" ref="94860301"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="623504848"/>
@@ -2776,7 +2716,6 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIDatePickerMode">0</int>
 						<object class="NSTimeZone" key="IBUITimeZone">
 							<string key="NS.name">America/Los_Angeles</string>
 							<object class="NSMutableData" key="NS.data">
@@ -3211,14 +3150,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<reference key="destination" ref="92520165"/>
 					</object>
 					<int key="connectionID">3314</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">weekSegmentControl</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="334953442"/>
-					</object>
-					<int key="connectionID">3315</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -3998,14 +3929,14 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<reference ref="368441563"/>
 							<reference ref="856285351"/>
 							<reference ref="254574335"/>
-							<reference ref="519651758"/>
-							<reference ref="586562777"/>
 							<reference ref="161328091"/>
 							<reference ref="736109508"/>
 							<reference ref="610830236"/>
 							<reference ref="648887095"/>
 							<reference ref="1052950235"/>
+							<reference ref="519651758"/>
 							<reference ref="147419048"/>
+							<reference ref="586562777"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -4239,9 +4170,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<reference ref="1010001303"/>
 							<reference ref="603328400"/>
 							<reference ref="110699709"/>
-							<reference ref="910546073"/>
 							<reference ref="623504848"/>
-							<reference ref="334953442"/>
+							<reference ref="910546073"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -4266,12 +4196,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<object class="IBObjectRecord">
 						<int key="objectID">888</int>
 						<reference key="object" ref="1010001303"/>
-						<array class="NSMutableArray" key="children"/>
-						<reference key="parent" ref="94860301"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">910</int>
-						<reference key="object" ref="334953442"/>
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="94860301"/>
 					</object>
@@ -4931,8 +4855,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="869.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="879.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="888.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="910.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<integer value="6" key="910.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
 				<string key="929.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="963.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="988.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -4957,12 +4879,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<string key="averagevalue">id</string>
 						<string key="deleteEntry:">id</string>
 						<string key="generateGraph:">id</string>
-						<string key="labelalert:">UITapGestureRecognizer</string>
 						<string key="listofvalues:">id</string>
 						<string key="recentButtonsClicked:">id</string>
 						<string key="reminderOnOff:">UIButton</string>
 						<string key="selectedcheckbox:">id</string>
-						<string key="settingsbutton:">id</string>
 						<string key="skickaButtonClicked:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -4998,10 +4918,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<string key="name">generateGraph:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="labelalert:">
-							<string key="name">labelalert:</string>
-							<string key="candidateClassName">UITapGestureRecognizer</string>
-						</object>
 						<object class="IBActionInfo" key="listofvalues:">
 							<string key="name">listofvalues:</string>
 							<string key="candidateClassName">id</string>
@@ -5016,10 +4932,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						</object>
 						<object class="IBActionInfo" key="selectedcheckbox:">
 							<string key="name">selectedcheckbox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="settingsbutton:">
-							<string key="name">settingsbutton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="skickaButtonClicked:">
@@ -5355,7 +5267,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background-ipone5.png">{640, 1136}</string>
 			<string key="bbutton.png">{138, 60}</string>
-			<string key="bottom.png">{640, 271}</string>
+			<string key="bottom.png">{320, 89}</string>
 			<string key="button-off.png">{108, 60}</string>
 			<string key="button-on.png">{108, 60}</string>
 			<string key="largebuttonipad.png">{972, 162}</string>

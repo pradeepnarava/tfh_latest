@@ -44,7 +44,6 @@
 @property (retain, nonatomic) IBOutlet UIButton *raderaButton;
 
 @property (retain, nonatomic) IBOutlet UIDatePicker *reminderDatePicker;
-@property (retain, nonatomic) IBOutlet UISegmentedControl *weekSegmentControl;
 @property (retain, nonatomic) IBOutlet UIButton *reminderOnButton;
 @property (retain, nonatomic) IBOutlet UIButton *reminderOffButton;
 

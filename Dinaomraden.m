@@ -876,21 +876,23 @@
     {
         UILocalNotification *notif = [[UILocalNotification alloc] init];
         
-        NSCalendar *cal = [NSCalendar currentCalendar];
-                
-        for (int i = 0; i <= 6; i++)
-        {
-            NSDate *newDate = [[_reminderDatePicker date] dateByAddingTimeInterval:(60 * 60 * 24 * i)];
-            
-            NSDateComponents *newDateComp = [cal components:NSWeekdayCalendarUnit fromDate:newDate];
-            
-            if (_weekSegmentControl.selectedSegmentIndex + 1 == [newDateComp weekday])
-            {
-                notif.fireDate = newDate;
-                notif.repeatInterval = NSWeekdayCalendarUnit;
-            }
-        }
+//        NSCalendar *cal = [NSCalendar currentCalendar];
+//                
+//        for (int i = 0; i <= 6; i++)
+//        {
+//            NSDate *newDate = [[_reminderDatePicker date] dateByAddingTimeInterval:(60 * 60 * 24 * i)];
+//            
+//            NSDateComponents *newDateComp = [cal components:NSWeekdayCalendarUnit fromDate:newDate];
+//            
+//            if (_weekSegmentControl.selectedSegmentIndex + 1 == [newDateComp weekday])
+//            {
+//                notif.fireDate = newDate;
+//                notif.repeatInterval = NSWeekdayCalendarUnit;
+//            }
+//        }
         
+        notif.fireDate = [_reminderDatePicker date];
+        notif.repeatInterval = NSWeekdayCalendarUnit;
         notif.timeZone = [NSTimeZone defaultTimeZone];
         
         notif.alertBody = @"Did you forget something?";
@@ -952,7 +954,7 @@
         
         _reminderDatePicker.hidden = NO;
         
-        _weekSegmentControl.hidden = NO;
+//        _weekSegmentControl.hidden = NO;
         
         _settingBImageView.hidden = NO;
         _settingBLabel.hidden = NO;
@@ -966,7 +968,7 @@
         
         _reminderDatePicker.hidden = YES;
         
-        _weekSegmentControl.hidden = YES;
+//        _weekSegmentControl.hidden = YES;
         
         _settingBImageView.hidden = YES;
         _settingBLabel.hidden = YES;
@@ -992,7 +994,7 @@
     
     //Set the required date format
     
-    [formatter setDateFormat:@"MMM d YYYY"];
+    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     
     //Get the string date
     
@@ -1040,13 +1042,13 @@
 //        [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
 //        str = [formatter stringFromDate:date];
         
-        if (rows == 0)
+        if (!dateOfCurrentItem)
         {
             insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE7(date,omrade1,aktivitet1,omrade2,aktivitet2,average,familj,vanner,karlek,arbete,ekonomi,kost,motion,vila,fritid,somn) VALUES (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\" ,\"%@\")", str, omradeLabel1.text,textview.text, omradeLabel2.text,self.textview1.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text];
         }
         else
         {
-            insertSQL = [NSString stringWithFormat: @"UPDATE EXERCISE7 SET date='%@', omrade1='%@',aktivitet1='%@',omrade2='%@',aktivitet2='%@',average='%@',familj='%@',vanner='%@',karlek='%@',arbete='%@',ekonomi='%@',kost='%@',motion='%@',vila='%@',fritid='%@',somn='%@' WHERE date='%@'", str, omradeLabel1.text,textview.text, omradeLabel2.text,self.textview1.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text, str];
+            insertSQL = [NSString stringWithFormat: @"UPDATE EXERCISE7 SET date='%@', omrade1='%@',aktivitet1='%@',omrade2='%@',aktivitet2='%@',average='%@',familj='%@',vanner='%@',karlek='%@',arbete='%@',ekonomi='%@',kost='%@',motion='%@',vila='%@',fritid='%@',somn='%@' WHERE date='%@'", dateOfCurrentItem, omradeLabel1.text,textview.text, omradeLabel2.text,self.textview1.text,averageBt.currentTitle, tf1.text, tf2.text, tf3.text, tf4.text, tf5.text, tf6.text, tf7.text, tf8.text, tf9.text, tf10.text, dateOfCurrentItem];
         }
         
         const char *insert_stmt = [insertSQL UTF8String];
@@ -1079,18 +1081,18 @@
             _recentButton2.hidden = YES;
             _recentLabel2.hidden = YES;
             
-            if (rows == 0)
-            {
+//            if (rows == 0)
+//            {
+//                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+//                [insertAlert show];
+//            }
+//            else
+//            {
                 UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
                 [insertAlert show];
-            }
-            else
-            {
-                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
-                [insertAlert show];
-            }
+//            }
             
-            dateOfCurrentItem = [[NSString alloc] initWithString:str];
+//            dateOfCurrentItem = [[NSString alloc] initWithString:str];
             
         } else {
             NSLog(@"no");
@@ -1480,7 +1482,7 @@ else if(btn.tag==10){
 - (IBAction)generateGraph:(id)sender
 {
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"MMM d YYYY"];
+    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     
     NSString *olderDate = nil;
     
@@ -1567,7 +1569,7 @@ else if(btn.tag==10){
         
         _reminderDatePicker.hidden = NO;
         
-        _weekSegmentControl.hidden = NO;
+//        _weekSegmentControl.hidden = NO;
         
         _settingBImageView.hidden = NO;
         _settingBLabel.hidden = NO;
@@ -1584,7 +1586,7 @@ else if(btn.tag==10){
         
         _reminderDatePicker.hidden = YES;
         
-        _weekSegmentControl.hidden = YES;
+//        _weekSegmentControl.hidden = YES;
         
         _settingBImageView.hidden = YES;
         _settingBLabel.hidden = YES;
@@ -1712,7 +1714,7 @@ else if(btn.tag==10){
     [subView release];
     [_reminderOnButton release];
     [_reminderOffButton release];
-    [_weekSegmentControl release];
+//    [_weekSegmentControl release];
     [_reminderDatePicker release];
     [_textview1 release];
     [_recentButton1 release];
