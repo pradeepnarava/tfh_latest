@@ -15,7 +15,7 @@
 @interface TankefallorViewController : UIViewController<UITextViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>{
 
     
-    sqlite3 *tankefallorDB;
+    sqlite3 *exerciseDB;
     NSString *databasePath;
     
     UILabel *label;

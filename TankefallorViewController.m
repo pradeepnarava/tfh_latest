@@ -49,14 +49,14 @@
         if (textView == mansTV2) {
             if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
                 if ([[UIScreen mainScreen] bounds].size.height >  480 ) {
-        [UIView animateWithDuration:0.5
-                         animations:^{
-                            [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 3525) animated:YES];
-                         }
-                         completion:^(BOOL finished){
-                             // whatever you need to do when animations are complete
-                             
-                         }];
+                    [UIView animateWithDuration:0.5
+                                     animations:^{
+                                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, scroll.frame.origin.y + 3525) animated:YES];
+                                     }
+                                     completion:^(BOOL finished){
+                                         // whatever you need to do when animations are complete
+                                         
+                                     }];
                 }
                 else {
                     [UIView animateWithDuration:0.5
@@ -146,7 +146,39 @@
     scroll1.scrollEnabled = YES;
     
     [scroll1 setContentSize:CGSizeMake(320, 4105)];
-   
+    
+    // Get the documents directory
+    NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *docsDir = [dirPaths objectAtIndex:0];
+    
+    // Build the path to the database file
+    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        
+        char *errMsg;
+        
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISETWO (ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT,ALLC1 TEXT,ALLC2 TEXT,KATAC1 TEXT,KATAC2 TEXT,DISKC1 TEXT,DISKC2 TEXT,ATTC1 TEXT,ATTC2 TEXT,ETIKC1 TEXT,ETIKC2 TEXT, FORC1 TEXT,FORC2 TEXT,MENTC1 TEXT, MENTC2 TEXT,TANKC1 TEXT,TANKC2 TEXT,OVERC1 TEXT,OVERC2 TEXT,PERSC1 TEXT,PERSC2 TEXT,MANSC1 TEXT,MANSC2 TEXT)";
+        
+        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+        {
+            NSLog(@"Failed to create database");
+        }else{
+            NSLog(@" create database");
+        }
+        
+        sqlite3_close(exerciseDB);
+        
+    } else {
+        //status.text = @"Failed to open/create database";
+    }
+    
+    
+   /*
     // Get the documents directory
     NSArray *dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
@@ -180,8 +212,8 @@
         [self getDetailsFromtankefallorDB];
     }
     
-    [filemgr release];
-   
+    [filemgr release];*/
+    [self getDetailsFromtankefallorDB];
     [super viewDidLoad];
 }
 
@@ -189,8 +221,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-
 }
 
 
@@ -332,7 +362,7 @@
     if([alltTV1.text isEqualToString:@""] && [alltTV2.text isEqualToString:@""] && [kataTV1.text isEqualToString:@""] && [kataTV2.text isEqualToString:@""]&& [diskTV1.text isEqualToString:@""] && [diskTV2.text isEqualToString:@""] && [attTV1.text isEqualToString:@""] && [attTV2.text isEqualToString:@""] && [etikTV1.text isEqualToString:@""] && [etikTV2.text isEqualToString:@""]&& [forTV1.text isEqualToString:@""] && [forTV2.text isEqualToString:@""] && [tankTV1.text isEqualToString:@""] && [mentTV1.text isEqualToString:@""] && [mentTV2.text isEqualToString:@""] && [tankTV2.text isEqualToString:@""] && [overTV1.text isEqualToString:@""] && [overTV2.text isEqualToString:@""]&& [persTV1.text isEqualToString:@""] && [persTV2.text isEqualToString:@""] && [mansTV1.text isEqualToString:@""] && [mansTV2.text isEqualToString:@""] ){
         
     }
-    else if (sqlite3_open(dbpath, &tankefallorDB) == SQLITE_OK) {
+    else if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK) {
         
         if (isExit == NO) {
             
@@ -340,7 +370,7 @@
             
             const char *insert_stmt = [insertSQL UTF8String];
             
-            sqlite3_prepare_v2(tankefallorDB, insert_stmt, -1, &statement, NULL);
+            sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
            
             if (sqlite3_step(statement) == SQLITE_DONE)
             {
@@ -352,16 +382,16 @@
                 NSLog(@"Failed to add tankefallor");
             }
             sqlite3_finalize(statement);
-            sqlite3_close(tankefallorDB);
+            sqlite3_close(exerciseDB);
         }
         else {
             NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET allc1='%@',allc2='%@',katac1='%@',katac2='%@',diskc1='%@',diskc2='%@',attc1='%@',attc2='%@',etikc1='%@',etikc2='%@',forc1='%@',forc2='%@',mentc1='%@',mentc2='%@',tankc1='%@',tankc2='%@',overc1='%@',overc2='%@',persc1='%@',persc2='%@',mansc1='%@',mansc2='%@'",alltTV1.text,alltTV2.text, kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
             
             const char *del_stmt = [query UTF8String];
             
-            if (sqlite3_prepare_v2(tankefallorDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
+            if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
                 if(SQLITE_DONE != sqlite3_step(statement))
-                    NSLog(@"Error while updating. %s", sqlite3_errmsg(tankefallorDB));
+                    NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
                 NSLog(@"sss");
                 isSaved = NO;
                 isExit = YES;
@@ -369,7 +399,7 @@
             }
         
             sqlite3_finalize(statement);
-            sqlite3_close(tankefallorDB);
+            sqlite3_close(exerciseDB);
         }
         UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert1 show];
@@ -398,20 +428,20 @@
             
             const char *dbpath = [databasePath UTF8String];
             
-            if (sqlite3_open(dbpath, &tankefallorDB) == SQLITE_OK) {
+            if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK) {
                 
                 NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET allc1='%@',allc2='%@',katac1='%@',katac2='%@',diskc1='%@',diskc2='%@',attc1='%@',attc2='%@',etikc1='%@',etikc2='%@',forc1='%@',forc2='%@',mentc1='%@',mentc2='%@',tankc1='%@',tankc2='%@',overc1='%@',overc2='%@',persc1='%@',persc2='%@',mansc1='%@',mansc2='%@'",alltTV1.text,alltTV2.text, kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
                 
                 const char *del_stmt = [query UTF8String];
                 
-                if (sqlite3_prepare_v2(tankefallorDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
+                if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
                     if(SQLITE_DONE != sqlite3_step(statement))
-                        NSLog(@"Error while updating. %s", sqlite3_errmsg(tankefallorDB));
+                        NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
                     NSLog(@"sss");
                     
                 }
                 sqlite3_finalize(statement);
-                sqlite3_close(tankefallorDB);
+                sqlite3_close(exerciseDB);
             }
         }
     }
@@ -433,13 +463,13 @@
     
     sqlite3_stmt    *statement;
     
-    if (sqlite3_open(dbpath, &tankefallorDB) == SQLITE_OK)
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM EXERCISETWO ORDER BY date DESC"];
         
         const char *query_stmt = [querySQL UTF8String];
         
-        if (sqlite3_prepare_v2(tankefallorDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
         {
             
             while  (sqlite3_step(statement) == SQLITE_ROW) {
@@ -602,7 +632,7 @@
         }
         sqlite3_finalize(statement);
     }
-    sqlite3_close(tankefallorDB);
+    sqlite3_close(exerciseDB);
 }
 
 
