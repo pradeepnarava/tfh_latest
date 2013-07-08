@@ -33,7 +33,7 @@
 
     self.title = @"KBT Appen";
     
-    UINavigationBar *navBar = self.navigationController.navigationBar;
+    //UINavigationBar *navBar = self.navigationController.navigationBar;
 
     /*if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         //self.navigationItem.title=@"KBT Appen";

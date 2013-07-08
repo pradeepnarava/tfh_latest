@@ -40,15 +40,13 @@
 @synthesize minutes;
 @synthesize allItems;
 @synthesize selectedDic;
-
+@synthesize selectedIndexPath;
 
 //Gopal
 @synthesize isSaved;
 @synthesize timerQuestionLabel;
 
 
-int d=0;
-int s;
 int tagValueForBtn;
 
 
@@ -68,6 +66,7 @@ int tagValueForBtn;
     [timerview release];
     [pupview release];
     [ovning release];
+    
 }
 
 #pragma mark -- TextViewDelegate Methods
@@ -83,6 +82,13 @@ int tagValueForBtn;
 
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
+        if (selectedIndexPath) {
+            NSDictionary *temp  =  [allItems objectAtIndex:[selectedIndexPath row]];
+            [temp setValue:ovning.text forKey:kQuestion];
+            [temp setValue:egen.text forKey:kAns1];
+            [temp setValue:prc.text forKey:kAns2];
+            
+        }
         if (selectedDic) {
             [selectedDic setValue:ovning.text forKey:kQuestion];
             [selectedDic setValue:egen.text forKey:kAns1];
@@ -215,6 +221,11 @@ int tagValueForBtn;
     scroll.scrollEnabled=NO;
     pupview.hidden = NO;
     selectedDic = nil;
+    selectedIndexPath = nil;
+    ovning.text=@"";
+    egen.text=@"";
+    prc.text=0;
+    slider.value=0;
     [self.view bringSubviewToFront:pupview];
     [UIView beginAnimations:@"curlInView" context:nil];
     [UIView setAnimationDuration:3.0];
@@ -437,7 +448,13 @@ int tagValueForBtn;
         
         NSLog(@"SELECTED DICTIONARY IS %@",selectedDic);
         NSLog(@"%@ %@, %@",ovning.text,egen.text,prc.text);
-        
+        if (selectedIndexPath) {
+            NSDictionary *temp  =  [allItems objectAtIndex:[selectedIndexPath row]];
+            [temp setValue:ovning.text forKey:kQuestion];
+            [temp setValue:egen.text forKey:kAns1];
+            [temp setValue:prc.text forKey:kAns2];
+            
+        }
         if (selectedDic) {
             [selectedDic setValue:ovning.text forKey:kQuestion];
             [selectedDic setValue:egen.text forKey:kAns1];
@@ -510,6 +527,7 @@ int tagValueForBtn;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     egen.userInteractionEnabled = YES;
+    selectedIndexPath = indexPath;
     selectedDic = [allItems objectAtIndex:[indexPath row]];
     NSLog(@"table didselect question is %@",[selectedDic valueForKey:kQuestion]);
     NSLog(@"table didselect ans1 is %@",[selectedDic valueForKey:kAns1]);
@@ -522,7 +540,7 @@ int tagValueForBtn;
     NSInteger myInt = [prc.text intValue];
     [slider setValue:myInt animated:YES];
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

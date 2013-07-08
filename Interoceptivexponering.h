@@ -53,6 +53,8 @@
 @property (nonatomic, retain) IBOutlet UISlider *slider;
 @property (nonatomic, retain) IBOutlet UITableView *tblView;
 
+@property (nonatomic, retain) NSIndexPath *selectedIndexPath;
+
 //DataSotre
 @property (nonatomic, retain) NSMutableArray *allItems;
 @property (nonatomic, retain) NSDictionary *selectedDic;
@@ -79,6 +81,6 @@
 - (IBAction)SparaButton:(id)sender;
 - (IBAction)titlelabelalert:(id)sender;
 - (IBAction)CloseButton:(id)sender;
-- (IBAction)nextbutton:(id)sender;
+
 
 @end
