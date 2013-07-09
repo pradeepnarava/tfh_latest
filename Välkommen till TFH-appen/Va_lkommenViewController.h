@@ -22,4 +22,5 @@
 -(IBAction)om:(id)sender;
 -(IBAction)lashorna:(id)sender;
 -(IBAction)oveningarbutton:(id)sender;
+
 @end

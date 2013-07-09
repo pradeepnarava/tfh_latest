@@ -68,7 +68,9 @@
 
 //**********************************************************************
 -(void)getDetailsFromInteroceptivexponeringDB;
-
+-(void)insertIntoDatabase:(NSDictionary*)recordDic;
+-(void)updateIntDatabase:(NSDictionary*)recordsDic;
+-(void)deleteRecordsFromDB:(NSDictionary *)tempDict;
 
 - (IBAction)newcolm:(id)sender;
 - (IBAction)closeBtn:(id)sender;

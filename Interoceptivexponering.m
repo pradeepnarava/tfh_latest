@@ -14,6 +14,7 @@
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 
+#define kPrimaryKey @"PrimeryKey"
 #define kQuestion @"question"
 #define kAns1 @"ans1"
 #define kAns2 @"ans2"
@@ -249,7 +250,7 @@ int tagValueForBtn;
     selectedIndexPath = nil;
     ovning.text=@"";
     egen.text=@"";
-    prc.text=0;
+    prc.text=@"0";
     slider.value=0;
     [self.view bringSubviewToFront:pupview];
     [UIView beginAnimations:@"curlInView" context:nil];
@@ -304,6 +305,29 @@ int tagValueForBtn;
         [_items setValue:prc.text forKey:kAns2];
         [allItems addObject:_items];
     }
+    
+    NSMutableArray *all = [[NSMutableArray alloc] init];
+    NSMutableDictionary *te = [[NSMutableDictionary alloc] init];
+    if ([all count] > 0) {
+        for (int i =0 ; i < [allItems count]; i++) {
+            NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+            [tempDict setValue:[NSNumber numberWithInt:i+1] forKey:kPrimaryKey];
+            [tempDict setValue:ovning.text forKey:kQuestion];
+            [tempDict setValue:egen.text forKey:kAns1];
+            [tempDict setValue:prc.text forKey:kAns2];
+            [all addObject:tempDict];
+        }
+    }else {
+        [te setValue:[NSNumber numberWithInt:0] forKey:kPrimaryKey];
+        [te setValue:ovning.text forKey:kQuestion];
+        [te setValue:egen.text forKey:kAns1];
+        [te setValue:prc.text forKey:kAns2];
+    }
+    [all addObject:te];
+    
+    NSLog(@"all arry is %@",all);
+    
+    NSLog(@"allItems is %@",allItems);
     
     [UIView beginAnimations:@"curlInView" context:nil];
     [UIView setAnimationDuration:3.0];
@@ -623,10 +647,6 @@ int tagValueForBtn;
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
             NSLog(@"YES");
-
-            UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-            [alert1 show];
-            [alert1 release];
             isSaved = NO;
         } else {
             NSLog(@"NO");
@@ -675,6 +695,26 @@ int tagValueForBtn;
     sqlite3_close(exerciseDB);
 }
 
+-(void)deleteRecordsFromDB:(NSDictionary *)tempDict {
+    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE5 WHERE ovningar='%@'",[tempDict valueForKey:kQuestion]];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            [self.tblView reloadData];
+            NSLog(@"sss");
+            
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
+}
+
 
 -(IBAction)SparaButton:(id)sender {
     
@@ -712,6 +752,9 @@ int tagValueForBtn;
                 }
             }
         }
+        UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert1 show];
+        [alert1 release];
     }
 }
 
@@ -738,9 +781,14 @@ int tagValueForBtn;
             NSLog(@"new form");
             ovning.text=@"";
             egen.text=@"";
-            prc.text=@"";
+            prc.text=@"0";
             slider.value=0;
-            [self.tblView reloadData];
+            for (int i = 0; i < [allItems count]; i++) {
+                NSDictionary *tempDic = [allItems objectAtIndex:i];
+                
+                [self deleteRecordsFromDB:tempDic];
+                [self.allItems removeObject:tempDic];
+            }
         }
     }
 }
@@ -752,7 +800,7 @@ int tagValueForBtn;
             NSLog(@"new form");
             ovning.text=@"";
             egen.text=@"";
-            prc.text=@"";
+            prc.text=@"0";
             slider.value=0;
         }
     }

@@ -398,13 +398,14 @@
 								<string key="NSFrame">{{224, 609}, {77, 34}}</string>
 								<reference key="NSSuperview" ref="986170250"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<int key="IBUIButtonType">1</int>
-								<string key="IBUINormalTitle">Nytt</string>
+								<string key="IBUINormalTitle">Rensa</string>
 								<reference key="IBUIHighlightedTitleColor" ref="284057113"/>
 								<reference key="IBUINormalTitleColor" ref="67089926"/>
 								<reference key="IBUINormalTitleShadowColor" ref="295677869"/>
@@ -2443,7 +2444,6 @@
 						<string key="closeBtn:">id</string>
 						<string key="closetimer:">id</string>
 						<string key="newcolm:">id</string>
-						<string key="nextbutton:">id</string>
 						<string key="selectedcheckbox:">id</string>
 						<string key="starttimer:">id</string>
 						<string key="stoptimer:">id</string>
@@ -2474,10 +2474,6 @@
 						</object>
 						<object class="IBActionInfo" key="newcolm:">
 							<string key="name">newcolm:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="nextbutton:">
-							<string key="name">nextbutton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="selectedcheckbox:">
@@ -2638,7 +2634,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background-ipone5.png">{640, 1136}</string>
 			<string key="bbutton.png">{138, 60}</string>
-			<string key="bottom.png">{640, 271}</string>
+			<string key="bottom.png">{320, 89}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="interoceptivmtbg.png">{610, 182}</string>
 			<string key="interoceptivtext.png">{610, 102}</string>

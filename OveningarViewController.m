@@ -30,9 +30,10 @@
     scroll.scrollEnabled = YES;
     [scroll setContentSize:CGSizeMake(320, 640)];
     
-    self.title=@"Övningar";
+    
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        self.navigationItem.title=@"Övningar";
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
@@ -43,7 +44,7 @@
 
     }
     else {
-       
+       self.navigationItem.title=@"Övningar";
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
