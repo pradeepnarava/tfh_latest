@@ -60,6 +60,8 @@
 @property (nonatomic, retain) NSDictionary *selectedDic;
 
 
+@property (nonatomic, retain) NSMutableArray *sampleItems;
+
 //timer
 @property (nonatomic, retain) IBOutlet UILabel *secondsDisplay;
 @property (nonatomic, retain) IBOutlet UILabel *minutesDisplay;

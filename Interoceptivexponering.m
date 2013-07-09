@@ -48,6 +48,10 @@
 @synthesize timerQuestionLabel;
 
 
+
+@synthesize sampleItems;
+
+
 int tagValueForBtn;
 
 
@@ -83,7 +87,26 @@ int tagValueForBtn;
 
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
+        
+        
         if (selectedIndexPath) {
+            NSDictionary *tempDict = [allItems objectAtIndex:selectedIndexPath.row];
+            [tempDict setValue:ovning.text forKey:kQuestion];
+            [tempDict setValue:egen.text forKey:kAns1];
+            [tempDict setValue:prc.text forKey:kAns2];
+            
+        }else {
+            if ([allItems count] > 0) {
+                NSDictionary *tempDict = [allItems lastObject];
+                [tempDict setValue:ovning.text forKey:kQuestion];
+                [tempDict setValue:egen.text forKey:kAns1];
+                [tempDict setValue:prc.text forKey:kAns2];
+            }
+        }
+        
+        
+        
+        /*if (selectedIndexPath) {
             NSDictionary *temp  =  [allItems objectAtIndex:[selectedIndexPath row]];
             [temp setValue:ovning.text forKey:kQuestion];
             [temp setValue:egen.text forKey:kAns1];
@@ -105,10 +128,13 @@ int tagValueForBtn;
                     break;
                 }
             }
-        }
+        }*/
     }else{
         //NSLog(@"%@",textView.text);
     }
+    
+    
+    
     
     return YES;
 }
@@ -149,6 +175,8 @@ int tagValueForBtn;
     //iPad ScrollView
     scroll1.scrollEnabled = YES;
     [scroll1 setContentSize:CGSizeMake(320, 1010)];
+    
+    sampleItems = [[NSMutableArray alloc] init];
     
     allItems = [[NSMutableArray alloc] init];
     selectedDic = [[NSDictionary alloc] init];
@@ -268,7 +296,7 @@ int tagValueForBtn;
 
     pupview.hidden=YES;
     
-    if (tagValueForBtn == 10 || tagValueForBtn == 11) {
+    if (tagValueForBtn == 8 || tagValueForBtn == 9) {
         timerview.hidden = YES;
     }else {
         [self.view bringSubviewToFront:timerview];
@@ -279,9 +307,9 @@ int tagValueForBtn;
     slider.hidden=NO;
     prc.hidden=NO;
     startTime.enabled =YES;
-    BOOL isExits = NO;
+    //BOOL isExits = NO;
     
-    if ([allItems count] > 0) {
+    /*if ([allItems count] > 0) {
         for (int i =0 ; i < [allItems count]; i ++) {
             NSDictionary *tempDict = [allItems objectAtIndex:i];
             if ([ovning.text isEqualToString:[tempDict valueForKey:kQuestion]]) {
@@ -304,30 +332,32 @@ int tagValueForBtn;
         [_items setValue:egen.text forKey:kAns1];
         [_items setValue:prc.text forKey:kAns2];
         [allItems addObject:_items];
-    }
+    }*/
     
-    NSMutableArray *all = [[NSMutableArray alloc] init];
-    NSMutableDictionary *te = [[NSMutableDictionary alloc] init];
-    if ([all count] > 0) {
-        for (int i =0 ; i < [allItems count]; i++) {
-            NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-            [tempDict setValue:[NSNumber numberWithInt:i+1] forKey:kPrimaryKey];
-            [tempDict setValue:ovning.text forKey:kQuestion];
-            [tempDict setValue:egen.text forKey:kAns1];
-            [tempDict setValue:prc.text forKey:kAns2];
-            [all addObject:tempDict];
-        }
+   
+    if ([allItems count] > 0) {
+    
+        [_items setValue:[NSNumber numberWithInt:[allItems count]+1] forKey:kPrimaryKey];
+        [_items setValue:ovning.text forKey:kQuestion];
+        [_items setValue:egen.text forKey:kAns1];
+        [_items setValue:prc.text forKey:kAns2];
+        [allItems addObject:_items];
+        
+        
     }else {
-        [te setValue:[NSNumber numberWithInt:0] forKey:kPrimaryKey];
-        [te setValue:ovning.text forKey:kQuestion];
-        [te setValue:egen.text forKey:kAns1];
-        [te setValue:prc.text forKey:kAns2];
+        [_items setValue:[NSNumber numberWithInt:1] forKey:kPrimaryKey];
+        [_items setValue:ovning.text forKey:kQuestion];
+        [_items setValue:egen.text forKey:kAns1];
+        [_items setValue:prc.text forKey:kAns2];
+        [allItems addObject:_items];
     }
-    [all addObject:te];
     
-    NSLog(@"all arry is %@",all);
+   
+    [self.tblView reloadData];
+    
     
     NSLog(@"allItems is %@",allItems);
+    
     
     [UIView beginAnimations:@"curlInView" context:nil];
     [UIView setAnimationDuration:3.0];
@@ -363,8 +393,10 @@ int tagValueForBtn;
 #pragma mark Start Timer
 
 - (IBAction)starttimer:(id)sender{
-    UIButton *button = (UIButton *)sender;
-    button.enabled = NO;
+    
+    //UIButton *button = (UIButton *)sender;
+    
+    //button.enabled = NO;
     self.secondsTimer = [NSTimer
                          scheduledTimerWithTimeInterval:1.0
                          target:self
@@ -386,12 +418,12 @@ int tagValueForBtn;
                                 stringWithFormat:@"%d", self.Reminutes];
     self.seconds=self.Reseconds;
    self.minutes= self.Reminutes;
-    self.secondsTimer = [NSTimer
+    /*self.secondsTimer = [NSTimer
                          scheduledTimerWithTimeInterval:1.0
                          target:self
                          selector:@selector(timerFireMethod:)
                          userInfo:nil
-                         repeats:YES];
+                         repeats:YES];*/
 }
 
 
@@ -497,7 +529,26 @@ int tagValueForBtn;
         
         NSLog(@"SELECTED DICTIONARY IS %@",selectedDic);
         NSLog(@"%@ %@, %@",ovning.text,egen.text,prc.text);
+        
+        
         if (selectedIndexPath) {
+            NSDictionary *tempDict = [allItems objectAtIndex:selectedIndexPath.row];
+            [tempDict setValue:ovning.text forKey:kQuestion];
+            [tempDict setValue:egen.text forKey:kAns1];
+            [tempDict setValue:prc.text forKey:kAns2];
+            
+        }
+        else {
+            if ([allItems count] > 0) {
+                NSDictionary *tempDict = [allItems lastObject];
+                [tempDict setValue:ovning.text forKey:kQuestion];
+                [tempDict setValue:egen.text forKey:kAns1];
+                [tempDict setValue:prc.text forKey:kAns2];
+            }
+        }
+        
+        
+        /*if (selectedIndexPath) {
             NSDictionary *temp  =  [allItems objectAtIndex:[selectedIndexPath row]];
             [temp setValue:ovning.text forKey:kQuestion];
             [temp setValue:egen.text forKey:kAns1];
@@ -520,7 +571,7 @@ int tagValueForBtn;
                     break;
                 }
             }
-        }
+        }*/
         
         [self.tblView reloadData];
         
@@ -706,7 +757,7 @@ int tagValueForBtn;
         sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
         
         if (sqlite3_step(statement) == SQLITE_ROW) {
-            [self.tblView reloadData];
+    
             NSLog(@"sss");
             
         }
@@ -788,6 +839,7 @@ int tagValueForBtn;
                 
                 [self deleteRecordsFromDB:tempDic];
                 [self.allItems removeObject:tempDic];
+                [self.tblView reloadData];
             }
         }
     }
@@ -870,6 +922,7 @@ int tagValueForBtn;
 }
 
 
+
 -(IBAction)CloseButton:(id)sender{
     pupview.hidden=YES;
     scroll.scrollEnabled=YES;
@@ -881,10 +934,14 @@ int tagValueForBtn;
 - (void)viewDidUnload{
     [super viewDidUnload];
 }
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

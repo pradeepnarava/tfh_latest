@@ -1800,9 +1800,12 @@ b3RhzIhja3TigJ0pLg</bytes>
 						<string key="Editbutton:">id</string>
 						<string key="Sparabutton:">id</string>
 						<string key="aMethod:">id</string>
+						<string key="flyktalert:">id</string>
 						<string key="mainlabelalert:">id</string>
+						<string key="natalert:">id</string>
 						<string key="nyttbutton:">id</string>
 						<string key="skickaButtonClicked:">id</string>
+						<string key="tankealert:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="Closelistofdates:">
@@ -1821,8 +1824,16 @@ b3RhzIhja3TigJ0pLg</bytes>
 							<string key="name">aMethod:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="flyktalert:">
+							<string key="name">flyktalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="mainlabelalert:">
 							<string key="name">mainlabelalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="natalert:">
+							<string key="name">natalert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="nyttbutton:">
@@ -1831,6 +1842,10 @@ b3RhzIhja3TigJ0pLg</bytes>
 						</object>
 						<object class="IBActionInfo" key="skickaButtonClicked:">
 							<string key="name">skickaButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="tankealert:">
+							<string key="name">tankealert:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -1937,7 +1952,7 @@ b3RhzIhja3TigJ0pLg</bytes>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background-ipone5.png">{640, 1136}</string>
 			<string key="bbutton.png">{138, 60}</string>
-			<string key="bottom.png">{320, 89}</string>
+			<string key="bottom.png">{640, 271}</string>
 			<string key="buttom-large-button.png">{280, 47}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="definitionpopup.ipad.png">{450, 328}</string>
