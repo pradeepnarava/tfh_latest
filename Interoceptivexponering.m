@@ -40,7 +40,7 @@
 @synthesize seconds;
 @synthesize minutes;
 @synthesize allItems;
-@synthesize selectedDic;
+@synthesize allItemsDB;
 @synthesize selectedIndexPath;
 
 //Gopal
@@ -49,10 +49,11 @@
 
 
 
-@synthesize sampleItems;
+
 
 
 int tagValueForBtn;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -87,10 +88,11 @@ int tagValueForBtn;
 
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
-        
-        
-        if (selectedIndexPath) {
-            NSDictionary *tempDict = [allItems objectAtIndex:selectedIndexPath.row];
+               
+        if (self.selectedIndexPath) {
+            NSLog(@"fal %i",self.selectedIndexPath.row);
+
+            NSDictionary *tempDict = [allItems objectAtIndex:self.selectedIndexPath.row];
             [tempDict setValue:ovning.text forKey:kQuestion];
             [tempDict setValue:egen.text forKey:kAns1];
             [tempDict setValue:prc.text forKey:kAns2];
@@ -175,16 +177,15 @@ int tagValueForBtn;
     //iPad ScrollView
     scroll1.scrollEnabled = YES;
     [scroll1 setContentSize:CGSizeMake(320, 1010)];
-    
-    sampleItems = [[NSMutableArray alloc] init];
+
     
     allItems = [[NSMutableArray alloc] init];
-    selectedDic = [[NSDictionary alloc] init];
+    allItemsDB = [[NSMutableArray alloc] init];
 
     egen.userInteractionEnabled = NO;
     
     inStr =[[NSString alloc]init];
-    
+   
     inStr=@"00";
     
     pupview.hidden=YES;
@@ -274,8 +275,7 @@ int tagValueForBtn;
     egen.userInteractionEnabled = YES;
     scroll.scrollEnabled=NO;
     pupview.hidden = NO;
-    selectedDic = nil;
-    selectedIndexPath = nil;
+    self.selectedIndexPath = nil;
     ovning.text=@"";
     egen.text=@"";
     prc.text=@"0";
@@ -342,8 +342,6 @@ int tagValueForBtn;
         [_items setValue:egen.text forKey:kAns1];
         [_items setValue:prc.text forKey:kAns2];
         [allItems addObject:_items];
-        
-        
     }else {
         [_items setValue:[NSNumber numberWithInt:1] forKey:kPrimaryKey];
         [_items setValue:ovning.text forKey:kQuestion];
@@ -487,7 +485,7 @@ int tagValueForBtn;
         case 7:
             
             ovning.text=@"Hyperventilera (90 sek)";
-            self.minutes=1;
+            self.minutes=01;
             self.seconds=30;
             break;
         case 8:
@@ -498,7 +496,7 @@ int tagValueForBtn;
             break;
         case 10:
             ovning.text=@"Vatten i munnen (2 min)";
-            self.minutes=1;
+            self.minutes=01;
             self.seconds=60;
             break;
         default:
@@ -527,12 +525,11 @@ int tagValueForBtn;
         inStr = [NSString stringWithFormat:@"%d", myInt];
         prc.text=inStr;
         
-        NSLog(@"SELECTED DICTIONARY IS %@",selectedDic);
+        
         NSLog(@"%@ %@, %@",ovning.text,egen.text,prc.text);
         
-        
-        if (selectedIndexPath) {
-            NSDictionary *tempDict = [allItems objectAtIndex:selectedIndexPath.row];
+        if (self.selectedIndexPath) {
+            NSDictionary *tempDict = [allItems objectAtIndex:self.selectedIndexPath.row];
             [tempDict setValue:ovning.text forKey:kQuestion];
             [tempDict setValue:egen.text forKey:kAns1];
             [tempDict setValue:prc.text forKey:kAns2];
@@ -626,16 +623,20 @@ int tagValueForBtn;
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    egen.userInteractionEnabled = YES;
-    selectedIndexPath = indexPath;
-    selectedDic = [allItems objectAtIndex:[indexPath row]];
-    NSLog(@"table didselect question is %@",[selectedDic valueForKey:kQuestion]);
-    NSLog(@"table didselect ans1 is %@",[selectedDic valueForKey:kAns1]);
-    NSLog(@"table didselect ans2 is %@",[selectedDic valueForKey:kAns2]);
     
-    ovning.text = [selectedDic valueForKey:kQuestion];
-    egen.text = [selectedDic valueForKey:kAns1];
-    prc.text = [selectedDic valueForKey:kAns2];
+    egen.userInteractionEnabled = YES;
+    
+    self.selectedIndexPath = [[NSIndexPath alloc] init];
+    
+    
+    self.selectedIndexPath = indexPath;
+    
+    NSLog(@"%d",self.selectedIndexPath.row);
+   
+    
+    ovning.text = [[allItems objectAtIndex:indexPath.row] valueForKey:kQuestion];
+    egen.text = [[allItems objectAtIndex:indexPath.row] valueForKey:kAns1];
+    prc.text = [[allItems objectAtIndex:indexPath.row] valueForKey:kAns2];
     
     NSInteger myInt = [prc.text intValue];
     [slider setValue:myInt animated:YES];
@@ -723,7 +724,6 @@ int tagValueForBtn;
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        
         NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE5 SET date='%@', ovningar='%@', egen='%@', angest='%@' WHERRE ovningar='%@'", str, [recordsDic valueForKey:kQuestion],[recordsDic valueForKey:kAns1],[recordsDic valueForKey:kAns2],[recordsDic valueForKey:kQuestion]];
         
         const char *del_stmt = [query UTF8String];
@@ -775,34 +775,29 @@ int tagValueForBtn;
     }
     else{
         
-        NSLog(@"%@",allItems);
+        NSLog(@"ALLTEMS  IS %@",allItems);
+        NSLog(@"ALLITEMS DATABASE IS %@",allItemsDB);
         
-        if ([[selectedDic valueForKey:kQuestion] isEqualToString:ovning.text]) {
+        /*if ([allItemsDB count] > 0) {
             
-            NSLog(@"Same Values in Database");
-            
-            [self updateIntDatabase:selectedDic];
-            
-        }
-        else {
-            
+            NSDictionary *tempDic = [allItems objectAtIndex:self.selectedIndexPath.row];
+            [self updateIntDatabase:tempDic];
+        }*/
+        //else{
             for (int i = 0; i < [allItems count]; i++) {
                 
+                for (int j = 0; j < [allItemsDB count]; j++) {
+                    
+                }
                 NSDictionary *tempDic = [allItems objectAtIndex:i];
                 
-                if ([self findContact:[tempDic valueForKey:kQuestion]]) {
-                    
-                    NSLog(@"Update the Same Values into Database");
-                    [self updateIntDatabase:tempDic];
-                    
-                }
-                else if (![self findContact:[tempDic valueForKey:kQuestion]]){
-                    NSLog(@"New Record Insert into Database");
-                    [self insertIntoDatabase:tempDic];
+                NSLog(@"New Record Insert into Database");
+               
+                [self insertIntoDatabase:tempDic];
                 
-                }
             }
-        }
+        //}
+        self.selectedIndexPath = nil;
         UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert1 show];
         [alert1 release];
@@ -905,7 +900,7 @@ int tagValueForBtn;
                     [tempDic setValue:tmp forKey:kAns2];
 
                 }
-                
+                [allItemsDB addObject:tempDic];
                 [allItems addObject:tempDic];
             }
             if (sqlite3_step(statement) != SQLITE_ROW) {

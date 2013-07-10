@@ -43,6 +43,8 @@
     //
     NSString *inStr;
     
+    
+    
 }
 
 //Gopal
@@ -55,12 +57,12 @@
 
 @property (nonatomic, retain) NSIndexPath *selectedIndexPath;
 
+
 //DataSotre
 @property (nonatomic, retain) NSMutableArray *allItems;
-@property (nonatomic, retain) NSDictionary *selectedDic;
+@property (nonatomic, retain) NSMutableArray *allItemsDB;
 
 
-@property (nonatomic, retain) NSMutableArray *sampleItems;
 
 //timer
 @property (nonatomic, retain) IBOutlet UILabel *secondsDisplay;
