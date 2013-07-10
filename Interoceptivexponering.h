@@ -60,7 +60,7 @@
 
 //DataSotre
 @property (nonatomic, retain) NSMutableArray *allItems;
-@property (nonatomic, retain) NSMutableArray *allItemsDB;
+
 
 
 

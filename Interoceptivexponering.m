@@ -14,7 +14,7 @@
 #define kAlertViewOne 1
 #define kAlertViewTwo 2
 
-#define kPrimaryKey @"PrimeryKey"
+#define kQuestionId @"questionId"
 #define kQuestion @"question"
 #define kAns1 @"ans1"
 #define kAns2 @"ans2"
@@ -26,7 +26,6 @@
 @property (nonatomic, assign) int minutes;
 @property (nonatomic, assign) int Reseconds;
 @property (nonatomic, assign) int Reminutes;
-
 
 @property (nonatomic) BOOL isSaved;
 
@@ -40,16 +39,12 @@
 @synthesize seconds;
 @synthesize minutes;
 @synthesize allItems;
-@synthesize allItemsDB;
+
 @synthesize selectedIndexPath;
 
 //Gopal
 @synthesize isSaved;
 @synthesize timerQuestionLabel;
-
-
-
-
 
 
 int tagValueForBtn;
@@ -180,7 +175,6 @@ int tagValueForBtn;
 
     
     allItems = [[NSMutableArray alloc] init];
-    allItemsDB = [[NSMutableArray alloc] init];
 
     egen.userInteractionEnabled = NO;
     
@@ -210,7 +204,7 @@ int tagValueForBtn;
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         char *errMsg;
-        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE5 (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE TEXT,OVNINGAR TEXT,EGEN TEXT, ANGEST TEXT)";
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE5 (ID INTEGER PRIMARY KEY AUTOINCREMENT,QUESTIONID INTEGER DEFAULT 0, DATE TEXT,OVNINGAR TEXT,EGEN TEXT, ANGEST TEXT)";
         
         if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
@@ -337,13 +331,13 @@ int tagValueForBtn;
    
     if ([allItems count] > 0) {
     
-        [_items setValue:[NSNumber numberWithInt:[allItems count]+1] forKey:kPrimaryKey];
+        [_items setValue:[NSNumber numberWithInt:[allItems count]+1] forKey:kQuestionId];
         [_items setValue:ovning.text forKey:kQuestion];
         [_items setValue:egen.text forKey:kAns1];
         [_items setValue:prc.text forKey:kAns2];
         [allItems addObject:_items];
     }else {
-        [_items setValue:[NSNumber numberWithInt:1] forKey:kPrimaryKey];
+        [_items setValue:[NSNumber numberWithInt:1] forKey:kQuestionId];
         [_items setValue:ovning.text forKey:kQuestion];
         [_items setValue:egen.text forKey:kAns1];
         [_items setValue:prc.text forKey:kAns2];
@@ -354,7 +348,7 @@ int tagValueForBtn;
     [self.tblView reloadData];
     
     
-    NSLog(@"allItems is %@",allItems);
+    NSLog(@"closeButton Clicked allItems is %@",allItems);
     
     
     [UIView beginAnimations:@"curlInView" context:nil];
@@ -391,10 +385,7 @@ int tagValueForBtn;
 #pragma mark Start Timer
 
 - (IBAction)starttimer:(id)sender{
-    
-    //UIButton *button = (UIButton *)sender;
-    
-    //button.enabled = NO;
+
     self.secondsTimer = [NSTimer
                          scheduledTimerWithTimeInterval:1.0
                          target:self
@@ -414,14 +405,9 @@ int tagValueForBtn;
     
     self.minutesDisplay.text = [NSString
                                 stringWithFormat:@"%d", self.Reminutes];
-    self.seconds=self.Reseconds;
-   self.minutes= self.Reminutes;
-    /*self.secondsTimer = [NSTimer
-                         scheduledTimerWithTimeInterval:1.0
-                         target:self
-                         selector:@selector(timerFireMethod:)
-                         userInfo:nil
-                         repeats:YES];*/
+    self.seconds= self.Reseconds;
+    self.minutes= self.Reminutes;
+    
 }
 
 
@@ -441,7 +427,7 @@ int tagValueForBtn;
    // NSArray *tempArray = [[NSArray alloc] initWithObjects:@"Skaka huvudet (30 sek)",@"Tajta kläder (60 min)",@"Huvudet mellan benen (90 sek)",@"Spring på stället (2 min)",@"Fullständig kroppsspänning (1 min)"@"Hålla andan (30 sek)",@"Hyperventilera (90 sek)",@"Svälj snabbt (fem gånger)",@"Drick kaffe",@"Vatten i munnen (2 min)",nil];
     UIButton *btn = (UIButton *)sender;
     tagValueForBtn = btn.tag;
-    NSLog(@"%i",btn.tag);
+    NSLog(@"selectedCheckButton tag is %i",btn.tag);
     
     for (UIButton *radioButton in [pupview  subviews]) {
         if (radioButton.tag != btn.tag && [radioButton isKindOfClass:[UIButton class]] &&  radioButton.tag != 11 && radioButton.tag != 12) {
@@ -572,7 +558,7 @@ int tagValueForBtn;
         
         [self.tblView reloadData];
         
-        NSLog(@"updated the slide values is $$$$$$$$$$$$$$ %@",allItems);
+        NSLog(@"updated the slide values of allitems is $$$$$$$$$$$$$$ %@",allItems);
     }
 }
 
@@ -631,7 +617,7 @@ int tagValueForBtn;
     
     self.selectedIndexPath = indexPath;
     
-    NSLog(@"%d",self.selectedIndexPath.row);
+    NSLog(@"didSelectedRowAtIndexpath is %d",self.selectedIndexPath.row);
    
     
     ovning.text = [[allItems objectAtIndex:indexPath.row] valueForKey:kQuestion];
@@ -647,7 +633,7 @@ int tagValueForBtn;
 
 #pragma mark SparatButton-- Save to Database
 
-- (BOOL)findContact:(NSString*)name 
+- (BOOL)findContact:(NSNumber*)questionId
 {
     const char *dbpath = [databasePath UTF8String];
    
@@ -655,7 +641,10 @@ int tagValueForBtn;
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT ovningar FROM EXERCISE5 WHERE ovningar=\"%@\"", name];
+        
+        NSInteger questionID = [questionId integerValue];
+        
+        NSString *querySQL = [NSString stringWithFormat: @"SELECT questionid FROM EXERCISE5 WHERE questionid=\"%d\"", questionID];
         
         const char *query_stmt = [querySQL UTF8String];
         
@@ -676,22 +665,24 @@ int tagValueForBtn;
     return isFind;
 }
 
+
 -(void)insertIntoDatabase:(NSDictionary*)recordDic {
     
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
     [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     NSString* str = [formatter stringFromDate:[NSDate date]];
     
-    NSLog(@"date%@",str);
+    NSLog(@"converted date string %@",str);
     
     const char *dbpath = [databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
+        NSInteger questionId = [[recordDic valueForKey:kQuestionId] integerValue];
         
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE5 (date,ovningar,egen,angest) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\")", str,[recordDic valueForKey:kQuestion],[recordDic valueForKey:kAns1],[recordDic valueForKey:kAns2]];
+        NSLog(@"Insert Value is %i",questionId);
         
-        NSLog(@"%@",insertSQL);
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE5 (questionid,date,ovningar,egen,angest) VALUES (\"%d\", \"%@\", \"%@\", \"%@\" ,\"%@\")",questionId, str, [recordDic valueForKey:kQuestion],[recordDic valueForKey:kAns1],[recordDic valueForKey:kAns2]];
         
         const char *insert_stmt = [insertSQL UTF8String];
         
@@ -705,7 +696,7 @@ int tagValueForBtn;
             if(SQLITE_DONE != sqlite3_step(statement))
                 NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
         }
-    
+        
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
@@ -718,13 +709,15 @@ int tagValueForBtn;
     [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     NSString* str = [formatter stringFromDate:[NSDate date]];
     
-    NSLog(@"date%@",str);
+    NSLog(@"converted date string %@",str);
     
     const char *dbpath = [databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE5 SET date='%@', ovningar='%@', egen='%@', angest='%@' WHERRE ovningar='%@'", str, [recordsDic valueForKey:kQuestion],[recordsDic valueForKey:kAns1],[recordsDic valueForKey:kAns2],[recordsDic valueForKey:kQuestion]];
+        NSInteger questionId = [[recordsDic valueForKey:kQuestionId] integerValue];
+        
+        NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISE5 SET questionid='%d', date='%@', ovningar='%@', egen='%@', angest='%@' WHERE questionid='%d'", questionId, str, [recordsDic valueForKey:kQuestion],[recordsDic valueForKey:kAns1],[recordsDic valueForKey:kAns2],questionId];
         
         const char *del_stmt = [query UTF8String];
         
@@ -734,8 +727,9 @@ int tagValueForBtn;
         {
             NSLog(@"Updated");
             isSaved = NO;
-            sqlite3_reset(statement);
+            
         }else {
+            NSLog(@"Failed to Update");
             if(SQLITE_DONE != sqlite3_step(statement))
                 NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
         }
@@ -750,7 +744,9 @@ int tagValueForBtn;
     
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
         
-        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE5 WHERE ovningar='%@'",[tempDict valueForKey:kQuestion]];
+        NSInteger questionId = [[tempDict valueForKey:kQuestionId] integerValue];
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE5 WHERE questionid='%d'",questionId];
         
         const char *del_stmt = [sql UTF8String];
         
@@ -776,27 +772,22 @@ int tagValueForBtn;
     else{
         
         NSLog(@"ALLTEMS  IS %@",allItems);
-        NSLog(@"ALLITEMS DATABASE IS %@",allItemsDB);
         
-        /*if ([allItemsDB count] > 0) {
+    
+        for (int i = 0; i < [allItems count]; i++) {
             
-            NSDictionary *tempDic = [allItems objectAtIndex:self.selectedIndexPath.row];
-            [self updateIntDatabase:tempDic];
-        }*/
-        //else{
-            for (int i = 0; i < [allItems count]; i++) {
+            NSDictionary *tempDic = [allItems objectAtIndex:i];
+        
+            if ([self findContact:[tempDic valueForKey:kQuestionId]]) {
+                NSLog(@"Update Record Insert into Database");
+                [self updateIntDatabase:tempDic];
                 
-                for (int j = 0; j < [allItemsDB count]; j++) {
-                    
-                }
-                NSDictionary *tempDic = [allItems objectAtIndex:i];
-                
+            }else {
                 NSLog(@"New Record Insert into Database");
-               
                 [self insertIntoDatabase:tempDic];
-                
             }
-        //}
+        }
+
         self.selectedIndexPath = nil;
         UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert1 show];
@@ -823,27 +814,37 @@ int tagValueForBtn;
             [alert release];
         }
         else {
-           
+            
             NSLog(@"new form");
             ovning.text=@"";
             egen.text=@"";
             prc.text=@"0";
             slider.value=0;
-            for (int i = 0; i < [allItems count]; i++) {
-                NSDictionary *tempDic = [allItems objectAtIndex:i];
+            
+            
+            while ([allItems count] > 0) {
+                NSLog(@"%@",allItems);
+                NSDictionary *tempDic = [allItems objectAtIndex:0];
                 
                 [self deleteRecordsFromDB:tempDic];
                 [self.allItems removeObject:tempDic];
-                [self.tblView reloadData];
             }
+            
+            [self.tblView reloadData];
         }
     }
 }
+
+
+
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if(alertView.tag  == kAlertViewOne) {
         if (buttonIndex == 0) {
+            NSDictionary *tempDic = [allItems lastObject];
+            [self.allItems removeObject:tempDic];
+            [self.tblView reloadData];
             NSLog(@"new form");
             ovning.text=@"";
             egen.text=@"";
@@ -863,7 +864,7 @@ int tagValueForBtn;
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat:
-                              @"SELECT * FROM EXERCISE5 ORDER BY date DESC"
+                              @"SELECT * FROM EXERCISE5 ORDER BY questionid ASC"
                               ];
         
         const char *query_stmt = [querySQL UTF8String];
@@ -874,7 +875,18 @@ int tagValueForBtn;
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 NSMutableDictionary *tempDic = [[NSMutableDictionary alloc]init];
                 
-                char* question = (char*) sqlite3_column_text(statement,2);
+                
+                char* questionId = (char*) sqlite3_column_text(statement,1);
+                
+                if (questionId != NULL){
+                    NSString *tmp = [NSString stringWithUTF8String:questionId];
+                    NSNumber *questionID = [NSNumber numberWithInt:[tmp integerValue]];
+                    NSLog(@"value form db :%@ %@",tmp,questionID);
+                    [tempDic setValue:questionID forKey:kQuestionId];
+                    
+                }
+                
+                char* question = (char*) sqlite3_column_text(statement,3);
 
                 if (question != NULL){
                     NSString *tmp = [NSString stringWithUTF8String:question];
@@ -883,7 +895,7 @@ int tagValueForBtn;
                 
                 }
                 
-                char* ans1  = (char*) sqlite3_column_text(statement,3);
+                char* ans1  = (char*) sqlite3_column_text(statement,4);
 
                 if (ans1 != NULL){
                     NSString *tmp = [NSString stringWithUTF8String:ans1];
@@ -892,7 +904,7 @@ int tagValueForBtn;
                  
                 }
                 
-                char* ans2 = (char*) sqlite3_column_text(statement,4);
+                char* ans2 = (char*) sqlite3_column_text(statement,5);
 
                 if (ans2 != NULL){
                    NSString *tmp = [NSString stringWithUTF8String:ans2];
@@ -900,7 +912,7 @@ int tagValueForBtn;
                     [tempDic setValue:tmp forKey:kAns2];
 
                 }
-                [allItemsDB addObject:tempDic];
+
                 [allItems addObject:tempDic];
             }
             if (sqlite3_step(statement) != SQLITE_ROW) {
@@ -910,6 +922,7 @@ int tagValueForBtn;
         }
         sqlite3_close(exerciseDB);
     }
+    
     
     NSLog(@"GETTING DATA %@",allItems);
     
