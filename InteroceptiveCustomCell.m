@@ -11,6 +11,7 @@
 @implementation InteroceptiveCustomCell
 @synthesize title;
 @synthesize detailValue;
+@synthesize greenImage;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

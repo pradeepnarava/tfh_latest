@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -353,7 +353,7 @@
 								<string key="NSFrame">{{169, 599}, {296, 23}}</string>
 								<reference key="NSSuperview" ref="886856510"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="518275973"/>
+								<reference key="NSNextKeyView" ref="282316156"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -408,7 +408,7 @@
 								<int key="IBUISeparatorStyle">1</int>
 								<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 								<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
-								<float key="IBUIRowHeight">44</float>
+								<float key="IBUIRowHeight">50</float>
 								<float key="IBUISectionHeaderHeight">22</float>
 								<float key="IBUISectionFooterHeight">22</float>
 							</object>
@@ -433,6 +433,7 @@
 								<string key="NSFrame">{{548, 935}, {120, 45}}</string>
 								<reference key="NSSuperview" ref="886856510"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -786,6 +787,7 @@
 										<string key="NSFrame">{{107, 364}, {146, 32}}</string>
 										<reference key="NSSuperview" ref="282316156"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="69985797"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<int key="IBUITag">11</int>
@@ -1269,6 +1271,7 @@
 										<string key="NSFrame">{{36, 239}, {268, 38}}</string>
 										<reference key="NSSuperview" ref="69985797"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="518275973"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -2456,9 +2459,7 @@
 						<string key="selectedcheckbox:">id</string>
 						<string key="starttimer:">id</string>
 						<string key="stoptimer:">id</string>
-						<string key="titlelabel1alert:">id</string>
 						<string key="titlelabelalert:">id</string>
-						<string key="updateside:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="CloseButton:">
@@ -2497,16 +2498,8 @@
 							<string key="name">stoptimer:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="titlelabel1alert:">
-							<string key="name">titlelabel1alert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="titlelabelalert:">
 							<string key="name">titlelabelalert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="updateside:">
-							<string key="name">updateside:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

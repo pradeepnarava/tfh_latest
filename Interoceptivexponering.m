@@ -592,6 +592,13 @@ int tagValueForBtn;
     
     NSDictionary *tempDict = [allItems objectAtIndex:row];
     
+    NSInteger myInt = [[[allItems objectAtIndex:indexPath.row] valueForKey:kAns2] intValue];
+    if (myInt < 20 ) {
+        cell.greenImage.image = [UIImage imageNamed:@"minimized-green.png"];
+    }
+    else {
+       cell.greenImage.image = [UIImage imageNamed:@"minimized-white.png"]; 
+    }
     NSArray *TEMP = [[tempDict valueForKey:kQuestion] componentsSeparatedByString:@"("];
 
     cell.title.text   = [[TEMP objectAtIndex:0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -837,13 +844,18 @@ int tagValueForBtn;
 
 
 
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if(alertView.tag  == kAlertViewOne) {
         if (buttonIndex == 0) {
-            NSDictionary *tempDic = [allItems lastObject];
-            [self.allItems removeObject:tempDic];
+            while ([allItems count] > 0) {
+                NSLog(@"%@",allItems);
+                NSDictionary *tempDic = [allItems objectAtIndex:0];
+                
+                //[self deleteRecordsFromDB:tempDic];
+                [self.allItems removeObject:tempDic];
+            }
+
             [self.tblView reloadData];
             NSLog(@"new form");
             ovning.text=@"";
