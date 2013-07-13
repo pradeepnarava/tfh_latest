@@ -149,26 +149,37 @@
 
 
 -(IBAction)exercise6:(id)sender{
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        
-        ba=[[Beteendeaktivering alloc]initWithNibName:@"Beteendeaktivering" bundle:nil];
-        
-    }else
-    {
-        
+        if ([[UIScreen mainScreen] bounds].size.height >  480) {
+            ba=[[Beteendeaktivering alloc]initWithNibName:@"Beteendeaktivering" bundle:nil];
+            
+        }else{
+            ba=[[Beteendeaktivering alloc]initWithNibName:@"Beteendeaktivering_iPhone4" bundle:nil];
+        }
     }
+    else {
+        ba=[[Beteendeaktivering alloc]initWithNibName:@"Beteendeaktivering_iPad" bundle:nil];
+    }
+    
     [self.navigationController pushViewController:ba animated:YES];
 }
 
 
 
--(IBAction)exercise7:(id)sender{
+-(IBAction)exercise7:(id)sender {
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen" bundle:nil];
-    }else
-    {
+        if ([[UIScreen mainScreen] bounds].size.height >  480) {
+            lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen" bundle:nil];
+        }else {
+            lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen_iPhone4" bundle:nil];
+        }
+    }
+    else {
         lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen_iPad" bundle:nil];
     }
+    
     [self.navigationController pushViewController:lsp animated:YES];
 }
 

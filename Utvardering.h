@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Veckostatistik.h"
 @interface Utvardering : UIViewController{
+    
     BOOL checkboxSelected;
     NSString *selected_checkbox;
    NSString *selected_checkbox1;
@@ -31,4 +32,5 @@
 
 -(IBAction)checkBoxSelect1:(id)sender;
 -(IBAction)PageB:(id)sender;
+
 @end

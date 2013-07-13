@@ -1229,6 +1229,8 @@ listofallidentifier= [[NSMutableArray alloc]init];
         [textView resignFirstResponder];
         return NO;
     }
+    
+    
     return YES;
 }
 
@@ -1252,8 +1254,6 @@ listofallidentifier= [[NSMutableArray alloc]init];
     
     if (btn.tag == 1)
     {
-        
-        
         if(btn.currentImage==[UIImage imageNamed:@"uncheck.png"]){
             
             if ([OnrOff isEqualToString:@"On"]) {

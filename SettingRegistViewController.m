@@ -1,21 +1,20 @@
 //
-//  Registreringsvecka.m
+//  SettingRegistViewController.m
 //  Välkommen till TFH-appen
 //
-//  Created by Mohammed Abdul Majeed on 5/3/13.
+//  Created by Chandrika on 12/07/13.
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
-#import "Registreringsvecka.h"
-#import "MTPopupWindow.h"
-#import "CalendarViewController.h"
+#import "SettingRegistViewController.h"
 
-@interface Registreringsvecka ()
+@interface SettingRegistViewController ()
 
 @end
 
-@implementation Registreringsvecka
-@synthesize calendarView;
+@implementation SettingRegistViewController
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,12 +25,11 @@
     return self;
 }
 
+
+
 - (void)viewDidLoad
 {
-    self.navigationItem.title=@"Registreringsvecka";
     [super viewDidLoad];
-    
-    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
@@ -54,10 +52,8 @@
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
     
-    // Do any additional setup after loading the view from its nib.
     
-    [super viewDidLoad];
-
+	// Do any additional setup after loading the view.
 }
 
 -(void)backButon {
@@ -66,33 +62,16 @@
 }
 
 
--(IBAction)sub1button:(id)sender {
-    
-    
-    
-    
-    if (!calendarView) {
-        calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView" bundle:nil];
-    }
-
-    [self.navigationController pushViewController:calendarView animated:YES];
-}
-
-
--(IBAction)ILabel:(id)sender {
-     [MTPopupWindow showWindowWithHTMLFile:@"Registreringsvecka.html" insideView:self.view];
-}
-
-
--(IBAction)dinavaor:(id)sender
-{
-    
-}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
+
 
 @end

@@ -1,21 +1,21 @@
 //
-//  Registreringsvecka.m
+//  CalendarViewController.m
 //  Välkommen till TFH-appen
 //
-//  Created by Mohammed Abdul Majeed on 5/3/13.
+//  Created by Chandrika on 12/07/13.
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
-#import "Registreringsvecka.h"
-#import "MTPopupWindow.h"
 #import "CalendarViewController.h"
+#import "SettingRegistViewController.h"
 
-@interface Registreringsvecka ()
+@interface CalendarViewController ()
 
 @end
 
-@implementation Registreringsvecka
-@synthesize calendarView;
+@implementation CalendarViewController
+@synthesize scrollView;
+@synthesize settingRegViewCntrl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,8 +28,8 @@
 
 - (void)viewDidLoad
 {
-    self.navigationItem.title=@"Registreringsvecka";
     [super viewDidLoad];
+	// Do any additional setup after loading the view.
     
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -54,10 +54,15 @@
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
     
-    // Do any additional setup after loading the view from its nib.
+    UIImage *image = [UIImage imageNamed:@"Klar_button.png"];
+    UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    [okBtn setTitle:@"Set" forState:UIControlStateNormal];
+    [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+    [okBtn addTarget:self action:@selector(SettButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
-    [super viewDidLoad];
-
+    self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    
 }
 
 -(void)backButon {
@@ -66,27 +71,13 @@
 }
 
 
--(IBAction)sub1button:(id)sender {
+-(void)SettButtonClicked {
+
     
-    
-    
-    
-    if (!calendarView) {
-        calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView" bundle:nil];
+    if (!settingRegViewCntrl) {
+        settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView" bundle:nil];
     }
-
-    [self.navigationController pushViewController:calendarView animated:YES];
-}
-
-
--(IBAction)ILabel:(id)sender {
-     [MTPopupWindow showWindowWithHTMLFile:@"Registreringsvecka.html" insideView:self.view];
-}
-
-
--(IBAction)dinavaor:(id)sender
-{
-    
+    [self.navigationController pushViewController:settingRegViewCntrl animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

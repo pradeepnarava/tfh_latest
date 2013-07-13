@@ -7,17 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Registreringsvecka.h"
-#import "Plusvecka.h"
-#import "Utvardering.h"
-@interface Beteendeaktivering : UIViewController{
-    UILabel *titlelabel;
-    Registreringsvecka *rs;
-    Plusvecka *psc;
-    Utvardering *ud;
+
+
+@class Registreringsvecka;
+@class Plusvecka;
+@class Utvardering;
+
+
+@interface Beteendeaktivering : UIViewController {
+
 }
-@property (nonatomic, retain)IBOutlet UILabel *titlelabel;
+
+@property (nonatomic, retain) Registreringsvecka *rs;
+@property (nonatomic, retain) Plusvecka *psc;
+@property (nonatomic, retain) Utvardering *ud;
+@property (nonatomic, retain) IBOutlet UILabel *titlelabel;
+
 -(IBAction)sub1:(id)sender;
 -(IBAction)sub2:(id)sender;
 -(IBAction)sub3:(id)sender;
+
+
 @end

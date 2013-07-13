@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AktivitetsplanenViewController.h"
+
+@class CalendarViewController;
 
 @interface Registreringsvecka : UIViewController
-{
-    AktivitetsplanenViewController *aktiViewObj;
-     
-}
+
+
+@property (nonatomic, strong) CalendarViewController *calendarView;
+
 
 -(IBAction)sub1button:(id)sender;
 -(IBAction)ILabel:(id)sender;
+-(IBAction)dinavaor:(id)sender;
+
+
 @end
