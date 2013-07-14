@@ -8,20 +8,16 @@
 
 #import "CalendarViewController.h"
 #import "SettingRegistViewController.h"
+#import "UIViewController+MJPopupViewController.h"
+#import "MJPopupBackgroundView.h"
+#import "EventPopOverViewController.h"
 
-@interface CalendarViewController () {
-    
-    NSDate* currentDate;
-    NSMutableArray *dateArray;
-    NSDateFormatter *dateFormatter;
-    NSDateFormatter *dateOfDay;
-    NSDateFormatter *day;
-    NSDateFormatter *topDate;
-    NSDateFormatter *year;
-    NSDateFormatter *hour;
+#define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
+#define CURRENT_CALENDAR [NSCalendar currentCalendar]
 
-}
+static const unsigned int DAYS_IN_WEEK                        = 7;
 
+@interface CalendarViewController ()
 @end
 
 @implementation CalendarViewController
@@ -29,7 +25,8 @@
 @synthesize settingRegViewCntrl;
 @synthesize monLabel1,tueLabel2,wedLabel3,thrLabel4,friLabel5,satLabel6,sunLabel7;
 @synthesize monButton1,tueButton2,wedButton3,thrButton4,friButton5,satButton6,sunButton7;
-@synthesize dateArray;
+@synthesize dateArray,weekdays,week;
+@synthesize mainWeekLabel;
 
 
 
@@ -47,7 +44,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    [scrollView setContentSize:CGSizeMake(320, 726)];
+    [scrollView setContentSize:CGSizeMake(320, 770)];
+    
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
@@ -78,51 +76,38 @@
     [okBtn addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     
+    [self week:[NSDate date]];
     
-    dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateStyle:NSDateFormatterNoStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-    [dateFormatter setDateFormat:@"EEE, dd MMM yyyy"];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
     
-    dateOfDay = [[NSDateFormatter alloc]init];
-    [dateOfDay setDateStyle:NSDateFormatterNoStyle];
-    [dateOfDay setTimeStyle:NSDateFormatterShortStyle];
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-    [dateOfDay setDateFormat:@"dd"];
-    [dateOfDay setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
     
-    day = [[NSDateFormatter alloc]init];
-    [day setDateStyle:NSDateFormatterNoStyle];
-    [day setTimeStyle:NSDateFormatterShortStyle];
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-    [day setDateFormat:@"EEE"];
-    [day setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    NSString *docsDir;
+    NSArray *dirPaths;
     
-    topDate = [[NSDateFormatter alloc]init];
-    [topDate setDateStyle:NSDateFormatterNoStyle];
-    [topDate setTimeStyle:NSDateFormatterShortStyle];
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-    [topDate setDateFormat:@"dd MMM"];
-    [topDate setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
-    year = [[NSDateFormatter alloc]init];
-    [year setDateStyle:NSDateFormatterNoStyle];
-    [year setTimeStyle:NSDateFormatterShortStyle];
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-    [year setDateFormat:@"yyyy"];
-    [year setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    docsDir = [dirPaths objectAtIndex:0];
     
-    hour = [[NSDateFormatter alloc]init];
-    [hour setDateStyle:NSDateFormatterNoStyle];
-    [hour setTimeStyle:NSDateFormatterShortStyle];
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm a"];
-    [hour setDateFormat:@"HH"];
-    [hour setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    // Build the path to the database file
+    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
-    //[self setDate];
+    const char *dbpath = [databasePath UTF8String];
     
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE6 (ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT,WEEK TEXT,STARTDATE TEXT,ENDDATE TEXT,ENDDATE TEXT,STATUS TEXT,DAYDATE TEXT)";
+        
+        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+        {
+            NSLog(@"Failed to create database");
+        }
+        
+        sqlite3_close(exerciseDB);
+        
+    } else {
+        //status.text = @"Failed to open/create database";
+    }
 }
 
 -(void)backButon {
@@ -145,22 +130,19 @@
 
 -(IBAction)calendarEmptyCellClicked:(id)sender
 {
-    UIButton *button = (UIButton*)[sender tag];
-    NSLog(@"button tag is %i",button.tag);
-    
-    
-    
+    //UIButton *button = (UIButton*)[sender tag];
+    NSLog(@"button tag is %i",[sender tag]);
+    EventPopOverViewController *evntViewCntrl = [[EventPopOverViewController alloc] initWithNibName:@"EventPopOverView" bundle:nil];
+     [self presentPopupViewController:evntViewCntrl animationType:MJPopupViewAnimationSlideBottomBottom];
 }
 
 #pragma mark TotalButtonClicked 
 
 -(IBAction)totalButtonClicked:(id)sender
 {
-    
-    UIButton *button = (UIButton*)[sender tag];
-    NSLog(@"button tag is %i",button.tag);
-    
-    
+    //UIButton *button = (UIButton*)[sender tag];
+    NSLog(@"button tag is %i",[sender tag]);
+
 }
 
 #pragma mark Calendar Day Button Clicked
@@ -168,7 +150,7 @@
 {
     
     UIButton *button = (UIButton*)[sender tag];
-    NSLog(@"button tag is %i",button.tag);
+    NSLog(@"button tag is %i",[button tag]);
     
 }
 
@@ -180,81 +162,88 @@
     
 }
 
-
 - (IBAction)backwardCalender:(id)sender
 {
     
+    
+}
+
+
+- (NSString *)titleText {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self.week];
+	
+	NSArray *monthSymbols = [formatter shortMonthSymbols];
+	
+	return [NSString stringWithFormat:@"%@, week %i",
+			[monthSymbols objectAtIndex:[components month] - 1],
+			[components week]];
 }
 
 
 
-/*-(void)setDate
-{
+- (NSDate *)firstDayOfWeekFromDate:(NSDate *)date {
+	CFCalendarRef currentCalendar = CFCalendarCopyCurrent();
+	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:date];
+	[components setDay:([components day] - ([components weekday] - CFCalendarGetFirstWeekday(currentCalendar)))];
+	[components setHour:0];
+	[components setMinute:0];
+	[components setSecond:0];
+	CFRelease(currentCalendar);
+	return [CURRENT_CALENDAR dateFromComponents:components];
+}
+
+- (void)week:(NSDate *)_date {
     
-    dateArray = [[NSMutableArray alloc]init];
+	NSDate *firstOfWeek = [self firstDayOfWeekFromDate:_date];
+	self.week = firstOfWeek;
     
-    for (int i =1; i <= 7; i++)
-    {
-        if (viewLoad)
-        {
-            currentDate = [NSDate date];
+    NSDate *date = self.week;
+	NSDateComponents *components;
+	NSDateComponents *components2 = [[NSDateComponents alloc] init];
+	[components2 setDay:1];
+	
+	self.weekdays = [[NSMutableArray alloc] init];
+	
+	for (register unsigned int i=0; i < DAYS_IN_WEEK; i++) {
+		[self.weekdays addObject:date];
+		components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:date];
+		[components setDay:1];
+		date = [CURRENT_CALENDAR dateByAddingComponents:components2 toDate:date options:0];
+	}
+	
+    NSLog(@"%@",self.weekdays);
+	[self updateScreens];
+    self.mainWeekLabel.text = [self titleText];
+}
+
+
+
+-(void)updateScreens {
+    
+	for (int i =0; i < [self.weekdays count]; i++) {
+        
+        NSDate *date = [self.weekdays objectAtIndex:i];
+		NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:date];
+		NSString *displayText = [NSString stringWithFormat:@"%i",[components day]];
+        
+        if (i == 0) {
+            monLabel1.text = displayText;
+        }else if (i==1){
+            tueLabel2.text = displayText;
+        }else if (i ==2){
+            wedLabel3.text = displayText;
+        }else if (i ==3){
+            thrLabel4.text = displayText;
+        }else if (i == 4){
+            friLabel5.text = displayText;
+        }else if (i == 5){
+            satLabel6.text = displayText;
+        }else if (i == 6) {
+            sunLabel7.text = displayText;
         }
-        else
-        {
-            currentDate = [dateFormatter dateFromString: lastDate];
-        }
-        NSDateComponents *comps1 = [[NSDateComponents alloc] init];
-        [comps1 setMonth:0];
-        [comps1 setDay:+i];
-        [comps1 setHour:0];
-        NSCalendar *calendar1 = [NSCalendar currentCalendar];
-        NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:currentDate options:0];
-        [dateArray addObject:newDate1];
     }
-    
-    [self updateScreen];
 }
-
--(void)updateScreen
-{
-    firstDateLabel.text = [dateOfDay stringFromDate:[dateArray objectAtIndex:0]];
-    secondDateLabel.text = [dateOfDay stringFromDate:[dateArray objectAtIndex:1]];
-    thirdDateLabel.text = [dateOfDay stringFromDate:[dateArray objectAtIndex:2]];
-    fourthDateLabel.text = [dateOfDay stringFromDate:[dateArray objectAtIndex:3]];
-    fifthDateLabel.text = [dateOfDay stringFromDate:[dateArray objectAtIndex:4]];
-    sixthDateLabel.text = [dateOfDay stringFromDate:[dateArray objectAtIndex:5]];
-    seventhDateLabel.text = [dateOfDay stringFromDate:[dateArray objectAtIndex:6]];
-    
-    [dayButton1 setTitle:[day stringFromDate:[dateArray objectAtIndex:0]] forState:UIControlStateNormal];
-    [dayButton2 setTitle:[day stringFromDate:[dateArray objectAtIndex:1]] forState:UIControlStateNormal];
-    [dayButton3 setTitle:[day stringFromDate:[dateArray objectAtIndex:2]] forState:UIControlStateNormal];
-    [dayButton4 setTitle:[day stringFromDate:[dateArray objectAtIndex:3]] forState:UIControlStateNormal];
-    [dayButton5 setTitle:[day stringFromDate:[dateArray objectAtIndex:4]] forState:UIControlStateNormal];
-    [dayButton6 setTitle:[day stringFromDate:[dateArray objectAtIndex:5]] forState:UIControlStateNormal];
-    [dayButton7 setTitle:[day stringFromDate:[dateArray objectAtIndex:6]] forState:UIControlStateNormal];
-    
-    
-    sendDate = [topDate stringFromDate:[dateArray objectAtIndex:0]];
-    NSString *labelString = [NSString stringWithFormat:@"%@ to %@ %@",[topDate stringFromDate:[dateArray objectAtIndex:0]],[topDate stringFromDate:[dateArray objectAtIndex:6]],[year stringFromDate:[dateArray objectAtIndex:6]]];
-    
-    monthLabel.text = labelString;
-}
-
--(void)dateForCalender
-{
-    NSString *dateStr = @"2010may23";
-    
-    // Convert string to date object
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyyMMMdd"];
-    NSDate *date = [dateFormat dateFromString:dateStr];
-    
-    // Convert date object to desired output format
-    [dateFormat setDateFormat:@"EEEE MMMM d, YYYY"];
-    dateStr = [dateFormat stringFromDate:date];
-}
-
-*/
 
 
 

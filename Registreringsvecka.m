@@ -68,9 +68,7 @@
 
 -(IBAction)sub1button:(id)sender {
     
-    
-    
-    
+
     if (!calendarView) {
         calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView" bundle:nil];
     }
