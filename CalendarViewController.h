@@ -23,7 +23,8 @@
 
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) IBOutlet UILabel *monLabel1,*tueLabel2,*wedLabel3,*thrLabel4,*friLabel5,*satLabel6,*sunLabel7,*mainWeekLabel;
-@property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7;
+@property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7,*currentButtonStatus;
+
 
 @property (nonatomic,strong) NSMutableArray *dateArray,*weekdays;
 
@@ -35,13 +36,10 @@
 -(IBAction)calendarDayCellClicked:(id)sender;
 
 
-- (IBAction)forwardCalendar:(id)sender;
-- (IBAction)backwardCalender:(id)sender;
-
 - (NSString *)titleText;
 - (NSDate *)firstDayOfWeekFromDate:(NSDate *)date;
 - (void)week:(NSDate *)date;
--(void)updateScreens;
+- (void)updateScreens;
 
 
 @end

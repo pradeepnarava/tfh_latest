@@ -27,6 +27,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize monButton1,tueButton2,wedButton3,thrButton4,friButton5,satButton6,sunButton7;
 @synthesize dateArray,weekdays,week;
 @synthesize mainWeekLabel;
+@synthesize currentButtonStatus;
 
 
 
@@ -81,35 +82,16 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [self week:[NSDate date]];
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(insertData) name:@"InsertData" object:nil];
     
-    NSString *docsDir;
-    NSArray *dirPaths;
+}
+
+
+
+-(void)insertData {
     
-    // Get the documents directory
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
-    docsDir = [dirPaths objectAtIndex:0];
-    
-    // Build the path to the database file
-    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
-    
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        char *errMsg;
-        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE6 (ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT,WEEK TEXT,STARTDATE TEXT,ENDDATE TEXT,ENDDATE TEXT,STATUS TEXT,DAYDATE TEXT)";
-        
-        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
-        {
-            NSLog(@"Failed to create database");
-        }
-        
-        sqlite3_close(exerciseDB);
-        
-    } else {
-        //status.text = @"Failed to open/create database";
-    }
+    [currentButtonStatus setTitle:@"Goapl" forState:UIControlStateNormal];
 }
 
 -(void)backButon {
@@ -132,9 +114,13 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 -(IBAction)calendarEmptyCellClicked:(id)sender
 {
-    //UIButton *button = (UIButton*)[sender tag];
+    currentButtonStatus = [[UIButton alloc] init];
+    currentButtonStatus = (UIButton*)[sender tag];
     NSLog(@"button tag is %i",[sender tag]);
+    //currentButtonStatus = button;
     EventPopOverViewController *evntViewCntrl = [[EventPopOverViewController alloc] initWithNibName:@"EventPopOverView" bundle:nil];
+    
+    
      [self presentPopupViewController:evntViewCntrl animationType:MJPopupViewAnimationSlideBottomBottom];
 }
 
@@ -159,16 +145,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 #pragma mark Calendar 
 
-- (IBAction)forwardCalendar:(id)sender
-{
-    
-}
-
-- (IBAction)backwardCalender:(id)sender
-{
-    
-    
-}
 
 
 - (NSString *)titleText {
@@ -181,7 +157,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 			[monthSymbols objectAtIndex:[components month] - 1],
 			[components week]];
 }
-
 
 
 - (NSDate *)firstDayOfWeekFromDate:(NSDate *)date {
@@ -197,24 +172,23 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 - (void)week:(NSDate *)_date {
     
-	NSDate *firstOfWeek = [self firstDayOfWeekFromDate:_date];
-	self.week = firstOfWeek;
+    self.week = _date;
     
-    NSDate *date = self.week;
-	NSDateComponents *components;
-	NSDateComponents *components2 = [[NSDateComponents alloc] init];
-	[components2 setDay:1];
-	
-	self.weekdays = [[NSMutableArray alloc] init];
-	
-	for (register unsigned int i=0; i < DAYS_IN_WEEK; i++) {
-		[self.weekdays addObject:date];
-		components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:date];
-		[components setDay:1];
-		date = [CURRENT_CALENDAR dateByAddingComponents:components2 toDate:date options:0];
-	}
-	
+    self.weekdays = [[NSMutableArray alloc] init];
+    
+    for (int i =1; i <= 7; i++)
+    {
+        NSDateComponents *comps1 = [[NSDateComponents alloc] init];
+        [comps1 setMonth:0];
+        [comps1 setDay:+i];
+        [comps1 setHour:0];
+        NSCalendar *calendar1 = [NSCalendar currentCalendar];
+        NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:[NSDate date] options:0];
+        [self.weekdays addObject:newDate1];
+    }
+    
     NSLog(@"%@",self.weekdays);
+    
 	[self updateScreens];
     self.mainWeekLabel.text = [self titleText];
 }
@@ -222,27 +196,44 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)updateScreens {
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease];
+    NSArray *weekdaySymbols = [dateFormatter shortWeekdaySymbols];
     
 	for (int i =0; i < [self.weekdays count]; i++) {
         
         NSDate *date = [self.weekdays objectAtIndex:i];
-		NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:date];
-		NSString *displayText = [NSString stringWithFormat:@"%i",[components day]];
-        
-        if (i == 0) {
-            monLabel1.text = displayText;
-        }else if (i==1){
-            tueLabel2.text = displayText;
-        }else if (i ==2){
-            wedLabel3.text = displayText;
-        }else if (i ==3){
-            thrLabel4.text = displayText;
-        }else if (i == 4){
-            friLabel5.text = displayText;
-        }else if (i == 5){
-            satLabel6.text = displayText;
-        }else if (i == 6) {
-            sunLabel7.text = displayText;
+		
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *weekdayComponents =[gregorian components:NSWeekdayCalendarUnit fromDate:date];
+        NSInteger weekday = [weekdayComponents weekday];
+        [gregorian release];
+        NSString *weeday =[weekdaySymbols objectAtIndex:weekday-1];
+
+        switch (i) {
+            case 0:
+                [monButton1 setTitle:weeday forState:UIControlStateNormal];
+                
+                break;
+            case 1:
+                [tueButton2 setTitle:weeday forState:UIControlStateNormal];
+                break;
+            case 2:
+                [wedButton3 setTitle:weeday forState:UIControlStateNormal];
+                break;
+            case 3:
+                [thrButton4 setTitle:weeday forState:UIControlStateNormal];
+                break;
+            case 4:
+                [friButton5 setTitle:weeday forState:UIControlStateNormal];
+                break;
+            case 5:
+                [satButton6 setTitle:weeday forState:UIControlStateNormal];
+                break;
+            case 6:
+                [sunButton7 setTitle:weeday forState:UIControlStateNormal];
+                break;
+            default:
+                break;
         }
     }
 }
