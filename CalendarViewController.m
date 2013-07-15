@@ -39,6 +39,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     return self;
 }
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -140,8 +142,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 -(IBAction)totalButtonClicked:(id)sender
 {
-    //UIButton *button = (UIButton*)[sender tag];
-    NSLog(@"button tag is %i",[sender tag]);
+    UIButton *button = (UIButton*)sender;
+    NSLog(@"button tag is %i",[button tag]);
 
 }
 
@@ -149,7 +151,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(IBAction)calendarDayCellClicked:(id)sender
 {
     
-    UIButton *button = (UIButton*)[sender tag];
+    UIButton *button = (UIButton*)sender;
     NSLog(@"button tag is %i",[button tag]);
     
 }

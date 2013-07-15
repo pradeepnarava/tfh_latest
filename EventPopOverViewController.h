@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EventPopOverViewController : UIViewController
+@interface EventPopOverViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
 
 @end

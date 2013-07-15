@@ -11,7 +11,7 @@
 
 @class SettingRegistViewController;
 
-@interface CalendarViewController : UIViewController
+@interface CalendarViewController : UIViewController <UITextFieldDelegate>
 
 {
     sqlite3 *exerciseDB;
