@@ -8,14 +8,36 @@
 
 #import "CalendarViewController.h"
 #import "SettingRegistViewController.h"
-#import "UIViewController+MJPopupViewController.h"
-#import "MJPopupBackgroundView.h"
 #import "EventPopOverViewController.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
 
 static const unsigned int DAYS_IN_WEEK                        = 7;
+
+
+@interface CustomButton : UIButton
+
+@property (nonatomic, strong) NSString *currentDateString;
+
+@end
+
+@implementation CustomButton
+@synthesize currentDateString;
+
+
+
+
+-(void)setCurrentDateString:(NSString *)currentDate {
+    currentDateString = currentDate;
+}
+
+-(NSString *)currentDateString {
+    return currentDateString;
+}
+
+@end
+
 
 @interface CalendarViewController ()
 @end
@@ -28,6 +50,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize dateArray,weekdays,week;
 @synthesize mainWeekLabel;
 @synthesize currentButtonStatus;
+@synthesize popupView;
 
 
 
@@ -47,22 +70,21 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    [scrollView setContentSize:CGSizeMake(320, 770)];
-    
+    self.popupView.layer.cornerRadius = 12;
+    self.popupView.layer.shadowOpacity = 0.7;
+    self.popupView.layer.shadowOffset = CGSizeMake(6, 6);
+    self.popupView.layer.shouldRasterize = YES;
+    self.popupView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
         [okBtn setImage:image forState:UIControlStateNormal];
         [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
-        
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
-        
     }
     else {
-        
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
@@ -80,19 +102,28 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     
     [self week:[NSDate date]];
+}
+
+-(void)createButton {
     
+    for (int i = 0; i < 7; i++) {
+        for (int j =0; j < 24 ; j++) {
+            CustomButton *but = [[CustomButton alloc] initWithFrame:CGRectMake(i*42, j*29, 42, 29)];
+            [but setImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+            [but addTarget:self action:@selector(emptyCell:) forControlEvents:UIControlEventTouchUpInside];
+            [but setCurrentDateString:@"Gopal"];
+            [self.scrollView addSubview:but];
+        }
+    }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(insertData) name:@"InsertData" object:nil];
-    
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, 24*29)];
 }
 
 
-
--(void)insertData {
-    
-    
-    [currentButtonStatus setTitle:@"Goapl" forState:UIControlStateNormal];
+-(void)viewWillAppear:(BOOL)animated {
+    [self createButton];
 }
+
 
 -(void)backButon {
     
@@ -112,17 +143,24 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 #pragma mark Calendar Empty Cell
 
--(IBAction)calendarEmptyCellClicked:(id)sender
-{
-    currentButtonStatus = [[UIButton alloc] init];
-    currentButtonStatus = (UIButton*)[sender tag];
-    NSLog(@"button tag is %i",[sender tag]);
-    //currentButtonStatus = button;
-    EventPopOverViewController *evntViewCntrl = [[EventPopOverViewController alloc] initWithNibName:@"EventPopOverView" bundle:nil];
+
+-(void)emptyCell:(id)sender {
     
-    
-     [self presentPopupViewController:evntViewCntrl animationType:MJPopupViewAnimationSlideBottomBottom];
+    /*ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+    [ASDepthModalViewController presentView:self.popupView
+                            backgroundColor:nil
+                                    options:style
+                          completionHandler:^{
+                              NSLog(@"Modal view closed.");
+                          }];*/
 }
+
+
+-(IBAction)okButtonClicked:(id)sender
+{
+    //[ASDepthModalViewController dismiss];
+}
+
 
 #pragma mark TotalButtonClicked 
 
@@ -130,7 +168,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 {
     UIButton *button = (UIButton*)sender;
     NSLog(@"button tag is %i",[button tag]);
-
 }
 
 #pragma mark Calendar Day Button Clicked
@@ -144,8 +181,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 #pragma mark Calendar 
-
-
 
 - (NSString *)titleText {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

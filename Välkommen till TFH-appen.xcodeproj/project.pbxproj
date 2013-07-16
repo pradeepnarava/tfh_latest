@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2401C2E01792F8080081BFEA /* setting_alarm_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2DF1792F8080081BFEA /* setting_alarm_button.png */; };
-		2401C2E61793121E0081BFEA /* MJPopupBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2401C2E31793121E0081BFEA /* MJPopupBackgroundView.m */; };
-		2401C2E71793121E0081BFEA /* UIViewController+MJPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2401C2E51793121E0081BFEA /* UIViewController+MJPopupViewController.m */; };
 		2401C2EA179312590081BFEA /* EventPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2401C2E9179312590081BFEA /* EventPopOverViewController.m */; };
 		2401C2EC179312790081BFEA /* EventPopOverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2EB179312790081BFEA /* EventPopOverView.xib */; };
 		2401C2EE1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */; };
@@ -289,10 +287,6 @@
 
 /* Begin PBXFileReference section */
 		2401C2DF1792F8080081BFEA /* setting_alarm_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_alarm_button.png; sourceTree = "<group>"; };
-		2401C2E21793121E0081BFEA /* MJPopupBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPopupBackgroundView.h; sourceTree = "<group>"; };
-		2401C2E31793121E0081BFEA /* MJPopupBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPopupBackgroundView.m; sourceTree = "<group>"; };
-		2401C2E41793121E0081BFEA /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
-		2401C2E51793121E0081BFEA /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
 		2401C2E8179312590081BFEA /* EventPopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPopOverViewController.h; sourceTree = "<group>"; };
 		2401C2E9179312590081BFEA /* EventPopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPopOverViewController.m; sourceTree = "<group>"; };
 		2401C2EB179312790081BFEA /* EventPopOverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventPopOverView.xib; sourceTree = "<group>"; };
@@ -726,10 +720,6 @@
 		2401C2E11793120A0081BFEA /* PopOverView */ = {
 			isa = PBXGroup;
 			children = (
-				2401C2E21793121E0081BFEA /* MJPopupBackgroundView.h */,
-				2401C2E31793121E0081BFEA /* MJPopupBackgroundView.m */,
-				2401C2E41793121E0081BFEA /* UIViewController+MJPopupViewController.h */,
-				2401C2E51793121E0081BFEA /* UIViewController+MJPopupViewController.m */,
 			);
 			name = PopOverView;
 			sourceTree = "<group>";
@@ -1622,8 +1612,6 @@
 				24415158178823E70087957E /* InteroceptiveCustomCell.m in Sources */,
 				247751871790703B00CF2518 /* CalendarViewController.m in Sources */,
 				24B54E2917907D0700AAA236 /* SettingRegistViewController.m in Sources */,
-				2401C2E61793121E0081BFEA /* MJPopupBackgroundView.m in Sources */,
-				2401C2E71793121E0081BFEA /* UIViewController+MJPopupViewController.m in Sources */,
 				2401C2EA179312590081BFEA /* EventPopOverViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
