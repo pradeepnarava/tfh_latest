@@ -9,6 +9,7 @@
 #import "CalendarViewController.h"
 #import "SettingRegistViewController.h"
 #import "EventPopOverViewController.h"
+#import "ASDepthModalViewController.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
@@ -27,19 +28,13 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
-
--(void)setCurrentDateString:(NSString *)currentDate {
-    currentDateString = currentDate;
-}
-
--(NSString *)currentDateString {
-    return currentDateString;
-}
-
 @end
 
 
 @interface CalendarViewController ()
+
+@property (nonatomic, strong) NSString *currentStatuBtn;
+@property (nonatomic, strong) NSString *currentDateBtn;
 @end
 
 @implementation CalendarViewController
@@ -51,6 +46,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize mainWeekLabel;
 @synthesize currentButtonStatus;
 @synthesize popupView;
+@synthesize hoursTextField1,hoursTextField2;
+@synthesize mintsTextField1,mintsTextField2;
+@synthesize eventDesTextView;
+@synthesize currentStatuBtn;
+@synthesize currentDateBtn;
 
 
 
@@ -64,12 +64,22 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+    }
+    else {
+        return YES;
+    }
+    return 0;
+}
+
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
+    [super viewDidLoad];    
     self.popupView.layer.cornerRadius = 12;
     self.popupView.layer.shadowOpacity = 0.7;
     self.popupView.layer.shadowOffset = CGSizeMake(6, 6);
@@ -102,16 +112,61 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     
     [self week:[NSDate date]];
+    
+    NSString *docsDir;
+    NSArray *dirPaths;
+    
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    docsDir = [dirPaths objectAtIndex:0];
+    
+    // Build the path to the database file
+    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE6 (ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT,STARTDATE TEXT,ENDDATE TEXT,STATUS TEXT,DAYDATE TEXT,EVENTDES TEXT)";
+        
+        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+        {
+            NSLog(@"Failed to create database");
+        }
+        
+        sqlite3_close(exerciseDB);
+        
+    } else {
+        NSLog(@"Failed to open/create database");
+    }
 }
+
+-(NSString*)dateFromString:(NSDate*)date {
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+
 
 -(void)createButton {
     
+    
     for (int i = 0; i < 7; i++) {
+        NSDate *date = [self.weekdays objectAtIndex:i];
+
+        NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+
         for (int j =0; j < 24 ; j++) {
-            CustomButton *but = [[CustomButton alloc] initWithFrame:CGRectMake(i*42, j*29, 42, 29)];
-            [but setImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+            NSString *hStr = [NSString stringWithFormat:@"%i",j];
+            CustomButton *but = [[CustomButton alloc] initWithFrame:CGRectMake((i*42)+ 25, j*29, 42, 29)];
+            [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
             [but addTarget:self action:@selector(emptyCell:) forControlEvents:UIControlEventTouchUpInside];
-            [but setCurrentDateString:@"Gopal"];
+            [but setCurrentDateString:[NSString stringWithFormat:@"%@ %@",[tm objectAtIndex:0],hStr]];
+
+            [but setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.scrollView addSubview:but];
         }
     }
@@ -126,7 +181,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)backButon {
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -144,21 +198,72 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 #pragma mark Calendar Empty Cell
 
 
--(void)emptyCell:(id)sender {
+-(void)refresh {
     
-    /*ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+    NSArray *em = [currentDateBtn componentsSeparatedByString:@" "];
+    
+    for (int i = 0; i < 7; i++) {
+        NSDate *date = [self.weekdays objectAtIndex:i];
+    
+        NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    
+        for (int j =0; j < 24 ; j++) {
+            NSString *hStr = [NSString stringWithFormat:@"%i",j];
+            NSString *mainStrin = [NSString stringWithFormat:@"%@ %@",[tm objectAtIndex:0],hStr];
+            CustomButton *but = [[CustomButton alloc] initWithFrame:CGRectMake((i*42)+ 25, j*29, 42, 29)];
+            
+            if ([[em objectAtIndex:0] isEqualToString:[tm objectAtIndex:0]]) {
+                
+                if ([hStr isEqualToString:hoursTextField1.text]) {
+                    
+                    if ([currentStatuBtn isEqualToString:@"+"]) {
+                     [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
+                    }else if ([currentStatuBtn isEqualToString:@"-"]){
+                    [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
+                    }else if ([currentStatuBtn isEqualToString:@"N"]){
+                       [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal]; 
+                    }
+                    [but setTitle:eventDesTextView.text forState:UIControlStateNormal];
+                }
+                else {
+                    [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+                }
+                
+            }else {
+                [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+            }
+            [but setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [but addTarget:self action:@selector(emptyCell:) forControlEvents:UIControlEventTouchUpInside];
+            [but setCurrentDateString:mainStrin];
+            [self.scrollView addSubview:but];
+        }
+    }
+    
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, 24*29)];
+    
+}
+
+-(void)emptyCell:(CustomButton *)sender {
+
+    currentDateBtn = sender.currentDateString;
+
+
+    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     [ASDepthModalViewController presentView:self.popupView
                             backgroundColor:nil
                                     options:style
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
-                          }];*/
+                              [self refresh];
+                          }];
 }
 
 
 -(IBAction)okButtonClicked:(id)sender
 {
-    //[ASDepthModalViewController dismiss];
+    [ASDepthModalViewController dismiss];
+    [self insertDataIntoDatabase];
+
 }
 
 
@@ -180,9 +285,29 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
+-(IBAction)statusButtonClicked:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    NSLog(@"%i",btn.tag);
+    
+    switch (btn.tag) {
+        case 1:
+            currentStatuBtn = btn.currentTitle;
+            break;
+        case 2:
+            currentStatuBtn = btn.currentTitle;
+            break;
+        case 3:
+            currentStatuBtn = btn.currentTitle;
+            break;
+        default:
+            break;
+    }
+}
+
 #pragma mark Calendar 
 
-- (NSString *)titleText {
+/*- (NSString *)titleText {
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self.week];
 	
@@ -191,7 +316,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 	return [NSString stringWithFormat:@"%@, week %i",
 			[monthSymbols objectAtIndex:[components month] - 1],
 			[components week]];
-}
+}*/
 
 
 - (NSDate *)firstDayOfWeekFromDate:(NSDate *)date {
@@ -204,6 +329,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 	CFRelease(currentCalendar);
 	return [CURRENT_CALENDAR dateFromComponents:components];
 }
+
+
 
 - (void)week:(NSDate *)_date {
     
@@ -225,7 +352,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     NSLog(@"%@",self.weekdays);
     
 	[self updateScreens];
-    self.mainWeekLabel.text = [self titleText];
+    //self.mainWeekLabel.text = [self titleText];
 }
 
 
@@ -243,11 +370,10 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSInteger weekday = [weekdayComponents weekday];
         [gregorian release];
         NSString *weeday =[weekdaySymbols objectAtIndex:weekday-1];
-
+        
         switch (i) {
             case 0:
                 [monButton1 setTitle:weeday forState:UIControlStateNormal];
-                
                 break;
             case 1:
                 [tueButton2 setTitle:weeday forState:UIControlStateNormal];
@@ -274,12 +400,90 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
+-(void)insertDataIntoDatabase {
+    
+    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
+    NSString* str = [formatter stringFromDate:[NSDate date]];
+    
+    
+    NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+    NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
+    
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE6 (date,startdate,enddate,status,daydate,eventdes) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\")",str,startDate,endDate,currentStatuBtn,currentDateBtn,eventDesTextView.text];
+        
+        const char *insert_stmt = [insertSQL UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE)
+        {
+            NSLog(@"YES");
+        } else {
+            if(SQLITE_DONE != sqlite3_step(statement))
+                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+            NSLog(@"NO");
+        }
+        sqlite3_finalize(statement);
+    }
+    
+    sqlite3_close(exerciseDB);
+}
+
+
+#pragma mark UITextField Delegate Methods
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.popupView setFrame:CGRectMake(self.popupView.frame.origin.x, self.popupView.frame.origin.y - 60, self.popupView.frame.size.width, self.popupView.frame.size.height)];
+}
+
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    [self.popupView setFrame:CGRectMake(self.popupView.frame.origin.x, self.popupView.frame.origin.y + 60, self.popupView.frame.size.width, self.popupView.frame.size.height)];
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView {
+
+}
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    
+    [textField addTarget:self action:@selector(changeText:) forControlEvents:UIControlEventEditingChanged];
+    return YES;
+}
+
+
+-(void)changeText:(UITextField*)textField {
+    
+    if (textField == hoursTextField1) {
+        if ([textField.text length] > 24) {
+            hoursTextField2.text = @"";
+        }
+        else {
+            int h1 = [textField.text integerValue];
+            h1 += 1;
+            hoursTextField2.text = [NSString stringWithFormat:@"%i",h1];
+        }
+    }
+    if (textField == mintsTextField1) {
+        mintsTextField2.text = mintsTextField1.text;
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

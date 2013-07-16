@@ -67,12 +67,23 @@
 
 
 -(IBAction)sub1button:(id)sender {
-    
-
-    if (!calendarView) {
-        calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView" bundle:nil];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!calendarView) {
+                calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView" bundle:nil];
+            }
+        }else{
+            if (!calendarView) {
+                calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+            }
+        }
     }
-
+    else{
+        if (!calendarView) {
+            calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPad" bundle:nil];
+        }
+    }
+    
     [self.navigationController pushViewController:calendarView animated:YES];
 }
 

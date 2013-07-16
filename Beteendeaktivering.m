@@ -78,28 +78,65 @@
 
 
 -(IBAction)sub1:(id)sender{
-    
-    if (!rs) {
-        rs=[[Registreringsvecka alloc]initWithNibName:@"Registreringsvecka" bundle:nil];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!rs) {
+                rs=[[Registreringsvecka alloc]initWithNibName:@"Registreringsvecka" bundle:nil];
+            }
+        }else{
+            if (!rs) {
+                rs=[[Registreringsvecka alloc]initWithNibName:@"Registreringsvecka_iPhone4" bundle:nil];
+            }
+        }
     }
-
+    else{
+        if (!rs) {
+            rs=[[Registreringsvecka alloc]initWithNibName:@"Registreringsvecka_iPad" bundle:nil];
+        }
+    }
+    
     [self.navigationController pushViewController:rs animated:YES];
 }
 
 
 -(IBAction)sub2:(id)sender{
-    if (!psc) {
-        psc=[[Plusvecka alloc]initWithNibName:@"Plusvecka" bundle:nil];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!psc) {
+                psc=[[Plusvecka alloc]initWithNibName:@"Plusvecka" bundle:nil];
+            }
+        }else{
+            if (!psc) {
+                psc=[[Plusvecka alloc]initWithNibName:@"Plusvecka_iPhone4" bundle:nil];
+            }
+        }
     }
-    
+    else{
+        if (!psc) {
+            psc=[[Plusvecka alloc]initWithNibName:@"Plusvecka_iPad" bundle:nil];
+        }
+    }
+
     [self.navigationController pushViewController:psc animated:YES];
 }
 
 
--(IBAction)sub3:(id)sender{
-    
-    if (!ud) {
-        ud=[[Utvardering alloc]initWithNibName:@"Utvardering" bundle:nil];
+-(IBAction)sub3:(id)sender {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!ud) {
+                ud=[[Utvardering alloc]initWithNibName:@"Utvardering" bundle:nil];
+            }
+        }else{
+            if (!ud) {
+                ud=[[Utvardering alloc]initWithNibName:@"Utvardering_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!ud) {
+            ud=[[Utvardering alloc]initWithNibName:@"Utvardering_iPad" bundle:nil];
+        }
     }
     
     [self.navigationController pushViewController:ud animated:YES];

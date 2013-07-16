@@ -12,7 +12,7 @@
 
 @class SettingRegistViewController;
 
-@interface CalendarViewController : UIViewController <UITextFieldDelegate>
+@interface CalendarViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
 
 {
     sqlite3 *exerciseDB;
@@ -43,9 +43,9 @@
 
 -(IBAction)okButtonClicked:(id)sender;
 
-
-
-- (NSString *)titleText;
+-(IBAction)statusButtonClicked:(id)sender;
+-(void)insertDataIntoDatabase;
+//- (NSString *)titleText;
 - (NSDate *)firstDayOfWeekFromDate:(NSDate *)date;
 - (void)week:(NSDate *)date;
 - (void)updateScreens;

@@ -29,10 +29,13 @@
 		2441519D17894F610087957E /* topbar_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2441519B17894F610087957E /* topbar_ipad@2x.png */; };
 		2441519F178958DD0087957E /* tillbaka-button_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2441519E178958DD0087957E /* tillbaka-button_ipad.png */; };
 		244A049D179104DE0020ECE1 /* kalendar_cell_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A0497179104DE0020ECE1 /* kalendar_cell_empty.png */; };
-		244A049E179104DE0020ECE1 /* kalendar_cell_emptycell-neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A0498179104DE0020ECE1 /* kalendar_cell_emptycell-neutral.png */; };
+		244A049E179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A0498179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png */; };
 		244A049F179104DE0020ECE1 /* kalendar_cell_negative.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A0499179104DE0020ECE1 /* kalendar_cell_negative.png */; };
 		244A04A0179104DE0020ECE1 /* kalendar_cell_positive.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A049A179104DE0020ECE1 /* kalendar_cell_positive.png */; };
 		244A04A1179104DE0020ECE1 /* kalendar_cell_top_and_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A049B179104DE0020ECE1 /* kalendar_cell_top_and_bottom.png */; };
+		2456C5B71795AD1000F36A2F /* ASDepthModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2456C5B41795AD1000F36A2F /* ASDepthModalViewController.m */; };
+		2456C5B81795AD1000F36A2F /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 2456C5B61795AD1000F36A2F /* UIImage+Blur.m */; };
+		2456C5BA1795AD2100F36A2F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2456C5B91795AD2100F36A2F /* Accelerate.framework */; };
 		247751841790672E00CF2518 /* Regisreringsveck_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 247751831790672D00CF2518 /* Regisreringsveck_button.png */; };
 		247751871790703B00CF2518 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247751861790703B00CF2518 /* CalendarViewController.m */; };
 		247751891790706200CF2518 /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 247751881790706200CF2518 /* CalendarView.xib */; };
@@ -311,10 +314,15 @@
 		2441519B17894F610087957E /* topbar_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topbar_ipad@2x.png"; sourceTree = "<group>"; };
 		2441519E178958DD0087957E /* tillbaka-button_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tillbaka-button_ipad.png"; sourceTree = "<group>"; };
 		244A0497179104DE0020ECE1 /* kalendar_cell_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kalendar_cell_empty.png; sourceTree = "<group>"; };
-		244A0498179104DE0020ECE1 /* kalendar_cell_emptycell-neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kalendar_cell_emptycell-neutral.png"; sourceTree = "<group>"; };
+		244A0498179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kalendar_cell_emptycell_neutral.png; sourceTree = "<group>"; };
 		244A0499179104DE0020ECE1 /* kalendar_cell_negative.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kalendar_cell_negative.png; sourceTree = "<group>"; };
 		244A049A179104DE0020ECE1 /* kalendar_cell_positive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kalendar_cell_positive.png; sourceTree = "<group>"; };
 		244A049B179104DE0020ECE1 /* kalendar_cell_top_and_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kalendar_cell_top_and_bottom.png; sourceTree = "<group>"; };
+		2456C5B31795AD1000F36A2F /* ASDepthModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDepthModalViewController.h; sourceTree = "<group>"; };
+		2456C5B41795AD1000F36A2F /* ASDepthModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDepthModalViewController.m; sourceTree = "<group>"; };
+		2456C5B51795AD1000F36A2F /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
+		2456C5B61795AD1000F36A2F /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
+		2456C5B91795AD2100F36A2F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		247751831790672D00CF2518 /* Regisreringsveck_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Regisreringsveck_button.png; sourceTree = "<group>"; };
 		247751851790703B00CF2518 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		247751861790703B00CF2518 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
@@ -701,6 +709,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2456C5BA1795AD2100F36A2F /* Accelerate.framework in Frameworks */,
 				5EEAA3C717463442005737CC /* CoreData.framework in Frameworks */,
 				5EEAA3C617463434005737CC /* QuartzCore.framework in Frameworks */,
 				5EED2AF2173E5BAC00CF77B3 /* EventKit.framework in Frameworks */,
@@ -720,6 +729,10 @@
 		2401C2E11793120A0081BFEA /* PopOverView */ = {
 			isa = PBXGroup;
 			children = (
+				2456C5B31795AD1000F36A2F /* ASDepthModalViewController.h */,
+				2456C5B41795AD1000F36A2F /* ASDepthModalViewController.m */,
+				2456C5B51795AD1000F36A2F /* UIImage+Blur.h */,
+				2456C5B61795AD1000F36A2F /* UIImage+Blur.m */,
 			);
 			name = PopOverView;
 			sourceTree = "<group>";
@@ -798,6 +811,7 @@
 		5EA026A0172E7CD100C37EE4 = {
 			isa = PBXGroup;
 			children = (
+				2456C5B91795AD2100F36A2F /* Accelerate.framework */,
 				5EA735A21758D634001D56C7 /* TPMultiLayoutViewController.h */,
 				5EA735A31758D634001D56C7 /* TPMultiLayoutViewController.m */,
 				5EF7ECD81743D0C6004D0EDD /* murali */,
@@ -1039,7 +1053,7 @@
 			children = (
 				2401C2E11793120A0081BFEA /* PopOverView */,
 				244A0497179104DE0020ECE1 /* kalendar_cell_empty.png */,
-				244A0498179104DE0020ECE1 /* kalendar_cell_emptycell-neutral.png */,
+				244A0498179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png */,
 				244A0499179104DE0020ECE1 /* kalendar_cell_negative.png */,
 				244A049A179104DE0020ECE1 /* kalendar_cell_positive.png */,
 				244A049B179104DE0020ECE1 /* kalendar_cell_top_and_bottom.png */,
@@ -1551,7 +1565,7 @@
 				247751891790706200CF2518 /* CalendarView.xib in Resources */,
 				24B54E2B17907D2800AAA236 /* SettingRegistView.xib in Resources */,
 				244A049D179104DE0020ECE1 /* kalendar_cell_empty.png in Resources */,
-				244A049E179104DE0020ECE1 /* kalendar_cell_emptycell-neutral.png in Resources */,
+				244A049E179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png in Resources */,
 				244A049F179104DE0020ECE1 /* kalendar_cell_negative.png in Resources */,
 				244A04A0179104DE0020ECE1 /* kalendar_cell_positive.png in Resources */,
 				244A04A1179104DE0020ECE1 /* kalendar_cell_top_and_bottom.png in Resources */,
@@ -1613,6 +1627,8 @@
 				247751871790703B00CF2518 /* CalendarViewController.m in Sources */,
 				24B54E2917907D0700AAA236 /* SettingRegistViewController.m in Sources */,
 				2401C2EA179312590081BFEA /* EventPopOverViewController.m in Sources */,
+				2456C5B71795AD1000F36A2F /* ASDepthModalViewController.m in Sources */,
+				2456C5B81795AD1000F36A2F /* UIImage+Blur.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
