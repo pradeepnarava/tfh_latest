@@ -8,7 +8,6 @@
 
 #import "CalendarViewController.h"
 #import "SettingRegistViewController.h"
-#import "EventPopOverViewController.h"
 #import "ASDepthModalViewController.h"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
@@ -19,12 +18,12 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 @interface CustomButton : UIButton
 
-@property (nonatomic, strong) NSString *currentDateString;
+@property (nonatomic, strong) NSString *currentDateString,*tabValue;
 
 @end
 
 @implementation CustomButton
-@synthesize currentDateString;
+@synthesize currentDateString,tabValue;
 
 
 
@@ -34,7 +33,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @interface CalendarViewController ()
 
 @property (nonatomic, strong) NSString *currentStatuBtn;
-@property (nonatomic, strong) NSString *currentDateBtn;
+@property (nonatomic, strong) NSString *currentDateBtn,*tabValue;
+@property (nonatomic, strong) UIButton *currentButtonStatus;
 @end
 
 @implementation CalendarViewController
@@ -51,6 +51,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize eventDesTextView;
 @synthesize currentStatuBtn;
 @synthesize currentDateBtn;
+@synthesize tabValue;
 
 
 
@@ -141,6 +142,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     } else {
         NSLog(@"Failed to open/create database");
     }
+    [self createButton];
 }
 
 -(NSString*)dateFromString:(NSDate*)date {
@@ -152,8 +154,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)createButton {
-    
-    
+
     for (int i = 0; i < 7; i++) {
         NSDate *date = [self.weekdays objectAtIndex:i];
 
@@ -162,10 +163,14 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         for (int j =0; j < 24 ; j++) {
             NSString *hStr = [NSString stringWithFormat:@"%i",j];
             CustomButton *but = [[CustomButton alloc] initWithFrame:CGRectMake((i*42)+ 25, j*29, 42, 29)];
+            but.titleLabel.textAlignment = UITextAlignmentCenter;
             [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+            [but setTabValue:[NSString stringWithFormat:@"%d",i]];
             [but addTarget:self action:@selector(emptyCell:) forControlEvents:UIControlEventTouchUpInside];
             [but setCurrentDateString:[NSString stringWithFormat:@"%@ %@",[tm objectAtIndex:0],hStr]];
-
+            NSString *strin = [NSString stringWithFormat:@"%d%d",j,i];
+            NSLog(@"$$$$ $$$ %i",[strin intValue]);
+            [but setTag:[strin intValue]];
             [but setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.scrollView addSubview:but];
         }
@@ -175,9 +180,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
--(void)viewWillAppear:(BOOL)animated {
-    [self createButton];
-}
+
 
 
 -(void)backButon {
@@ -200,7 +203,23 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 -(void)refresh {
     
-    NSArray *em = [currentDateBtn componentsSeparatedByString:@" "];
+    NSLog(@"%@",currentDateBtn);
+    
+    NSString *_tabValue = [NSString stringWithFormat:@"%d%d",[hoursTextField1.text intValue],[tabValue intValue]];
+
+    CustomButton *but = (CustomButton *)[self.scrollView viewWithTag:[_tabValue intValue]];
+    
+    if ([currentStatuBtn isEqualToString:@"+"]) {
+        [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
+    }else if ([currentStatuBtn isEqualToString:@"-"]){
+        [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
+    }else if ([currentStatuBtn isEqualToString:@"N"]){
+        [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
+    }
+    [but setTitle:eventDesTextView.text forState:UIControlStateNormal];
+
+    
+    /*NSArray *em = [currentDateBtn componentsSeparatedByString:@" "];
     
     for (int i = 0; i < 7; i++) {
         NSDate *date = [self.weekdays objectAtIndex:i];
@@ -239,15 +258,15 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         }
     }
     
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, 24*29)];
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, 24*29)];*/
     
 }
 
 -(void)emptyCell:(CustomButton *)sender {
-
+    //currentButtonStatus = sender;
     currentDateBtn = sender.currentDateString;
-
-
+    tabValue = sender.tabValue;
+    
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     [ASDepthModalViewController presentView:self.popupView
                             backgroundColor:nil

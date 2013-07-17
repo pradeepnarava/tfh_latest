@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2401C2E01792F8080081BFEA /* setting_alarm_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2DF1792F8080081BFEA /* setting_alarm_button.png */; };
-		2401C2EA179312590081BFEA /* EventPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2401C2E9179312590081BFEA /* EventPopOverViewController.m */; };
-		2401C2EC179312790081BFEA /* EventPopOverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2EB179312790081BFEA /* EventPopOverView.xib */; };
 		2401C2EE1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */; };
 		2401C2F0179313900081BFEA /* Registreringsvecka_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */; };
 		2401C2F2179313D10081BFEA /* CalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2F1179313D10081BFEA /* CalendarView_iPhone4.xib */; };
@@ -290,9 +288,6 @@
 
 /* Begin PBXFileReference section */
 		2401C2DF1792F8080081BFEA /* setting_alarm_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_alarm_button.png; sourceTree = "<group>"; };
-		2401C2E8179312590081BFEA /* EventPopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPopOverViewController.h; sourceTree = "<group>"; };
-		2401C2E9179312590081BFEA /* EventPopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPopOverViewController.m; sourceTree = "<group>"; };
-		2401C2EB179312790081BFEA /* EventPopOverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventPopOverView.xib; sourceTree = "<group>"; };
 		2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Beteendeaktivering_iPhone4.xib; sourceTree = "<group>"; };
 		2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Registreringsvecka_iPhone4.xib; sourceTree = "<group>"; };
 		2401C2F1179313D10081BFEA /* CalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView_iPhone4.xib; sourceTree = "<group>"; };
@@ -1079,9 +1074,6 @@
 				247751861790703B00CF2518 /* CalendarViewController.m */,
 				247751881790706200CF2518 /* CalendarView.xib */,
 				2401C2F1179313D10081BFEA /* CalendarView_iPhone4.xib */,
-				2401C2E8179312590081BFEA /* EventPopOverViewController.h */,
-				2401C2E9179312590081BFEA /* EventPopOverViewController.m */,
-				2401C2EB179312790081BFEA /* EventPopOverView.xib */,
 				24B54E2717907D0700AAA236 /* SettingRegistViewController.h */,
 				24B54E2817907D0700AAA236 /* SettingRegistViewController.m */,
 				24B54E2A17907D2800AAA236 /* SettingRegistView.xib */,
@@ -1570,7 +1562,6 @@
 				244A04A0179104DE0020ECE1 /* kalendar_cell_positive.png in Resources */,
 				244A04A1179104DE0020ECE1 /* kalendar_cell_top_and_bottom.png in Resources */,
 				2401C2E01792F8080081BFEA /* setting_alarm_button.png in Resources */,
-				2401C2EC179312790081BFEA /* EventPopOverView.xib in Resources */,
 				2401C2EE1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib in Resources */,
 				2401C2F0179313900081BFEA /* Registreringsvecka_iPhone4.xib in Resources */,
 				2401C2F2179313D10081BFEA /* CalendarView_iPhone4.xib in Resources */,
@@ -1626,7 +1617,6 @@
 				24415158178823E70087957E /* InteroceptiveCustomCell.m in Sources */,
 				247751871790703B00CF2518 /* CalendarViewController.m in Sources */,
 				24B54E2917907D0700AAA236 /* SettingRegistViewController.m in Sources */,
-				2401C2EA179312590081BFEA /* EventPopOverViewController.m in Sources */,
 				2456C5B71795AD1000F36A2F /* ASDepthModalViewController.m in Sources */,
 				2456C5B81795AD1000F36A2F /* UIImage+Blur.m in Sources */,
 			);
