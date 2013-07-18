@@ -15,7 +15,7 @@
 @end
 
 @implementation Plusvecka
-
+@synthesize selectController;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -64,6 +64,31 @@
 
 -(IBAction)Ilabel:(id)sender{
        [MTPopupWindow showWindowWithHTMLFile:@"Plusvecka.html" insideView:self.view];
+}
+
+- (IBAction)PlaneraAction:(id)sender {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!selectController) {
+                selectController = [[SelectRegistreringsveckaViewController alloc]initWithNibName:@"SelectRegistreringsveckaViewController" bundle:nil];
+            }
+        }else{
+            if (!selectController) {
+                selectController = [[SelectRegistreringsveckaViewController alloc]initWithNibName:@"SelectRegistreringsveckaViewController_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!selectController) {
+            selectController = [[SelectRegistreringsveckaViewController alloc]initWithNibName:@"SelectRegistreringsveckaViewController_iPad" bundle:nil];
+        }
+    }
+    
+    [self.navigationController pushViewController:selectController animated:YES];
+}
+
+- (IBAction)DinaVeckorAction:(id)sender {
+    
 }
 
 - (void)didReceiveMemoryWarning

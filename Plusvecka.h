@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SelectRegistreringsveckaViewController.h"
 @interface Plusvecka : UIViewController
 
 
 -(IBAction)Ilabel:(id)sender;
 
-
+@property (nonatomic,strong) SelectRegistreringsveckaViewController *selectController;
 @end
