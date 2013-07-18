@@ -10,6 +10,14 @@
 
 @interface SettingRegistViewController : UIViewController
 
+@property (nonatomic, strong)IBOutlet UIScrollView *popupScrollView;
 
+
+-(IBAction)onoffButtonClicked:(id)sender;
+-(IBAction)hourSelected:(id)sender;
+-(IBAction)startTimeButton:(id)sender;
+-(IBAction)endTimeButton:(id)sender;
+
+-(void)sampleData;
 
 @end
