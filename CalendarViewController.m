@@ -180,22 +180,37 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
-
-
-
--(void)backButon {
+-(void)backButon  {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 
 #pragma mark SettingViewController
 
 -(void)settButtonClicked {
-
-    if (!settingRegViewCntrl) {
-        settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView" bundle:nil];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!settingRegViewCntrl) {
+                settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView" bundle:nil];
+            }
+        }else{
+            if (!settingRegViewCntrl) {
+                settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView_iPhone4" bundle:nil];
+            }
+        }
     }
+    else{
+        if (!settingRegViewCntrl) {
+            settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView_iPad" bundle:nil];
+        }
+    }
+    
     [self.navigationController pushViewController:settingRegViewCntrl animated:YES];
 }
+
 
 
 #pragma mark Calendar Empty Cell
@@ -203,7 +218,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 -(void)refresh {
     
-    NSLog(@"%@",currentDateBtn);
     
     NSString *_tabValue = [NSString stringWithFormat:@"%d%d",[hoursTextField1.text intValue],[tabValue intValue]];
 
