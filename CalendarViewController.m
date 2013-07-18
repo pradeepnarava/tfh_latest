@@ -169,7 +169,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             [but addTarget:self action:@selector(emptyCell:) forControlEvents:UIControlEventTouchUpInside];
             [but setCurrentDateString:[NSString stringWithFormat:@"%@ %@",[tm objectAtIndex:0],hStr]];
             NSString *strin = [NSString stringWithFormat:@"%d%d",j,i];
-            NSLog(@"$$$$ $$$ %i",[strin intValue]);
+
             [but setTag:[strin intValue]];
             [but setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.scrollView addSubview:but];
@@ -367,11 +367,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:[NSDate date] options:0];
         [self.weekdays addObject:newDate1];
     }
-    
-    NSLog(@"%@",self.weekdays);
-    
+
 	[self updateScreens];
-    //self.mainWeekLabel.text = [self titleText];
 }
 
 
