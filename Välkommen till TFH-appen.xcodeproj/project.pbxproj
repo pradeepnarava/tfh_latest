@@ -71,6 +71,8 @@
 		24DEDD6E1780D22500DFB920 /* Utmanatankar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD6D1780D22500DFB920 /* Utmanatankar_iPad.xib */; };
 		25A8FAF91748F9B9000D6BAC /* DayEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A8FAF71748F9B9000D6BAC /* DayEventViewController.m */; };
 		25A8FAFA1748F9B9000D6BAC /* DayEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A8FAF81748F9B9000D6BAC /* DayEventViewController.xib */; };
+		272B6ACB17999A59001B3303 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 272B6AC817999A59001B3303 /* Settings.plist */; };
+		272B6ACC17999A59001B3303 /* SettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 272B6ACA17999A59001B3303 /* SettingsData.m */; };
 		5E054B401747B6F000C4EAD5 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B3F1747B6F000C4EAD5 /* settings.png */; };
 		5E054B481747BB5200C4EAD5 /* introduktion.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B421747BB5200C4EAD5 /* introduktion.png */; };
 		5E054B491747BB5200C4EAD5 /* om.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B431747BB5200C4EAD5 /* om.png */; };
@@ -368,6 +370,9 @@
 		25A8FAF61748F9B9000D6BAC /* DayEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayEventViewController.h; sourceTree = "<group>"; };
 		25A8FAF71748F9B9000D6BAC /* DayEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayEventViewController.m; sourceTree = "<group>"; };
 		25A8FAF81748F9B9000D6BAC /* DayEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayEventViewController.xib; sourceTree = "<group>"; };
+		272B6AC817999A59001B3303 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		272B6AC917999A59001B3303 /* SettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsData.h; sourceTree = "<group>"; };
+		272B6ACA17999A59001B3303 /* SettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsData.m; sourceTree = "<group>"; };
 		5E054B3F1747B6F000C4EAD5 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		5E054B421747BB5200C4EAD5 /* introduktion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introduktion.png; sourceTree = "<group>"; };
 		5E054B431747BB5200C4EAD5 /* om.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = om.png; sourceTree = "<group>"; };
@@ -1069,6 +1074,9 @@
 		5EED2AE3173E515100CF77B3 /* Exercise6 */ = {
 			isa = PBXGroup;
 			children = (
+				272B6AC817999A59001B3303 /* Settings.plist */,
+				272B6AC917999A59001B3303 /* SettingsData.h */,
+				272B6ACA17999A59001B3303 /* SettingsData.m */,
 				2401C2E11793120A0081BFEA /* PopOverView */,
 				244A0497179104DE0020ECE1 /* kalendar_cell_empty.png */,
 				244A0498179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png */,
@@ -1609,6 +1617,7 @@
 				5E5BC52217983E950098725B /* PlusveckaCalenderView.xib in Resources */,
 				248DC3E01798960400F54E3C /* SettingRegistView_iPhone4.xib in Resources */,
 				5EBEAA9F17996C0700679AA4 /* PlusveckaDinaveckar.xib in Resources */,
+				272B6ACB17999A59001B3303 /* Settings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1665,6 +1674,7 @@
 				5E5BC5111798336C0098725B /* SelectRegistreringsveckaViewController.m in Sources */,
 				5E5BC52117983E950098725B /* PlusveckaCalenderViewController.m in Sources */,
 				5EBEAA9E17996C0700679AA4 /* PlusveckaDinaveckar.m in Sources */,
+				272B6ACC17999A59001B3303 /* SettingsData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
