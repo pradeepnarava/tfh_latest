@@ -71,8 +71,6 @@
 		24DEDD6E1780D22500DFB920 /* Utmanatankar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD6D1780D22500DFB920 /* Utmanatankar_iPad.xib */; };
 		25A8FAF91748F9B9000D6BAC /* DayEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A8FAF71748F9B9000D6BAC /* DayEventViewController.m */; };
 		25A8FAFA1748F9B9000D6BAC /* DayEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A8FAF81748F9B9000D6BAC /* DayEventViewController.xib */; };
-		27FBD5DF17996908004106E0 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27FBD5DE17996908004106E0 /* Settings.plist */; };
-		27FBD5E217996A4D004106E0 /* SettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FBD5E117996A4D004106E0 /* SettingsData.m */; };
 		5E054B401747B6F000C4EAD5 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B3F1747B6F000C4EAD5 /* settings.png */; };
 		5E054B481747BB5200C4EAD5 /* introduktion.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B421747BB5200C4EAD5 /* introduktion.png */; };
 		5E054B491747BB5200C4EAD5 /* om.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B431747BB5200C4EAD5 /* om.png */; };
@@ -370,9 +368,6 @@
 		25A8FAF61748F9B9000D6BAC /* DayEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayEventViewController.h; sourceTree = "<group>"; };
 		25A8FAF71748F9B9000D6BAC /* DayEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayEventViewController.m; sourceTree = "<group>"; };
 		25A8FAF81748F9B9000D6BAC /* DayEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayEventViewController.xib; sourceTree = "<group>"; };
-		27FBD5DE17996908004106E0 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
-		27FBD5E017996A4D004106E0 /* SettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsData.h; sourceTree = "<group>"; };
-		27FBD5E117996A4D004106E0 /* SettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsData.m; sourceTree = "<group>"; };
 		5E054B3F1747B6F000C4EAD5 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		5E054B421747BB5200C4EAD5 /* introduktion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introduktion.png; sourceTree = "<group>"; };
 		5E054B431747BB5200C4EAD5 /* om.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = om.png; sourceTree = "<group>"; };
@@ -1126,9 +1121,6 @@
 				5E068CF91733F217006FF428 /* Utvardering.xib */,
 				2401C2F31793218E0081BFEA /* k_popup_day.png */,
 				247751831790672D00CF2518 /* Regisreringsveck_button.png */,
-				27FBD5DE17996908004106E0 /* Settings.plist */,
-				27FBD5E017996A4D004106E0 /* SettingsData.h */,
-				27FBD5E117996A4D004106E0 /* SettingsData.m */,
 			);
 			name = Exercise6;
 			sourceTree = "<group>";
@@ -1616,15 +1608,7 @@
 				5E5BC52017983E950098725B /* PlusveckaCalenderView_iPhone4.xib in Resources */,
 				5E5BC52217983E950098725B /* PlusveckaCalenderView.xib in Resources */,
 				248DC3E01798960400F54E3C /* SettingRegistView_iPhone4.xib in Resources */,
-<<<<<<< HEAD
-<<<<<<< HEAD
-				27FBD5DF17996908004106E0 /* Settings.plist in Resources */,
-=======
 				5EBEAA9F17996C0700679AA4 /* PlusveckaDinaveckar.xib in Resources */,
->>>>>>> 92237c2e6205a1529f65b078d7eb7e80aab7c7bd
-=======
-				5EBEAA9F17996C0700679AA4 /* PlusveckaDinaveckar.xib in Resources */,
->>>>>>> 92237c2e6205a1529f65b078d7eb7e80aab7c7bd
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1680,15 +1664,7 @@
 				2456C5B81795AD1000F36A2F /* UIImage+Blur.m in Sources */,
 				5E5BC5111798336C0098725B /* SelectRegistreringsveckaViewController.m in Sources */,
 				5E5BC52117983E950098725B /* PlusveckaCalenderViewController.m in Sources */,
-<<<<<<< HEAD
-<<<<<<< HEAD
-				27FBD5E217996A4D004106E0 /* SettingsData.m in Sources */,
-=======
 				5EBEAA9E17996C0700679AA4 /* PlusveckaDinaveckar.m in Sources */,
->>>>>>> 92237c2e6205a1529f65b078d7eb7e80aab7c7bd
-=======
-				5EBEAA9E17996C0700679AA4 /* PlusveckaDinaveckar.m in Sources */,
->>>>>>> 92237c2e6205a1529f65b078d7eb7e80aab7c7bd
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1789,8 +1765,8 @@
 		5EA026D0172E7CD100C37EE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Kristian Daoud (HR82V642Y8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kristian Daoud (HR82V642Y8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kristian Daoud (78RVJ39CQS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kristian Daoud (78RVJ39CQS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/Välkommen till TFH-appen-Prefix.pch";
 				INFOPLIST_FILE = "Välkommen till TFH-appen/Välkommen till TFH-appen-Info.plist";
@@ -1806,8 +1782,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7976F991-6D81-435B-92F8-B0B4BC55DD3F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7976F991-6D81-435B-92F8-B0B4BC55DD3F";
+				PROVISIONING_PROFILE = "4C6DBF27-5211-4776-8F51-003B649247BC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4C6DBF27-5211-4776-8F51-003B649247BC";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm7s";
 				WRAPPER_EXTENSION = app;
@@ -1817,8 +1793,8 @@
 		5EA026D1172E7CD100C37EE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Kristian Daoud (HR82V642Y8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kristian Daoud (HR82V642Y8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kristian Daoud (78RVJ39CQS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kristian Daoud (78RVJ39CQS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/Välkommen till TFH-appen-Prefix.pch";
 				INFOPLIST_FILE = "Välkommen till TFH-appen/Välkommen till TFH-appen-Info.plist";
@@ -1834,8 +1810,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7976F991-6D81-435B-92F8-B0B4BC55DD3F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7976F991-6D81-435B-92F8-B0B4BC55DD3F";
+				PROVISIONING_PROFILE = "4C6DBF27-5211-4776-8F51-003B649247BC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4C6DBF27-5211-4776-8F51-003B649247BC";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm7s";
 				WRAPPER_EXTENSION = app;
