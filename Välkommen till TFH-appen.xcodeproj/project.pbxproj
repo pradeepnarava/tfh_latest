@@ -164,6 +164,8 @@
 		5EA9C626173CFAC900C6E426 /* popupCloseBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9C621173CFAC900C6E426 /* popupCloseBtn@2x.png */; };
 		5EA9C627173CFAC900C6E426 /* popupWindowBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9C622173CFAC900C6E426 /* popupWindowBack.png */; };
 		5EA9C628173CFAC900C6E426 /* popupWindowBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EA9C623173CFAC900C6E426 /* popupWindowBack@2x.png */; };
+		5EBEAA9E17996C0700679AA4 /* PlusveckaDinaveckar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EBEAA9C17996C0700679AA4 /* PlusveckaDinaveckar.m */; };
+		5EBEAA9F17996C0700679AA4 /* PlusveckaDinaveckar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EBEAA9D17996C0700679AA4 /* PlusveckaDinaveckar.xib */; };
 		5EE837DD175E356100E56EE2 /* tillbaka.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE837DC175E356100E56EE2 /* tillbaka.png */; };
 		5EE83ED0174603EC00A73F0B /* Utmanatankar.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EE83ECF174603EC00A73F0B /* Utmanatankar.html */; };
 		5EE83ED41746060700A73F0B /* Alternativtanke.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EE83ED11746060700A73F0B /* Alternativtanke.html */; };
@@ -482,6 +484,9 @@
 		5EA9C621173CFAC900C6E426 /* popupCloseBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popupCloseBtn@2x.png"; sourceTree = "<group>"; };
 		5EA9C622173CFAC900C6E426 /* popupWindowBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popupWindowBack.png; sourceTree = "<group>"; };
 		5EA9C623173CFAC900C6E426 /* popupWindowBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popupWindowBack@2x.png"; sourceTree = "<group>"; };
+		5EBEAA9B17996C0700679AA4 /* PlusveckaDinaveckar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlusveckaDinaveckar.h; sourceTree = "<group>"; };
+		5EBEAA9C17996C0700679AA4 /* PlusveckaDinaveckar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlusveckaDinaveckar.m; sourceTree = "<group>"; };
+		5EBEAA9D17996C0700679AA4 /* PlusveckaDinaveckar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaDinaveckar.xib; sourceTree = "<group>"; };
 		5EE837DC175E356100E56EE2 /* tillbaka.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tillbaka.png; sourceTree = "<group>"; };
 		5EE83ECF174603EC00A73F0B /* Utmanatankar.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Utmanatankar.html; sourceTree = "<group>"; };
 		5EE83ED11746060700A73F0B /* Alternativtanke.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Alternativtanke.html; sourceTree = "<group>"; };
@@ -1108,6 +1113,9 @@
 				5E5BC51E17983E950098725B /* PlusveckaCalenderViewController.m */,
 				5E5BC51F17983E950098725B /* PlusveckaCalenderView.xib */,
 				5E5BC51C17983E950098725B /* PlusveckaCalenderView_iPhone4.xib */,
+				5EBEAA9B17996C0700679AA4 /* PlusveckaDinaveckar.h */,
+				5EBEAA9C17996C0700679AA4 /* PlusveckaDinaveckar.m */,
+				5EBEAA9D17996C0700679AA4 /* PlusveckaDinaveckar.xib */,
 				5E068CF71733F216006FF428 /* Utvardering.h */,
 				5E068CF81733F216006FF428 /* Utvardering.m */,
 				5E068CF91733F217006FF428 /* Utvardering.xib */,
@@ -1600,6 +1608,7 @@
 				5E5BC52017983E950098725B /* PlusveckaCalenderView_iPhone4.xib in Resources */,
 				5E5BC52217983E950098725B /* PlusveckaCalenderView.xib in Resources */,
 				248DC3E01798960400F54E3C /* SettingRegistView_iPhone4.xib in Resources */,
+				5EBEAA9F17996C0700679AA4 /* PlusveckaDinaveckar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1655,6 +1664,7 @@
 				2456C5B81795AD1000F36A2F /* UIImage+Blur.m in Sources */,
 				5E5BC5111798336C0098725B /* SelectRegistreringsveckaViewController.m in Sources */,
 				5E5BC52117983E950098725B /* PlusveckaCalenderViewController.m in Sources */,
+				5EBEAA9E17996C0700679AA4 /* PlusveckaDinaveckar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
