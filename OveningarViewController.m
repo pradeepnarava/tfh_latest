@@ -170,11 +170,11 @@
 -(IBAction)exercise7:(id)sender {
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height >  480) {
+//        if ([[UIScreen mainScreen] bounds].size.height >  480) {
             lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen" bundle:nil];
-        }else {
-            lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen_iPhone4" bundle:nil];
-        }
+//        }else {
+//            lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen_iPhone4" bundle:nil];
+//        }
     }
     else {
         lsp=[[Livskompassen alloc]initWithNibName:@"Livskompassen_iPad" bundle:nil];

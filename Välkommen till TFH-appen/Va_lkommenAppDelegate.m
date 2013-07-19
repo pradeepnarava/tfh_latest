@@ -27,7 +27,7 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    
+    application.applicationIconBadgeNumber = 0;  
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
@@ -68,7 +68,27 @@
     
 
 }
-- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    if (application.applicationState == UIApplicationStateInactive)
+    {
+        // case 2
+        UIAlertView *aw = [[UIAlertView alloc] initWithTitle:@"Reminder" message: notification.alertBody delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [aw show];
+    }
+    else if (application.applicationState == UIApplicationStateActive)
+    {
+        // case 3
+        UIAlertView *aw = [[UIAlertView alloc] initWithTitle:@"Reminder" message: notification.alertBody delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [aw show];
+    }
+
+    NSLog(@"%@", notification);
+}
+
+
+/*- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
 	// Handle the notificaton when the app is running
     NSLog(@"Recieved Notification %@",notif.userInfo);
     if ([[notif.userInfo valueForKey:@"notifyKey"] isEqualToString:@"Reminder"])
@@ -104,7 +124,7 @@
         [self.window addSubview:nav.view];
     }
 }
-
+*/
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -120,6 +140,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+     application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

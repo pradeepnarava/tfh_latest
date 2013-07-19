@@ -169,7 +169,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             [but addTarget:self action:@selector(emptyCell:) forControlEvents:UIControlEventTouchUpInside];
             [but setCurrentDateString:[NSString stringWithFormat:@"%@ %@",[tm objectAtIndex:0],hStr]];
             NSString *strin = [NSString stringWithFormat:@"%d%d",j,i];
-            NSLog(@"$$$$ $$$ %i",[strin intValue]);
+
             [but setTag:[strin intValue]];
             [but setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.scrollView addSubview:but];
@@ -180,22 +180,37 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
-
-
-
--(void)backButon {
+-(void)backButon  {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 
 #pragma mark SettingViewController
 
 -(void)settButtonClicked {
-
-    if (!settingRegViewCntrl) {
-        settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView" bundle:nil];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!settingRegViewCntrl) {
+                settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView" bundle:nil];
+            }
+        }else{
+            if (!settingRegViewCntrl) {
+                settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView_iPhone4" bundle:nil];
+            }
+        }
     }
+    else{
+        if (!settingRegViewCntrl) {
+            settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView_iPad" bundle:nil];
+        }
+    }
+    
     [self.navigationController pushViewController:settingRegViewCntrl animated:YES];
 }
+
 
 
 #pragma mark Calendar Empty Cell
@@ -203,7 +218,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 -(void)refresh {
     
-    NSLog(@"%@",currentDateBtn);
     
     NSString *_tabValue = [NSString stringWithFormat:@"%d%d",[hoursTextField1.text intValue],[tabValue intValue]];
 
@@ -367,11 +381,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:[NSDate date] options:0];
         [self.weekdays addObject:newDate1];
     }
-    
-    NSLog(@"%@",self.weekdays);
-    
+
 	[self updateScreens];
-    //self.mainWeekLabel.text = [self titleText];
 }
 
 
