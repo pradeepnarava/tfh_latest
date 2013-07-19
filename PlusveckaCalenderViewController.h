@@ -7,10 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface PlusveckaCalenderViewController : UIViewController
+#import <sqlite3.h>
+@interface PlusveckaCalenderViewController : UIViewController<UITextFieldDelegate>
+{
+    sqlite3 *exerciseDB;
+    NSString *databasePath;
+    sqlite3_stmt  *statement;
+}
 @property (nonatomic,copy) NSDate *week;
-@property (nonatomic,strong) NSMutableArray *dateArray,*weekdays;
+@property (nonatomic,strong) NSMutableArray *dateArray,*weekdays,*dataArray;
 @property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
+@property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;
+@property (nonatomic, strong) IBOutlet UITextField *hoursTextField2,*mintsTextField2;
+@property (nonatomic, strong) IBOutlet UITextView *eventDesTextView;
+@property (nonatomic,strong) IBOutlet UISlider *slider;
+@property (nonatomic, strong) IBOutlet UILabel *sliderLabel;
 @end

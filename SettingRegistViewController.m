@@ -7,6 +7,15 @@
 //
 
 #import "SettingRegistViewController.h"
+#import "SettingsData.h"
+
+#define kOnOff @"onoff"
+#define ktag @"tag"
+#define konetimer @"onetimereminder"
+#define kstarttime @"starttime"
+#define kendtime @"endtime"
+#define ktotaltime @"totaltime"
+#define ktotalonoff @"totalonoff"
 
 #define kYYYYMMDDHHMM @"yyyy-MM-dd HH:mm"
 #define kHHMMSS @"HH:mm"
@@ -15,20 +24,23 @@
 {
     UIDatePicker *timePicker;
     UIActionSheet *actionSheet;
+    IBOutlet UIButton *oneHourButton,*twoHourButton,*threeHourButton,*sixHourButton;
     IBOutlet UIButton *startTimeButton;
     IBOutlet UIButton *stopTimeButton;
     IBOutlet UIButton *totalTimeButton;
     IBOutlet UILabel *oneTimeNotificationLabel,*totalLabel;
     NSString *hoursTimeString;
 }
+
 @property (nonatomic,strong)   NSString *hoursTimeString;
+@property (nonatomic,strong)   NSMutableArray *settingsArray;
 
 @end
 
 @implementation SettingRegistViewController
 @synthesize popupScrollView;
 @synthesize hoursTimeString;
-
+@synthesize settingsArray;
 
 
 int hoursValue;
@@ -38,18 +50,85 @@ int tagValue;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
 
 #pragma mark ViewLifeCycle
 
+
+-(void)settData {
+    SettingsData *sharedData = [SettingsData sharedData];
+    
+    for (int i = 0; i < [sharedData count]; i ++) {
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] init];
+        NSDictionary *dic = [sharedData objectAtIndex:i];
+        NSArray *keys = [dic allKeys];
+        for (int j =0; j < [keys count]; j++) {
+            [tempDic setValue:[dic objectForKey:[keys objectAtIndex:j]] forKey:[keys objectAtIndex:j]];
+        }
+        
+        [settingsArray addObject:tempDic];
+    }
+    NSLog(@"%@",settingsArray);
+}
+
+
+
+-(void)screens {
+    NSLog(@"%@",settingsArray);
+    if (([[[settingsArray objectAtIndex:0] valueForKey:kOnOff] isEqualToString:@"YES"])) {
+        
+        if ([[[settingsArray objectAtIndex:1] valueForKey:ktag] isEqualToString:@"1"]) {
+            [oneHourButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        }
+        if ([[[settingsArray objectAtIndex:1] valueForKey:ktag] isEqualToString:@"2"]) {
+            [oneHourButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        }
+        if ([[[settingsArray objectAtIndex:1] valueForKey:ktag] isEqualToString:@"3"]) {
+            [oneHourButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        }
+        if ([[[settingsArray objectAtIndex:1] valueForKey:ktag] isEqualToString:@"6"]) {
+            [oneHourButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+        }
+        
+        if ([[settingsArray objectAtIndex:1] valueForKey:konetimer]) {
+            NSArray *te =[[[settingsArray objectAtIndex:1] valueForKey:konetimer] componentsSeparatedByString:@":"];
+            
+            NSString *text = [NSString stringWithFormat:@"%@ hrs %@ mins", [te objectAtIndex:0], [te objectAtIndex:1]];
+            oneTimeNotificationLabel.text = text;
+        }
+        
+        if ([[settingsArray objectAtIndex:2] valueForKey:kstarttime]) {
+            [startTimeButton setTitle:[[settingsArray objectAtIndex:2] valueForKey:kstarttime] forState:UIControlStateNormal];
+        }
+        if ([[settingsArray objectAtIndex:2] valueForKey:kendtime]) {
+            
+            [stopTimeButton setTitle:[[settingsArray objectAtIndex:2] valueForKey:kendtime] forState:UIControlStateNormal];
+        }
+    }else {
+        self.popupScrollView.hidden = YES;
+    }
+    
+    if ([[[settingsArray objectAtIndex:3] valueForKey:ktotalonoff] isEqualToString:@"YES"]) {
+        NSLog(@"total time is ^^^^ %@",[[settingsArray objectAtIndex:3] valueForKey:ktotaltime]);
+        [totalTimeButton setTitle:[[settingsArray objectAtIndex:3] valueForKey:ktotaltime] forState:UIControlStateNormal];
+
+    }else {
+        totalTimeButton.hidden = YES;
+        totalLabel.hidden = YES;
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.popupScrollView setContentSize:CGSizeMake(320, 660)];
+    [self.popupScrollView setContentSize:CGSizeMake(320, 430)];
     hoursTimeString = [[NSString alloc] init];
+    settingsArray = [[NSMutableArray alloc]init];
+    [self settData];
+    [self screens];
     self.title = @"Settings";
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
@@ -70,14 +149,32 @@ int tagValue;
         [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
+    
+    
 }
 
+
+
 #pragma mark ON--OFF Button 
+
+-(void)ad {
+    //for (int i =0; i < [settingsArray count]; i++) {
+        NSMutableDictionary *tem = [[settingsArray objectAtIndex:0] mutableCopy];
+        
+        [tem setValue:@"YES" forKey:kOnOff];
+        
+        //[settingsArray writeToFile:[[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"plist"] atomically:YES];
+   // }
+    NSLog(@"seett %@",settingsArray);
+    
+}
 
 -(IBAction)onoffButtonClicked:(id)sender {
     
     if ([sender tag] == 10) {
         popupScrollView.hidden = NO;
+        [self ad];
+        [self screens];
     }
     else if ([sender tag]==11) {
         popupScrollView.hidden = YES;

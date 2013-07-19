@@ -45,14 +45,14 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize dateArray,weekdays,week;
 @synthesize mainWeekLabel;
 @synthesize currentButtonStatus;
-@synthesize popupView;
+@synthesize popupView,totalView;
 @synthesize hoursTextField1,hoursTextField2;
 @synthesize mintsTextField1,mintsTextField2;
 @synthesize eventDesTextView;
 @synthesize currentStatuBtn;
 @synthesize currentDateBtn;
 @synthesize tabValue;
-
+@synthesize slider,sliderLabel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -86,7 +86,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     self.popupView.layer.shadowOffset = CGSizeMake(6, 6);
     self.popupView.layer.shouldRasterize = YES;
     self.popupView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-    
+    self.totalView.layer.cornerRadius = 12;
+    self.totalView.layer.shadowOpacity = 0.7;
+    self.totalView.layer.shadowOffset = CGSizeMake(6, 6);
+    self.totalView.layer.shouldRasterize = YES;
+    self.totalView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -299,13 +303,26 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 }
 
+-(IBAction)closeButtonAction:(id)sender{
+    [ASDepthModalViewController dismiss];
+}
+
+-(IBAction)sliderValueChanged:(UISlider*)sender{
+    sliderLabel.text = [NSString stringWithFormat:@"%.0f",[sender value]];
+}
+
 
 #pragma mark TotalButtonClicked 
 
 -(IBAction)totalButtonClicked:(id)sender
 {
-    UIButton *button = (UIButton*)sender;
-    NSLog(@"button tag is %i",[button tag]);
+    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+    [ASDepthModalViewController presentView:self.popupView
+                            backgroundColor:nil
+                                    options:style
+                          completionHandler:^{
+
+                          }];
 }
 
 #pragma mark Calendar Day Button Clicked
