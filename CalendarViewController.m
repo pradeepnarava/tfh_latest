@@ -53,6 +53,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize currentDateBtn;
 @synthesize tabValue;
 @synthesize slider,sliderLabel;
+@synthesize isNotNotify;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -146,8 +147,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     } else {
         NSLog(@"Failed to open/create database");
     }
+    
     [self createButton];
+
+    if (!isNotNotify) {
+        tabValue = @"0";
+        [self  emptyCell:nil];
+    }
+    
 }
+
+
 
 -(NSString*)dateFromString:(NSDate*)date {
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];

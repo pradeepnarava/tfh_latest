@@ -30,6 +30,7 @@
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField2,*mintsTextField2;
 @property (nonatomic, strong) IBOutlet UITextView *eventDesTextView;
+@property (nonatomic) BOOL isNotNotify;
 
 
 @property (nonatomic,strong) NSMutableArray *dateArray,*weekdays;

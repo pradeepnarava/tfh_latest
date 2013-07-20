@@ -10,6 +10,8 @@
 #import "Va_lkommenViewController.h"
 #import "AktivitetsplanenViewController.h"
 #import "Dinaomraden.h"
+#import "CalendarViewController.h"
+
 
 @implementation Va_lkommenAppDelegate
 
@@ -26,7 +28,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
+    
     application.applicationIconBadgeNumber = 0;  
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -55,13 +57,13 @@
     [self.window setRootViewController:navController];
     [self.window makeKeyAndVisible];
     
+    // Detect the Notification after a user taps it
     UILocalNotification *localNotif =
-	[launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotif)
-        
     {
-		NSLog(@"Recieved Notification %@",localNotif);
-	}
+        NSLog(@"Recieved Notification %@",localNotif);
+    }
     
     return YES;
     
@@ -71,20 +73,54 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    if (application.applicationState == UIApplicationStateInactive)
-    {
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
         // case 2
-        UIAlertView *aw = [[UIAlertView alloc] initWithTitle:@"Reminder" message: notification.alertBody delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [aw show];
+        CalendarViewController *calendarView;
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
+            {
+                
+                calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
+            }else {
+                calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+            }
+        }else {
+            calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
+        }
+        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+        [self.window setRootViewController:navController];
+    }else if (state == UIApplicationStateInactive) {
+        // case 2
+        CalendarViewController *calendarView;
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
+            {
+                
+                calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
+            }else {
+                calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+            }
+        }else {
+            calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
+        }
+        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+        [self.window setRootViewController:navController];
     }
-    else if (application.applicationState == UIApplicationStateActive)
-    {
-        // case 3
-        UIAlertView *aw = [[UIAlertView alloc] initWithTitle:@"Reminder" message: notification.alertBody delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [aw show];
-    }
-
-    NSLog(@"%@", notification);
+    /*UIAlertView *aw = [[UIAlertView alloc] initWithTitle:@"Reminder23" message: notification.alertBody delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+     [aw show];
+     
+     // case 3
+     UIAlertView *aw = [[UIAlertView alloc] initWithTitle:@"Reminder23" message: notification.alertBody delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+     [aw show];*/
+    
+    NSLog(@"kjflkdjflkfjsal;k   %@", notification);
 }
 
 

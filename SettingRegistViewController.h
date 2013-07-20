@@ -14,11 +14,13 @@
 
 
 -(IBAction)onoffButtonClicked:(id)sender;
+
 -(IBAction)hourSelected:(id)sender;
 -(IBAction)startTimeButton:(id)sender;
 -(IBAction)endTimeButton:(id)sender;
 -(IBAction)totalTimeButton:(id)sender;
 -(IBAction)kalrButtonClicked:(id)sender;
+
 
 -(void)createDatePicker:(UIButton*)button;
 -(void)localNotification1:(int)hours;

@@ -83,7 +83,7 @@
             calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPad" bundle:nil];
         }
     }
-    
+    calendarView.isNotNotify = YES;
     [self.navigationController pushViewController:calendarView animated:YES];
 }
 
