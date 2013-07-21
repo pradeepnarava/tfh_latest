@@ -16,6 +16,7 @@
 
 @implementation Plusvecka
 @synthesize selectController;
+@synthesize dinaveckarController;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -88,7 +89,24 @@
 }
 
 - (IBAction)DinaVeckorAction:(id)sender {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!dinaveckarController) {
+                dinaveckarController = [[PlusveckaDinaveckar alloc]initWithNibName:@"PlusveckaDinaveckar" bundle:nil];
+            }
+        }else{
+            if (!dinaveckarController) {
+                dinaveckarController = [[PlusveckaDinaveckar alloc]initWithNibName:@"PlusveckaDinaveckar_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!dinaveckarController) {
+            dinaveckarController = [[PlusveckaDinaveckar alloc]initWithNibName:@"PlusveckaDinaveckar_iPad" bundle:nil];
+        }
+    }
     
+    [self.navigationController pushViewController:dinaveckarController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

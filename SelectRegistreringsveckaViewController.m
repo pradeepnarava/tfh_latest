@@ -52,11 +52,31 @@
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
     // Do any additional setup after loading the view from its nib.
-    dataArray = [[NSMutableArray alloc]initWithObjects:@"1st Week",@"2nd Week",@"3rd Week", nil];
+    dataArray = [[NSMutableArray alloc]initWithObjects:@"4/3 - 10/3 (2013)",@"4/3 - 10/3 (2013)",@"4/3 - 10/3 (2013)", nil];
 }
 
 -(void)backButon {
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)submitAction:(id)sender {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!calanderView) {
+                calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView" bundle:nil];
+            }
+        }else{
+            if (!calanderView) {
+                calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!calanderView) {
+            calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView_iPad" bundle:nil];
+        }
+    }
+    
+    [self.navigationController pushViewController:calanderView animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,24 +104,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!calanderView) {
-                calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView" bundle:nil];
-            }
-        }else{
-            if (!calanderView) {
-                calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView_iPhone4" bundle:nil];
-            }
-        }
-    }
-    else{
-        if (!calanderView) {
-            calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView_iPad" bundle:nil];
-        }
-    }
     
-    [self.navigationController pushViewController:calanderView animated:YES];
 }
 
 

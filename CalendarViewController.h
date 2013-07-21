@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 //#import "ASDepthModalViewController.h"
-
+#import "PlusveckaDayView.h"
 @class SettingRegistViewController;
 
 @interface CalendarViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
@@ -19,7 +19,7 @@
     NSString *databasePath;
     sqlite3_stmt  *statement;
 }
-
+@property (nonatomic,strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
 @property (nonatomic, strong) IBOutlet UISlider *slider;

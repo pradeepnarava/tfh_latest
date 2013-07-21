@@ -38,6 +38,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @end
 
 @implementation CalendarViewController
+@synthesize dayView;
 @synthesize scrollView;
 @synthesize settingRegViewCntrl;
 @synthesize monLabel1,tueLabel2,wedLabel3,thrLabel4,friLabel5,satLabel6,sunLabel7;
@@ -339,8 +340,24 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(IBAction)calendarDayCellClicked:(id)sender
 {
     
-    UIButton *button = (UIButton*)sender;
-    NSLog(@"button tag is %i",[button tag]);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!dayView) {
+                dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView" bundle:nil];
+            }
+        }else{
+            if (!dayView) {
+                dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!dayView) {
+            dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPad" bundle:nil];
+        }
+    }
+    dayView.isDinackar = YES;
+    [self.navigationController pushViewController:dayView animated:YES];
     
 }
 
