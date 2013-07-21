@@ -5052,18 +5052,25 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">-</string>
 						<reference key="IBUIHighlightedTitleColor" ref="190131798"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
+						<object class="NSColor" key="IBUINormalTitleColor" id="470090139">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+							<bytes key="NSRGB">MCAwIDAAA</bytes>
+							<string key="IBUIColorCocoaTouchKeyPath">darkTextColor</string>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="597111183"/>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="181088920">
-							<int key="type">2</int>
-							<double key="pointSize">15</double>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">kalendar_cell_negative.png</string>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="741107702">
-							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">15</double>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
+							<double key="pointSize">26</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">26</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
@@ -5083,13 +5090,23 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">N</string>
 						<reference key="IBUIHighlightedTitleColor" ref="190131798"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="470090139"/>
 						<reference key="IBUINormalTitleShadowColor" ref="597111183"/>
-						<reference key="IBUIFontDescription" ref="181088920"/>
-						<reference key="IBUIFont" ref="741107702"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="393595846">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">kalendar_cell_emptycell_neutral.png</string>
+						</object>
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="912625600">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
+							<double key="pointSize">20</double>
+						</object>
+						<object class="NSFont" key="IBUIFont" id="167626828">
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">20</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 					<object class="IBUIButton" id="337466899">
 						<reference key="NSNextResponder" ref="71197273"/>
@@ -5107,18 +5124,19 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">+</string>
 						<reference key="IBUIHighlightedTitleColor" ref="190131798"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="470090139"/>
 						<reference key="IBUINormalTitleShadowColor" ref="597111183"/>
-						<reference key="IBUIFontDescription" ref="181088920"/>
-						<reference key="IBUIFont" ref="741107702"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">kalendar_cell_positive.png</string>
+						</object>
+						<reference key="IBUIFontDescription" ref="912625600"/>
+						<reference key="IBUIFont" ref="167626828"/>
 					</object>
 					<object class="IBUITextField" id="452832741">
 						<reference key="NSNextResponder" ref="71197273"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{16, 206}, {40, 30}}</string>
+						<string key="NSFrame">{{16, 211}, {40, 30}}</string>
 						<reference key="NSSuperview" ref="71197273"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="33647241"/>
@@ -5127,7 +5145,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUIText"/>
+						<string key="IBUIText">11</string>
 						<int key="IBUIBorderStyle">2</int>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
@@ -5140,6 +5158,7 @@
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
+						<reference key="IBUIBackground" ref="393595846"/>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="602457553">
 							<string key="name">HelveticaNeue-Bold</string>
 							<string key="family">Helvetica Neue</string>
@@ -5155,7 +5174,7 @@
 					<object class="IBUITextField" id="33647241">
 						<reference key="NSNextResponder" ref="71197273"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{68, 206}, {41, 30}}</string>
+						<string key="NSFrame">{{68, 211}, {41, 30}}</string>
 						<reference key="NSSuperview" ref="71197273"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="883208718"/>
@@ -5164,7 +5183,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUIText"/>
+						<string key="IBUIText">00</string>
 						<int key="IBUIBorderStyle">2</int>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
@@ -5177,13 +5196,14 @@
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
+						<reference key="IBUIBackground" ref="393595846"/>
 						<reference key="IBUIFontDescription" ref="602457553"/>
 						<reference key="IBUIFont" ref="572617724"/>
 					</object>
 					<object class="IBUITextField" id="134630728">
 						<reference key="NSNextResponder" ref="71197273"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{231, 206}, {40, 30}}</string>
+						<string key="NSFrame">{{231, 211}, {40, 30}}</string>
 						<reference key="NSSuperview" ref="71197273"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="569220277"/>
@@ -5192,7 +5212,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUIText"/>
+						<string key="IBUIText">00</string>
 						<int key="IBUIBorderStyle">2</int>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
@@ -5205,13 +5225,14 @@
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
+						<reference key="IBUIBackground" ref="393595846"/>
 						<reference key="IBUIFontDescription" ref="602457553"/>
 						<reference key="IBUIFont" ref="572617724"/>
 					</object>
 					<object class="IBUITextField" id="67244921">
 						<reference key="NSNextResponder" ref="71197273"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{180, 206}, {40, 30}}</string>
+						<string key="NSFrame">{{180, 211}, {40, 30}}</string>
 						<reference key="NSSuperview" ref="71197273"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="134630728"/>
@@ -5220,7 +5241,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUIText"/>
+						<string key="IBUIText">12</string>
 						<int key="IBUIBorderStyle">2</int>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">3</int>
@@ -5233,13 +5254,14 @@
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
+						<reference key="IBUIBackground" ref="393595846"/>
 						<reference key="IBUIFontDescription" ref="602457553"/>
 						<reference key="IBUIFont" ref="572617724"/>
 					</object>
 					<object class="IBUILabel" id="883208718">
 						<reference key="NSNextResponder" ref="71197273"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{117, 208}, {48, 26}}</string>
+						<string key="NSFrame">{{117, 213}, {48, 26}}</string>
 						<reference key="NSSuperview" ref="71197273"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="67244921"/>
@@ -5272,13 +5294,14 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Klar</string>
 						<reference key="IBUIHighlightedTitleColor" ref="190131798"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
+						<reference key="IBUINormalTitleColor" ref="190131798"/>
 						<reference key="IBUINormalTitleShadowColor" ref="597111183"/>
-						<reference key="IBUIFontDescription" ref="181088920"/>
-						<reference key="IBUIFont" ref="741107702"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">Klar_button.png</string>
+						</object>
+						<reference key="IBUIFontDescription" ref="912625600"/>
+						<reference key="IBUIFont" ref="167626828"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{295, 325}</string>
@@ -5426,8 +5449,15 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">closebutton.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="181088920"/>
-						<reference key="IBUIFont" ref="741107702"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<int key="type">2</int>
+							<double key="pointSize">15</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">15</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 				</array>
 				<string key="NSFrameSize">{295, 200}</string>
@@ -7811,11 +7841,15 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="Klar_button.png">{69, 30}</string>
 			<string key="background-ipone5.png">{640, 1136}</string>
 			<string key="bottom.png">{320, 89}</string>
 			<string key="cell.png">{80, 46}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="kalendar_cell_empty.png">{80, 46}</string>
+			<string key="kalendar_cell_emptycell_neutral.png">{80, 46}</string>
+			<string key="kalendar_cell_negative.png">{80, 46}</string>
+			<string key="kalendar_cell_positive.png">{80, 46}</string>
 			<string key="kalendar_cell_top_and_bottom.png">{80, 46}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
