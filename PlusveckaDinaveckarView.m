@@ -1,32 +1,30 @@
 //
-//  PlusveckaCalander.m
+//  PlusveckaDinaveckarView.m
 //  Välkommen till TFH-appen
 //
-//  Created by Brilliance Tech Sols on 7/18/13.
+//  Created by Brilliance Tech Sols on 7/21/13.
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
-#import "PlusveckaCalenderViewController.h"
-#import "ASDepthModalViewController.h"
+#import "PlusveckaDinaveckarView.h"
 
-@interface PlusveckaCalenderViewController ()
+@interface PlusveckaDinaveckarView ()
 @property (nonatomic, strong) NSString *currentDateBtn,*tabValue;
 @property (nonatomic, strong) NSString *currentStatuBtn;
 @end
-
-@interface CustomButton1 : UIButton
+@interface CustomButton2 : UIButton
 
 @property (nonatomic, strong) NSString *currentDateString,*tabValue;
 
 @end
 
-@implementation CustomButton1
+@implementation CustomButton2
 @synthesize currentDateString,tabValue;
 
 
 
 @end
-@implementation PlusveckaCalenderViewController
+@implementation PlusveckaDinaveckarView
 @synthesize settingsView;
 @synthesize dayView;
 @synthesize scrollView;
@@ -99,8 +97,9 @@
     }
     self.dataArray = [[NSMutableArray alloc]init];
     [self getData];
-
+    
     [self createButton];
+
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -181,7 +180,6 @@
 	[self updateScreens];
     //self.mainWeekLabel.text = [self titleText];
 }
-
 -(void)backButon {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -190,23 +188,23 @@
 -(void)settButtonClicked {
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!settingsView) {
-                settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView" bundle:nil];
-            }
-        }else{
-            if (!settingsView) {
-                settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView_iPhone4" bundle:nil];
-            }
-        }
-    }
-    else{
-        if (!settingsView) {
-            settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView_iPad" bundle:nil];
-        }
-    }
-    
-    [self.navigationController pushViewController:settingsView animated:YES];
+     if ([[UIScreen mainScreen] bounds].size.height > 480) {
+     if (!settingsView) {
+         settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView" bundle:nil];
+     }
+     }else{
+     if (!settingsView) {
+         settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView_iPhone4" bundle:nil];
+     }
+     }
+     }
+     else{
+     if (!settingsView) {
+         settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView_iPad" bundle:nil];
+     }
+     }
+     
+     [self.navigationController pushViewController:settingsView animated:YES];
 }
 
 
@@ -255,17 +253,13 @@
 }
 
 -(void)createButton {
-    int p=0;
-    for (int i = 0; i < 14; i++) {
-        if (i==2||i==4||i==6||i==8||i==10||i==12) {
-            p++;
-        }
-        NSDate *date = [self.weekdays objectAtIndex:p];
+    for (int i = 0; i < 7; i++) {
+        NSDate *date = [self.weekdays objectAtIndex:i];
         NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
         
         for (int j =0; j < 24 ; j++) {
             NSString *hStr = [NSString stringWithFormat:@"%i",j];
-            CustomButton1 *but = [[CustomButton1 alloc] initWithFrame:CGRectMake((i*21)+ 25, j*29, 21, 29)];
+            CustomButton2 *but = [[CustomButton2 alloc] initWithFrame:CGRectMake((i*42)+ 25, j*29, 42, 29)];
             but.titleLabel.textAlignment = UITextAlignmentCenter;
             [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
             [but setTabValue:[NSString stringWithFormat:@"%d",i]];
@@ -289,7 +283,7 @@
     return dateString;
 }
 
--(void)emptyCell:(CustomButton1 *)sender {
+-(void)emptyCell:(CustomButton2 *)sender {
     //currentButtonStatus = sender;
     currentDateBtn = sender.currentDateString;
     tabValue = sender.tabValue;
@@ -300,13 +294,13 @@
                                     options:style
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
-                             // [self refresh];
+                              // [self refresh];
                           }];
 }
 
 -(IBAction)closeButtonClicked:(id)sender
 {
-   [ASDepthModalViewController dismiss]; 
+    [ASDepthModalViewController dismiss];
 }
 
 -(IBAction)okButtonClicked:(id)sender
@@ -329,7 +323,7 @@
                             backgroundColor:nil
                                     options:style
                           completionHandler:^{
-
+                              
                           }];
 }
 
@@ -357,7 +351,7 @@
             dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPad" bundle:nil];
         }
     }
-    dayView.isDinackar = NO;
+    dayView.isDinackar = YES;
     [self.navigationController pushViewController:dayView animated:YES];
     
 }
@@ -437,7 +431,7 @@
     
     NSString *_tabValue = [NSString stringWithFormat:@"%d%d",[hoursTextField1.text intValue],[tabValue intValue]];
     
-    CustomButton1 *but = (CustomButton1 *)[self.scrollView viewWithTag:[_tabValue intValue]];
+    CustomButton2 *but = (CustomButton2 *)[self.scrollView viewWithTag:[_tabValue intValue]];
     
     if ([currentStatuBtn isEqualToString:@"+"]) {
         [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
@@ -495,36 +489,35 @@
 -(void)insertDataIntoDatabase {
     
     /*NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
-    NSString* str = [formatter stringFromDate:[NSDate date]];
-    
-    
-    NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
-    NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
-    
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE6 (date,startdate,enddate,status,daydate,eventdes) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\")",str,startDate,endDate,currentStatuBtn,currentDateBtn,eventDesTextView.text];
-        
-        const char *insert_stmt = [insertSQL UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
-        if (sqlite3_step(statement) == SQLITE_DONE)
-        {
-            NSLog(@"YES");
-        } else {
-            if(SQLITE_DONE != sqlite3_step(statement))
-                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
-            NSLog(@"NO");
-        }
-        sqlite3_finalize(statement);
-    }
-    
-    sqlite3_close(exerciseDB);*/
+     [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
+     NSString* str = [formatter stringFromDate:[NSDate date]];
+     
+     
+     NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+     NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
+     
+     const char *dbpath = [databasePath UTF8String];
+     
+     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+     {
+     NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE6 (date,startdate,enddate,status,daydate,eventdes) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\")",str,startDate,endDate,currentStatuBtn,currentDateBtn,eventDesTextView.text];
+     
+     const char *insert_stmt = [insertSQL UTF8String];
+     
+     sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+     if (sqlite3_step(statement) == SQLITE_DONE)
+     {
+     NSLog(@"YES");
+     } else {
+     if(SQLITE_DONE != sqlite3_step(statement))
+     NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+     NSLog(@"NO");
+     }
+     sqlite3_finalize(statement);
+     }
+     
+     sqlite3_close(exerciseDB);*/
 }
-
 
 - (void)didReceiveMemoryWarning
 {

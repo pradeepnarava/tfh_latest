@@ -27,6 +27,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
+
 @end
 
 
@@ -38,11 +39,12 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @end
 
 @implementation CalendarViewController
+@synthesize dayView;
 @synthesize scrollView;
 @synthesize settingRegViewCntrl;
 @synthesize monLabel1,tueLabel2,wedLabel3,thrLabel4,friLabel5,satLabel6,sunLabel7;
 @synthesize monButton1,tueButton2,wedButton3,thrButton4,friButton5,satButton6,sunButton7;
-@synthesize dateArray,weekdays,week;
+@synthesize dataArray,weekdays,week;
 @synthesize mainWeekLabel;
 @synthesize currentButtonStatus;
 @synthesize popupView,totalView;
@@ -53,7 +55,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize currentDateBtn;
 @synthesize tabValue;
 @synthesize slider,sliderLabel;
-@synthesize isNotNotify;
+@synthesize isEventNotify,isTotalNotify;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -92,6 +94,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     self.totalView.layer.shadowOffset = CGSizeMake(6, 6);
     self.totalView.layer.shouldRasterize = YES;
     self.totalView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -135,11 +138,15 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         char *errMsg;
-        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS EXERCISE6 (ID INTEGER PRIMARY KEY AUTOINCREMENT,DATE TEXT,STARTDATE TEXT,ENDDATE TEXT,STATUS TEXT,DAYDATE TEXT,EVENTDES TEXT)";
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS sub1event (id INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT,startDate TEXT,endDate TEXT,status TEXT,dayDate TEXT,eventDescription TEXT)";
+        const char *sql_stmt1 = "CREATE TABLE IF NOT EXISTS sub1total (id INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT,total TEXT)";
         
         if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
             NSLog(@"Failed to create database");
+        }
+        if (sqlite3_exec(exerciseDB, sql_stmt1, NULL, NULL, &errMsg)!=SQLITE_OK) {
+            NSLog(@"Failed to create total database");
         }
         
         sqlite3_close(exerciseDB);
@@ -147,16 +154,67 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     } else {
         NSLog(@"Failed to open/create database");
     }
+    self.dataArray = [[NSMutableArray alloc]init];
+    [self getData];
     
     [self createButton];
 
-    if (!isNotNotify) {
+    if (isEventNotify) {
         tabValue = @"0";
         [self  emptyCell:nil];
     }
-    
+    if (isTotalNotify) {
+        tabValue = @"0";
+        [self totalButtonClicked:nil];
+    }
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    /*self.dataArray = [[NSMutableArray alloc]init];
+    [self getData];
+    
+    [self createButton];*/
+}
+
+
+-(void)getData{
+    
+    const char *dbpath = [databasePath UTF8String];
+    
+
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM sub1event"];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            
+            while  (sqlite3_step(statement) == SQLITE_ROW) {
+                NSString *date = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
+                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
+                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
+                NSString *status = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
+                NSString *daytime = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 5)];
+                NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 6)];
+                
+                //NSString *total = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement1, 5)];
+                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
+                [itemDict setValue:date forKey:@"date"];
+                [itemDict setValue:startDate forKey:@"startDate"];
+                [itemDict setValue:endDate forKey:@"endDate"];
+                [itemDict setValue:status forKey:@"status"];
+                [itemDict setValue:daytime forKey:@"dayTime"];
+                [itemDict setValue:eventDescription forKey:@"eventDescription"];
+                //[itemDict setValue:total forKey:@"total"];
+                [dataArray addObject:itemDict];
+            }
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
+}
 
 
 -(NSString*)dateFromString:(NSDate*)date {
@@ -168,7 +226,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)createButton {
-
+    NSLog(@"%@",dataArray);
+    
     for (int i = 0; i < 7; i++) {
         NSDate *date = [self.weekdays objectAtIndex:i];
 
@@ -178,12 +237,35 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSString *hStr = [NSString stringWithFormat:@"%i",j];
             CustomButton *but = [[CustomButton alloc] initWithFrame:CGRectMake((i*42)+ 25, j*29, 42, 29)];
             but.titleLabel.textAlignment = UITextAlignmentCenter;
-            [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+            NSString *statusString = nil;
+            for (int g =0; g<[dataArray count]; g++) {
+                NSMutableDictionary *tempDict = [dataArray objectAtIndex:g];
+                if ([[tempDict valueForKey:@"dayTime"] isEqualToString:[NSString stringWithFormat:@"%@ %@",[tm objectAtIndex:0],hStr]]){
+                    if ([[tempDict valueForKey:@"status"] isEqualToString:@"+"]){
+                        statusString = @"+";
+                    }else if ([[tempDict valueForKey:@"status"] isEqualToString:@"-"]){
+                        statusString = @"-";
+                    }else if ([[tempDict valueForKey:@"status"] isEqualToString:@"N"]){
+                        statusString = @"N";
+                    }
+                    
+                    [but setTitle:[tempDict valueForKey:@"eventDescription"] forState:UIControlStateNormal];
+                }
+            }
+            if ([statusString isEqualToString:@"+"]) {
+                [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
+            }else if ([statusString isEqualToString:@"-"]){
+                [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
+            }else if ([statusString isEqualToString:@"N"]){
+                [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
+            }else {
+                [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+            }
             [but setTabValue:[NSString stringWithFormat:@"%d",i]];
             [but addTarget:self action:@selector(emptyCell:) forControlEvents:UIControlEventTouchUpInside];
             [but setCurrentDateString:[NSString stringWithFormat:@"%@ %@",[tm objectAtIndex:0],hStr]];
             NSString *strin = [NSString stringWithFormat:@"%d%d",j,i];
-
+            
             [but setTag:[strin intValue]];
             [but setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.scrollView addSubview:but];
@@ -231,7 +313,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)refresh {
-    
     
     NSString *_tabValue = [NSString stringWithFormat:@"%d%d",[hoursTextField1.text intValue],[tabValue intValue]];
 
@@ -291,7 +372,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 -(void)emptyCell:(CustomButton *)sender {
-    //currentButtonStatus = sender;
+
     currentDateBtn = sender.currentDateString;
     tabValue = sender.tabValue;
     
@@ -310,7 +391,42 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 {
     [ASDepthModalViewController dismiss];
     [self insertDataIntoDatabase];
+}
 
+
+-(IBAction)totalOkButtonClicked:(id)sender {
+    
+    [ASDepthModalViewController dismiss];
+    [self insertDataIntoTotalDatabase:[sender tag]];
+    
+}
+
+-(void)insertDataIntoTotalDatabase:(int)tagValue {
+    
+    NSDate *date = [self.weekdays objectAtIndex:tagValue];
+    
+    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO sub1total (date,total) VALUES (\"%@\", \"%@\")",[tm objectAtIndex:0],sliderLabel.text];
+        
+        const char *insert_stmt = [insertSQL UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE)
+        {
+            NSLog(@"YES");
+        } else {
+            if(SQLITE_DONE != sqlite3_step(statement))
+                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+            NSLog(@"NO");
+        }
+        sqlite3_finalize(statement);
+    }
+    
+    sqlite3_close(exerciseDB);
 }
 
 -(IBAction)closeButtonAction:(id)sender{
@@ -327,7 +443,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(IBAction)totalButtonClicked:(id)sender
 {
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
+    [ASDepthModalViewController presentView:self.totalView
                             backgroundColor:nil
                                     options:style
                           completionHandler:^{
@@ -339,8 +455,24 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(IBAction)calendarDayCellClicked:(id)sender
 {
     
-    UIButton *button = (UIButton*)sender;
-    NSLog(@"button tag is %i",[button tag]);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!dayView) {
+                dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView" bundle:nil];
+            }
+        }else{
+            if (!dayView) {
+                dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!dayView) {
+            dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPad" bundle:nil];
+        }
+    }
+    dayView.isDinackar = YES;
+    [self.navigationController pushViewController:dayView animated:YES];
     
 }
 
@@ -463,7 +595,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     NSString* str = [formatter stringFromDate:[NSDate date]];
     
-    
     NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
     NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
     
@@ -471,7 +602,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISE6 (date,startdate,enddate,status,daydate,eventdes) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\")",str,startDate,endDate,currentStatuBtn,currentDateBtn,eventDesTextView.text];
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO sub1event (date,startDate,endDate,status,dayDate,eventDescription) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\")",str,startDate,endDate,currentStatuBtn,currentDateBtn,eventDesTextView.text];
         
         const char *insert_stmt = [insertSQL UTF8String];
         
@@ -489,6 +620,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     sqlite3_close(exerciseDB);
 }
+
+
 
 
 #pragma mark UITextField Delegate Methods

@@ -34,6 +34,8 @@
 		2456C5B71795AD1000F36A2F /* ASDepthModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2456C5B41795AD1000F36A2F /* ASDepthModalViewController.m */; };
 		2456C5B81795AD1000F36A2F /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 2456C5B61795AD1000F36A2F /* UIImage+Blur.m */; };
 		2456C5BA1795AD2100F36A2F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2456C5B91795AD2100F36A2F /* Accelerate.framework */; };
+		2456E89E179BF8AD00E36AE1 /* RegistreringsDinaveckarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2456E89D179BF8AD00E36AE1 /* RegistreringsDinaveckarController.m */; };
+		2456E8A0179BFB0E00E36AE1 /* RegistreringsDinaveckarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2456E89F179BFB0E00E36AE1 /* RegistreringsDinaveckarView_iPhone4.xib */; };
 		247751841790672E00CF2518 /* Regisreringsveck_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 247751831790672D00CF2518 /* Regisreringsveck_button.png */; };
 		247751871790703B00CF2518 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 247751861790703B00CF2518 /* CalendarViewController.m */; };
 		247751891790706200CF2518 /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 247751881790706200CF2518 /* CalendarView.xib */; };
@@ -133,6 +135,16 @@
 		5E5D718B17300E38003A8E44 /* TankefallorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5D718917300E38003A8E44 /* TankefallorViewController.m */; };
 		5E5D718C17300E39003A8E44 /* TankefallorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5D718A17300E38003A8E44 /* TankefallorViewController.xib */; };
 		5E87C546178C5432001D6174 /* tillbaka1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E87C545178C5432001D6174 /* tillbaka1.png */; };
+		5E88C5DE179BDE470054DC92 /* PlusveckaDinaveckar_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E88C5DD179BDE470054DC92 /* PlusveckaDinaveckar_iPhone4.xib */; };
+		5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E88C5E0179BE42F0054DC92 /* PlusveckaDinaveckarView.m */; };
+		5E88C5E3179BE42F0054DC92 /* PlusveckaDinaveckarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E88C5E1179BE42F0054DC92 /* PlusveckaDinaveckarView.xib */; };
+		5E88C5E5179BE5D40054DC92 /* PlusveckaDinaveckarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E88C5E4179BE5D40054DC92 /* PlusveckaDinaveckarView_iPhone4.xib */; };
+		5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E88C5E7179BEC2B0054DC92 /* PlusveckaDayView.m */; };
+		5E88C5EA179BEC2B0054DC92 /* PlusveckaDayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E88C5E8179BEC2B0054DC92 /* PlusveckaDayView.xib */; };
+		5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E88C5EC179BEC3D0054DC92 /* PlusveckaSettingsView.m */; };
+		5E88C5EF179BEC3E0054DC92 /* PlusveckaSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E88C5ED179BEC3E0054DC92 /* PlusveckaSettingsView.xib */; };
+		5E88C5F1179BF8ED0054DC92 /* PlusveckaDayView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E88C5F0179BF8ED0054DC92 /* PlusveckaDayView_iPhone4.xib */; };
+		5E88C5F3179C03D10054DC92 /* PlusveckaSettingsView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E88C5F2179C03D10054DC92 /* PlusveckaSettingsView_iPhone4.xib */; };
 		5E89B3491785BD39004E1745 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E89B3481785BD39004E1745 /* checked.png */; };
 		5E8F73041732A99C00A7F893 /* BeteendeexperimentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F73021732A99C00A7F893 /* BeteendeexperimentController.m */; };
 		5E8F73051732A99C00A7F893 /* BeteendeexperimentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E8F73031732A99C00A7F893 /* BeteendeexperimentController.xib */; };
@@ -331,6 +343,9 @@
 		2456C5B51795AD1000F36A2F /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
 		2456C5B61795AD1000F36A2F /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
 		2456C5B91795AD2100F36A2F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		2456E89C179BF8AD00E36AE1 /* RegistreringsDinaveckarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistreringsDinaveckarController.h; sourceTree = "<group>"; };
+		2456E89D179BF8AD00E36AE1 /* RegistreringsDinaveckarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistreringsDinaveckarController.m; sourceTree = "<group>"; };
+		2456E89F179BFB0E00E36AE1 /* RegistreringsDinaveckarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistreringsDinaveckarView_iPhone4.xib; sourceTree = "<group>"; };
 		247751831790672D00CF2518 /* Regisreringsveck_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Regisreringsveck_button.png; sourceTree = "<group>"; };
 		247751851790703B00CF2518 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		247751861790703B00CF2518 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
@@ -444,6 +459,19 @@
 		5E5D718917300E38003A8E44 /* TankefallorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankefallorViewController.m; sourceTree = "<group>"; };
 		5E5D718A17300E38003A8E44 /* TankefallorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TankefallorViewController.xib; sourceTree = "<group>"; };
 		5E87C545178C5432001D6174 /* tillbaka1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tillbaka1.png; sourceTree = "<group>"; };
+		5E88C5DD179BDE470054DC92 /* PlusveckaDinaveckar_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaDinaveckar_iPhone4.xib; sourceTree = "<group>"; };
+		5E88C5DF179BE42F0054DC92 /* PlusveckaDinaveckarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlusveckaDinaveckarView.h; sourceTree = "<group>"; };
+		5E88C5E0179BE42F0054DC92 /* PlusveckaDinaveckarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlusveckaDinaveckarView.m; sourceTree = "<group>"; };
+		5E88C5E1179BE42F0054DC92 /* PlusveckaDinaveckarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaDinaveckarView.xib; sourceTree = "<group>"; };
+		5E88C5E4179BE5D40054DC92 /* PlusveckaDinaveckarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaDinaveckarView_iPhone4.xib; sourceTree = "<group>"; };
+		5E88C5E6179BEC2B0054DC92 /* PlusveckaDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlusveckaDayView.h; sourceTree = "<group>"; };
+		5E88C5E7179BEC2B0054DC92 /* PlusveckaDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlusveckaDayView.m; sourceTree = "<group>"; };
+		5E88C5E8179BEC2B0054DC92 /* PlusveckaDayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaDayView.xib; sourceTree = "<group>"; };
+		5E88C5EB179BEC3D0054DC92 /* PlusveckaSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlusveckaSettingsView.h; sourceTree = "<group>"; };
+		5E88C5EC179BEC3D0054DC92 /* PlusveckaSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlusveckaSettingsView.m; sourceTree = "<group>"; };
+		5E88C5ED179BEC3E0054DC92 /* PlusveckaSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaSettingsView.xib; sourceTree = "<group>"; };
+		5E88C5F0179BF8ED0054DC92 /* PlusveckaDayView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaDayView_iPhone4.xib; sourceTree = "<group>"; };
+		5E88C5F2179C03D10054DC92 /* PlusveckaSettingsView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaSettingsView_iPhone4.xib; sourceTree = "<group>"; };
 		5E89B3481785BD39004E1745 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		5E8F73011732A99C00A7F893 /* BeteendeexperimentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeteendeexperimentController.h; sourceTree = "<group>"; };
 		5E8F73021732A99C00A7F893 /* BeteendeexperimentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeteendeexperimentController.m; sourceTree = "<group>"; };
@@ -1107,6 +1135,9 @@
 				247751861790703B00CF2518 /* CalendarViewController.m */,
 				247751881790706200CF2518 /* CalendarView.xib */,
 				2401C2F1179313D10081BFEA /* CalendarView_iPhone4.xib */,
+				2456E89C179BF8AD00E36AE1 /* RegistreringsDinaveckarController.h */,
+				2456E89D179BF8AD00E36AE1 /* RegistreringsDinaveckarController.m */,
+				2456E89F179BFB0E00E36AE1 /* RegistreringsDinaveckarView_iPhone4.xib */,
 				24B54E2717907D0700AAA236 /* SettingRegistViewController.h */,
 				24B54E2817907D0700AAA236 /* SettingRegistViewController.m */,
 				24B54E2A17907D2800AAA236 /* SettingRegistView.xib */,
@@ -1127,6 +1158,19 @@
 				5EBEAA9B17996C0700679AA4 /* PlusveckaDinaveckar.h */,
 				5EBEAA9C17996C0700679AA4 /* PlusveckaDinaveckar.m */,
 				5EBEAA9D17996C0700679AA4 /* PlusveckaDinaveckar.xib */,
+				5E88C5DD179BDE470054DC92 /* PlusveckaDinaveckar_iPhone4.xib */,
+				5E88C5DF179BE42F0054DC92 /* PlusveckaDinaveckarView.h */,
+				5E88C5E0179BE42F0054DC92 /* PlusveckaDinaveckarView.m */,
+				5E88C5E1179BE42F0054DC92 /* PlusveckaDinaveckarView.xib */,
+				5E88C5E4179BE5D40054DC92 /* PlusveckaDinaveckarView_iPhone4.xib */,
+				5E88C5E6179BEC2B0054DC92 /* PlusveckaDayView.h */,
+				5E88C5E7179BEC2B0054DC92 /* PlusveckaDayView.m */,
+				5E88C5E8179BEC2B0054DC92 /* PlusveckaDayView.xib */,
+				5E88C5F0179BF8ED0054DC92 /* PlusveckaDayView_iPhone4.xib */,
+				5E88C5EB179BEC3D0054DC92 /* PlusveckaSettingsView.h */,
+				5E88C5EC179BEC3D0054DC92 /* PlusveckaSettingsView.m */,
+				5E88C5ED179BEC3E0054DC92 /* PlusveckaSettingsView.xib */,
+				5E88C5F2179C03D10054DC92 /* PlusveckaSettingsView_iPhone4.xib */,
 				5E068CF71733F216006FF428 /* Utvardering.h */,
 				5E068CF81733F216006FF428 /* Utvardering.m */,
 				5E068CF91733F217006FF428 /* Utvardering.xib */,
@@ -1622,6 +1666,83 @@
 				272B6ACB17999A59001B3303 /* Settings.plist in Resources */,
 				24BDD498179AD0E000BEDACC /* settings_digital_input.png in Resources */,
 				24BDD49A179B0D3200BEDACC /* SettingRegistView_iPhone4.xib in Resources */,
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+				2456E8A0179BFB0E00E36AE1 /* RegistreringsDinaveckarView_iPhone4.xib in Resources */,
+=======
+=======
+>>>>>>> 48eef22f925abda8982e5cdf1c2313e503797fe6
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+				5E88C5DE179BDE470054DC92 /* PlusveckaDinaveckar_iPhone4.xib in Resources */,
+				5E88C5E3179BE42F0054DC92 /* PlusveckaDinaveckarView.xib in Resources */,
+				5E88C5E5179BE5D40054DC92 /* PlusveckaDinaveckarView_iPhone4.xib in Resources */,
+				5E88C5EA179BEC2B0054DC92 /* PlusveckaDayView.xib in Resources */,
+				5E88C5EF179BEC3E0054DC92 /* PlusveckaSettingsView.xib in Resources */,
+				5E88C5F1179BF8ED0054DC92 /* PlusveckaDayView_iPhone4.xib in Resources */,
+				5E88C5F3179C03D10054DC92 /* PlusveckaSettingsView_iPhone4.xib in Resources */,
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 749e815f9d702d88a82b866dffb6fd3f340b8c01
+=======
+>>>>>>> 48eef22f925abda8982e5cdf1c2313e503797fe6
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1679,6 +1800,79 @@
 				5E5BC52117983E950098725B /* PlusveckaCalenderViewController.m in Sources */,
 				5EBEAA9E17996C0700679AA4 /* PlusveckaDinaveckar.m in Sources */,
 				272B6ACC17999A59001B3303 /* SettingsData.m in Sources */,
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+				2456E89E179BF8AD00E36AE1 /* RegistreringsDinaveckarController.m in Sources */,
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> 749e815f9d702d88a82b866dffb6fd3f340b8c01
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> 48eef22f925abda8982e5cdf1c2313e503797fe6
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
+=======
+				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
+				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
+				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+>>>>>>> f72adb49c39aec3b5105e49c8c379141cd178922
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

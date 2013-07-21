@@ -18,6 +18,10 @@
 #define kTOTALTIME @"TOTALTIME"
 #define kTOTALONOFF @"TOTALONOFF"
 
+
+#define kEventNotificationDataKey @"EventNotification"
+#define kTotalNotificationDataKey @"TotalNotification"
+
 #define kYYYYMMDDHHMM @"yyyy-MM-dd HH:mm"
 #define kHHMMSS @"HH:mm"
 
@@ -92,10 +96,8 @@ int tagValue;
         
         if ([[[NSUserDefaults standardUserDefaults]objectForKey:kHOURSTAG] isEqualToString:@"9"]) {
             if([[NSUserDefaults standardUserDefaults]objectForKey:kONEDAY]) {
-                NSArray *te =[[[settingsArray objectAtIndex:1] valueForKey:kONEDAY] componentsSeparatedByString:@":"];
-                
-                NSString *text = [NSString stringWithFormat:@"%@ hrs %@ mins", [te objectAtIndex:0], [te objectAtIndex:1]];
-                oneTimeNotificationLabel.text = text;
+               
+                oneTimeNotificationLabel.text =[[NSUserDefaults standardUserDefaults]objectForKey:kONEDAY];
             }
         }
         
@@ -124,7 +126,7 @@ int tagValue;
     [self.popupScrollView setContentSize:CGSizeMake(320, 430)];
     
     hoursTimeString = [[NSString alloc] init];
-    settingsArray = [[NSMutableArray alloc]init];
+    //settingsArray = [[NSMutableArray alloc]init];
 
     
     self.title = @"Settings";
@@ -217,7 +219,7 @@ int tagValue;
 }
 
 
--(void)oneTime {
+/*-(void)oneTime {
     
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     
@@ -280,7 +282,7 @@ int tagValue;
     oneTimeNotificationLabel.text = text;
     
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-}
+}*/
 
 
 -(IBAction)hourSelected:(id)sender {
@@ -289,7 +291,7 @@ int tagValue;
     
     hoursValue = btn.tag;
     hoursTimeString = btn.titleLabel.text;
-    NSLog(@"selectedCheckButton tag is %i",btn.tag);
+    NSLog(@"selectedCheckButton tag is %i hoursTimeString %@",btn.tag, hoursTimeString);
     
     for (UIButton *radioButton in [self.popupScrollView  subviews]) {
         if (radioButton.tag != btn.tag && [radioButton isKindOfClass:[UIButton class]]) {
@@ -302,14 +304,23 @@ int tagValue;
     
     [btn setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
     if (btn.tag == 24) {
-        [self oneTime];
+        [self createDatePicker:btn];
     }
 }
 
 -(IBAction)kalrButtonClicked:(id)sender {
      NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
    
-    if (([startTimeButton.titleLabel.text length]>0 && [stopTimeButton.titleLabel.text length] >0)) {
+    if (hoursValue == 24) {
+        [self localNotification1:nil];
+        [userDefaults setBool:YES forKey:kEVENTONOFF];
+        [userDefaults setValue:hoursTimeString forKey:kHOURSTAG];
+        [userDefaults setValue:oneTimeNotificationLabel.text forKey:kONEDAY];
+        [userDefaults setValue:nil forKey:kSTARTTIME];
+        [userDefaults setValue:nil forKey:kENDTIME];
+        [userDefaults synchronize];
+    }
+    else if (([startTimeButton.titleLabel.text length]>0 && [stopTimeButton.titleLabel.text length] >0)) {
         [self localNotification1:[hoursTimeString intValue]];
         [userDefaults setBool:YES forKey:kEVENTONOFF];
         [userDefaults setValue:hoursTimeString forKey:kHOURSTAG];
@@ -346,8 +357,22 @@ int tagValue;
 
 
 -(void)localNotification1:(int)hours {
+    
+    if (hoursValue == 24) {
+    
+        UILocalNotification *notif = [[UILocalNotification alloc] init];
+        notif.fireDate = [self localDateAndTime:oneTimeNotificationLabel.text];
+        notif.soundName = UILocalNotificationDefaultSoundName;
+        notif.repeatInterval = NSDayCalendarUnit;
+        notif.alertBody = @"Reminder";
+        notif.alertAction = @"View";
+        
+        notif.userInfo = [NSDictionary dictionaryWithObject:@"Event" forKey:kEventNotificationDataKey];
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:notif];
 
-    if ([startTimeButton.titleLabel.text length] >0 && [stopTimeButton.titleLabel.text length]>0) {
+    }
+    else if ([startTimeButton.titleLabel.text length] >0 && [stopTimeButton.titleLabel.text length]>0) {
         
         NSDate *sTime = [self localDateAndTime:startTimeButton.titleLabel.text];
         NSDate *eTime = [self localDateAndTime:stopTimeButton.titleLabel.text];
@@ -355,20 +380,19 @@ int tagValue;
         while ([eTime compare:sTime] == NSOrderedDescending ||[eTime compare:sTime] == NSOrderedSame ) {
             NSLog(@"jkfksdajdasfjlskdjflsd %@",sTime);
             
-            UILocalNotification *notif = [[[UILocalNotification alloc] init] autorelease];
-            if (!notif) {
-                
-                notif.fireDate = sTime;
-                notif.soundName = UILocalNotificationDefaultSoundName;
-                notif.repeatInterval = NSDayCalendarUnit;
-                notif.alertBody = @"Reminder";
-                notif.alertAction = @"View";
-                
-                NSLog(@"noti  fjkdsaflk j    %@",notif);
-                [[UIApplication sharedApplication] scheduleLocalNotification:notif];
-                
-                
-            }
+            UILocalNotification *notif = [[UILocalNotification alloc] init];
+            
+            
+            notif.fireDate = sTime;
+            notif.soundName = UILocalNotificationDefaultSoundName;
+            notif.repeatInterval = NSDayCalendarUnit;
+            notif.alertBody = @"Reminder";
+            notif.alertAction = @"View";
+            
+            notif.userInfo = [NSDictionary dictionaryWithObject:@"Event" forKey:kEventNotificationDataKey];
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:notif];
+            
             sTime = [sTime dateByAddingTimeInterval:hours*60*60];
         }
     }
@@ -377,16 +401,16 @@ int tagValue;
 -(void)localNotificationTotal {
     
     if ([totalTimeButton.titleLabel.text length] > 0 && !([totalTimeButton.titleLabel.text isEqualToString:@"totaltime"])) {
-    
-        UILocalNotification *notif = [[[UILocalNotification alloc] init] autorelease];
-        if (!notif) {
-            
-            notif.fireDate = [self localDateAndTime:totalTimeButton.titleLabel.text];
-            notif.soundName = UILocalNotificationDefaultSoundName;
-            notif.repeatInterval = NSDayCalendarUnit;
-            notif.alertBody = @"Reminder";
-            notif.alertAction = @"View";
-        }
+        
+        UILocalNotification *notif = [[UILocalNotification alloc] init];
+        
+        notif.fireDate = [self localDateAndTime:totalTimeButton.titleLabel.text];
+        notif.soundName = UILocalNotificationDefaultSoundName;
+        notif.repeatInterval = NSDayCalendarUnit;
+        notif.alertBody = @"Reminder";
+        notif.alertAction = @"View";
+        notif.userInfo = [NSDictionary dictionaryWithObject:@"Total" forKey:kTotalNotificationDataKey];
+        
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
     }
 }
@@ -483,11 +507,13 @@ int tagValue;
         lblTitle.text = @"Första påminnelsen";
     }else if (button.tag == 13) {
         if ([stopTimeButton.titleLabel.text length] > 0) {
-            // timePicker.date = [self dateFromString:stopTimeButton.titleLabel.text];
+            //timePicker.date = [self dateFromString:stopTimeButton.titleLabel.text];
         }
         lblTitle.text = @"Sista påminnelsen";
     }else if (button.tag == 14){
         
+    }else if (button.tag == 24){
+        lblTitle.text = @"En gång om dagen kl";   
     }
     
     actionSheet = [[UIActionSheet alloc] init];
@@ -507,6 +533,8 @@ int tagValue;
         [stopTimeButton setTitle:[self stringFromDateTimes:timePicker.date] forState:UIControlStateNormal];
     }else if (tagValue == 14) {
         [totalTimeButton setTitle:[self stringFromDateTimes:timePicker.date] forState:UIControlStateNormal];
+    }else if (hoursValue == 24){
+        oneTimeNotificationLabel.text = [self stringFromDateTimes:timePicker.date];
     }
     
     [actionSheet dismissWithClickedButtonIndex:0 animated:YES];

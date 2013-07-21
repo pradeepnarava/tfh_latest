@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PlusveckaDinaveckarView.h"
 @interface PlusveckaDinaveckar : UIViewController
 @property (nonatomic,strong) IBOutlet UITableView *table;
 @property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) PlusveckaDinaveckarView *calanderView;
 @end

@@ -1,21 +1,18 @@
 //
-//  Registreringsvecka.m
+//  PlusveckaSettingsView.m
 //  Välkommen till TFH-appen
 //
-//  Created by Mohammed Abdul Majeed on 5/3/13.
+//  Created by Brilliance Tech Sols on 7/21/13.
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
-#import "Registreringsvecka.h"
-#import "MTPopupWindow.h"
-#import "CalendarViewController.h"
+#import "PlusveckaSettingsView.h"
 
-@interface Registreringsvecka ()
+@interface PlusveckaSettingsView ()
 
 @end
 
-@implementation Registreringsvecka
-@synthesize calendarView;
+@implementation PlusveckaSettingsView
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,10 +25,6 @@
 
 - (void)viewDidLoad
 {
-    self.navigationItem.title=@"Registreringsvecka";
-    [super viewDidLoad];
-    
-    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
@@ -44,7 +37,6 @@
         
     }
     else {
-        
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
@@ -53,51 +45,12 @@
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
-    
-    // Do any additional setup after loading the view from its nib.
-    
     [super viewDidLoad];
-
+    // Do any additional setup after loading the view from its nib.
 }
 
 -(void)backButon {
-    
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-
--(IBAction)sub1button:(id)sender {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!calendarView) {
-                calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView" bundle:nil];
-            }
-        }else{
-            if (!calendarView) {
-                calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPhone4" bundle:nil];
-            }
-        }
-    }
-    else{
-        if (!calendarView) {
-            calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPad" bundle:nil];
-        }
-    }
-    calendarView.isEventNotify = NO;
-    calendarView.isTotalNotify = NO;
-    
-    [self.navigationController pushViewController:calendarView animated:YES];
-}
-
-
--(IBAction)ILabel:(id)sender {
-     [MTPopupWindow showWindowWithHTMLFile:@"Registreringsvecka.html" insideView:self.view];
-}
-
-
--(IBAction)dinavaor:(id)sender
-{
-    
 }
 
 - (void)didReceiveMemoryWarning
