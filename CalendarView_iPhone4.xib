@@ -878,6 +878,7 @@
 						<string key="NSFrame">{{277, 427}, {42, 29}}</string>
 						<reference key="NSSuperview" ref="973861116"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">175</int>
@@ -4435,6 +4436,7 @@
 						<string key="NSFrame">{{277, 696}, {42, 29}}</string>
 						<reference key="NSSuperview" ref="717026429"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">175</int>
@@ -5273,6 +5275,7 @@
 						<string key="NSFrame">{{112, 272}, {73, 35}}</string>
 						<reference key="NSSuperview" ref="823687390"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -5340,6 +5343,7 @@
 						<string key="NSFrame">{{120, 151}, {54, 26}}</string>
 						<reference key="NSSuperview" ref="378531778"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -7623,6 +7627,7 @@
 						<string key="calendarDayCellClicked:">id</string>
 						<string key="closeButtonAction:">id</string>
 						<string key="okButtonClicked:">id</string>
+						<string key="sliderValueChanged:">UISlider</string>
 						<string key="statusButtonClicked:">id</string>
 						<string key="totalButtonClicked:">id</string>
 						<string key="totalOkButtonClicked:">id</string>
@@ -7639,6 +7644,10 @@
 						<object class="IBActionInfo" key="okButtonClicked:">
 							<string key="name">okButtonClicked:</string>
 							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="sliderValueChanged:">
+							<string key="name">sliderValueChanged:</string>
+							<string key="candidateClassName">UISlider</string>
 						</object>
 						<object class="IBActionInfo" key="statusButtonClicked:">
 							<string key="name">statusButtonClicked:</string>
@@ -7756,7 +7765,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="Klar_button.png">{69, 30}</string>
 			<string key="background-ipone5.png">{640, 1136}</string>
-			<string key="bottom.png">{640, 271}</string>
+			<string key="bottom.png">{320, 89}</string>
 			<string key="cell.png">{80, 46}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="kalendar_cell_empty.png">{80, 46}</string>

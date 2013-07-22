@@ -49,6 +49,9 @@
 		248D157E178B429C0045AADB /* navigationbar_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D157C178B429C0045AADB /* navigationbar_iPhone@2x.png */; };
 		248D1581178B43A50045AADB /* navigationbar_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D157F178B43A50045AADB /* navigationbar_iPad.png */; };
 		248D1582178B43A50045AADB /* navigationbar_iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248D1580178B43A50045AADB /* navigationbar_iPad@2x.png */; };
+		249F995F179D9DB500D60B10 /* RegistreringDinaveckarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 249F995E179D9DB500D60B10 /* RegistreringDinaveckarViewController.m */; };
+		249F9961179D9E1300D60B10 /* RegistreringDinaveckaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 249F9960179D9E1300D60B10 /* RegistreringDinaveckaView.xib */; };
+		249F9963179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 249F9962179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib */; };
 		24AE0F3E1776181C0073A880 /* exempel-från-livet-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AE0F361776181C0073A880 /* exempel-från-livet-background@2x.png */; };
 		24AE0F3F1776181C0073A880 /* shorter-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AE0F371776181C0073A880 /* shorter-bottom.png */; };
 		24AE0F401776181C0073A880 /* shorter-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AE0F381776181C0073A880 /* shorter-bottom@2x.png */; };
@@ -72,8 +75,6 @@
 		24DEDD6E1780D22500DFB920 /* Utmanatankar_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24DEDD6D1780D22500DFB920 /* Utmanatankar_iPad.xib */; };
 		25A8FAF91748F9B9000D6BAC /* DayEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A8FAF71748F9B9000D6BAC /* DayEventViewController.m */; };
 		25A8FAFA1748F9B9000D6BAC /* DayEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A8FAF81748F9B9000D6BAC /* DayEventViewController.xib */; };
-		272B6ACB17999A59001B3303 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 272B6AC817999A59001B3303 /* Settings.plist */; };
-		272B6ACC17999A59001B3303 /* SettingsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 272B6ACA17999A59001B3303 /* SettingsData.m */; };
 		5E054B401747B6F000C4EAD5 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B3F1747B6F000C4EAD5 /* settings.png */; };
 		5E054B481747BB5200C4EAD5 /* introduktion.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B421747BB5200C4EAD5 /* introduktion.png */; };
 		5E054B491747BB5200C4EAD5 /* om.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E054B431747BB5200C4EAD5 /* om.png */; };
@@ -357,6 +358,10 @@
 		248D157C178B429C0045AADB /* navigationbar_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_iPhone@2x.png"; sourceTree = "<group>"; };
 		248D157F178B43A50045AADB /* navigationbar_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_iPad.png; sourceTree = "<group>"; };
 		248D1580178B43A50045AADB /* navigationbar_iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigationbar_iPad@2x.png"; sourceTree = "<group>"; };
+		249F995D179D9DB500D60B10 /* RegistreringDinaveckarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistreringDinaveckarViewController.h; sourceTree = "<group>"; };
+		249F995E179D9DB500D60B10 /* RegistreringDinaveckarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistreringDinaveckarViewController.m; sourceTree = "<group>"; };
+		249F9960179D9E1300D60B10 /* RegistreringDinaveckaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistreringDinaveckaView.xib; sourceTree = "<group>"; };
+		249F9962179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistreringDinaveckaView_iPhone4.xib; sourceTree = "<group>"; };
 		24AE0F361776181C0073A880 /* exempel-från-livet-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exempel-från-livet-background@2x.png"; sourceTree = "<group>"; };
 		24AE0F371776181C0073A880 /* shorter-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shorter-bottom.png"; sourceTree = "<group>"; };
 		24AE0F381776181C0073A880 /* shorter-bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shorter-bottom@2x.png"; sourceTree = "<group>"; };
@@ -382,9 +387,6 @@
 		25A8FAF61748F9B9000D6BAC /* DayEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayEventViewController.h; sourceTree = "<group>"; };
 		25A8FAF71748F9B9000D6BAC /* DayEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayEventViewController.m; sourceTree = "<group>"; };
 		25A8FAF81748F9B9000D6BAC /* DayEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayEventViewController.xib; sourceTree = "<group>"; };
-		272B6AC817999A59001B3303 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
-		272B6AC917999A59001B3303 /* SettingsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsData.h; sourceTree = "<group>"; };
-		272B6ACA17999A59001B3303 /* SettingsData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsData.m; sourceTree = "<group>"; };
 		5E054B3F1747B6F000C4EAD5 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		5E054B421747BB5200C4EAD5 /* introduktion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introduktion.png; sourceTree = "<group>"; };
 		5E054B431747BB5200C4EAD5 /* om.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = om.png; sourceTree = "<group>"; };
@@ -1099,9 +1101,6 @@
 		5EED2AE3173E515100CF77B3 /* Exercise6 */ = {
 			isa = PBXGroup;
 			children = (
-				272B6AC817999A59001B3303 /* Settings.plist */,
-				272B6AC917999A59001B3303 /* SettingsData.h */,
-				272B6ACA17999A59001B3303 /* SettingsData.m */,
 				2401C2E11793120A0081BFEA /* PopOverView */,
 				244A0497179104DE0020ECE1 /* kalendar_cell_empty.png */,
 				244A0498179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png */,
@@ -1126,6 +1125,10 @@
 				5E068CEE1733E9A1006FF428 /* Registreringsvecka.m */,
 				5E068CEF1733E9A1006FF428 /* Registreringsvecka.xib */,
 				2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */,
+				249F995D179D9DB500D60B10 /* RegistreringDinaveckarViewController.h */,
+				249F995E179D9DB500D60B10 /* RegistreringDinaveckarViewController.m */,
+				249F9960179D9E1300D60B10 /* RegistreringDinaveckaView.xib */,
+				249F9962179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib */,
 				247751851790703B00CF2518 /* CalendarViewController.h */,
 				247751861790703B00CF2518 /* CalendarViewController.m */,
 				247751881790706200CF2518 /* CalendarView.xib */,
@@ -1655,7 +1658,6 @@
 				5E5BC52017983E950098725B /* PlusveckaCalenderView_iPhone4.xib in Resources */,
 				5E5BC52217983E950098725B /* PlusveckaCalenderView.xib in Resources */,
 				5EBEAA9F17996C0700679AA4 /* PlusveckaDinaveckar.xib in Resources */,
-				272B6ACB17999A59001B3303 /* Settings.plist in Resources */,
 				24BDD498179AD0E000BEDACC /* settings_digital_input.png in Resources */,
 				24BDD49A179B0D3200BEDACC /* SettingRegistView_iPhone4.xib in Resources */,
 				5E88C5DE179BDE470054DC92 /* PlusveckaDinaveckar_iPhone4.xib in Resources */,
@@ -1665,6 +1667,8 @@
 				5E88C5EF179BEC3E0054DC92 /* PlusveckaSettingsView.xib in Resources */,
 				5E88C5F1179BF8ED0054DC92 /* PlusveckaDayView_iPhone4.xib in Resources */,
 				5E88C5F3179C03D10054DC92 /* PlusveckaSettingsView_iPhone4.xib in Resources */,
+				249F9961179D9E1300D60B10 /* RegistreringDinaveckaView.xib in Resources */,
+				249F9963179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1721,10 +1725,10 @@
 				5E5BC5111798336C0098725B /* SelectRegistreringsveckaViewController.m in Sources */,
 				5E5BC52117983E950098725B /* PlusveckaCalenderViewController.m in Sources */,
 				5EBEAA9E17996C0700679AA4 /* PlusveckaDinaveckar.m in Sources */,
-				272B6ACC17999A59001B3303 /* SettingsData.m in Sources */,
 				5E88C5E2179BE42F0054DC92 /* PlusveckaDinaveckarView.m in Sources */,
 				5E88C5E9179BEC2B0054DC92 /* PlusveckaDayView.m in Sources */,
 				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
+				249F995F179D9DB500D60B10 /* RegistreringDinaveckarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
