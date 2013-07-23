@@ -94,17 +94,17 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
             if (!regDinaveckarView) {
-                regDinaveckarView = [[RegistreringDinaveckarViewController alloc]initWithNibName:@"RegistreringDinaveckarView" bundle:nil];
+                regDinaveckarView = [[RegistreringDinaveckarViewController alloc]initWithNibName:@"RegistreringDinaveckaView" bundle:nil];
             }
         }else{
             if (!regDinaveckarView) {
-                regDinaveckarView = [[RegistreringDinaveckarViewController alloc]initWithNibName:@"RegistreringDinaveckarView_iPhone4" bundle:nil];
+                regDinaveckarView = [[RegistreringDinaveckarViewController alloc]initWithNibName:@"RegistreringDinaveckaView_iPhone4" bundle:nil];
             }
         }
     }
     else{
         if (!regDinaveckarView) {
-            regDinaveckarView = [[RegistreringDinaveckarViewController alloc]initWithNibName:@"RegistreringDinaveckarView_iPad" bundle:nil];
+            regDinaveckarView = [[RegistreringDinaveckarViewController alloc]initWithNibName:@"RegistreringDinaveckaView_iPad" bundle:nil];
         }
     }
 

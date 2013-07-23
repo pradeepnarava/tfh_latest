@@ -77,6 +77,10 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
+    
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *rootViewController = [window rootViewController];
+   
     CalendarViewController *calendarView;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
@@ -91,7 +95,7 @@
     }else {
         calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
     }
-    
+    NSLog(@"%@",notification.userInfo);
     if ([[notification.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
         NSLog(@"Event");
         calendarView.isEventNotify = YES;
@@ -101,13 +105,8 @@
         NSLog(@"Total");
         calendarView.isTotalNotify = YES;
     }
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calendarView];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPhone.png"] forBarMetrics:UIBarMetricsDefault];
-    }else {
-        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPad.png"] forBarMetrics:UIBarMetricsDefault];
-    }
-    [self.window setRootViewController:navController];
+    [rootViewController presentModalViewController:calendarView animated:YES];
+   
 }
 
 

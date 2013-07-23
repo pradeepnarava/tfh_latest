@@ -154,14 +154,16 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     } else {
         NSLog(@"Failed to open/create database");
     }
+    
     self.dataArray = [[NSMutableArray alloc]init];
     [self getData];
     
     [self createButton];
-
+    
     if (isEventNotify) {
         tabValue = @"0";
-        [self  emptyCell:nil];
+        CustomButton *but = [[CustomButton alloc] init];
+        [self  emptyCell:but];
     }
     if (isTotalNotify) {
         tabValue = @"0";
@@ -170,10 +172,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    /*self.dataArray = [[NSMutableArray alloc]init];
-    [self getData];
     
-    [self createButton];*/
+    
 }
 
 
@@ -263,9 +263,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             }
             [but setTabValue:[NSString stringWithFormat:@"%d",i]];
             [but addTarget:self action:@selector(emptyCell:) forControlEvents:UIControlEventTouchUpInside];
-            [but setCurrentDateString:[NSString stringWithFormat:@"%@ %@",[tm objectAtIndex:0],hStr]];
+            [but setCurrentDateString:[NSString stringWithFormat:@"%@",[tm objectAtIndex:0]]];
             NSString *strin = [NSString stringWithFormat:@"%d%d",j,i];
-            
+
             [but setTag:[strin intValue]];
             [but setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [self.scrollView addSubview:but];
@@ -313,9 +313,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)refresh {
-    
+ 
     NSString *_tabValue = [NSString stringWithFormat:@"%d%d",[hoursTextField1.text intValue],[tabValue intValue]];
-
+   
     CustomButton *but = (CustomButton *)[self.scrollView viewWithTag:[_tabValue intValue]];
     
     if ([currentStatuBtn isEqualToString:@"+"]) {
@@ -372,7 +372,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 -(void)emptyCell:(CustomButton *)sender {
-
+    NSLog(@"sender notification %@",sender.currentDateString);
     currentDateBtn = sender.currentDateString;
     tabValue = sender.tabValue;
     
@@ -597,12 +597,12 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
     NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
-    
+    NSString *dayTime = [NSString stringWithFormat:@"%@ %@",currentDateBtn,hoursTextField1.text];
     const char *dbpath = [databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO sub1event (date,startDate,endDate,status,dayDate,eventDescription) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\")",str,startDate,endDate,currentStatuBtn,currentDateBtn,eventDesTextView.text];
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO sub1event (date,startDate,endDate,status,dayDate,eventDescription) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\",\"%@\")",str,startDate,endDate,currentStatuBtn,dayTime,eventDesTextView.text];
         
         const char *insert_stmt = [insertSQL UTF8String];
         
