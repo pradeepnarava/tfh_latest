@@ -22,35 +22,43 @@
 @property (nonatomic,strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
+
 @property (nonatomic, strong) IBOutlet UISlider *slider;
-@property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic,strong) IBOutlet UILabel *monLabel1,*tueLabel2,*wedLabel3,*thrLabel4,*friLabel5,*satLabel6,*sunLabel7,*mainWeekLabel,*sliderLabel;
-@property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) UILabel *monLabel1,*tueLabel2,*wedLabel3,*thrLabel4,*friLabel5,*satLabel6,*sunLabel7,*mainWeekLabel;
+@property (nonatomic, strong) IBOutlet UILabel *sliderLabel;
+@property (nonatomic, strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7;
 
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField2,*mintsTextField2;
 @property (nonatomic, strong) IBOutlet UITextView *eventDesTextView;
-@property (nonatomic) BOOL isNotNotify;
+
+@property (nonatomic) BOOL isEventNotify,isTotalNotify;
 
 
-@property (nonatomic,strong) NSMutableArray *dateArray,*weekdays;
+@property (nonatomic,strong) NSMutableArray *dataArray,*weekdays;
 
 @property (nonatomic, strong) SettingRegistViewController *settingRegViewCntrl;
 
 
 -(IBAction)totalButtonClicked:(id)sender;
-
 -(IBAction)calendarDayCellClicked:(id)sender;
-
 -(IBAction)okButtonClicked:(id)sender;
-
 -(IBAction)statusButtonClicked:(id)sender;
+-(IBAction)closeButtonAction:(id)sender;
+-(IBAction)sliderValueChanged:(UISlider*)sender;
+
+-(IBAction)totalOkButtonClicked:(id)sender;
+-(void)insertDataIntoTotalDatabase:(int)tagValue;
 -(void)insertDataIntoDatabase;
+
+-(void)getData;
+
+
 //- (NSString *)titleText;
 - (NSDate *)firstDayOfWeekFromDate:(NSDate *)date;
 - (void)week:(NSDate *)date;
 - (void)updateScreens;
-
 -(void)createButton;
 
 

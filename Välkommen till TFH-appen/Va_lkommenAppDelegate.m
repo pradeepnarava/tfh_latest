@@ -13,6 +13,10 @@
 #import "CalendarViewController.h"
 
 
+#define kEventNotificationDataKey @"EventNotification"
+#define kTotalNotificationDataKey @"TotalNotification"
+
+
 @implementation Va_lkommenAppDelegate
 
 @synthesize viewController = _viewController;
@@ -73,94 +77,40 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    UIApplicationState state = [application applicationState];
-    if (state == UIApplicationStateActive) {
-        // case 2
-        CalendarViewController *calendarView;
-        
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        {
-            if ([[UIScreen mainScreen] bounds].size.height > 480)
-            {
-                
-                calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
-            }else {
-                calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
-            }
-        }else {
-            calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
-        }
-        
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-        [self.window setRootViewController:navController];
-    }else if (state == UIApplicationStateInactive) {
-        // case 2
-        CalendarViewController *calendarView;
-        
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        {
-            if ([[UIScreen mainScreen] bounds].size.height > 480)
-            {
-                
-                calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
-            }else {
-                calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
-            }
-        }else {
-            calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
-        }
-        
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-        [self.window setRootViewController:navController];
-    }
-    /*UIAlertView *aw = [[UIAlertView alloc] initWithTitle:@"Reminder23" message: notification.alertBody delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-     [aw show];
-     
-     // case 3
-     UIAlertView *aw = [[UIAlertView alloc] initWithTitle:@"Reminder23" message: notification.alertBody delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-     [aw show];*/
+    CalendarViewController *calendarView;
     
-    NSLog(@"kjflkdjflkfjsal;k   %@", notification);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        if ([[UIScreen mainScreen] bounds].size.height > 480)
+        {
+            
+            calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
+        }else {
+            calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+        }
+    }else {
+        calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
+    }
+    
+    if ([[notification.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
+        NSLog(@"Event");
+        calendarView.isEventNotify = YES;
+
+    }
+    else if ([[notification.userInfo valueForKey:kTotalNotificationDataKey] isEqualToString:@"Total"]) {
+        NSLog(@"Total");
+        calendarView.isTotalNotify = YES;
+    }
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calendarView];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPhone.png"] forBarMetrics:UIBarMetricsDefault];
+    }else {
+        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPad.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    [self.window setRootViewController:navController];
 }
 
 
-/*- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
-	// Handle the notificaton when the app is running
-    NSLog(@"Recieved Notification %@",notif.userInfo);
-    if ([[notif.userInfo valueForKey:@"notifyKey"] isEqualToString:@"Reminder"])
-    {
-        Dinaomraden *dr;
-        
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        {
-            if ([[UIScreen mainScreen] bounds].size.height > 480)
-            {
-                dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
-            }
-            else
-            {
-                dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden" bundle:nil];
-                
-            }
-        }
-        else
-        {
-            dr = [[Dinaomraden alloc]initWithNibName:@"Dinaomraden_iPad" bundle:nil];
-        }
-        
-        UINavigationController *nav = [[UINavigationController alloc] init];
-        [nav pushViewController:dr animated:YES];
-        
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    }
-    else
-    {
-        AktivitetsplanenViewController *asvc=[[AktivitetsplanenViewController alloc]initWithNibName:@"" bundle:[NSBundle mainBundle]];
-         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:asvc];
-        [self.window addSubview:nav.view];
-    }
-}
-*/
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

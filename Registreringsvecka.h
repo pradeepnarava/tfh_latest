@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class CalendarViewController;
+@class RegistreringDinaveckarViewController;
 
 @interface Registreringsvecka : UIViewController
 
 
 @property (nonatomic, strong) CalendarViewController *calendarView;
-
+@property (nonatomic, strong) RegistreringDinaveckarViewController *regDinaveckarView;
 
 -(IBAction)sub1button:(id)sender;
 -(IBAction)ILabel:(id)sender;
