@@ -46,7 +46,7 @@
 -(IBAction)okButtonClicked:(id)sender;
 -(IBAction)statusButtonClicked:(id)sender;
 -(IBAction)closeButtonAction:(id)sender;
-
+-(IBAction)sliderValueChanged:(UISlider*)sender;
 
 -(IBAction)totalOkButtonClicked:(id)sender;
 -(void)insertDataIntoTotalDatabase:(int)tagValue;

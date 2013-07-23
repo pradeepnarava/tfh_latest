@@ -878,7 +878,6 @@
 						<string key="NSFrame">{{277, 427}, {42, 29}}</string>
 						<reference key="NSSuperview" ref="973861116"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">175</int>
@@ -4436,7 +4435,6 @@
 						<string key="NSFrame">{{277, 696}, {42, 29}}</string>
 						<reference key="NSSuperview" ref="717026429"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">175</int>
@@ -5275,7 +5273,6 @@
 						<string key="NSFrame">{{112, 272}, {73, 35}}</string>
 						<reference key="NSSuperview" ref="823687390"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -5343,7 +5340,6 @@
 						<string key="NSFrame">{{120, 151}, {54, 26}}</string>
 						<reference key="NSSuperview" ref="378531778"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -5749,6 +5745,69 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">totalButtonClicked:</string>
+						<reference key="source" ref="32101351"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">959</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">totalButtonClicked:</string>
+						<reference key="source" ref="573672401"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">962</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">totalButtonClicked:</string>
+						<reference key="source" ref="492644943"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">961</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">totalButtonClicked:</string>
+						<reference key="source" ref="1050359688"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">963</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">totalButtonClicked:</string>
+						<reference key="source" ref="172256809"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">960</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">totalButtonClicked:</string>
+						<reference key="source" ref="289026737"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">964</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">totalButtonClicked:</string>
+						<reference key="source" ref="809043090"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">965</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">closeButtonAction:</string>
 						<reference key="source" ref="984774210"/>
 						<reference key="destination" ref="841351856"/>
@@ -5764,6 +5823,15 @@
 						<int key="IBEventType">13</int>
 					</object>
 					<int key="connectionID">955</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">totalOkButtonClicked:</string>
+						<reference key="source" ref="328151809"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">958</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -7616,7 +7684,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">957</int>
+			<int key="maxID">965</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7627,7 +7695,6 @@
 						<string key="calendarDayCellClicked:">id</string>
 						<string key="closeButtonAction:">id</string>
 						<string key="okButtonClicked:">id</string>
-						<string key="sliderValueChanged:">UISlider</string>
 						<string key="statusButtonClicked:">id</string>
 						<string key="totalButtonClicked:">id</string>
 						<string key="totalOkButtonClicked:">id</string>
@@ -7644,10 +7711,6 @@
 						<object class="IBActionInfo" key="okButtonClicked:">
 							<string key="name">okButtonClicked:</string>
 							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="sliderValueChanged:">
-							<string key="name">sliderValueChanged:</string>
-							<string key="candidateClassName">UISlider</string>
 						</object>
 						<object class="IBActionInfo" key="statusButtonClicked:">
 							<string key="name">statusButtonClicked:</string>
@@ -7765,7 +7828,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="Klar_button.png">{69, 30}</string>
 			<string key="background-ipone5.png">{640, 1136}</string>
-			<string key="bottom.png">{320, 89}</string>
+			<string key="bottom.png">{640, 271}</string>
 			<string key="cell.png">{80, 46}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="kalendar_cell_empty.png">{80, 46}</string>
