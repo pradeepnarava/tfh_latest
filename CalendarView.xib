@@ -878,6 +878,7 @@
 						<string key="NSFrame">{{277, 513}, {42, 29}}</string>
 						<reference key="NSSuperview" ref="973861116"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">175</int>
@@ -4438,6 +4439,7 @@
 						<string key="NSFrame">{{277, 696}, {42, 29}}</string>
 						<reference key="NSSuperview" ref="78176338"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">175</int>
@@ -5261,6 +5263,7 @@
 						<string key="NSFrame">{{111, 268}, {73, 35}}</string>
 						<reference key="NSSuperview" ref="71197273"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -5327,6 +5330,7 @@
 						<string key="NSFrame">{{120, 151}, {54, 26}}</string>
 						<reference key="NSSuperview" ref="984949102"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -7727,9 +7731,7 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="calendarDayCellClicked:">id</string>
-						<string key="closeButtonAction:">id</string>
 						<string key="okButtonClicked:">id</string>
-						<string key="sliderValueChanged:">UISlider</string>
 						<string key="statusButtonClicked:">id</string>
 						<string key="totalButtonClicked:">id</string>
 					</dictionary>
@@ -7738,17 +7740,9 @@
 							<string key="name">calendarDayCellClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="closeButtonAction:">
-							<string key="name">closeButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="okButtonClicked:">
 							<string key="name">okButtonClicked:</string>
 							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="sliderValueChanged:">
-							<string key="name">sliderValueChanged:</string>
-							<string key="candidateClassName">UISlider</string>
 						</object>
 						<object class="IBActionInfo" key="statusButtonClicked:">
 							<string key="name">statusButtonClicked:</string>
