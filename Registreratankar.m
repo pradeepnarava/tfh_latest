@@ -675,11 +675,11 @@ int s=0;
 }
 
 // This will tell your UITableView what data to put in which cells in your table.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView1 cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifer = @"CellIdentifier";
     
-    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifer];
+    cell = [tableView1 dequeueReusableCellWithIdentifier:CellIdentifer];
     
     // Using a cell identifier will allow your app to reuse cells as they come and go from the screen.
     if (cell == nil) {

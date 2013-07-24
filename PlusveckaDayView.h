@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <sqlite3.h>
 #import "ASDepthModalViewController.h"
+
 @interface PlusveckaDayView : UIViewController<UITextFieldDelegate>
+{
+    sqlite3 *exerciseDB;
+    NSString *databasePath;
+    sqlite3_stmt  *statement;
+}
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;

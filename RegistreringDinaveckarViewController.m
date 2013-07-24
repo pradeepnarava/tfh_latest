@@ -48,6 +48,11 @@
 	// Do any additional setup after loading the view.
 }
 
+-(void)backButon {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

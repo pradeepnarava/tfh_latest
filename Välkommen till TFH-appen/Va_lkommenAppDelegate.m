@@ -43,10 +43,7 @@
         } else {
             
             self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone4" bundle:[NSBundle mainBundle]];
-            
         }
-        
-        
     } else {
         self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPad" bundle:[NSBundle mainBundle]];
     }
@@ -66,9 +63,34 @@
     [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotif)
     {
-        NSLog(@"Recieved Notification %@",localNotif);
-    }
+        CalendarViewController *_calendarView;
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
+            {
+                
+                _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
+            }else {
+                _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+            }
+        }else {
+            _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
+        }
+        
+        NSLog(@"%@",localNotif.userInfo);
+        if ([[localNotif.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
+            NSLog(@"Event");
+            _calendarView.isEventNotify = YES;
+            
+        }
+        else if ([[localNotif.userInfo valueForKey:kTotalNotificationDataKey] isEqualToString:@"Total"]) {
+            NSLog(@"Total");
+            _calendarView.isTotalNotify = YES;
+        }
+        [(UINavigationController *)self.window.rootViewController presentModalViewController:_calendarView animated:NO];
     
+    }
     return YES;
     
     
@@ -77,11 +99,50 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
+    CalendarViewController *_calendarView;
     
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        if ([[UIScreen mainScreen] bounds].size.height > 480)
+        {
+            
+            _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
+        }else {
+            _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+        }
+    }else {
+        _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
+    }
+    
+    NSLog(@"%@",notification.userInfo);
+    if ([[notification.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
+        NSLog(@"Event");
+        _calendarView.isEventNotify = YES;
+        
+    }
+    else if ([[notification.userInfo valueForKey:kTotalNotificationDataKey] isEqualToString:@"Total"]) {
+        NSLog(@"Total");
+        _calendarView.isTotalNotify = YES;
+    }
+   // UINavigationController *nav = (UINavigationController *) self.window.rootViewController;
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+    {
+        
+        [(UINavigationController *)self.window.rootViewController presentModalViewController:_calendarView animated:YES];
+    }
+    else
+    {
+        [(UINavigationController *)self.window.rootViewController presentModalViewController:_calendarView animated:NO];
+    }
+    
+   
+
+    
+    
+    /*UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     UIViewController *rootViewController = [window rootViewController];
    
-    CalendarViewController *calendarView;
+   
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
@@ -105,7 +166,8 @@
         NSLog(@"Total");
         calendarView.isTotalNotify = YES;
     }
-    [rootViewController presentModalViewController:calendarView animated:YES];
+    
+    [rootViewController presentModalViewController:calendarView animated:YES];*/
    
 }
 

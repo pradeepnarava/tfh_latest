@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @class Va_lkommenViewController;
+@class CalendarViewController;
 
 @interface Va_lkommenAppDelegate : UIResponder <UIApplicationDelegate>{
-
+    CalendarViewController *calendarView;
 }
 
 @property (strong, nonatomic) UIWindow *window;

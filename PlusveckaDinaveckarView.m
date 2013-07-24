@@ -253,13 +253,17 @@
 }
 
 -(void)createButton {
-    for (int i = 0; i < 7; i++) {
-        NSDate *date = [self.weekdays objectAtIndex:i];
+    int p=0;
+    for (int i = 0; i < 14; i++) {
+        if (i==2||i==4||i==6||i==8||i==10||i==12) {
+            p++;
+        }
+        NSDate *date = [self.weekdays objectAtIndex:p];
         NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
         
         for (int j =0; j < 24 ; j++) {
             NSString *hStr = [NSString stringWithFormat:@"%i",j];
-            CustomButton2 *but = [[CustomButton2 alloc] initWithFrame:CGRectMake((i*42)+ 25, j*29, 42, 29)];
+            CustomButton2 *but = [[CustomButton2 alloc] initWithFrame:CGRectMake((i*21)+ 25, j*29, 21, 29)];
             but.titleLabel.textAlignment = UITextAlignmentCenter;
             [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
             [but setTabValue:[NSString stringWithFormat:@"%d",i]];
@@ -351,7 +355,7 @@
             dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPad" bundle:nil];
         }
     }
-    dayView.isDinackar = YES;
+    dayView.isDinackar = NO;
     [self.navigationController pushViewController:dayView animated:YES];
     
 }

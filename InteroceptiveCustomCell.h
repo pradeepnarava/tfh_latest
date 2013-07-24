@@ -13,4 +13,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *title;
 @property (nonatomic, strong) IBOutlet UILabel *detailValue;
 @property (nonatomic, strong) IBOutlet UIImageView *greenImage;
+
 @end

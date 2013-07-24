@@ -51,7 +51,17 @@
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
-    dataArray = [[NSMutableArray alloc]initWithObjects:@"4/3 - 10/3 (2013)",@"4/3 - 10/3 (2013)",@"4/3 - 10/3 (2013)", nil];
+    
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc]init];
+    [dict1 setValue:@"4/3 - 10/3 (2013)" forKey:@"week"];
+    [dict1 setValue:@"F" forKey:@"selected"];
+    NSMutableDictionary *dict2 = [[NSMutableDictionary alloc]init];
+    [dict2 setValue:@"4/3 - 10/3 (2013)" forKey:@"week"];
+    [dict2 setValue:@"F" forKey:@"selected"];
+    NSMutableDictionary *dict3 = [[NSMutableDictionary alloc]init];
+    [dict3 setValue:@"4/3 - 10/3 (2013)" forKey:@"week"];
+    [dict3 setValue:@"F" forKey:@"selected"];
+    dataArray = [[NSMutableArray alloc]initWithObjects:dict1,dict2,dict3, nil];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -91,16 +101,46 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath\
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static  NSString *identifier = @"some";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if(cell==nil){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    static NSString *CellIdentifer = @"CellIdentifier";
+    
+    DinaveckarCell *cell = (DinaveckarCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifer];
+    
+    if (cell == nil) {
+        NSArray *objects =[[NSBundle mainBundle] loadNibNamed:@"DinaveckarCell" owner:self options:nil];
+        
+        for (id object in objects) {
+            if ([object isKindOfClass:[DinaveckarCell class]]) {
+                
+                cell = (DinaveckarCell*)object;
+            }
+        }
     }
-    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
-    cell.textLabel.text = [dataArray objectAtIndex:indexPath.row];
+    cell.cellBtn.tag = indexPath.row;
+    NSMutableDictionary *dict = [dataArray objectAtIndex:indexPath.row];
+    if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
+        cell.cellBtn.backgroundColor = [UIColor blueColor];
+    }
+    else{
+        cell.cellBtn.backgroundColor = [UIColor whiteColor];
+    }
+    
+    [cell.cellBtn addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    cell.cellLabel.text = [dict valueForKey:@"week"];
     return cell;
+}
+
+-(void)cellButtonClicked:(id)sender{
+    for (int j=0; j<[dataArray count]; j++) {
+        NSMutableDictionary *dict = [dataArray objectAtIndex:j];
+        if (j==[sender tag]) {
+          [dict setValue:@"T" forKey:@"selected"];  
+        }else{
+           [dict setValue:@"F" forKey:@"selected"]; 
+        }
+    }
+    [table reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
