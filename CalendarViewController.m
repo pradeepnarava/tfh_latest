@@ -1,4 +1,4 @@
-//
+    //
 //  CalendarViewController.m
 //  Välkommen till TFH-appen
 //
@@ -163,6 +163,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     if (isEventNotify) {
         tabValue = @"0";
         CustomButton *but = [[CustomButton alloc] init];
+        NSDate *date = [self.weekdays objectAtIndex:0];
+        
+        NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+        but.currentDateString = [tm objectAtIndex:0];
+        NSLog(@"klsdfjkas %@",but.currentDateString);
         [self  emptyCell:but];
     }
     if (isTotalNotify) {
@@ -177,7 +182,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
--(void)getData{
+-(void)getData {
     
     const char *dbpath = [databasePath UTF8String];
     

@@ -338,6 +338,7 @@ int tagValue;
         [userDefaults setValue:totalTimeButton.titleLabel.text forKey:kTOTALTIME];
         [userDefaults synchronize];
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

@@ -77,6 +77,39 @@
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
     [self createButton];
+    
+    NSString *docsDir;
+    NSArray *dirPaths;
+    
+    // Get the documents directory
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    docsDir = [dirPaths objectAtIndex:0];
+    
+    // Build the path to the database file
+    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS sub1event (id INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT,startDate TEXT,endDate TEXT,status TEXT,dayDate TEXT,eventDescription TEXT)";
+        const char *sql_stmt1 = "CREATE TABLE IF NOT EXISTS sub1total (id INTEGER PRIMARY KEY AUTOINCREMENT,date TEXT,total TEXT)";
+        
+        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+        {
+            NSLog(@"Failed to create database");
+        }
+        if (sqlite3_exec(exerciseDB, sql_stmt1, NULL, NULL, &errMsg)!=SQLITE_OK) {
+            NSLog(@"Failed to create total database");
+        }
+        
+        sqlite3_close(exerciseDB);
+        
+    } else {
+        NSLog(@"Failed to open/create database");
+    }
     // Do any additional setup after loading the view from its nib.
 }
 
