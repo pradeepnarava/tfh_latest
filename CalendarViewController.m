@@ -378,6 +378,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 -(void)emptyCell:(CustomButton *)sender {
     NSLog(@"sender notification %@",sender.currentDateString);
+    
     currentDateBtn = sender.currentDateString;
     tabValue = sender.tabValue;
     
