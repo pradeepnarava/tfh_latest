@@ -396,6 +396,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(IBAction)okButtonClicked:(id)sender
 {
     [ASDepthModalViewController dismiss];
+    
     [self insertDataIntoDatabase];
 }
 
@@ -604,6 +605,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
     NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
     NSString *dayTime = [NSString stringWithFormat:@"%@ %@",currentDateBtn,hoursTextField1.text];
+    
     const char *dbpath = [databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
