@@ -19,6 +19,8 @@
     NSString *databasePath;
     sqlite3_stmt  *statement;
 }
+
+////////////////////// New Code
 @property (nonatomic,strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
@@ -35,26 +37,30 @@
 
 @property (nonatomic) BOOL isEventNotify,isTotalNotify;
 
-
-@property (nonatomic, strong) NSMutableArray *dataArray,*weekdays;
-
 @property (nonatomic, strong) SettingRegistViewController *settingRegViewCntrl;
 
-////////////////////// New Code
+
+////////////////
 @property (nonatomic, retain) NSString *buttonString;
 @property (nonatomic, retain) NSString *editIndexValue;
+@property (nonatomic, retain) NSString *totalBtnTag;
+@property (nonatomic, retain) IBOutlet UIButton *raderaBtn;
+@property (nonatomic, strong) NSMutableArray *dataArray,*weekdays,*totalDataArray;
 
 
--(IBAction)totalButtonClicked:(id)sender;
+
+
 -(IBAction)calendarDayCellClicked:(id)sender;
--(IBAction)okButtonClicked:(id)sender;
 -(IBAction)statusButtonClicked:(id)sender;
 -(IBAction)closeButtonAction:(id)sender;
 -(IBAction)sliderValueChanged:(UISlider*)sender;
+
+
+
 -(IBAction)totalOkButtonClicked:(id)sender;
+-(IBAction)totalButtonClicked:(id)sender;
 
 
--(void)getData;
 
 ///Calendar Weeks
 - (NSDate *)firstDayOfWeekFromDate:(NSDate *)date;
@@ -64,6 +70,10 @@
 //************************ GOPAL *****************////
 -(void)displayButton;
 -(void)databaseInsert;
+-(void)getDataSub1Events;
+-(void)getDataSub1Total;
+-(void)databaseInsertTotal;
+
 
 -(IBAction)empty:(id)sender;
 -(IBAction)empty1:(id)sender;
@@ -72,9 +82,19 @@
 -(IBAction)empty4:(id)sender;
 -(IBAction)empty5:(id)sender;
 -(IBAction)empty6:(id)sender;
+-(IBAction)raderaButtonClicked:(id)sender;
+-(IBAction)okButtonClicked:(id)sender;
 
+//Sub1Events
+- (BOOL)findContact:(NSNumber*)questionId;
 -(void)updateIntDatabase:(NSDictionary*)recordsDic;
 -(void)insertIntoDatabase:(NSDictionary*)recordDic;
+-(void)deleteRecord:(NSDictionary*)deleDic;
 
+//Sub1Totals
+- (BOOL)findContactTotal:(NSNumber*)questionId;
+-(void)updateIntDatabaseT:(NSDictionary*)updateDic;
+-(void)insertIntoDatabaseT:(NSDictionary*)recordDic;
+-(void)deleteRecordT:(NSDictionary*)deleDic;
 
 @end
