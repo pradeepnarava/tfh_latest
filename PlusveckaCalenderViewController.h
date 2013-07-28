@@ -15,12 +15,14 @@
     sqlite3 *exerciseDB;
     NSString *databasePath;
     sqlite3_stmt  *statement;
+    BOOL isSub2;
 }
 @property (nonatomic,strong) PlusveckaSettingsView *settingsView;
 @property (nonatomic, strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;
-@property (nonatomic,strong) NSMutableArray *dateArray,*weekdays,*dataArray;
+@property (nonatomic,strong) NSMutableArray *dateArray,*weekdays,*dataArray,*sub1EventsArray,*totalArray;
 @property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7;
+@property (nonatomic,strong) NSMutableDictionary *selectedDictionary;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;
@@ -28,4 +30,7 @@
 @property (nonatomic, strong) IBOutlet UITextView *eventDesTextView;
 @property (nonatomic,strong) IBOutlet UISlider *slider;
 @property (nonatomic, strong) IBOutlet UILabel *sliderLabel;
+////////////////////// New Code
+@property (nonatomic, retain) NSString *buttonString;
+@property (nonatomic, retain) NSString *editIndexValue,*editTotalValue,*dateIndexValue;
 @end

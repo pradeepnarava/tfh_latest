@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PlusveckaSettingsView : UIViewController
-
+@property (nonatomic,strong)IBOutlet UIScrollView *scrollVie;
+@property (nonatomic,strong)IBOutlet UIButton *oneHour,*twoHour,*threeHour,*fourHour;
 @end

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <sqlite3.h>
+#import "DinaveckarCell.h"
 @interface RegistreringDinaveckarViewController : UIViewController
-
+{
+    sqlite3 *exerciseDB;
+    NSString *databasePath;
+    sqlite3_stmt  *statement;
+}
+@property (nonatomic,strong) IBOutlet UITableView *table;
+@property (nonatomic,strong) NSMutableArray *dataArray;
 @end

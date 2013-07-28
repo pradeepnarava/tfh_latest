@@ -175,7 +175,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM yyyy"]; //yyyy-MM-dd HH:mm:ss zzz
-    NSString* dateString = [dateFormatter stringFromDate:[NSDate date]];
+    //NSString* dateString = [dateFormatter stringFromDate:[NSDate date]];
     //NSLog(@"Date/Time is %@ %d", dateString,[self getnewdates]);
     //[Week_weekBarBtn setTitle:dateString forState:UIControlStateNormal];
     //Week_weekBarLbl.text = dateString;
@@ -401,7 +401,7 @@
     //EKEvent *events = [EKEvent eventWithEventStore:eventStore];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSArray *calendarArray = [NSArray arrayWithObject:calendar];
+    //NSArray *calendarArray = [NSArray arrayWithObject:calendar];
     NSDateComponents *oneDayAgoComponents = [[NSDateComponents alloc] init];
     oneDayAgoComponents.day = +1;
     NSDate *oneDayAgo = [calendar dateByAddingComponents:oneDayAgoComponents

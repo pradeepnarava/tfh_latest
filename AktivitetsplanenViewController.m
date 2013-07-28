@@ -290,7 +290,7 @@ listofallidentifier= [[NSMutableArray alloc]init];
     
     NSDateComponents *components = [gregorian components:NSWeekCalendarUnit fromDate:appDelegate.dateSelected];
     NSInteger week = [components week];
-    NSInteger day = [components day];
+    //NSInteger day = [components day];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMMM YYYY"];
     NSString *stringFromDate = [formatter stringFromDate:appDelegate.dateSelected];
@@ -309,10 +309,10 @@ listofallidentifier= [[NSMutableArray alloc]init];
     
     for (int i = 0; i<[arr count]; i++) {
         
-        NSString *strDate = [arr objectAtIndex:i];
+        NSString *strDate1 = [arr objectAtIndex:i];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM dd,  yyy"];//EEE,  dd
-        NSDate *eventDate = [formatter dateFromString:strDate];
+        NSDate *eventDate = [formatter dateFromString:strDate1];
         
         [formatter setDateFormat:@"EEE    dd"];
         
@@ -921,7 +921,7 @@ listofallidentifier= [[NSMutableArray alloc]init];
     //EKEvent *events = [EKEvent eventWithEventStore:eventStore];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSArray *calendarArray = [NSArray arrayWithObject:calendar];
+    //NSArray *calendarArray = [NSArray arrayWithObject:calendar];
     NSDateComponents *oneDayAgoComponents = [[NSDateComponents alloc] init];
     oneDayAgoComponents.day = +1;
     NSDate *oneDayAgo = [calendar dateByAddingComponents:oneDayAgoComponents
@@ -1223,9 +1223,9 @@ listofallidentifier= [[NSMutableArray alloc]init];
     
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text1
 {
-    if ([text isEqualToString:@"\n"]) {
+    if ([text1 isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         return NO;
     }

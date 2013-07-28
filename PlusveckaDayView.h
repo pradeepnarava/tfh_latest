@@ -15,7 +15,9 @@
     sqlite3 *exerciseDB;
     NSString *databasePath;
     sqlite3_stmt  *statement;
+    BOOL isSub2;
 }
+@property (nonatomic,strong) NSMutableArray *sub1EventsArray,*dataArray,*totalArray;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;
@@ -24,6 +26,13 @@
 @property (nonatomic,strong) IBOutlet UISlider *slider;
 @property (nonatomic, strong) IBOutlet UILabel *sliderLabel;
 @property (nonatomic, assign) BOOL isDinackar;
+@property (nonatomic, strong) NSDate *selectedDate;
+@property (nonatomic, strong) IBOutlet UIButton *dateButton;
+@property (nonatomic, strong) NSString *editTotalValue,*dateIndexValue;
+
+////////////////////// New Code
+@property (nonatomic, retain) NSString *buttonString;
+@property (nonatomic, retain) NSString *editIndexValue;
 -(IBAction)statusButtonClicked:(id)sender;
 -(IBAction)sliderValueChanged:(UISlider*)sender;
 -(IBAction)totalButtonClicked:(id)sender;

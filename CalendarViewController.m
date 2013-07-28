@@ -10,7 +10,6 @@
 #import "SettingRegistViewController.h"
 #import "ASDepthModalViewController.h"
 
-
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
 #define kStatus    @"status"

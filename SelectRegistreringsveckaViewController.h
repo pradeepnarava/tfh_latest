@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "PlusveckaCalenderViewController.h"
+#import <sqlite3.h>
 @interface SelectRegistreringsveckaViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+{
+    sqlite3 *exerciseDB;
+    NSString *databasePath;
+    sqlite3_stmt  *statement;
+}
 @property (nonatomic,strong) IBOutlet UITableView *table;
-@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) NSMutableArray *dataArray,*sub1EventsArray;
 @property (nonatomic,strong) PlusveckaCalenderViewController *calanderView;
 @end

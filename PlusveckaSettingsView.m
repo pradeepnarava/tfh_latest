@@ -13,7 +13,8 @@
 @end
 
 @implementation PlusveckaSettingsView
-
+@synthesize scrollVie;
+@synthesize oneHour,twoHour,threeHour,fourHour;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -45,8 +46,36 @@
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
+    scrollVie.hidden = YES;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(IBAction)hourSelected:(id)sender {
+    
+    UIButton *btn = (UIButton *)sender;
+    for (UIButton *radioButton in [self.scrollVie  subviews]) {
+        if (radioButton.tag != btn.tag && [radioButton isKindOfClass:[UIButton class]]) {
+            if ((radioButton.tag == 20 || radioButton.tag == 21 || radioButton.tag == 22 || radioButton.tag == 23 )) {
+                [radioButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+            }
+            
+        }
+    }
+    
+    [btn setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+}
+
+-(IBAction)okAction:(id)sender{
+    
+}
+
+-(IBAction)settingsOnOff:(id)sender{
+    if ([sender tag]==0) {
+        scrollVie.hidden = YES;
+    }else{
+        scrollVie.hidden = NO;
+    }
 }
 
 -(void)backButon {

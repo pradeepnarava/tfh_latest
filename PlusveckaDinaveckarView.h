@@ -19,8 +19,9 @@
 }
 @property (nonatomic,strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;
-@property (nonatomic,strong) NSMutableArray *dateArray,*weekdays,*dataArray;
+@property (nonatomic,strong) NSMutableArray *dateArray,*weekdays,*dataArray,*sub1EventsArray,*totalArray;
 @property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7;
+@property (nonatomic,strong) NSMutableDictionary *selectedDictionary;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;
@@ -29,5 +30,10 @@
 @property (nonatomic,strong) IBOutlet UISlider *slider;
 @property (nonatomic, strong) IBOutlet UILabel *sliderLabel;
 @property (nonatomic, strong) PlusveckaSettingsView *settingsView;
+
+////////////////////// New Code
+@property (nonatomic, retain) NSString *buttonString;
+@property (nonatomic, retain) NSString *editIndexValue;
+
 -(IBAction)statusButtonClicked:(id)sender;
 @end
