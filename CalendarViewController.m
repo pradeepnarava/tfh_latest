@@ -11,10 +11,6 @@
 #import "ASDepthModalViewController.h"
 #import "DayCalendarViewController.h"
 
-<<<<<<< HEAD
-=======
-//SUB1EVENTS
->>>>>>> 3ba975b92cf12d9376d0a97f058cb7c01e7ebd99
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
 #define kStatus    @"status"
