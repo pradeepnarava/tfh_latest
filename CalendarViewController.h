@@ -11,6 +11,7 @@
 #import "PlusveckaDayView.h"
 
 @class SettingRegistViewController;
+@class DayCalendarViewController;
 
 @interface CalendarViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
 
@@ -38,7 +39,7 @@
 @property (nonatomic) BOOL isEventNotify,isTotalNotify;
 
 @property (nonatomic, strong) SettingRegistViewController *settingRegViewCntrl;
-
+@property (nonatomic, strong) DayCalendarViewController *dayCalendarVC;
 
 ////////////////
 @property (nonatomic, retain) NSString *buttonString;
