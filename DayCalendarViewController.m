@@ -109,14 +109,7 @@
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
     
-    UIImage *image = [UIImage imageNamed:@"setting_alarm_button.png"];
-    UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-    [okBtn addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
-    
-    
+
     NSString *docsDir;
     NSArray *dirPaths;
     
@@ -149,15 +142,11 @@
     } else {
         NSLog(@"Failed to open/create database");
     }
-    
-    //self.dataArray = [[NSMutableArray alloc]init];
-    //self.totalDataArray = [[NSMutableArray alloc] init];
-
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    NSLog(@"View Will Appear");
+   
     self.dataArray = [[NSMutableArray alloc]init];
     self.totalDataArray = [[NSMutableArray alloc] init];
     [self getDataSub1Events];
@@ -165,16 +154,16 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    NSLog(@"^^^^^^^View Did Appear");
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"&&&&&&View Did Disappear");
+    
     
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    NSLog(@"####View Will Disappear");
+    
     self.dataArray = nil;
     self.totalDataArray = nil;
 }
@@ -191,8 +180,19 @@
     NSLog(@"display Buttons is %@",self.dataArray);
     
     NSArray *stA = [dayTimenTag componentsSeparatedByString:@" "];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+     NSArray *weekdaySymbols = [dateFormatter shortWeekdaySymbols];
+    NSDate *date = [dateFormatter dateFromString:[stA  objectAtIndex:0]];
     
-    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *weekdayComponents =[gregorian components:NSWeekdayCalendarUnit fromDate:date];
+    NSInteger weekday = [weekdayComponents weekday];
+    [gregorian release];
+    NSString *weeday =[weekdaySymbols objectAtIndex:weekday-1];
+
+    [dayButton setTitle:weeday forState:UIControlStateNormal];
+
     for (int j =0; j < 24 ; j++) {
         NSString *statusString = nil;
         UIButton *but = [[UIButton alloc] initWithFrame:CGRectMake(37, j*29,274, 29)];

@@ -520,7 +520,7 @@
         }
         editIndexValue = nil;
         
-        [self displayButton];
+        //[self displayButton];
         
         [self  databaseInsert];
     }

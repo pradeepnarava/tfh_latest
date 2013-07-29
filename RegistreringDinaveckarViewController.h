@@ -15,6 +15,8 @@
     NSString *databasePath;
     sqlite3_stmt  *statement;
 }
+
 @property (nonatomic,strong) IBOutlet UITableView *table;
 @property (nonatomic,strong) NSMutableArray *dataArray;
+
 @end

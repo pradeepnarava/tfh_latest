@@ -181,7 +181,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    NSLog(@"View Will Appear");
+    
     self.dataArray = [[NSMutableArray alloc]init];
     self.totalDataArray = [[NSMutableArray alloc] init];
     
@@ -190,16 +190,16 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    NSLog(@"^^^^^^^View Did Appear");
+ 
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"&&&&&&View Did Disappear");
+ 
     
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    NSLog(@"####View Will Disappear");
+ 
     self.dataArray = nil;
     self.totalDataArray = nil;
 }
@@ -314,7 +314,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]];
+        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled = NO;
         editIndexValue= nil;
@@ -362,7 +362,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]];
+        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled = NO;
         editIndexValue= nil;
@@ -409,7 +409,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]];
+        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled = NO;
         editIndexValue= nil;
@@ -455,7 +455,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]];
+        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled =NO;
         editIndexValue= nil;
@@ -498,7 +498,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]];
+        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled = NO;
         editIndexValue= nil;
@@ -543,7 +543,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]];
+        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled = NO;
         editIndexValue= nil;
@@ -586,7 +586,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]];
+        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled = NO;
         editIndexValue= nil;
