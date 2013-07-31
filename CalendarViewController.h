@@ -74,7 +74,7 @@
 -(void)getDataSub1Events;
 -(void)getDataSub1Total;
 -(void)databaseInsertTotal;
-
+-(UIView*)popupView;
 
 -(IBAction)empty:(id)sender;
 -(IBAction)empty1:(id)sender;

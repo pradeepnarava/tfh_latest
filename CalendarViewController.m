@@ -34,7 +34,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @interface CalendarViewController ()
 
 @property (nonatomic, strong) NSString *currentStatuBtn;
-@property (nonatomic, strong) NSString *tabValue;
+
 
 @end
 
@@ -51,11 +51,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize mintsTextField1,mintsTextField2;
 @synthesize eventDesTextView;
 @synthesize currentStatuBtn;
-@synthesize tabValue;
 @synthesize slider,sliderLabel;
 @synthesize isEventNotify,isTotalNotify;
 
 /////////////////////////***************************///////////
+
 @synthesize buttonString;
 @synthesize editIndexValue;
 @synthesize raderaBtn;
@@ -90,6 +90,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
     self.popupView.layer.cornerRadius = 12;
     self.popupView.layer.shadowOpacity = 0.7;
@@ -101,7 +102,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     self.totalView.layer.shadowOffset = CGSizeMake(6, 6);
     self.totalView.layer.shouldRasterize = YES;
     self.totalView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    
     raderaBtn.enabled = NO;
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -172,10 +175,31 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     //[self displayButton];
     
     if (isEventNotify) {
-        tabValue = @"0";
+        NSDate *date = [self.weekdays objectAtIndex:0];
+        NSArray *tm  = [[self dateFromString:date] componentsSeparatedByString:@" "];
+        buttonString = [[tm objectAtIndex:0] retain];
+        hoursTextField1.text = @"0";
+        ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+        [ASDepthModalViewController presentView:self.popupView
+                                backgroundColor:nil
+                                        options:style
+                              completionHandler:^{
+                                  NSLog(@"Modal view closed.");
+                              }];
     }
     if (isTotalNotify) {
-        tabValue = @"0";
+        totalBtnTag  = @"0";
+        NSDate *date = [self.weekdays objectAtIndex:0];
+        NSArray *tm  = [[self dateFromString:date] componentsSeparatedByString:@" "];
+        buttonString = [[tm objectAtIndex:0] retain];
+        
+        ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+        [ASDepthModalViewController presentView:self.popupView
+                                backgroundColor:nil
+                                        options:style
+                              completionHandler:^{
+                                  NSLog(@"Modal view closed.");
+                              }];
     }
 }
 
@@ -283,6 +307,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
+
 -(IBAction)empty:(id)sender {
     
     
@@ -328,8 +353,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
                           }];
-    
 }
+
 
 -(IBAction)empty1:(id)sender {
     
@@ -548,6 +573,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         raderaBtn.enabled = NO;
         editIndexValue= nil;
     }
+    
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     [ASDepthModalViewController presentView:self.popupView
                             backgroundColor:nil

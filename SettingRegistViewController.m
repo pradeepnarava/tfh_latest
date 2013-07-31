@@ -332,6 +332,7 @@ int tagValue;
         }
         
     }
+    
     if ([totalTimeButton.titleLabel.text length] > 0) {
         [self localNotificationTotal];
         [userDefaults setBool:YES forKey:kTOTALONOFF];
@@ -367,7 +368,7 @@ int tagValue;
         notif.fireDate = [self localDateAndTime:oneTimeNotificationLabel.text];
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.repeatInterval = NSDayCalendarUnit;
-        notif.alertBody = @"Reminder";
+        notif.alertBody = @"Add NewEvent";
         notif.alertAction = @"View";
         notif.userInfo = [NSDictionary dictionaryWithObject:@"Event" forKey:kEventNotificationDataKey];
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
@@ -386,7 +387,7 @@ int tagValue;
                 notif.fireDate = sTime;
                 notif.soundName = UILocalNotificationDefaultSoundName;
                 notif.repeatInterval = NSDayCalendarUnit;
-                notif.alertBody = @"Reminder";
+                notif.alertBody = @"Add NewEvent";
                 notif.alertAction = @"View";
                 
                 notif.userInfo = [NSDictionary dictionaryWithObject:@"Event" forKey:kEventNotificationDataKey];
@@ -410,7 +411,7 @@ int tagValue;
         notif.fireDate = [self localDateAndTime:totalTimeButton.titleLabel.text];
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.repeatInterval = NSDayCalendarUnit;
-        notif.alertBody = @"Reminder";
+        notif.alertBody = @"Add Total";
         notif.alertAction = @"View";
         notif.userInfo = [NSDictionary dictionaryWithObject:@"Total" forKey:kTotalNotificationDataKey];
         

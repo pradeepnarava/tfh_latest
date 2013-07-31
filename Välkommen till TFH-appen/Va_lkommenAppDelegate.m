@@ -10,7 +10,13 @@
 #import "Va_lkommenViewController.h"
 #import "AktivitetsplanenViewController.h"
 #import "Dinaomraden.h"
+
+
 #import "CalendarViewController.h"
+#import "OveningarViewController.h"
+#import "Registreringsvecka.h"
+#import "Beteendeaktivering.h"
+
 
 
 #define kEventNotificationDataKey @"EventNotification"
@@ -19,13 +25,17 @@
 
 @implementation Va_lkommenAppDelegate
 
-@synthesize viewController = _viewController;
+@synthesize viewController;
 @synthesize dateSelected;
+@synthesize calendarVC;
+@synthesize overnVC;
+@synthesize regiveckaVC;
+@synthesize beteendeaVC;
 
 - (void)dealloc
 {
     [_window release];
-    [_viewController release];
+    [viewController release];
     [super dealloc];
 }
 
@@ -63,34 +73,12 @@
     [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotif)
     {
-        CalendarViewController *_calendarView;
-        
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        {
-            if ([[UIScreen mainScreen] bounds].size.height > 480)
-            {
-                
-                _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
-            }else {
-                _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
-            }
-        }else {
-            _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
-        }
-        
-        NSLog(@"%@",localNotif.userInfo);
-        if ([[localNotif.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
-            NSLog(@"Event");
-            _calendarView.isEventNotify = YES;
-            
-        }
-        else if ([[localNotif.userInfo valueForKey:kTotalNotificationDataKey] isEqualToString:@"Total"]) {
-            NSLog(@"Total");
-            _calendarView.isTotalNotify = YES;
-        }
-        [(UINavigationController *)self.window.rootViewController presentModalViewController:_calendarView animated:NO];
+       
+        NSLog(@"%@",[localNotif userInfo]);
     
     }
+    
+    
     return YES;
     
     
@@ -99,76 +87,110 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    CalendarViewController *_calendarView;
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-    {
-        if ([[UIScreen mainScreen] bounds].size.height > 480)
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Event"
+                                                        message:notification.alertBody
+                                                       delegate:self cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }else {
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
+            {
+                
+                calendarVC = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
+            }else {
+                calendarVC = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+            }
+        }else {
+            calendarVC = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
+        }
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
+            {
+                
+                viewController  = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController" bundle:nil];
+            }else {
+                viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone4" bundle:nil];
+            }
+        }else {
+            viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPad" bundle:nil];
+        }
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
+            {
+                
+                overnVC = [[OveningarViewController alloc] initWithNibName:@"OveningarViewController_iPhone" bundle:nil];
+            }else {
+                overnVC = [[OveningarViewController alloc] initWithNibName:@"OveningarViewController_iPhone4" bundle:nil];
+            }
+        }else {
+            overnVC = [[OveningarViewController alloc] initWithNibName:@"OveningarViewController_iPad" bundle:nil];
+        }
+        
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
+            {
+                
+                regiveckaVC = [[Registreringsvecka alloc] initWithNibName:@"Registreringsvecka" bundle:nil];
+            }else {
+                regiveckaVC = [[Registreringsvecka alloc] initWithNibName:@"Registreringsvecka_iPhone4" bundle:nil];
+            }
+        }else {
+            regiveckaVC = [[Registreringsvecka alloc] initWithNibName:@"Registreringsvecka_iPad" bundle:nil];
+        }
+        
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            if ([[UIScreen mainScreen] bounds].size.height > 480)
+            {
+                
+                beteendeaVC = [[Beteendeaktivering alloc] initWithNibName:@"Beteendeaktivering" bundle:nil];
+            }else {
+                beteendeaVC = [[Beteendeaktivering alloc] initWithNibName:@"Beteendeaktivering_iPhone4" bundle:nil];
+            }
+        }else {
+            beteendeaVC = [[Beteendeaktivering alloc] initWithNibName:@"Beteendeaktivering_iPad" bundle:nil];
+        }
+        
+        
+        
+        NSLog(@"%@",notification.userInfo);
+        
+        if ([[notification.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
+            NSLog(@"Event");
+            calendarVC.isEventNotify = YES;
+            
+        }
+        else if ([[notification.userInfo valueForKey:kTotalNotificationDataKey] isEqualToString:@"Total"]) {
+            NSLog(@"Total");
+            calendarVC.isTotalNotify = YES;
+        }
+        
+        
+        UINavigationController *nav = (UINavigationController *) self.window.rootViewController;
+        nav.viewControllers = [NSArray arrayWithObjects:viewController,overnVC,beteendeaVC,regiveckaVC,calendarVC,nil];
+        
+        if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
         {
             
-            _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
-        }else {
-            _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+            [(UINavigationController *)self.window.rootViewController popToViewController:calendarVC animated:YES];
         }
-    }else {
-        _calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
-    }
-    
-    NSLog(@"%@",notification.userInfo);
-    if ([[notification.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
-        NSLog(@"Event");
-        _calendarView.isEventNotify = YES;
-        
-    }
-    else if ([[notification.userInfo valueForKey:kTotalNotificationDataKey] isEqualToString:@"Total"]) {
-        NSLog(@"Total");
-        _calendarView.isTotalNotify = YES;
-    }
-   // UINavigationController *nav = (UINavigationController *) self.window.rootViewController;
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
-    {
-        
-        [(UINavigationController *)self.window.rootViewController presentModalViewController:_calendarView animated:YES];
-    }
-    else
-    {
-        [(UINavigationController *)self.window.rootViewController presentModalViewController:_calendarView animated:NO];
-    }
-    
-   
-
-    
-    
-    /*UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    UIViewController *rootViewController = [window rootViewController];
-   
-   
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-    {
-        if ([[UIScreen mainScreen] bounds].size.height > 480)
+        else
         {
-            
-            calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView" bundle:nil];
-        }else {
-            calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+            [(UINavigationController *)self.window.rootViewController popToViewController:calendarVC animated:YES];
         }
-    }else {
-        calendarView = [[CalendarViewController alloc] initWithNibName:@"CalendarView_iPad" bundle:nil];
     }
-    NSLog(@"%@",notification.userInfo);
-    if ([[notification.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
-        NSLog(@"Event");
-        calendarView.isEventNotify = YES;
-
-    }
-    else if ([[notification.userInfo valueForKey:kTotalNotificationDataKey] isEqualToString:@"Total"]) {
-        NSLog(@"Total");
-        calendarView.isTotalNotify = YES;
-    }
-    
-    [rootViewController presentModalViewController:calendarView animated:YES];*/
-   
 }
 
 
