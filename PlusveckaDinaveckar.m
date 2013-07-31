@@ -8,15 +8,18 @@
 
 #import "PlusveckaDinaveckar.h"
 
-@interface PlusveckaDinaveckar ()
-
-@end
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
 #define kStatus    @"status"
 #define kDayTime   @"dayTime"
 #define kEventDes  @"eventDes"
 #define kSub1Id    @"Sub1Id"
+
+@interface PlusveckaDinaveckar ()
+
+@end
+
+
 @implementation PlusveckaDinaveckar
 @synthesize table;
 @synthesize dataArray,sub1EventsArray;

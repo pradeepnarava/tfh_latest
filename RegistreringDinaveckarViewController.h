@@ -6,9 +6,12 @@
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
+
+
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 #import "DinaveckarCell.h"
+
 @interface RegistreringDinaveckarViewController : UIViewController
 {
     sqlite3 *exerciseDB;
@@ -17,6 +20,6 @@
 }
 
 @property (nonatomic,strong) IBOutlet UITableView *table;
-@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) NSMutableArray *dataArray,*sub1EventsArray;
 
 @end

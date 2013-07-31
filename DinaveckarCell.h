@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface DinaveckarCell : UITableViewCell
+
 @property (nonatomic,strong) IBOutlet UIButton *cellBtn;
 @property (nonatomic,strong) IBOutlet UILabel *cellLabel;
+
 @end

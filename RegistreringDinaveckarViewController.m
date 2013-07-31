@@ -17,8 +17,12 @@
 #define kDayTime   @"dayTime"
 #define kEventDes  @"eventDes"
 #define kSub1Id    @"Sub1Id"
+
+
 @implementation RegistreringDinaveckarViewController
-@synthesize dataArray,table;
+@synthesize dataArray,table,sub1EventsArray;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -65,12 +69,25 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     dataArray = [[NSMutableArray alloc]init];
+    sub1EventsArray = [[NSMutableArray alloc]init];
     [self getData];
     [super viewWillAppear:YES];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    self.dataArray = nil;
+    self.sub1EventsArray = nil;
+}
+
+
+-(void)dealloc {
+    [dataArray release];
+    [sub1EventsArray release];
+    [super dealloc];
+}
+
 -(void)getData {
-    NSMutableArray *sub1Array = [[NSMutableArray alloc]init];
     const char *dbpath = [databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
@@ -98,27 +115,30 @@
                 [itemDict setValue:daytime forKey:kDayTime];
                 [itemDict setValue:eventDescription forKey:kEventDes];
                 
-                [sub1Array addObject:itemDict];
+                [sub1EventsArray addObject:itemDict];
             }
         }
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
-    NSDate *earlierDate = nil;
+    NSDate *earlierDate = nil,*endDate=nil;
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    for (int k=0; k<[sub1Array count]; k++) {
-        NSString *dayTime = [[sub1Array objectAtIndex:k]valueForKey:@"dayTime"];
+    for (int k=0; k<[sub1EventsArray count]; k++) {
+        NSString *dayTime = [[sub1EventsArray objectAtIndex:k]valueForKey:@"dayTime"];
         NSArray *array = [dayTime componentsSeparatedByString:@" "];
         NSString *dateString = [array objectAtIndex:0];
         NSDate *date = [formatter dateFromString:dateString];
         if (!earlierDate || [earlierDate compare:date]==NSOrderedDescending) {
             earlierDate = date;
         }
+        if (!endDate || [endDate compare:date]== NSOrderedAscending) {
+            endDate = date;
+        }
     }
-    NSString *currentDate = [formatter stringFromDate:[NSDate date]];
+    NSString *currentDate = [formatter stringFromDate:endDate];
     NSDate *currDate=[formatter dateFromString:currentDate];
     [formatter2 setDateFormat:@"d/M"];
     [formatter1 setDateFormat:@"yyyy"];
@@ -141,8 +161,8 @@
             week =[NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter1 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:nextDay]];
         }
         BOOL isExist = NO;
-        for (int m=0; m<[sub1Array count]; m++) {
-            NSString *dayTime = [[sub1Array objectAtIndex:m]valueForKey:@"dayTime"];
+        for (int m=0; m<[sub1EventsArray count]; m++) {
+            NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:@"dayTime"];
             NSArray *array = [dayTime componentsSeparatedByString:@" "];
             NSString *dateString = [array objectAtIndex:0];
             NSDate *date = [formatter dateFromString:dateString];
@@ -165,6 +185,9 @@
     
 }
 
+-(void)backButon {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (IBAction)submitButtonAction:(id)sender {
     
 }
@@ -178,6 +201,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [dataArray count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0f;
 }
 
 
@@ -197,6 +225,7 @@
             }
         }
     }
+    cell.selectedBackgroundView = [[UIView alloc]init];
     cell.cellBtn.tag = indexPath.row;
     NSMutableDictionary *dict = [dataArray objectAtIndex:indexPath.row];
     if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
@@ -205,9 +234,9 @@
     else{
         cell.cellBtn.backgroundColor = [UIColor whiteColor];
     }
-    
     [cell.cellBtn addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     cell.cellLabel.text = [dict valueForKey:@"week"];
+    cell.cellLabel.highlightedTextColor = [UIColor darkGrayColor];
     return cell;
 }
 
@@ -225,30 +254,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-     if ([[UIScreen mainScreen] bounds].size.height > 480) {
-     if (!calanderView) {
-     calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView" bundle:nil];
-     }
-     }else{
-     if (!calanderView) {
-     calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView_iPhone4" bundle:nil];
-     }
-     }
-     }
-     else{
-     if (!calanderView) {
-     calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView_iPad" bundle:nil];
-     }
-     }
-     
-     [self.navigationController pushViewController:calanderView animated:YES];*/
-}
-
-
--(void)backButon {
     
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    /*if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!calanderView) {
+                calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView" bundle:nil];
+            }
+        }else{
+            if (!calanderView) {
+                calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!calanderView) {
+            calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView_iPad" bundle:nil];
+        }
+    }
+    calanderView.sub1EventsArray = sub1EventsArray;
+    calanderView.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:calanderView animated:YES];*/
 }
 
 

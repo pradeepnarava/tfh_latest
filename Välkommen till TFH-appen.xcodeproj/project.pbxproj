@@ -67,6 +67,11 @@
 		24AE0F4E1776EB510073A880 /* Klar_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24AE0F4C1776EB510073A880 /* Klar_button@2x.png */; };
 		24B54E2917907D0700AAA236 /* SettingRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B54E2817907D0700AAA236 /* SettingRegistViewController.m */; };
 		24B54E2B17907D2800AAA236 /* SettingRegistView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B54E2A17907D2800AAA236 /* SettingRegistView.xib */; };
+		24B93F3B17A9823A003CBD86 /* RegDinaveckarCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B93F3A17A9823A003CBD86 /* RegDinaveckarCalendarVC.m */; };
+		24B93F3D17A9825C003CBD86 /* RegiDinaveckarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B93F3C17A9825C003CBD86 /* RegiDinaveckarView_iPhone4.xib */; };
+		24B93F4217A98DAE003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B93F3E17A98DAD003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib */; };
+		24B93F4317A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B93F3F17A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib */; };
+		24B93F4417A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B93F4117A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m */; };
 		24BC2FE6177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BC2FE5177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib */; };
 		24BDD498179AD0E000BEDACC /* settings_digital_input.png in Resources */ = {isa = PBXBuildFile; fileRef = 24BDD497179AD0E000BEDACC /* settings_digital_input.png */; };
 		24BDD49A179B0D3200BEDACC /* SettingRegistView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BDD499179B0D3200BEDACC /* SettingRegistView_iPhone4.xib */; };
@@ -385,6 +390,13 @@
 		24B54E2717907D0700AAA236 /* SettingRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingRegistViewController.h; sourceTree = "<group>"; };
 		24B54E2817907D0700AAA236 /* SettingRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingRegistViewController.m; sourceTree = "<group>"; };
 		24B54E2A17907D2800AAA236 /* SettingRegistView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingRegistView.xib; sourceTree = "<group>"; };
+		24B93F3917A9823A003CBD86 /* RegDinaveckarCalendarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegDinaveckarCalendarVC.h; sourceTree = "<group>"; };
+		24B93F3A17A9823A003CBD86 /* RegDinaveckarCalendarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegDinaveckarCalendarVC.m; sourceTree = "<group>"; };
+		24B93F3C17A9825C003CBD86 /* RegiDinaveckarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegiDinaveckarView_iPhone4.xib; sourceTree = "<group>"; };
+		24B93F3E17A98DAD003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegiDinaveckarCalendarView_iPhone4.xib; sourceTree = "<group>"; };
+		24B93F3F17A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegiDinaveckarCalendarView.xib; sourceTree = "<group>"; };
+		24B93F4017A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegiDinaveckarCalendarViewController.h; sourceTree = "<group>"; };
+		24B93F4117A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegiDinaveckarCalendarViewController.m; sourceTree = "<group>"; };
 		24BC2FE5177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TankefallorViewController_iPhone4.xib; sourceTree = "<group>"; };
 		24BDD497179AD0E000BEDACC /* settings_digital_input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_digital_input.png; sourceTree = "<group>"; };
 		24BDD499179B0D3200BEDACC /* SettingRegistView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingRegistView_iPhone4.xib; sourceTree = "<group>"; };
@@ -1144,6 +1156,13 @@
 				249F995E179D9DB500D60B10 /* RegistreringDinaveckarViewController.m */,
 				249F9960179D9E1300D60B10 /* RegistreringDinaveckaView.xib */,
 				249F9962179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib */,
+				24B93F3917A9823A003CBD86 /* RegDinaveckarCalendarVC.h */,
+				24B93F3A17A9823A003CBD86 /* RegDinaveckarCalendarVC.m */,
+				24B93F3C17A9825C003CBD86 /* RegiDinaveckarView_iPhone4.xib */,
+				24B93F4017A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.h */,
+				24B93F4117A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m */,
+				24B93F3E17A98DAD003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib */,
+				24B93F3F17A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib */,
 				24618DDF17A4DAFC00D3D08B /* CalendarViewController.h */,
 				24618DE017A4DAFC00D3D08B /* CalendarViewController.m */,
 				24618DE117A4DAFC00D3D08B /* CalendarView.xib */,
@@ -1695,6 +1714,9 @@
 				24618DE917A4DAFC00D3D08B /* CalendarView_iPhone4.xib in Resources */,
 				24618DEB17A4DAFC00D3D08B /* DayCalendarView.xib in Resources */,
 				24618DEC17A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib in Resources */,
+				24B93F3D17A9825C003CBD86 /* RegiDinaveckarView_iPhone4.xib in Resources */,
+				24B93F4217A98DAE003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib in Resources */,
+				24B93F4317A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1757,6 +1779,8 @@
 				5E262A1D17A01D5800E1EE56 /* DinaveckarCell.m in Sources */,
 				24618DE717A4DAFC00D3D08B /* CalendarViewController.m in Sources */,
 				24618DEA17A4DAFC00D3D08B /* DayCalendarViewController.m in Sources */,
+				24B93F3B17A9823A003CBD86 /* RegDinaveckarCalendarVC.m in Sources */,
+				24B93F4417A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
