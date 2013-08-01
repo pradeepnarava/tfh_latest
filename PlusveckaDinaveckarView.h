@@ -20,7 +20,7 @@
 @property (nonatomic,strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;
 @property (nonatomic,strong) NSMutableArray *dateArray,*weekdays,*dataArray,*sub1EventsArray,*totalArray;
-@property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7;
+@property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7,*raderaBtn;
 @property (nonatomic,strong) NSMutableDictionary *selectedDictionary;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;

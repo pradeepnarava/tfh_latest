@@ -27,7 +27,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *sliderLabel;
 @property (nonatomic, assign) BOOL isDinackar;
 @property (nonatomic, strong) NSDate *selectedDate;
-@property (nonatomic, strong) IBOutlet UIButton *dateButton;
+@property (nonatomic, strong) IBOutlet UIButton *dateButton,*raderaBtn;
 @property (nonatomic, strong) NSString *editTotalValue,*dateIndexValue;
 
 ////////////////////// New Code

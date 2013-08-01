@@ -47,6 +47,7 @@
 @property (nonatomic, retain) NSString *totalBtnTag;
 @property (nonatomic, retain) IBOutlet UIButton *raderaBtn;
 @property (nonatomic, strong) NSMutableArray *dataArray,*weekdays,*totalDataArray;
+@property (nonatomic, strong) NSMutableDictionary *sub2Settings;
 
 
 

@@ -20,7 +20,7 @@
 #define kSub2Id    @"Sub2Id"
 @implementation PlusveckaDinaveckarView
 @synthesize settingsView;
-@synthesize dayView;
+@synthesize dayView,raderaBtn;
 @synthesize scrollView;
 @synthesize dateArray,weekdays,sub1EventsArray;
 @synthesize week;
@@ -73,12 +73,6 @@
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
-    UIImage *image = [UIImage imageNamed:@"setting_alarm_button.png"];
-    UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-    [okBtn addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     self.popupView.layer.cornerRadius = 12;
     self.popupView.layer.shadowOpacity = 0.7;
     self.popupView.layer.shadowOffset = CGSizeMake(6, 6);
@@ -439,6 +433,7 @@
                 mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
                 mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
                 isExit = YES;
+                raderaBtn.enabled = YES;
             }
             //            else {
             //                isExit = NO;
@@ -457,6 +452,7 @@
                 mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
                 mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
                 isExit = YES;
+                raderaBtn.enabled = YES;
             }
             //        else {
             //            isExit = NO;
@@ -464,11 +460,13 @@
         }
     }
     if (!isExit) {
+        currentStatuBtn=@"N";
         eventDesTextView.text = @"";
         hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         mintsTextField1.text = [NSString stringWithFormat:@"00"];
         mintsTextField2.text = [NSString stringWithFormat:@"00"];
+        raderaBtn.enabled = NO;
     }
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     [ASDepthModalViewController presentView:self.popupView
@@ -522,6 +520,19 @@
     
 }
 
+-(IBAction)raderaButtonClicked:(id)sender {
+    
+    [ASDepthModalViewController dismiss];
+   /* if (editIndexValue) {
+        NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
+        [dataArray removeObject:deleDict];
+        [self deleteRecord:deleDict];
+    }
+    editIndexValue = nil;
+    [self displayButton];*/
+    
+}
+
 -(IBAction)totalOkButtonAction:(id)sender{
     [ASDepthModalViewController dismiss];
     
@@ -559,6 +570,28 @@
     }
     
     return isFind;
+}
+
+-(void)deleteRecord:(NSDictionary*)deleDic {
+    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSInteger subId = [[deleDic valueForKey:kSub2Id] integerValue];
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB2EVENT WHERE sub2Id='%d'",subId];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+            
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
 }
 
 -(void)updateIntDatabase:(NSDictionary*)recordsDic {

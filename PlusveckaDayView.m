@@ -20,7 +20,7 @@
 #define kSub2Id    @"Sub2Id"
 @implementation PlusveckaDayView
 @synthesize currentDateBtn,currentStatuBtn,tabValue;
-@synthesize scrollView;
+@synthesize scrollView,raderaBtn;
 @synthesize hoursTextField1,hoursTextField2,mintsTextField1,mintsTextField2;
 @synthesize eventDesTextView,slider,sliderLabel;
 @synthesize popupView,totalView;
@@ -215,6 +215,7 @@
                 mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
                 mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
                 isExit = YES;
+                raderaBtn.enabled = YES;
             }
             //            else {
             //                isExit = NO;
@@ -234,6 +235,7 @@
                 mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
                 mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
                 isExit = YES;
+                raderaBtn.enabled = YES;
             }
             //        else {
             //            isExit = NO;
@@ -241,11 +243,13 @@
         }
     }
     if (!isExit) {
+        currentStatuBtn=@"N";
         eventDesTextView.text = @"";
         hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         mintsTextField1.text = [NSString stringWithFormat:@"00"];
         mintsTextField2.text = [NSString stringWithFormat:@"00"];
+        raderaBtn.enabled = NO;
     }
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     [ASDepthModalViewController presentView:self.popupView
@@ -297,6 +301,19 @@
         
         [self  databaseInsert];
     }
+}
+
+-(IBAction)raderaButtonClicked:(id)sender {
+    
+    [ASDepthModalViewController dismiss];
+    if (editIndexValue&&isSub2&& !isDinackar) {
+        NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
+        [dataArray removeObject:deleDict];
+        [self deleteRecord:deleDict];
+    }
+    editIndexValue = nil;
+    [self displayButton];
+    
 }
 
 -(IBAction)totalOkButtonAction:(id)sender{
@@ -401,6 +418,28 @@
     }
     
     return isFind;
+}
+
+-(void)deleteRecord:(NSDictionary*)deleDic {
+    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSInteger subId = [[deleDic valueForKey:kSub2Id] integerValue];
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB2EVENT WHERE sub2Id='%d'",subId];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+            
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
 }
 
 -(void)updateIntDatabase:(NSDictionary*)recordsDic {
