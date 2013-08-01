@@ -356,6 +356,7 @@
 						<string key="NSFrame">{{278, 427}, {42, 29}}</string>
 						<reference key="NSSuperview" ref="973861116"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">725</int>
@@ -4371,15 +4372,15 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">kalendar_cell_negative.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="56064233">
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<string key="name">HelveticaNeue-Bold</string>
 							<string key="family">Helvetica Neue</string>
 							<int key="traits">2</int>
-							<double key="pointSize">20</double>
+							<double key="pointSize">33</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="986544394">
+						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">HelveticaNeue-Bold</string>
-							<double key="NSSize">20</double>
+							<double key="NSSize">33</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
@@ -4397,7 +4398,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">N</string>
+						<string key="IBUINormalTitle">Neutral</string>
 						<reference key="IBUIHighlightedTitleColor" ref="190131798"/>
 						<reference key="IBUINormalTitleColor" ref="984570341"/>
 						<reference key="IBUINormalTitleShadowColor" ref="597111183"/>
@@ -4405,8 +4406,17 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">kalendar_cell_emptycell_neutral.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="56064233"/>
-						<reference key="IBUIFont" ref="986544394"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
+							<double key="pointSize">18</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">18</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 					<object class="IBUIButton" id="129272058">
 						<reference key="NSNextResponder" ref="823687390"/>
@@ -4430,8 +4440,17 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">kalendar_cell_positive.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="56064233"/>
-						<reference key="IBUIFont" ref="986544394"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
+							<double key="pointSize">25</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">25</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 					<object class="IBUITextField" id="387166636">
 						<reference key="NSNextResponder" ref="823687390"/>
@@ -4587,6 +4606,7 @@
 						<string key="NSFrame">{{73, 272}, {73, 35}}</string>
 						<reference key="NSSuperview" ref="823687390"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="656889982"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -4601,8 +4621,17 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Klar_button.png</string>
 						</object>
-						<reference key="IBUIFontDescription" ref="56064233"/>
-						<reference key="IBUIFont" ref="986544394"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="56064233">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
+							<double key="pointSize">20</double>
+						</object>
+						<object class="NSFont" key="IBUIFont" id="35262370">
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">20</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 					<object class="IBUIButton" id="527340699">
 						<reference key="NSNextResponder" ref="823687390"/>
@@ -4642,6 +4671,7 @@
 						<string key="NSFrame">{{173, 272}, {80, 35}}</string>
 						<reference key="NSSuperview" ref="823687390"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -4656,7 +4686,7 @@
 							<string key="NSResourceName">radera.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="56064233"/>
-						<reference key="IBUIFont" ref="986544394"/>
+						<reference key="IBUIFont" ref="35262370"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{297, 331}</string>
@@ -4708,6 +4738,7 @@
 						<string key="NSFrame">{{120, 151}, {54, 26}}</string>
 						<reference key="NSSuperview" ref="378531778"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

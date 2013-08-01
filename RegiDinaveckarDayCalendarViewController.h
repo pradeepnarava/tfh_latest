@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
-@interface DayCalendarViewController : UIViewController
+@interface RegiDinaveckarDayCalendarViewController : UIViewController
     
 {
     sqlite3 *exerciseDB;

@@ -12,6 +12,8 @@
 #import <sqlite3.h>
 #import "DinaveckarCell.h"
 
+@class RegiDinaveckarCalendarViewController;
+
 @interface RegistreringDinaveckarViewController : UIViewController
 {
     sqlite3 *exerciseDB;
@@ -21,5 +23,7 @@
 
 @property (nonatomic,strong) IBOutlet UITableView *table;
 @property (nonatomic,strong) NSMutableArray *dataArray,*sub1EventsArray;
+
+@property (nonatomic, retain) RegiDinaveckarCalendarViewController *regiDinaCalVC;
 
 @end

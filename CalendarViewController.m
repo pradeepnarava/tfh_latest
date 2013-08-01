@@ -104,7 +104,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     self.totalView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     
     raderaBtn.enabled = NO;
-    
+    self.navigationItem.title=@"Calendar";
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
         UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -283,8 +283,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                         statusString = @"+";
                     }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
                         statusString = @"-";
-                    }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"N"]){
-                        statusString = @"N";
+                    }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+                        statusString = @"Neutral";
                     }
                     
                     [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
@@ -295,7 +295,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
             }else if ([statusString isEqualToString:@"-"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
-            }else if ([statusString isEqualToString:@"N"]){
+            }else if ([statusString isEqualToString:@"Neutral"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
             }else {
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
@@ -767,7 +767,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
 
         if (!currentStatuBtn)
-            currentStatuBtn = @"N";
+            currentStatuBtn = @"Neutral";
             
         [temp setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
         [temp setValue:eventDesTextView.text forKey:kEventDes];
@@ -955,7 +955,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             currentStatuBtn = btn.currentTitle;
             break;
         default:
-            currentStatuBtn = @"N";
+            currentStatuBtn = @"Neutral";
             break;
     }
 }

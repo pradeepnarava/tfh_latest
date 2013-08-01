@@ -9,7 +9,7 @@
 #import "RegiDinaveckarCalendarViewController.h"
 #import "SettingRegistViewController.h"
 #import "ASDepthModalViewController.h"
-#import "DayCalendarViewController.h"
+#import "RegiDinaveckarDayCalendarViewController.h"
 
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
@@ -61,7 +61,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize raderaBtn;
 @synthesize totalDataArray;
 @synthesize totalBtnTag;
-@synthesize dayCalendarVC;
+@synthesize regiDinaDayCalendarVC;
+@synthesize selectedDictionary;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -123,14 +124,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
 
-    UIImage *image = [UIImage imageNamed:@"setting_alarm_button.png"];
-    UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-    [okBtn addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     
-    [self week:[NSDate date]];
+    
+    
     
     NSString *docsDir;
     NSArray *dirPaths;
@@ -165,52 +161,21 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSLog(@"Failed to open/create database");
     }
     
-    //self.dataArray = [[NSMutableArray alloc]init];
-    //self.totalDataArray = [[NSMutableArray alloc] init];
-    
-    //[self getDataSub1Events];
-    //[self getDataSub1Total];
-   
-    
-    //[self displayButton];
-    
-    /*if (isEventNotify) {
-        NSDate *date = [self.weekdays objectAtIndex:0];
-        NSArray *tm  = [[self dateFromString:date] componentsSeparatedByString:@" "];
-        buttonString = [[tm objectAtIndex:0] retain];
-        hoursTextField1.text = @"0";
-        ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-        [ASDepthModalViewController presentView:self.popupView
-                                backgroundColor:nil
-                                        options:style
-                              completionHandler:^{
-                                  NSLog(@"Modal view closed.");
-                              }];
-    }
-    if (isTotalNotify) {
-        totalBtnTag  = @"0";
-        NSDate *date = [self.weekdays objectAtIndex:0];
-        NSArray *tm  = [[self dateFromString:date] componentsSeparatedByString:@" "];
-        buttonString = [[tm objectAtIndex:0] retain];
-        
-        ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-        [ASDepthModalViewController presentView:self.popupView
-                                backgroundColor:nil
-                                        options:style
-                              completionHandler:^{
-                                  NSLog(@"Modal view closed.");
-                              }];
-    }*/
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    self.dataArray = [[NSMutableArray alloc]init];
+  
+    [self week:[selectedDictionary valueForKey:kStartDate]];
+    
+    self.dataArray = [[NSMutableArray alloc] init];
     self.totalDataArray = [[NSMutableArray alloc] init];
     
+    //[self displayButton];
     [self getDataSub1Events];
     [self getDataSub1Total];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -283,8 +248,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                         statusString = @"+";
                     }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
                         statusString = @"-";
-                    }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"N"]){
-                        statusString = @"N";
+                    }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+                        statusString = @"Neutral";
                     }
                     
                     [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
@@ -295,7 +260,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
             }else if ([statusString isEqualToString:@"-"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
-            }else if ([statusString isEqualToString:@"N"]){
+            }else if ([statusString isEqualToString:@"Neutral"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
             }else {
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
@@ -720,7 +685,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 #pragma mark SettingViewController
 
--(void)settButtonClicked {
+/*-(void)settButtonClicked {
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
@@ -740,7 +705,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     
     [self.navigationController pushViewController:settingRegViewCntrl animated:YES];
-}
+}*/
 
 
 
@@ -767,7 +732,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
 
         if (!currentStatuBtn)
-            currentStatuBtn = @"N";
+            currentStatuBtn = @"Neutral";
             
         [temp setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
         [temp setValue:eventDesTextView.text forKey:kEventDes];
@@ -779,9 +744,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     editIndexValue = nil;
     
-    //[self displayButton];
     
     [self  databaseInsert];
+    //[self displayButton];
 }
 
 
@@ -917,24 +882,24 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!dayCalendarVC) {
-                dayCalendarVC = [[DayCalendarViewController alloc]initWithNibName:@"DayCalendarView" bundle:nil];
+            if (!regiDinaDayCalendarVC) {
+                regiDinaDayCalendarVC = [[RegiDinaveckarDayCalendarViewController alloc]initWithNibName:@"RegiDinaveckarDayCalendarView" bundle:nil];
             }
         }else{
-            if (!dayCalendarVC) {
-                dayCalendarVC = [[DayCalendarViewController alloc]initWithNibName:@"DayCalendarView_iPhone4" bundle:nil];
+            if (!regiDinaDayCalendarVC) {
+                regiDinaDayCalendarVC = [[RegiDinaveckarDayCalendarViewController alloc]initWithNibName:@"RegiDinaveckarDayCalendarView_iPhone4" bundle:nil];
             }
         }
     }
     else{
-        if (!dayCalendarVC) {
-            dayCalendarVC = [[DayCalendarViewController alloc]initWithNibName:@"DayCalendarView_iPad" bundle:nil];
+        if (!regiDinaDayCalendarVC) {
+            regiDinaDayCalendarVC = [[RegiDinaveckarDayCalendarViewController alloc]initWithNibName:@"RegiDinaveckarDayCalendarView_iPad" bundle:nil];
         }
     }
     
-    dayCalendarVC.dayTimenTag =[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[btn tag]];
+    regiDinaDayCalendarVC.dayTimenTag =[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[btn tag]];
     
-    [self.navigationController pushViewController:dayCalendarVC animated:YES];
+    [self.navigationController pushViewController:regiDinaDayCalendarVC animated:YES];
 }
 
 
@@ -955,43 +920,30 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             currentStatuBtn = btn.currentTitle;
             break;
         default:
-            currentStatuBtn = @"N";
+            currentStatuBtn = @"Neutral";
             break;
     }
 }
 
 #pragma mark Calendar 
 
-- (NSDate *)firstDayOfWeekFromDate:(NSDate *)date {
-	CFCalendarRef currentCalendar = CFCalendarCopyCurrent();
-	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:date];
-	[components setDay:([components day] - ([components weekday] - CFCalendarGetFirstWeekday(currentCalendar)))];
-	[components setHour:0];
-	[components setMinute:0];
-	[components setSecond:0];
-	CFRelease(currentCalendar);
-	return [CURRENT_CALENDAR dateFromComponents:components];
-}
-
-
-
 - (void)week:(NSDate *)_date {
+    
     
     self.week = _date;
     
     self.weekdays = [[NSMutableArray alloc] init];
     
-    for (int i =1; i <= 7; i++)
+    for (int i =0; i < 7; i++)
     {
         NSDateComponents *comps1 = [[NSDateComponents alloc] init];
         [comps1 setMonth:0];
         [comps1 setDay:+i];
         [comps1 setHour:0];
         NSCalendar *calendar1 = [NSCalendar currentCalendar];
-        NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:[NSDate date] options:0];
+        NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:_date options:0];
         [self.weekdays addObject:newDate1];
     }
-
 	[self updateScreens];
 }
 

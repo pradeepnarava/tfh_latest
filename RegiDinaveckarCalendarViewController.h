@@ -11,7 +11,8 @@
 #import "PlusveckaDayView.h"
 
 @class SettingRegistViewController;
-@class DayCalendarViewController;
+@class RegiDinaveckarDayCalendarViewController;
+
 
 @interface RegiDinaveckarCalendarViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
 
@@ -39,14 +40,15 @@
 //@property (nonatomic) BOOL isEventNotify,isTotalNotify;
 
 @property (nonatomic, strong) SettingRegistViewController *settingRegViewCntrl;
-@property (nonatomic, strong) DayCalendarViewController *dayCalendarVC;
+@property (nonatomic, strong) RegiDinaveckarDayCalendarViewController *regiDinaDayCalendarVC;
 
 ////////////////
 @property (nonatomic, retain) NSString *buttonString;
 @property (nonatomic, retain) NSString *editIndexValue;
 @property (nonatomic, retain) NSString *totalBtnTag;
 @property (nonatomic, retain) IBOutlet UIButton *raderaBtn;
-@property (nonatomic, strong) NSMutableArray *dataArray,*weekdays,*totalDataArray;
+@property (nonatomic, retain) NSMutableArray *dataArray,*weekdays,*totalDataArray;
+@property (nonatomic, retain) NSMutableDictionary *selectedDictionary;
 
 
 
@@ -64,7 +66,6 @@
 
 
 ///Calendar Weeks
-- (NSDate *)firstDayOfWeekFromDate:(NSDate *)date;
 - (void)week:(NSDate *)date;
 
 

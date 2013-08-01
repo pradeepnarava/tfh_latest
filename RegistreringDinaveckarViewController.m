@@ -7,10 +7,8 @@
 //
 
 #import "RegistreringDinaveckarViewController.h"
+#import "RegiDinaveckarCalendarViewController.h"
 
-@interface RegistreringDinaveckarViewController ()
-
-@end
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
 #define kStatus    @"status"
@@ -18,9 +16,18 @@
 #define kEventDes  @"eventDes"
 #define kSub1Id    @"Sub1Id"
 
+#define kWeek @"week"
+#define kSelected @"selected"
+
+
+@interface RegistreringDinaveckarViewController ()
+
+@end
+
 
 @implementation RegistreringDinaveckarViewController
 @synthesize dataArray,table,sub1EventsArray;
+@synthesize regiDinaCalVC;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,12 +61,12 @@
         [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
+    
     NSString *docsDir;
     NSArray *dirPaths;
     
     // Get the documents directory
     dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
     docsDir = [dirPaths objectAtIndex:0];
     
     // Build the path to the database file
@@ -162,7 +169,7 @@
         }
         BOOL isExist = NO;
         for (int m=0; m<[sub1EventsArray count]; m++) {
-            NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:@"dayTime"];
+            NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:kDayTime];
             NSArray *array = [dayTime componentsSeparatedByString:@" "];
             NSString *dateString = [array objectAtIndex:0];
             NSDate *date = [formatter dateFromString:dateString];
@@ -173,14 +180,16 @@
         }
         if (isExist) {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-            [dict setValue:week forKey:@"week"];
-            [dict setValue:@"F" forKey:@"selected"];
-            [dict setValue:earlierDate forKey:@"start"];
-            [dict setValue:nextDay forKey:@"end"];
+            [dict setValue:week forKey:kWeek];
+            [dict setValue:@"F" forKey:kSelected];
+            [dict setValue:earlierDate forKey:kStartDate];
+            [dict setValue:nextDay forKey:kEndDate];
             [dataArray addObject:dict];
         }
         earlierDate = [earlierDate dateByAddingTimeInterval:7*24*60*60];
     }
+    
+    
     [table reloadData];
     
 }
@@ -200,6 +209,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"%@",dataArray);
     return [dataArray count];
 }
 
@@ -228,53 +238,56 @@
     cell.selectedBackgroundView = [[UIView alloc]init];
     cell.cellBtn.tag = indexPath.row;
     NSMutableDictionary *dict = [dataArray objectAtIndex:indexPath.row];
-    if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
+    if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
         cell.cellBtn.backgroundColor = [UIColor blueColor];
     }
     else{
         cell.cellBtn.backgroundColor = [UIColor whiteColor];
     }
     [cell.cellBtn addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    cell.cellLabel.text = [dict valueForKey:@"week"];
+    cell.cellLabel.text = [dict valueForKey:kWeek];
     cell.cellLabel.highlightedTextColor = [UIColor darkGrayColor];
     return cell;
 }
+
+
 
 -(void)cellButtonClicked:(id)sender{
     for (int j=0; j<[dataArray count]; j++) {
         NSMutableDictionary *dict = [dataArray objectAtIndex:j];
         if (j==[sender tag]) {
-            [dict setValue:@"T" forKey:@"selected"];
+            [dict setValue:@"T" forKey:kSelected];
         }else{
-            [dict setValue:@"F" forKey:@"selected"];
+            [dict setValue:@"F" forKey:kSelected];
         }
     }
     [table reloadData];
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     
-    /*if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!calanderView) {
-                calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView" bundle:nil];
+            if (!regiDinaCalVC) {
+                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView" bundle:nil];
             }
         }else{
-            if (!calanderView) {
-                calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView_iPhone4" bundle:nil];
+            if (!regiDinaCalVC) {
+                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPhone4" bundle:nil];
             }
         }
     }
     else{
-        if (!calanderView) {
-            calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView_iPad" bundle:nil];
+        if (!regiDinaCalVC) {
+            regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPad" bundle:nil];
         }
     }
-    calanderView.sub1EventsArray = sub1EventsArray;
-    calanderView.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:calanderView animated:YES];*/
+    //regiDinaCalVC.dataArray = sub1EventsArray;
+    regiDinaCalVC.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:regiDinaCalVC animated:YES];
 }
 
 

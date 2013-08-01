@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
-#import "DayCalendarViewController.h"
+#import "RegiDinaveckarDayCalendarViewController.h"
 #import "ASDepthModalViewController.h"
 
 
@@ -24,11 +24,11 @@
 #define kTTotal @"TTotal"
 
 
-@interface DayCalendarViewController ()
+@interface RegiDinaveckarDayCalendarViewController ()
 
 @end
 
-@implementation DayCalendarViewController
+@implementation RegiDinaveckarDayCalendarViewController
 @synthesize dayButton;
 @synthesize dayTimenTag;
 @synthesize dayScrollView;
@@ -75,7 +75,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"current String is %@",dayTimenTag);
+
     self.navigationItem.title=@"Day Calendar";
     [self.dayScrollView setContentSize:CGSizeMake(320, 699)];
     self.popupView.layer.cornerRadius = 12;
@@ -145,7 +145,7 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
-   
+    NSLog(@"current String is %@",dayTimenTag);
     self.dataArray = [[NSMutableArray alloc]init];
     self.totalDataArray = [[NSMutableArray alloc] init];
     [self getDataSub1Events];
@@ -157,7 +157,6 @@
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    
     
 }
 
