@@ -239,10 +239,12 @@
     cell.cellBtn.tag = indexPath.row;
     NSMutableDictionary *dict = [dataArray objectAtIndex:indexPath.row];
     if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
-        cell.cellBtn.backgroundColor = [UIColor blueColor];
+        [cell.cellBtn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+        //cell.cellBtn.backgroundColor = [UIColor blueColor];
     }
     else{
-        cell.cellBtn.backgroundColor = [UIColor whiteColor];
+        [cell.cellBtn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+        //cell.cellBtn.backgroundColor = [UIColor whiteColor];
     }
     [cell.cellBtn addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     cell.cellLabel.text = [dict valueForKey:kWeek];

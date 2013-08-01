@@ -59,6 +59,7 @@
 						<string key="NSFrame">{{124, 466}, {73, 31}}</string>
 						<reference key="NSSuperview" ref="714829571"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -162,7 +163,7 @@
 					<object class="IBUIButton" id="330436022">
 						<reference key="NSNextResponder" ref="714829571"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{112, 353}, {47, 32}}</string>
+						<string key="NSFrame">{{112, 359}, {41, 24}}</string>
 						<reference key="NSSuperview" ref="714829571"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="2281034"/>
@@ -172,11 +173,13 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">På</string>
 						<reference key="IBUIHighlightedTitleColor" ref="237613578"/>
 						<reference key="IBUINormalTitleColor" ref="443774041"/>
 						<reference key="IBUINormalTitleShadowColor" ref="699817080"/>
+						<object class="NSCustomResource" key="IBUINormalImage" id="640784357">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_on_iphone.png</string>
+						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="539537690">
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
@@ -190,7 +193,7 @@
 					<object class="IBUIButton" id="2281034">
 						<reference key="NSNextResponder" ref="714829571"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{160, 353}, {45, 32}}</string>
+						<string key="NSFrame">{{152, 359}, {41, 23}}</string>
 						<reference key="NSSuperview" ref="714829571"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="738782727"/>
@@ -200,11 +203,13 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Av</string>
 						<reference key="IBUIHighlightedTitleColor" ref="237613578"/>
 						<reference key="IBUINormalTitleColor" ref="443774041"/>
 						<reference key="IBUINormalTitleShadowColor" ref="699817080"/>
+						<object class="NSCustomResource" key="IBUINormalImage" id="936133427">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_off_iphone.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="539537690"/>
 						<reference key="IBUIFont" ref="476193049"/>
 					</object>
@@ -263,7 +268,7 @@
 					<object class="IBUIButton" id="356847744">
 						<reference key="NSNextResponder" ref="714829571"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{218, 13}, {41, 32}}</string>
+						<string key="NSFrame">{{218, 17}, {41, 23}}</string>
 						<reference key="NSSuperview" ref="714829571"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="383427318"/>
@@ -273,18 +278,17 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">På</string>
 						<reference key="IBUIHighlightedTitleColor" ref="237613578"/>
 						<reference key="IBUINormalTitleColor" ref="443774041"/>
 						<reference key="IBUINormalTitleShadowColor" ref="699817080"/>
+						<reference key="IBUINormalImage" ref="640784357"/>
 						<reference key="IBUIFontDescription" ref="539537690"/>
 						<reference key="IBUIFont" ref="476193049"/>
 					</object>
 					<object class="IBUIButton" id="383427318">
 						<reference key="NSNextResponder" ref="714829571"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{259, 13}, {41, 32}}</string>
+						<string key="NSFrame">{{259, 17}, {41, 23}}</string>
 						<reference key="NSSuperview" ref="714829571"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1061704223"/>
@@ -294,11 +298,10 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Av</string>
 						<reference key="IBUIHighlightedTitleColor" ref="237613578"/>
 						<reference key="IBUINormalTitleColor" ref="443774041"/>
 						<reference key="IBUINormalTitleShadowColor" ref="699817080"/>
+						<reference key="IBUINormalImage" ref="936133427"/>
 						<reference key="IBUIFontDescription" ref="539537690"/>
 						<reference key="IBUIFont" ref="476193049"/>
 					</object>
@@ -1343,6 +1346,8 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background-ipone5.png">{640, 1136}</string>
 			<string key="button.png">{69, 30}</string>
+			<string key="button_off_iphone.png">{41, 23}</string>
+			<string key="button_on_iphone.png">{41, 23}</string>
 			<string key="settings_digital_input.png">{99, 31}</string>
 			<string key="uncheck.png">{32, 32}</string>
 		</dictionary>

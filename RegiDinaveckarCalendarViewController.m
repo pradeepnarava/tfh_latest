@@ -91,6 +91,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title=@"Dinaveckar";
     
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
     self.popupView.layer.cornerRadius = 12;
@@ -123,10 +124,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
-
-    
-    
-    
     
     NSString *docsDir;
     NSArray *dirPaths;
@@ -1287,6 +1284,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 {
     
     [textField addTarget:self action:@selector(changeText:) forControlEvents:UIControlEventEditingChanged];
+    
     return YES;
 }
 
