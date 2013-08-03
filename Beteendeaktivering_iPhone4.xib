@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -54,7 +54,7 @@
 					<object class="IBUIButton" id="425901401">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{54, 119}, {213, 44}}</string>
+						<string key="NSFrame">{{20, 119}, {285, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="362232428"/>
@@ -76,26 +76,26 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="477808749">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="90162789">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Regisreringsveck_button.png</string>
+							<string key="NSResourceName">beteendbutton.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="430980851">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="885457952">
 							<string key="name">HelveticaNeue-Bold</string>
 							<string key="family">Helvetica Neue</string>
 							<int key="traits">2</int>
-							<double key="pointSize">15</double>
+							<double key="pointSize">25</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="831798494">
+						<object class="NSFont" key="IBUIFont" id="699474359">
 							<string key="NSName">HelveticaNeue-Bold</string>
-							<double key="NSSize">15</double>
+							<double key="NSSize">25</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 					<object class="IBUIButton" id="362232428">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{54, 226}, {213, 44}}</string>
+						<string key="NSFrame">{{20, 222}, {285, 57}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="164457801"/>
@@ -104,32 +104,50 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<double key="IBUIContentEdgeInsets.top">0.0</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">100</double>
 						<string key="IBUINormalTitle">Plusvecka</string>
 						<reference key="IBUIHighlightedTitleColor" ref="667696151"/>
 						<reference key="IBUINormalTitleColor" ref="1039172708"/>
 						<reference key="IBUINormalTitleShadowColor" ref="104332948"/>
-						<reference key="IBUINormalBackgroundImage" ref="477808749"/>
-						<reference key="IBUIFontDescription" ref="430980851"/>
-						<reference key="IBUIFont" ref="831798494"/>
+						<reference key="IBUINormalBackgroundImage" ref="90162789"/>
+						<reference key="IBUIFontDescription" ref="885457952"/>
+						<reference key="IBUIFont" ref="699474359"/>
 					</object>
 					<object class="IBUIButton" id="164457801">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{54, 335}, {213, 44}}</string>
+						<string key="NSFrame">{{20, 324}, {285, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<double key="IBUIContentEdgeInsets.top">0.0</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">100</double>
 						<string key="IBUINormalTitle">Utvärdera</string>
 						<reference key="IBUIHighlightedTitleColor" ref="667696151"/>
 						<reference key="IBUINormalTitleColor" ref="1039172708"/>
 						<reference key="IBUINormalTitleShadowColor" ref="104332948"/>
-						<reference key="IBUINormalBackgroundImage" ref="477808749"/>
-						<reference key="IBUIFontDescription" ref="430980851"/>
-						<reference key="IBUIFont" ref="831798494"/>
+						<reference key="IBUINormalBackgroundImage" ref="90162789"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
+							<double key="pointSize">26</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">26</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 					<object class="IBUIButton" id="123005502">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -327,16 +345,11 @@
 					<string key="className">Beteendeaktivering</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="mainlabelalert:">id</string>
 						<string key="sub1:">id</string>
 						<string key="sub2:">id</string>
 						<string key="sub3:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="mainlabelalert:">
-							<string key="name">mainlabelalert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="sub1:">
 							<string key="name">sub1:</string>
 							<string key="candidateClassName">id</string>
@@ -373,8 +386,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="Regisreringsveck_button.png">{272, 60}</string>
 			<string key="background-ipone5.png">{640, 1136}</string>
+			<string key="beteendbutton.png">{572, 100}</string>
 			<string key="läsdel.png">{114, 29}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

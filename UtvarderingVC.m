@@ -1,18 +1,18 @@
 //
-//  Veckostatistik.m
+//  UtvarderingVC.m
 //  Välkommen till TFH-appen
 //
-//  Created by Mohammed Abdul Majeed on 5/6/13.
+//  Created by Chandrika on 04/08/13.
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
-#import "Veckostatistik.h"
+#import "UtvarderingVC.h"
 
-@interface Veckostatistik ()
+@interface UtvarderingVC ()
 
 @end
 
-@implementation Veckostatistik
+@implementation UtvarderingVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,15 +25,18 @@
 
 - (void)viewDidLoad
 {
-    self.navigationItem.title=@"veckostatistik";
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)buttonClicked:(id)sender {
+    
 }
 
 @end
