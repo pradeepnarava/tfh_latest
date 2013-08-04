@@ -11,7 +11,7 @@
 
 @class Registreringsvecka;
 @class Plusvecka;
-@class Utvardering;
+@class UtvarderingVC;
 
 
 @interface Beteendeaktivering : UIViewController {
@@ -20,7 +20,8 @@
 
 @property (nonatomic, retain) Registreringsvecka *rs;
 @property (nonatomic, retain) Plusvecka *psc;
-@property (nonatomic, retain) Utvardering *ud;
+@property (nonatomic, retain) UtvarderingVC *utvarderingVC;
+
 @property (nonatomic, retain) IBOutlet UILabel *titlelabel;
 
 -(IBAction)sub1:(id)sender;

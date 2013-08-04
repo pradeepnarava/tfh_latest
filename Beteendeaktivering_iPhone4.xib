@@ -122,7 +122,6 @@
 						<string key="NSFrame">{{20, 324}, {285, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -345,11 +344,16 @@
 					<string key="className">Beteendeaktivering</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="mainlabelalert:">id</string>
 						<string key="sub1:">id</string>
 						<string key="sub2:">id</string>
 						<string key="sub3:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="mainlabelalert:">
+							<string key="name">mainlabelalert:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="sub1:">
 							<string key="name">sub1:</string>
 							<string key="candidateClassName">id</string>

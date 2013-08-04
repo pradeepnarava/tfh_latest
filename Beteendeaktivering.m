@@ -10,7 +10,7 @@
 #import "MTPopupWindow.h"
 #import "Registreringsvecka.h"
 #import "Plusvecka.h"
-#import "Utvardering.h"
+#import "UtvarderingVC.h"
 
 
 @interface Beteendeaktivering ()
@@ -19,7 +19,7 @@
 
 @implementation Beteendeaktivering
 @synthesize titlelabel;
-@synthesize ud;
+@synthesize utvarderingVC;
 @synthesize rs;
 @synthesize psc;
 
@@ -124,22 +124,22 @@
 -(IBAction)sub3:(id)sender {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!ud) {
-                ud=[[Utvardering alloc]initWithNibName:@"Utvardering" bundle:nil];
+            if (!utvarderingVC) {
+                utvarderingVC=[[UtvarderingVC alloc]initWithNibName:@"UtvarderingView" bundle:nil];
             }
         }else{
-            if (!ud) {
-                ud=[[Utvardering alloc]initWithNibName:@"Utvardering_iPhone4" bundle:nil];
+            if (!utvarderingVC) {
+                utvarderingVC=[[UtvarderingVC alloc]initWithNibName:@"UtvarderingView_iPhone4" bundle:nil];
             }
         }
     }
     else{
-        if (!ud) {
-            ud=[[Utvardering alloc]initWithNibName:@"Utvardering_iPad" bundle:nil];
+        if (!utvarderingVC) {
+            utvarderingVC=[[UtvarderingVC alloc]initWithNibName:@"UtvarderingView_iPad" bundle:nil];
         }
     }
     
-    [self.navigationController pushViewController:ud animated:YES];
+    [self.navigationController pushViewController:utvarderingVC animated:YES];
 }
 
 

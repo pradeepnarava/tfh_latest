@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class UtvarderingVeckostatestikVC;
+
 @interface UtvarderingVC : UIViewController
 
+@property (nonatomic, retain) UtvarderingVeckostatestikVC *utvarderingVeckosVC;
 
 -(IBAction)buttonClicked:(id)sender;
+
+
 
 @end

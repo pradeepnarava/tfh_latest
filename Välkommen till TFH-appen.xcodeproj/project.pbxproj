@@ -12,6 +12,10 @@
 		2401C2F0179313900081BFEA /* Registreringsvecka_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */; };
 		2401C2F41793218E0081BFEA /* k_popup_day.png in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2F31793218E0081BFEA /* k_popup_day.png */; };
 		24171D211777631600182CF4 /* MTPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 24171D201777631600182CF4 /* MTPopupWindow.m */; };
+		2419AA7B17AE0712005724B7 /* UtvarderingVeckostatestikVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419AA7A17AE0712005724B7 /* UtvarderingVeckostatestikVC.m */; };
+		2419AA7D17AE072F005724B7 /* UtvarderingVeckostatestikView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2419AA7C17AE072F005724B7 /* UtvarderingVeckostatestikView.xib */; };
+		2419AA7F17AE075B005724B7 /* UtvarderingVeckostatestikView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2419AA7E17AE075B005724B7 /* UtvarderingVeckostatestikView_iPhone4.xib */; };
+		2419AA8117AE093C005724B7 /* UtvarderingVeckostatestikView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2419AA8017AE093C005724B7 /* UtvarderingVeckostatestikView_iPad.xib */; };
 		2424F1FC177220530012A934 /* läsdel-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 2424F1FB177220530012A934 /* läsdel-popup.png */; };
 		2424F200177222840012A934 /* background-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2424F1FD177222840012A934 /* background-iPad.png */; };
 		2424F201177222840012A934 /* background-ipone4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2424F1FE177222840012A934 /* background-ipone4.png */; };
@@ -332,6 +336,11 @@
 		2401C2F31793218E0081BFEA /* k_popup_day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = k_popup_day.png; sourceTree = "<group>"; };
 		24171D1F1777631600182CF4 /* MTPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPopupWindow.h; sourceTree = "<group>"; };
 		24171D201777631600182CF4 /* MTPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPopupWindow.m; sourceTree = "<group>"; };
+		2419AA7917AE0712005724B7 /* UtvarderingVeckostatestikVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtvarderingVeckostatestikVC.h; sourceTree = "<group>"; };
+		2419AA7A17AE0712005724B7 /* UtvarderingVeckostatestikVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtvarderingVeckostatestikVC.m; sourceTree = "<group>"; };
+		2419AA7C17AE072F005724B7 /* UtvarderingVeckostatestikView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UtvarderingVeckostatestikView.xib; sourceTree = "<group>"; };
+		2419AA7E17AE075B005724B7 /* UtvarderingVeckostatestikView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UtvarderingVeckostatestikView_iPhone4.xib; sourceTree = "<group>"; };
+		2419AA8017AE093C005724B7 /* UtvarderingVeckostatestikView_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UtvarderingVeckostatestikView_iPad.xib; sourceTree = "<group>"; };
 		2424F1FB177220530012A934 /* läsdel-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "läsdel-popup.png"; sourceTree = "<group>"; };
 		2424F1FD177222840012A934 /* background-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-iPad.png"; sourceTree = "<group>"; };
 		2424F1FE177222840012A934 /* background-ipone4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-ipone4.png"; sourceTree = "<group>"; };
@@ -1213,6 +1222,11 @@
 				24BFDE2B17AD88BB0072DEEA /* UtvarderingView.xib */,
 				24BFDE2D17AD88E40072DEEA /* UtvarderingView_iPhone4.xib */,
 				24BFDE3117AD89A70072DEEA /* UtvarderingView_iPad.xib */,
+				2419AA7917AE0712005724B7 /* UtvarderingVeckostatestikVC.h */,
+				2419AA7A17AE0712005724B7 /* UtvarderingVeckostatestikVC.m */,
+				2419AA7C17AE072F005724B7 /* UtvarderingVeckostatestikView.xib */,
+				2419AA7E17AE075B005724B7 /* UtvarderingVeckostatestikView_iPhone4.xib */,
+				2419AA8017AE093C005724B7 /* UtvarderingVeckostatestikView_iPad.xib */,
 				24BFDE3717AD8D800072DEEA /* jämnför_button.png */,
 				24BFDE3517AD8B9F0072DEEA /* text_title_background.png */,
 				24BFDE3317AD8B940072DEEA /* text_title_background@2x.png */,
@@ -1730,6 +1744,9 @@
 				24BFDE3417AD8B940072DEEA /* text_title_background@2x.png in Resources */,
 				24BFDE3617AD8B9F0072DEEA /* text_title_background.png in Resources */,
 				24BFDE3817AD8D800072DEEA /* jämnför_button.png in Resources */,
+				2419AA7D17AE072F005724B7 /* UtvarderingVeckostatestikView.xib in Resources */,
+				2419AA7F17AE075B005724B7 /* UtvarderingVeckostatestikView_iPhone4.xib in Resources */,
+				2419AA8117AE093C005724B7 /* UtvarderingVeckostatestikView_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1791,6 +1808,7 @@
 				24B93F4417A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m in Sources */,
 				248BF53B17AAC6A600556BF8 /* RegiDinaveckarDayCalendarViewController.m in Sources */,
 				24BFDE2A17AD88990072DEEA /* UtvarderingVC.m in Sources */,
+				2419AA7B17AE0712005724B7 /* UtvarderingVeckostatestikVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

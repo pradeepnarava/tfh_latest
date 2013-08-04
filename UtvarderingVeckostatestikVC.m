@@ -1,22 +1,18 @@
 //
-//  UtvarderingVC.m
+//  UtvärderingVeckostatestikVC.m
 //  Välkommen till TFH-appen
 //
 //  Created by Chandrika on 04/08/13.
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
-#import "UtvarderingVC.h"
 #import "UtvarderingVeckostatestikVC.h"
 
-@interface UtvarderingVC ()
+@interface UtvarderingVeckostatestikVC ()
 
 @end
 
-@implementation UtvarderingVC
-@synthesize utvarderingVeckosVC;
-
-
+@implementation UtvarderingVeckostatestikVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +27,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
     self.navigationItem.title=@"Utvärdering";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -56,45 +53,15 @@
     }
 }
 
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 -(void)backButon {
     
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-
-
-
--(IBAction)buttonClicked:(id)sender {
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!utvarderingVeckosVC) {
-                utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView" bundle:nil];
-            }
-        }else{
-            if (!utvarderingVeckosVC) {
-                utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView_iPhone4" bundle:nil];
-            }
-        }
-    }
-    else{
-        if (!utvarderingVeckosVC) {
-            utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView_iPad" bundle:nil];
-        }
-    }
-    
-    [self.navigationController pushViewController:utvarderingVeckosVC animated:YES];
-
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end

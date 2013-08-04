@@ -8,7 +8,6 @@
 
 #import "Va_lkommenAppDelegate.h"
 #import "Va_lkommenViewController.h"
-#import "AktivitetsplanenViewController.h"
 #import "Dinaomraden.h"
 
 
