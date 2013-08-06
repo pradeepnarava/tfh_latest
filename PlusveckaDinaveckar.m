@@ -75,12 +75,17 @@
     //[self getData];
     // Do any additional setup after loading the view from its nib.
 }
+
+
 -(void)viewWillAppear:(BOOL)animated{
     dataArray = [[NSMutableArray alloc]init];
     sub1EventsArray = [[NSMutableArray alloc]init];
     [self getData];
     [super viewWillAppear:YES];
 }
+
+
+
 
 -(void)getData {
     const char *dbpath = [databasePath UTF8String];
@@ -235,6 +240,9 @@
     return cell;
 }
 
+
+
+
 -(void)cellButtonClicked:(id)sender{
     for (int j=0; j<[dataArray count]; j++) {
         NSMutableDictionary *dict = [dataArray objectAtIndex:j];
@@ -246,6 +254,8 @@
     }
     [table reloadData];
 }
+
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

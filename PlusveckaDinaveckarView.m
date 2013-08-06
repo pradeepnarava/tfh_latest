@@ -8,16 +8,23 @@
 
 #import "PlusveckaDinaveckarView.h"
 
-@interface PlusveckaDinaveckarView ()
-@property (nonatomic, strong) NSString *currentDateBtn,*tabValue;
-@property (nonatomic, strong) NSString *currentStatuBtn;
-@end
+
+
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
 #define kStatus    @"status"
 #define kDayTime   @"dayTime"
 #define kEventDes  @"eventDes"
 #define kSub2Id    @"Sub2Id"
+
+
+@interface PlusveckaDinaveckarView ()
+@property (nonatomic, strong) NSString *currentDateBtn,*tabValue;
+@property (nonatomic, strong) NSString *currentStatuBtn;
+@end
+
+
+
 @implementation PlusveckaDinaveckarView
 @synthesize settingsView;
 @synthesize dayView,raderaBtn;

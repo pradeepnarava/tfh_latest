@@ -81,6 +81,8 @@
 		24B93F4217A98DAE003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B93F3E17A98DAD003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib */; };
 		24B93F4317A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24B93F3F17A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib */; };
 		24B93F4417A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B93F4117A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m */; };
+		24BA190617B17BEE009659F5 /* UtvarderingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BA190517B17BEE009659F5 /* UtvarderingCell.m */; };
+		24BA190817B17C09009659F5 /* UtvarderingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BA190717B17C09009659F5 /* UtvarderingCell.xib */; };
 		24BC2FE6177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BC2FE5177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib */; };
 		24BDD498179AD0E000BEDACC /* settings_digital_input.png in Resources */ = {isa = PBXBuildFile; fileRef = 24BDD497179AD0E000BEDACC /* settings_digital_input.png */; };
 		24BDD49A179B0D3200BEDACC /* SettingRegistView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24BDD499179B0D3200BEDACC /* SettingRegistView_iPhone4.xib */; };
@@ -415,6 +417,9 @@
 		24B93F3F17A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegiDinaveckarCalendarView.xib; sourceTree = "<group>"; };
 		24B93F4017A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegiDinaveckarCalendarViewController.h; sourceTree = "<group>"; };
 		24B93F4117A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegiDinaveckarCalendarViewController.m; sourceTree = "<group>"; };
+		24BA190417B17BEE009659F5 /* UtvarderingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtvarderingCell.h; sourceTree = "<group>"; };
+		24BA190517B17BEE009659F5 /* UtvarderingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtvarderingCell.m; sourceTree = "<group>"; };
+		24BA190717B17C09009659F5 /* UtvarderingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UtvarderingCell.xib; sourceTree = "<group>"; };
 		24BC2FE5177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TankefallorViewController_iPhone4.xib; sourceTree = "<group>"; };
 		24BDD497179AD0E000BEDACC /* settings_digital_input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_digital_input.png; sourceTree = "<group>"; };
 		24BDD499179B0D3200BEDACC /* SettingRegistView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingRegistView_iPhone4.xib; sourceTree = "<group>"; };
@@ -1149,6 +1154,10 @@
 				244A049B179104DE0020ECE1 /* kalendar_cell_top_and_bottom.png */,
 				2401C2DF1792F8080081BFEA /* setting_alarm_button.png */,
 				5E262A2017A01E9A00E1EE56 /* date-background.png */,
+				248BF53C17AAEB1F00556BF8 /* button_off_iphone.png */,
+				248BF53D17AAEB2000556BF8 /* button_off_iphone@2x.png */,
+				248BF54217AAEC4C00556BF8 /* button_on_iphone.png */,
+				248BF54017AAEC1E00556BF8 /* button_on_iphone@2x.png */,
 				5E068CE81733E561006FF428 /* Beteendeaktivering.h */,
 				5E068CE91733E561006FF428 /* Beteendeaktivering.m */,
 				5E068CEA1733E561006FF428 /* Beteendeaktivering.xib */,
@@ -1165,10 +1174,6 @@
 				24B93F4117A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m */,
 				24B93F3E17A98DAD003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib */,
 				24B93F3F17A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib */,
-				248BF53C17AAEB1F00556BF8 /* button_off_iphone.png */,
-				248BF53D17AAEB2000556BF8 /* button_off_iphone@2x.png */,
-				248BF54217AAEC4C00556BF8 /* button_on_iphone.png */,
-				248BF54017AAEC1E00556BF8 /* button_on_iphone@2x.png */,
 				248BF53717AAC6A600556BF8 /* RegiDinaveckarDayCalendarViewController.h */,
 				248BF53817AAC6A600556BF8 /* RegiDinaveckarDayCalendarViewController.m */,
 				248BF53517AAC6A600556BF8 /* RegiDinaveckarDayCalendarView_iPhone4.xib */,
@@ -1222,6 +1227,9 @@
 				24BFDE2B17AD88BB0072DEEA /* UtvarderingView.xib */,
 				24BFDE2D17AD88E40072DEEA /* UtvarderingView_iPhone4.xib */,
 				24BFDE3117AD89A70072DEEA /* UtvarderingView_iPad.xib */,
+				24BA190417B17BEE009659F5 /* UtvarderingCell.h */,
+				24BA190517B17BEE009659F5 /* UtvarderingCell.m */,
+				24BA190717B17C09009659F5 /* UtvarderingCell.xib */,
 				2419AA7917AE0712005724B7 /* UtvarderingVeckostatestikVC.h */,
 				2419AA7A17AE0712005724B7 /* UtvarderingVeckostatestikVC.m */,
 				2419AA7C17AE072F005724B7 /* UtvarderingVeckostatestikView.xib */,
@@ -1747,6 +1755,7 @@
 				2419AA7D17AE072F005724B7 /* UtvarderingVeckostatestikView.xib in Resources */,
 				2419AA7F17AE075B005724B7 /* UtvarderingVeckostatestikView_iPhone4.xib in Resources */,
 				2419AA8117AE093C005724B7 /* UtvarderingVeckostatestikView_iPad.xib in Resources */,
+				24BA190817B17C09009659F5 /* UtvarderingCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1809,6 +1818,7 @@
 				248BF53B17AAC6A600556BF8 /* RegiDinaveckarDayCalendarViewController.m in Sources */,
 				24BFDE2A17AD88990072DEEA /* UtvarderingVC.m in Sources */,
 				2419AA7B17AE0712005724B7 /* UtvarderingVeckostatestikVC.m in Sources */,
+				24BA190617B17BEE009659F5 /* UtvarderingCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

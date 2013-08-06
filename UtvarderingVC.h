@@ -7,15 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <sqlite3.h>
 
 @class UtvarderingVeckostatestikVC;
 
 @interface UtvarderingVC : UIViewController
+{
+    sqlite3 *exerciseDB;
+    NSString *databasePath;
+    sqlite3_stmt  *statement;
+}
 
+@property (nonatomic, retain) IBOutlet UITableView *table;
+@property (nonatomic, retain) NSMutableArray *dataArray;
 @property (nonatomic, retain) UtvarderingVeckostatestikVC *utvarderingVeckosVC;
 
 -(IBAction)buttonClicked:(id)sender;
 
-
+-(void)getDataFromSub1Event;
+-(void)getDataFromSub2Event;
 
 @end

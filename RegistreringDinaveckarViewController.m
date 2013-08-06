@@ -189,7 +189,6 @@
         earlierDate = [earlierDate dateByAddingTimeInterval:7*24*60*60];
     }
     
-    
     [table reloadData];
     
 }
@@ -197,6 +196,8 @@
 -(void)backButon {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 - (IBAction)submitButtonAction:(id)sender {
     
 }
