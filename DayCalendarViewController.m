@@ -237,6 +237,8 @@
     [self.dayScrollView setContentSize:CGSizeMake(self.dayScrollView.frame.size.width, 24*29)];
 }
 
+
+
 -(void)emptyCell:(id)sender {
     
     UIButton *btn = (UIButton*)sender;
@@ -265,8 +267,16 @@
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]];
-        hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
+        if ([subString intValue] < 10) {
+            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[subString intValue]-1];
+        }else {
+            hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
+        }
+        if ([hoursTextField1.text intValue] < 10) {
+            hoursTextField2.text = [NSString stringWithFormat:@"0%i",[hoursTextField1.text intValue]+1];
+        }else {
+            hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
+        }
         raderaBtn.enabled = NO;
         editIndexValue = nil;
     }
