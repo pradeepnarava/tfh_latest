@@ -67,6 +67,7 @@
 						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
 						<double key="IBUIContentEdgeInsets.left">23</double>
 						<double key="IBUIContentEdgeInsets.right">0.0</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">Generera ny registreringsvecka!</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="957252444">
 							<int key="NSColorSpace">3</int>
@@ -76,9 +77,9 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleShadowColor" id="513197138">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC41AA</bytes>
+						<object class="NSColor" key="IBUINormalTitleShadowColor" id="464620371">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MCAwIDAAA</bytes>
 						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="997711386">
 							<string key="NSClassName">NSImage</string>
@@ -109,14 +110,11 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<double key="IBUIContentEdgeInsets.top">0.0</double>
-						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
-						<double key="IBUIContentEdgeInsets.left">0.0</double>
-						<double key="IBUIContentEdgeInsets.right">131</double>
+						<string key="IBUITitleShadowOffset">{0, 2}</string>
 						<string key="IBUINormalTitle">Dina veckor</string>
 						<reference key="IBUIHighlightedTitleColor" ref="957252444"/>
 						<reference key="IBUINormalTitleColor" ref="658681454"/>
-						<reference key="IBUINormalTitleShadowColor" ref="513197138"/>
+						<reference key="IBUINormalTitleShadowColor" ref="464620371"/>
 						<reference key="IBUINormalBackgroundImage" ref="997711386"/>
 						<reference key="IBUIFontDescription" ref="456311149"/>
 						<reference key="IBUIFont" ref="520498606"/>
@@ -138,7 +136,10 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="513197138"/>
+						<object class="NSColor" key="IBUINormalTitleShadowColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">läsdel.png</string>

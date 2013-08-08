@@ -13,7 +13,7 @@
 @class SettingRegistViewController;
 @class DayCalendarViewController;
 
-@interface CalendarViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
+@interface CalendarViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate,UIAlertViewDelegate>
 
 {
     sqlite3 *exerciseDB;
@@ -67,7 +67,7 @@
 ///Calendar Weeks
 - (NSDate *)firstDayOfWeekFromDate:(NSDate *)date;
 - (void)week:(NSDate *)date;
-
+-(NSString*)dateFromStringCal:(NSDate*)date;
 
 //************************ GOPAL *****************////
 -(void)displayButton;
@@ -84,7 +84,7 @@
 -(IBAction)empty4:(id)sender;
 -(IBAction)empty5:(id)sender;
 -(IBAction)empty6:(id)sender;
--(IBAction)raderaButtonClicked:(id)sender;
+-(void)raderaButtonClicked:(id)sender;
 -(IBAction)okButtonClicked:(id)sender;
 
 //Sub1Events

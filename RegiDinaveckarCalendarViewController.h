@@ -51,7 +51,7 @@
 @property (nonatomic, retain) NSMutableDictionary *selectedDictionary;
 
 
-
+-(NSString*)dateFromStringCal:(NSDate*)date;
 
 -(IBAction)calendarDayCellClicked:(id)sender;
 -(IBAction)statusButtonClicked:(id)sender;

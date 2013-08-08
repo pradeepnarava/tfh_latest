@@ -45,7 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
     self.navigationItem.title=@"Utvärdering";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -84,12 +84,12 @@
     dataArray = [[NSMutableArray alloc]init];
 
     [self getDataFromSub1Event];
-    [self getDataFromSub2Event];
+    //[self getDataFromSub2Event];
     [super viewWillAppear:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    self.dataArray = nil;
+    //self.dataArray = nil;
 }
 
 
@@ -104,6 +104,8 @@
     
     
 }
+
+
 -(void)getDataFromSub1Event {
     
     const char *dbpath = [databasePath UTF8String];
@@ -200,7 +202,7 @@
         earlierDate = [earlierDate dateByAddingTimeInterval:7*24*60*60];
     }
     
-    //[table reloadData];
+    [table reloadData];
 }
 
 

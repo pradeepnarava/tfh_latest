@@ -17,7 +17,6 @@
 #import "Beteendeaktivering.h"
 
 
-
 #define kEventNotificationDataKey @"EventNotification"
 #define kTotalNotificationDataKey @"TotalNotification"
 
@@ -79,8 +78,6 @@
     
     
     return YES;
-    
-    
 
 }
 

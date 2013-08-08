@@ -1738,7 +1738,7 @@
 					<object class="IBUIButton" id="1054572161">
 						<reference key="NSNextResponder" ref="785035657"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{19, 159}, {62, 34}}</string>
+						<string key="NSFrame">{{19, 159}, {72, 34}}</string>
 						<reference key="NSSuperview" ref="785035657"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="792909156"/>
@@ -1776,7 +1776,7 @@
 					<object class="IBUIButton" id="792909156">
 						<reference key="NSNextResponder" ref="785035657"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{115, 159}, {67, 34}}</string>
+						<string key="NSFrame">{{99, 159}, {85, 34}}</string>
 						<reference key="NSSuperview" ref="785035657"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1038722204"/>
@@ -1787,7 +1787,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">N</string>
+						<string key="IBUINormalTitle">Neutral</string>
 						<reference key="IBUIHighlightedTitleColor" ref="803837463"/>
 						<reference key="IBUINormalTitleColor" ref="724456533"/>
 						<reference key="IBUINormalTitleShadowColor" ref="10716009"/>
@@ -1801,7 +1801,7 @@
 					<object class="IBUIButton" id="1038722204">
 						<reference key="NSNextResponder" ref="785035657"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{213, 159}, {59, 34}}</string>
+						<string key="NSFrame">{{192, 159}, {80, 34}}</string>
 						<reference key="NSSuperview" ref="785035657"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="990212563"/>
@@ -1975,7 +1975,7 @@
 						<string key="NSFrame">{{73, 272}, {73, 35}}</string>
 						<reference key="NSSuperview" ref="785035657"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="359201073"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -2024,28 +2024,6 @@
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
-					</object>
-					<object class="IBUIButton" id="359201073">
-						<reference key="NSNextResponder" ref="785035657"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{173, 272}, {80, 35}}</string>
-						<reference key="NSSuperview" ref="785035657"/>
-						<reference key="NSWindow"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">Radera</string>
-						<reference key="IBUIHighlightedTitleColor" ref="803837463"/>
-						<reference key="IBUINormalTitleColor" ref="803837463"/>
-						<reference key="IBUINormalTitleShadowColor" ref="10716009"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">radera.png</string>
-						</object>
-						<reference key="IBUIFontDescription" ref="525820913"/>
-						<reference key="IBUIFont" ref="922263436"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{297, 331}</string>
@@ -2286,14 +2264,6 @@
 						<reference key="destination" ref="330875257"/>
 					</object>
 					<int key="connectionID">255</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">raderaBtn</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="359201073"/>
-					</object>
-					<int key="connectionID">271</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -2698,7 +2668,6 @@
 						<int key="objectID">228</int>
 						<reference key="object" ref="785035657"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="359201073"/>
 							<reference ref="938829408"/>
 							<reference ref="972009886"/>
 							<reference ref="214023700"/>
@@ -2750,11 +2719,6 @@
 						<int key="objectID">234</int>
 						<reference key="object" ref="209744229"/>
 						<reference key="parent" ref="795769280"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">235</int>
-						<reference key="object" ref="359201073"/>
-						<reference key="parent" ref="785035657"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">236</int>
@@ -3301,7 +3265,6 @@
 				<string key="232.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="233.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="234.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="235.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="236.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="237.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="238.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -3487,7 +3450,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="Klar_button.png">{69, 30}</string>
 			<string key="background-ipone5.png">{640, 1136}</string>
-			<string key="bottom.png">{640, 271}</string>
+			<string key="bottom.png">{320, 89}</string>
 			<string key="cell.png">{80, 46}</string>
 			<string key="closebutton.png">{30, 30}</string>
 			<string key="kalendar_cell_empty.png">{80, 46}</string>
@@ -3495,7 +3458,6 @@
 			<string key="kalendar_cell_negative.png">{80, 46}</string>
 			<string key="kalendar_cell_positive.png">{80, 46}</string>
 			<string key="kalendar_cell_top_and_bottom.png">{80, 46}</string>
-			<string key="radera.png">{138, 60}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

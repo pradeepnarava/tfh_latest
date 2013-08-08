@@ -288,7 +288,7 @@
             regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPad" bundle:nil];
         }
     }
-    //regiDinaCalVC.dataArray = sub1EventsArray;
+
     regiDinaCalVC.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:regiDinaCalVC animated:YES];
 }

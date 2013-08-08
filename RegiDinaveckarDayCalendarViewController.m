@@ -256,8 +256,17 @@
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            if ([[sDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
+            }
+            if ([[eDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            }
+
             isExit = YES;
             raderaBtn.enabled =YES;
         }

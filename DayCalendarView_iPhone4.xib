@@ -1981,10 +1981,10 @@
 					<object class="IBUIButton" id="972009886">
 						<reference key="NSNextResponder" ref="785035657"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{73, 272}, {73, 35}}</string>
+						<string key="NSFrame">{{112, 272}, {73, 35}}</string>
 						<reference key="NSSuperview" ref="785035657"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="359201073"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -2033,28 +2033,6 @@
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
 						</object>
-					</object>
-					<object class="IBUIButton" id="359201073">
-						<reference key="NSNextResponder" ref="785035657"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{173, 272}, {80, 35}}</string>
-						<reference key="NSSuperview" ref="785035657"/>
-						<reference key="NSWindow"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">Radera</string>
-						<reference key="IBUIHighlightedTitleColor" ref="803837463"/>
-						<reference key="IBUINormalTitleColor" ref="803837463"/>
-						<reference key="IBUINormalTitleShadowColor" ref="10716009"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">radera.png</string>
-						</object>
-						<reference key="IBUIFontDescription" ref="525820913"/>
-						<reference key="IBUIFont" ref="922263436"/>
 					</object>
 				</array>
 				<string key="NSFrameSize">{297, 331}</string>
@@ -2295,14 +2273,6 @@
 						<reference key="destination" ref="330875257"/>
 					</object>
 					<int key="connectionID">255</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">raderaBtn</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="359201073"/>
-					</object>
-					<int key="connectionID">271</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -2707,7 +2677,6 @@
 						<int key="objectID">228</int>
 						<reference key="object" ref="785035657"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="359201073"/>
 							<reference ref="938829408"/>
 							<reference ref="972009886"/>
 							<reference ref="214023700"/>
@@ -2759,11 +2728,6 @@
 						<int key="objectID">234</int>
 						<reference key="object" ref="209744229"/>
 						<reference key="parent" ref="795769280"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">235</int>
-						<reference key="object" ref="359201073"/>
-						<reference key="parent" ref="785035657"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">236</int>
@@ -3310,7 +3274,6 @@
 				<string key="232.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="233.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="234.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="235.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="236.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="237.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="238.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -3379,7 +3342,6 @@
 						<string key="closeButtonAction:">id</string>
 						<string key="dayCell:">id</string>
 						<string key="okButtonClicked:">id</string>
-						<string key="raderaButtonClicked:">id</string>
 						<string key="sliderValueChanged:">UISlider</string>
 						<string key="statusButtonClicked:">id</string>
 						<string key="totalButtonClicked:">id</string>
@@ -3400,10 +3362,6 @@
 						</object>
 						<object class="IBActionInfo" key="okButtonClicked:">
 							<string key="name">okButtonClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="raderaButtonClicked:">
-							<string key="name">raderaButtonClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="sliderValueChanged:">
@@ -3509,7 +3467,6 @@
 			<string key="kalendar_cell_negative.png">{80, 46}</string>
 			<string key="kalendar_cell_positive.png">{80, 46}</string>
 			<string key="kalendar_cell_top_and_bottom.png">{80, 46}</string>
-			<string key="radera.png">{138, 60}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

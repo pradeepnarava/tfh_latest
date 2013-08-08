@@ -164,18 +164,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSLog(@"Failed to open/create database");
     }
     
-    //self.dataArray = [[NSMutableArray alloc]init];
-    //self.totalDataArray = [[NSMutableArray alloc] init];
     
-    //[self getDataSub1Events];
-    //[self getDataSub1Total];
-   
-    
-    //[self displayButton];
     
     if (isEventNotify) {
         NSDate *date = [self.weekdays objectAtIndex:0];
-        NSArray *tm  = [[self dateFromString:date] componentsSeparatedByString:@" "];
+        NSArray *tm  = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
         buttonString = [[tm objectAtIndex:0] retain];
         hoursTextField1.text = @"0";
         ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
@@ -189,7 +182,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     if (isTotalNotify) {
         totalBtnTag  = @"0";
         NSDate *date = [self.weekdays objectAtIndex:0];
-        NSArray *tm  = [[self dateFromString:date] componentsSeparatedByString:@" "];
+        NSArray *tm  = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
         buttonString = [[tm objectAtIndex:0] retain];
         
         ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
@@ -271,7 +264,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                 date = [self.weekdays objectAtIndex:6];
             }
             
-            NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+            NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
 
             for (int g =0; g<[dataArray count]; g++) {
                 NSMutableDictionary *tempDict = [dataArray objectAtIndex:g];
@@ -286,6 +279,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                     }
                     
                     [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
+                    
+                    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+                    
+                    longPressGesture.minimumPressDuration = 1.0;
+                    [btn addGestureRecognizer:longPressGesture];
                 }
             }
             
@@ -300,8 +298,67 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                 [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
+    
     }
 }
+
+
+- (void)longPress:(UIGestureRecognizer *)gesture{
+    
+
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        
+        UIButton *btn = (UIButton*)[gesture view];
+        NSDate *date=nil;
+        
+        NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+        NSString *subString =  [btag substringFromIndex:1];
+        NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
+        if ([s intValue] == 1) {
+            date = [self.weekdays objectAtIndex:0];
+            
+        }else if ([s intValue] == 2) {
+            date = [self.weekdays objectAtIndex:1];
+            
+        }else if ([s intValue] == 3){
+            date = [self.weekdays objectAtIndex:2];
+            
+        }else if ([s intValue] == 4) {
+            date = [self.weekdays objectAtIndex:3];
+            
+        }else if ([s intValue] == 5) {
+            date = [self.weekdays objectAtIndex:4];
+            
+        }else if ([s intValue] == 6) {
+            date = [self.weekdays objectAtIndex:5];
+            
+        }else if ([s intValue] == 7) {
+            date = [self.weekdays objectAtIndex:6];
+        }
+        
+        NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
+        
+        buttonString = [[tm objectAtIndex:0] retain];
+        
+        for (int q= 0; q<[dataArray count]; q++) {
+            NSMutableDictionary *temp = [dataArray objectAtIndex:q];
+            
+            if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
+                editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
+                
+                [alert show];
+                [alert release];
+                break;
+            }
+        }
+        
+    }
+}
+
+
+
 
 
 
@@ -310,13 +367,15 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     
     UIButton *btn = (UIButton*)sender;
+    
+
     NSDate *date=nil;
     date = [self.weekdays objectAtIndex:0];
     
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
     
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     
     buttonString = [[tm objectAtIndex:0] retain];
     BOOL isExit=NO;
@@ -329,8 +388,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            if ([[sDA objectAtIndex:0] intValue] < 10) {
+            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+            }else {
+              hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];  
+            }
+            if ([[eDA objectAtIndex:0] intValue] < 10) {
+              hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            }
+            
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -349,16 +417,18 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         }
         raderaBtn.enabled = NO;
         editIndexValue= nil;
+        
+        ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+        [ASDepthModalViewController presentView:self.popupView
+                                backgroundColor:nil
+                                        options:style
+                              completionHandler:^{
+                                  NSLog(@"Modal view closed.");
+                              }];
     }
-    
-    
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
+    else {
+
+    }
 }
 
 
@@ -370,7 +440,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     
     buttonString = [[tm objectAtIndex:0] retain];
     BOOL isExit=NO;
@@ -384,8 +454,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            if ([[sDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
+            }
+            if ([[eDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            }
+
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -426,7 +505,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
     
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     
     buttonString = [[tm objectAtIndex:0] retain];
     BOOL isExit=NO;
@@ -440,8 +519,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            if ([[sDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
+            }
+            if ([[eDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            }
+
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -480,7 +568,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
     
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     
     buttonString = [[tm objectAtIndex:0] retain];
     BOOL isExit=NO;
@@ -494,8 +582,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            if ([[sDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
+            }
+            if ([[eDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            }
+
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -532,7 +629,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
     
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     
     buttonString = [[tm objectAtIndex:0] retain];
     BOOL isExit=NO;
@@ -545,8 +642,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            if ([[sDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
+            }
+            if ([[eDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            }
+
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -585,7 +691,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
     
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     
     buttonString = [[tm objectAtIndex:0] retain];
     BOOL isExit=NO;
@@ -598,8 +704,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            if ([[sDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
+            }
+            if ([[eDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            }
+
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -638,7 +753,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     buttonString = [[tm objectAtIndex:0] retain];
     BOOL isExit=NO;
     for (int q= 0; q<[dataArray count]; q++) {
@@ -650,8 +765,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            if ([[sDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
+            }
+            if ([[eDA objectAtIndex:0] intValue] < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+            }else {
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+            }
+
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -782,7 +906,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
--(NSString*)dateFromString:(NSDate*)date {
+-(NSString*)dateFromStringCal:(NSDate*)date {
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *dateString = [dateFormatter stringFromDate:date];
@@ -838,7 +962,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString,startDate];
             NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
             [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
-            NSDate *date = [fmtr dateFromString:dateString];
+            NSDate *date = [fmtr dateFromStringCal:dateString];
             NSArray *array = [[UIApplication sharedApplication]scheduledLocalNotifications];
             for (int m=0; m<[array count]; m++) {
                 UILocalNotification *notification=[array objectAtIndex:m];
@@ -875,7 +999,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString,startDate];
             NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
             [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
-            NSDate *date = [fmtr dateFromString:dateString];
+            NSDate *date = [fmtr dateFromStringCal:dateString];
             UILocalNotification *notification = [[UILocalNotification alloc]init];
             NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
             notification.fireDate = [date dateByAddingTimeInterval:-(hour*60*60)];
@@ -976,7 +1100,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         date = [self.weekdays objectAtIndex:6];
     }
     
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     buttonString = [[tm objectAtIndex:0] retain];
     BOOL isExit = NO;
     for (int y=0; y<[self.totalDataArray count]; y++) {
@@ -1036,7 +1160,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         date = [self.weekdays objectAtIndex:6];
     }
     
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
     
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -1164,17 +1288,26 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    }else {
+        [self raderaButtonClicked:nil];
+    }
+}
 
--(IBAction)raderaButtonClicked:(id)sender {
+
+
+-(void)raderaButtonClicked:(id)sender {
     
-    [ASDepthModalViewController dismiss];
+    //[ASDepthModalViewController dismiss];
     if (editIndexValue) {
        NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
         [dataArray removeObject:deleDict];
         [self deleteRecord:deleDict];
     }
     editIndexValue = nil;
-    //[self displayButton];
+    [self displayButton];
     
 }
 
@@ -1466,13 +1599,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(void)changeText:(UITextField*)textField {
     
     if (textField == hoursTextField1) {
-        if ([textField.text length] > 24) {
-            hoursTextField2.text = @"";
+        if ([textField.text integerValue] >= 24) {
+            hoursTextField2.text = @"00";
         }
-        else {
+        else  {
             int h1 = [textField.text integerValue];
             h1 += 1;
+            if (h1 < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",h1];
+            }else{
             hoursTextField2.text = [NSString stringWithFormat:@"%i",h1];
+            }
         }
     }
     if (textField == mintsTextField1) {
