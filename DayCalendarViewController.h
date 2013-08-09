@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
-@interface DayCalendarViewController : UIViewController
+@interface DayCalendarViewController : UIViewController <UIAlertViewDelegate>
     
 {
     sqlite3 *exerciseDB;
@@ -44,6 +44,8 @@
 -(IBAction)sliderValueChanged:(UISlider*)sender;
 
 
+-(void)raderaClicked:(id)sender;
+-(IBAction)raderaButtonClicked:(id)sender;
 
 -(IBAction)totalOkButtonClicked:(id)sender;
 -(IBAction)totalButtonClicked:(id)sender;

@@ -448,6 +448,7 @@
 						<string key="NSFrame">{{26, 669}, {274, 29}}</string>
 						<reference key="NSSuperview" ref="957772499"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">124</int>
@@ -1096,8 +1097,10 @@
 						<string key="NSFrame">{{37, 427}, {274, 30}}</string>
 						<reference key="NSSuperview" ref="909506592"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
+						<int key="IBUITag">25</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
@@ -2075,6 +2078,7 @@
 						<string key="NSFrame">{{120, 151}, {54, 26}}</string>
 						<reference key="NSSuperview" ref="795769280"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -3333,6 +3337,7 @@
 						<string key="closeButtonAction:">id</string>
 						<string key="dayCell:">id</string>
 						<string key="okButtonClicked:">id</string>
+						<string key="raderaButtonClicked:">id</string>
 						<string key="sliderValueChanged:">UISlider</string>
 						<string key="statusButtonClicked:">id</string>
 						<string key="totalButtonClicked:">id</string>
@@ -3353,6 +3358,10 @@
 						</object>
 						<object class="IBActionInfo" key="okButtonClicked:">
 							<string key="name">okButtonClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="raderaButtonClicked:">
+							<string key="name">raderaButtonClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="sliderValueChanged:">

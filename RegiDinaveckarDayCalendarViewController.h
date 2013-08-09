@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
-@interface RegiDinaveckarDayCalendarViewController : UIViewController
+@interface RegiDinaveckarDayCalendarViewController : UIViewController <UIAlertViewDelegate>
     
 {
     sqlite3 *exerciseDB;
@@ -52,6 +52,9 @@
 
 
 -(IBAction)dayCell:(id)sender;
+
+-(IBAction)raderaButtonClicked:(id)sender;
+-(void)raderaClicked:(id)sender;
 
 
 -(void)displayButton;

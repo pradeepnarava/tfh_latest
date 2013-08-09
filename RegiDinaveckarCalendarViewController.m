@@ -273,8 +273,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
+
+
 - (void)longPress:(UIGestureRecognizer *)gesture{
-    
     
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
@@ -325,6 +326,37 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         }
         
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    }else {
+        [self raderaClicked:nil];
+        [self displayButton];
+    }
+}
+
+
+
+-(IBAction)raderaButtonClicked:(id)sender {
+    [ASDepthModalViewController dismiss];
+    [self raderaClicked:nil];
+    
+}
+
+
+-(void)raderaClicked:(id)sender {
+    
+    
+    if (editIndexValue) {
+        NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
+        [dataArray removeObject:deleDict];
+        [self deleteRecord:deleDict];
+    }
+    editIndexValue = nil;
+    
+    
 }
 
 
@@ -1161,18 +1193,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
--(IBAction)raderaButtonClicked:(id)sender {
-    
-    [ASDepthModalViewController dismiss];
-    if (editIndexValue) {
-       NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
-        [dataArray removeObject:deleDict];
-        [self deleteRecord:deleDict];
-    }
-    editIndexValue = nil;
-    //[self displayButton];
-    
-}
+
 
 
 #pragma mark -- DataBase Methods

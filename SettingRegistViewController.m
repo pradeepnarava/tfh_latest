@@ -368,7 +368,7 @@ int tagValue;
         notif.fireDate = [self localDateAndTime:oneTimeNotificationLabel.text];
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.repeatInterval = NSDayCalendarUnit;
-        notif.alertBody = @"Add NewEvent";
+        notif.alertBody = @"Registrera aktivitet";
         notif.alertAction = @"View";
         notif.userInfo = [NSDictionary dictionaryWithObject:@"Event" forKey:kEventNotificationDataKey];
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
@@ -387,7 +387,7 @@ int tagValue;
                 notif.fireDate = sTime;
                 notif.soundName = UILocalNotificationDefaultSoundName;
                 notif.repeatInterval = NSDayCalendarUnit;
-                notif.alertBody = @"Add NewEvent";
+                notif.alertBody = @"Registrera aktivitet";
                 notif.alertAction = @"View";
                 
                 notif.userInfo = [NSDictionary dictionaryWithObject:@"Event" forKey:kEventNotificationDataKey];
@@ -411,7 +411,7 @@ int tagValue;
         notif.fireDate = [self localDateAndTime:totalTimeButton.titleLabel.text];
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.repeatInterval = NSDayCalendarUnit;
-        notif.alertBody = @"Add Total";
+        notif.alertBody = @"Specifiera dagens sinnesstämning";
         notif.alertAction = @"View";
         notif.userInfo = [NSDictionary dictionaryWithObject:@"Total" forKey:kTotalNotificationDataKey];
         

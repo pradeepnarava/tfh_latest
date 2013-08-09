@@ -210,6 +210,11 @@
                 }
                 
                 [but setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
+                
+                UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+                
+                longPressGesture.minimumPressDuration = 1.0;
+                [but addGestureRecognizer:longPressGesture];
             }
         }
 
@@ -239,7 +244,35 @@
 
 
 
-
+- (void)longPress:(UIGestureRecognizer *)gesture{
+    
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        
+        UIButton *btn = (UIButton*)[gesture view];
+        
+        NSArray *stA = [dayTimenTag componentsSeparatedByString:@" "];
+        
+        NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+        NSString *subString =  [btag substringFromIndex:1];
+        
+        buttonString = [[stA objectAtIndex:0] retain];
+        
+        for (int q= 0; q<[dataArray count]; q++) {
+            NSMutableDictionary *temp = [dataArray objectAtIndex:q];
+            
+            if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[stA objectAtIndex:0],[subString intValue]]]) {
+                editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Radera",nil];
+                
+                [alert show];
+                [alert release];
+                break;
+            }
+        }
+        
+    }
+}
 
 
 
@@ -293,8 +326,6 @@
         raderaBtn.enabled = NO;
         editIndexValue = nil;
     }
-    
-    
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     [ASDepthModalViewController presentView:self.popupView
                             backgroundColor:nil
@@ -302,7 +333,6 @@
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
                           }];
-
 }
 
 
@@ -503,6 +533,8 @@
     [ASDepthModalViewController dismiss];
 }
 
+
+
 -(IBAction)sliderValueChanged:(UISlider*)sender{
     sliderLabel.text = [NSString stringWithFormat:@"%.0f",[sender value]];
 }
@@ -530,19 +562,35 @@
     }
 }
 
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    }else {
+        [self raderaClicked:nil];
+        [self displayButton];
+    }
+}
+
+
+
 -(IBAction)raderaButtonClicked:(id)sender {
-    
     [ASDepthModalViewController dismiss];
+    [self raderaClicked:nil];
+}
+
+
+
+-(void)raderaClicked:(id)sender {
+
     if (editIndexValue) {
         NSDictionary *deleDict = [self.dataArray objectAtIndex:[editIndexValue intValue]];
         [self.dataArray removeObject:deleDict];
         [self deleteRecord:deleDict];
     }
     editIndexValue = nil;
-    //[self displayButton];
-    
 }
-
 
 #pragma mark -- DataBase Methods
 

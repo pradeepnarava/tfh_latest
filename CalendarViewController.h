@@ -84,7 +84,8 @@
 -(IBAction)empty4:(id)sender;
 -(IBAction)empty5:(id)sender;
 -(IBAction)empty6:(id)sender;
--(void)raderaButtonClicked:(id)sender;
+-(IBAction)raderaButtonClicked:(id)sender;
+-(void)raderaClicked:(id)sender;
 -(IBAction)okButtonClicked:(id)sender;
 
 //Sub1Events

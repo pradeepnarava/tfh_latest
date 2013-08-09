@@ -346,7 +346,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             
             if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
                 editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Radera",nil];
                 
                 [alert show];
                 [alert release];
@@ -361,14 +361,12 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
-
-
 -(IBAction)empty:(id)sender {
     
     
     UIButton *btn = (UIButton*)sender;
     
-
+    
     NSDate *date=nil;
     date = [self.weekdays objectAtIndex:0];
     
@@ -381,7 +379,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     BOOL isExit=NO;
     for (int q= 0; q<[dataArray count]; q++) {
         NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-    
+        
         if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
             editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
             currentStatuBtn = [temp valueForKey:kStatus];
@@ -389,12 +387,12 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
             if ([[sDA objectAtIndex:0] intValue] < 10) {
-            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
+                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
             }else {
-              hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];  
+                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
             }
             if ([[eDA objectAtIndex:0] intValue] < 10) {
-              hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
             }else {
                 hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
             }
@@ -418,17 +416,15 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         raderaBtn.enabled = NO;
         editIndexValue= nil;
         
-        ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-        [ASDepthModalViewController presentView:self.popupView
-                                backgroundColor:nil
-                                        options:style
-                              completionHandler:^{
-                                  NSLog(@"Modal view closed.");
-                              }];
     }
-    else {
+ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+[ASDepthModalViewController presentView:self.popupView
+                        backgroundColor:nil
+                                options:style
+                      completionHandler:^{
+                          NSLog(@"Modal view closed.");
+                      }];
 
-    }
 }
 
 
@@ -1292,22 +1288,31 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     if (buttonIndex == 0) {
         
     }else {
-        [self raderaButtonClicked:nil];
+        [self raderaClicked:nil];
+        [self displayButton];
     }
 }
 
 
 
--(void)raderaButtonClicked:(id)sender {
+-(IBAction)raderaButtonClicked:(id)sender {
+    [ASDepthModalViewController dismiss];
+    [self raderaClicked:nil];
     
-    //[ASDepthModalViewController dismiss];
+}
+
+
+
+-(void)raderaClicked:(id)sender {
+    
+    
     if (editIndexValue) {
        NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
         [dataArray removeObject:deleDict];
         [self deleteRecord:deleDict];
     }
     editIndexValue = nil;
-    [self displayButton];
+    
     
 }
 

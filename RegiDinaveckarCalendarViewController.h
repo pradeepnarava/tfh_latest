@@ -14,7 +14,7 @@
 @class RegiDinaveckarDayCalendarViewController;
 
 
-@interface RegiDinaveckarCalendarViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate>
+@interface RegiDinaveckarCalendarViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate,UIAlertViewDelegate>
 
 {
     sqlite3 *exerciseDB;
@@ -60,6 +60,9 @@
 
 
 
+
+
+
 -(IBAction)totalOkButtonClicked:(id)sender;
 -(IBAction)totalButtonClicked:(id)sender;
 
@@ -85,6 +88,7 @@
 -(IBAction)empty5:(id)sender;
 -(IBAction)empty6:(id)sender;
 -(IBAction)raderaButtonClicked:(id)sender;
+-(void)raderaClicked:(id)sender;
 -(IBAction)okButtonClicked:(id)sender;
 
 //Sub1Events
