@@ -51,6 +51,26 @@
 
 
 
+/////////*************** Calendar Events from iPhone Calendar *************//////////////
+///Calendar Event from iPhone Default Calendar
+@property (nonatomic, strong) EKEventStore *eventStore;
+
+// Default calendar associated with the above event store
+@property (nonatomic, strong) EKCalendar *defaultCalendar;
+
+// Array of all events happening within the next 24 hours
+@property (nonatomic, strong) NSMutableArray *eventsList;
+
+
+
+-(void)checkEventStoreAccessForCalendar;
+-(void)requestCalendarAccess;
+-(void)accessGrantedForCalendar;
+- (void)fetchEvents;
+
+
+////*********************///////
+
 
 -(IBAction)calendarDayCellClicked:(id)sender;
 -(IBAction)statusButtonClicked:(id)sender;

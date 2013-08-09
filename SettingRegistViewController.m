@@ -376,6 +376,9 @@ int tagValue;
     }
     else {
         if ([startTimeButton.titleLabel.text length] > 0 && [stopTimeButton.titleLabel.text length] > 0 &&( hoursValue == 20 ||hoursValue == 21 || hoursValue == 22 || hoursValue == 23)) {
+          
+            NSLog(@"start %@",startTimeButton.titleLabel.text);
+            NSLog(@"start %@",stopTimeButton.titleLabel.text);
             
             NSDate *sTime = [self localDateAndTime:startTimeButton.titleLabel.text];
             NSDate *eTime = [self localDateAndTime:stopTimeButton.titleLabel.text];

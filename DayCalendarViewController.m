@@ -423,43 +423,67 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(BOOL)findSameTime {
+    
+    BOOL isTime;
+    
+    NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+    for (int i = 0; i < [dataArray count]; i++) {
+        NSDictionary *tem = [dataArray objectAtIndex:i];
+        if ([[tem valueForKey:kStartDate] isEqualToString:startDate]){
+            isTime =  YES;
+        }else {
+            isTime = NO;
+        }
+    }
+    return isTime;
+}
+
+
 
 -(IBAction)okButtonClicked:(id)sender
 {
-    [ASDepthModalViewController dismiss];
-    
-    if (editIndexValue) {
-        NSMutableDictionary *temp = [self.dataArray objectAtIndex:[editIndexValue intValue]];
-        NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
-        NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
-        NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
-        [temp setValue:eventDesTextView.text forKey:kEventDes];
-        [temp setValue:startDate forKey:kStartDate];
-        [temp setValue:endDate forKey:kEndDate];
-        [temp setValue:dayTime forKey:kDayTime];
-        [temp setValue:currentStatuBtn forKey:kStatus];
+    if ([self findSameTime]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App" message:@"Gopal" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [alert show];
+        
     }else {
-        NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
-        NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
-        NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
-        NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
         
-        if (!currentStatuBtn)
-            currentStatuBtn = @"Neutral";
+        [ASDepthModalViewController dismiss];
         
-        [temp setValue:[NSNumber numberWithInt:[self.dataArray count]+1] forKey:kSub1Id];
-        [temp setValue:eventDesTextView.text forKey:kEventDes];
-        [temp setValue:startDate forKey:kStartDate];
-        [temp setValue:endDate forKey:kEndDate];
-        [temp setValue:dayTime forKey:kDayTime];
-        [temp setValue:currentStatuBtn forKey:kStatus];
-        [self.dataArray addObject:temp];
+        if (editIndexValue) {
+            NSMutableDictionary *temp = [self.dataArray objectAtIndex:[editIndexValue intValue]];
+            NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+            NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
+            NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
+            [temp setValue:eventDesTextView.text forKey:kEventDes];
+            [temp setValue:startDate forKey:kStartDate];
+            [temp setValue:endDate forKey:kEndDate];
+            [temp setValue:dayTime forKey:kDayTime];
+            [temp setValue:currentStatuBtn forKey:kStatus];
+        }else {
+            NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+            NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+            NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
+            NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
+            
+            if (!currentStatuBtn)
+                currentStatuBtn = @"Neutral";
+            
+            [temp setValue:[NSNumber numberWithInt:[self.dataArray count]+1] forKey:kSub1Id];
+            [temp setValue:eventDesTextView.text forKey:kEventDes];
+            [temp setValue:startDate forKey:kStartDate];
+            [temp setValue:endDate forKey:kEndDate];
+            [temp setValue:dayTime forKey:kDayTime];
+            [temp setValue:currentStatuBtn forKey:kStatus];
+            [self.dataArray addObject:temp];
+        }
+        editIndexValue = nil;
+        
+        //[self displayButton];
+        
+        [self  databaseInsert];
     }
-    editIndexValue = nil;
-    
-    //[self displayButton];
-    
-    [self  databaseInsert];
 }
 
 

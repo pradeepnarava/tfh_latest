@@ -910,9 +910,31 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
+-(BOOL)findSameTime {
+    
+    BOOL isTime;
+    
+    NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+    for (int i = 0; i < [dataArray count]; i++) {
+        NSDictionary *tem = [dataArray objectAtIndex:i];
+        if ([[tem valueForKey:kStartDate] isEqualToString:startDate]){
+            isTime =  YES;
+        }else {
+            isTime = NO;
+        }
+    }
+    return isTime;
+}
+
 
 -(IBAction)okButtonClicked:(id)sender
 {
+    
+    if ([self findSameTime]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App" message:@"Gopal" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [alert show];
+        
+    }else {
     [ASDepthModalViewController dismiss];
 
     if (editIndexValue) {
@@ -946,7 +968,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     
     [self  databaseInsert];
-    //[self displayButton];
+    }
 }
 
 

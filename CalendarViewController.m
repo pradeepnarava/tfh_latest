@@ -20,8 +20,8 @@
 
 //SUB1TOTAL
 #define kTSub1Id @"TSub1Id"
-#define kTDate @"TDate"
-#define kTTotal @"TTotal"
+#define kTDate   @"TDate"
+#define kTTotal  @"TTotal"
 
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
@@ -59,6 +59,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize totalDataArray;
 @synthesize totalBtnTag;
 @synthesize dayCalendarVC,sub2Settings;
+
+///////// ********* Calendar Event from iPhone Calendar Event*********** ///////////
+@synthesize eventsList;
+@synthesize eventStore;
+@synthesize defaultCalendar;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -197,18 +202,146 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    
+    self.eventStore = [[EKEventStore alloc] init];
     self.dataArray = [[NSMutableArray alloc]init];
     self.totalDataArray = [[NSMutableArray alloc] init];
+    [self checkEventStoreAccessForCalendar];    
     [self getDataSub1Events];
     [self getDataSub1Total];
+
 }
 
--(void)viewDidAppear:(BOOL)animated {
- 
+/*-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    // Check whether we are authorized to access Calendar
+    [self checkEventStoreAccessForCalendar];
+}*/
+
+
+#pragma mark -
+#pragma mark Access Calendar
+
+// Check the authorization status of our application for Calendar
+-(void)checkEventStoreAccessForCalendar
+{
+    EKAuthorizationStatus status = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
+    
+    switch (status)
+    {
+            // Update our UI if the user has granted access to their Calendar
+        case EKAuthorizationStatusAuthorized:
+            [self accessGrantedForCalendar];
+            break;
+            // Prompt the user for access to Calendar if there is no definitive answer
+        case EKAuthorizationStatusNotDetermined:
+            [self requestCalendarAccess];
+            break;
+            // Display a message if the user has denied or restricted access to Calendar
+        case EKAuthorizationStatusDenied:
+            
+        case EKAuthorizationStatusRestricted:
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Privacy Warning" message:@"Permission was not granted for Calendar"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+
+// Prompt the user for access to their Calendar
+-(void)requestCalendarAccess
+{
+    [self.eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error)
+     {
+         if (granted)
+         {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 // The user has granted access to their Calendar; let's populate our UI with all events occuring in the next 24 hours.
+                 [self accessGrantedForCalendar];
+             });
+         }
+     }];
+}
+
+
+// This method is called when the user has granted permission to Calendar
+-(void)accessGrantedForCalendar
+{
+
+    self.defaultCalendar = self.eventStore.defaultCalendarForNewEvents;
+
+    [self fetchEvents];
+    
+    
+}
+
+// Fetch all events happening in the next 24 hours
+- (void)fetchEvents
+{
+    
+     
+    
+    NSDate *startDate = [NSDate date];
+    NSDate *endDate   = [NSDate distantFuture];
+    //Create the end date components
+    NSDateComponents *tomorrowDateComponents = [[NSDateComponents alloc] init];
+    tomorrowDateComponents.day = 1;
+	
+    //NSDate *endDate = [[NSCalendar currentCalendar] dateByAddingComponents:tomorrowDateComponents
+                                                                   // toDate:startDate
+                                                                   //options:0];
+	// We will only search the default calendar for our events
+	NSArray *calendarArray = [NSArray arrayWithObject:self.defaultCalendar];
+    
+    // Create the predicate
+	NSPredicate *predicate = [self.eventStore predicateForEventsWithStartDate:startDate
+                                                                      endDate:endDate
+                                                                    calendars:calendarArray];
+	
+	// Fetch all events that match the predicate
+	NSMutableArray *events = [NSMutableArray arrayWithArray:[self.eventStore eventsMatchingPredicate:predicate]];
+    NSLog(@"%i",[events count]);
+    
+    
+    for (int i =0; i < [events count]; i++) {
+        NSMutableDictionary *calEvent = [[NSMutableDictionary alloc] init];
+        
+        NSString *star = [self dateFromStringCal:[[events objectAtIndex:i]  valueForKey:kStartDate]];
+        NSString *end = [self dateFromStringCal:[[events objectAtIndex:i]  valueForKey:kEndDate]];
+        
+        NSArray *strA = [star componentsSeparatedByString:@" "];
+        NSArray *endA = [end componentsSeparatedByString:@" "];
+        
+        NSArray *s = [[strA objectAtIndex:1] componentsSeparatedByString:@":"];
+        NSString *startDate = [NSString stringWithFormat:@"%@",[strA objectAtIndex:1]];
+        NSString *endDate =[NSString stringWithFormat:@"%@",[endA objectAtIndex:1]];
+        NSString *dayTime = [NSString stringWithFormat:@"%@ %i",[strA objectAtIndex:0],[[s objectAtIndex:0]intValue]+1];
+
+        NSLog(@"%@ %@ %@",dayTime, startDate, endDate);
+        
+        
+        [calEvent setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
+        [calEvent setValue:[[events objectAtIndex:i] valueForKey:@"title"] forKey:kEventDes];
+        [calEvent setValue:startDate forKey:kStartDate];
+        [calEvent setValue:endDate forKey:kEndDate];
+        [calEvent setValue:dayTime forKey:kDayTime];
+        [calEvent setValue:@"Neutral" forKey:kStatus];
+        [self insertIntoDatabase:calEvent];
+        
+    }
+}
+
+
+
+
+-(void)viewDidDisappear:(BOOL)animated {
  
     
 }
@@ -298,7 +431,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                 [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
-    
     }
 }
 
@@ -904,7 +1036,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
 
 -(NSString*)dateFromStringCal:(NSDate*)date {
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
 }
@@ -942,91 +1074,117 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
 }
 
 
+-(BOOL)findSameTime {
+    
+    BOOL isTime;
+    
+    NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+    for (int i = 0; i < [dataArray count]; i++) {
+        NSDictionary *tem = [dataArray objectAtIndex:i];
+        if ([[tem valueForKey:kStartDate] isEqualToString:startDate]){
+            isTime =  YES;
+        }else {
+            isTime = NO;
+        }
+    }
+    return isTime;
+}
 
 
 
 -(IBAction)okButtonClicked:(id)sender
 {
-    [ASDepthModalViewController dismiss];
-    if (editIndexValue) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:[editIndexValue intValue]];
-        NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
-        NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
-        NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
-        [temp setValue:eventDesTextView.text forKey:kEventDes];
-        if ([sub2Settings objectForKey:@"id"]) {
-            NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString,startDate];
-            NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
-            [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
-            NSDate *date = [fmtr dateFromStringCal:dateString];
-            NSArray *array = [[UIApplication sharedApplication]scheduledLocalNotifications];
-            for (int m=0; m<[array count]; m++) {
-                UILocalNotification *notification=[array objectAtIndex:m];
-                UILocalNotification *ntf = [[UILocalNotification alloc]init];
-                NSMutableDictionary *userInfo = [notification.userInfo mutableCopy];
-                if ([[temp valueForKey:@"dayTime"] isEqualToString:[userInfo valueForKey:@"dayTime"]]) {
-                    NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
-                    ntf.fireDate = [date dateByAddingTimeInterval:-(hour*60*60)];
-                    ntf.alertBody = eventDesTextView.text;
-                    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-                    [dict setValue:date forKey:@"date"];
-                    [dict setValue:[sub2Settings valueForKey:@"value"] forKey:@"settings"];
-                    [dict setValue:@"event" forKey:@"type"];
-                    [dict setValue:dayTime forKey:@"dayTime"];
-                    [dict setValue:[date dateByAddingTimeInterval:-(hour*60*60)] forKey:@"fire"];
-                    ntf.userInfo = dict;
-                    [[UIApplication sharedApplication] scheduleLocalNotification:ntf];
-                    [[UIApplication sharedApplication]cancelLocalNotification:notification];
-                }
-            }
-            
-            
-        }
-        [temp setValue:startDate forKey:kStartDate];
-        [temp setValue:endDate forKey:kEndDate];
-        [temp setValue:dayTime forKey:kDayTime];
-        [temp setValue:currentStatuBtn forKey:kStatus];
+    if ([self findSameTime]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App" message:@"Gopal" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        [alert show];
+        
     }else {
-        NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
-        NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
-        NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
-        NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
-        if ([sub2Settings objectForKey:@"id"]) {
-            NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString,startDate];
-            NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
-            [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
-            NSDate *date = [fmtr dateFromStringCal:dateString];
-            UILocalNotification *notification = [[UILocalNotification alloc]init];
-            NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
-            notification.fireDate = [date dateByAddingTimeInterval:-(hour*60*60)];
-            notification.alertBody = eventDesTextView.text;
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-            [dict setValue:date forKey:@"date"];
-            [dict setValue:[sub2Settings valueForKey:@"value"] forKey:@"settings"];
-            [dict setValue:@"event" forKey:@"type"];
-            [dict setValue:dayTime forKey:@"dayTime"];
-            [dict setValue:[date dateByAddingTimeInterval:-(hour*60*60)] forKey:@"fire"];
-            notification.userInfo = dict;
-            [[UIApplication sharedApplication]scheduleLocalNotification:notification];
+        [ASDepthModalViewController dismiss];
+        if (editIndexValue) {
+            NSMutableDictionary *temp = [dataArray objectAtIndex:[editIndexValue intValue]];
+            NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+            NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
+            NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
+            [temp setValue:eventDesTextView.text forKey:kEventDes];
+            if ([sub2Settings objectForKey:@"id"]) {
+                NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString,startDate];
+                NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
+                [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
+                NSDate *date = [fmtr dateFromString:dateString];
+                NSArray *array = [[UIApplication sharedApplication]scheduledLocalNotifications];
+                for (int m=0; m<[array count]; m++) {
+                    UILocalNotification *notification=[array objectAtIndex:m];
+                    UILocalNotification *ntf = [[UILocalNotification alloc]init];
+                    NSMutableDictionary *userInfo = [notification.userInfo mutableCopy];
+                    if ([[temp valueForKey:@"dayTime"] isEqualToString:[userInfo valueForKey:@"dayTime"]]) {
+                        NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
+                        ntf.fireDate = [date dateByAddingTimeInterval:-(hour*60*60)];
+                        ntf.alertBody = eventDesTextView.text;
+                        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                        [dict setValue:date forKey:@"date"];
+                        [dict setValue:[sub2Settings valueForKey:@"value"] forKey:@"settings"];
+                        [dict setValue:@"event" forKey:@"type"];
+                        [dict setValue:dayTime forKey:@"dayTime"];
+                        [dict setValue:[date dateByAddingTimeInterval:-(hour*60*60)] forKey:@"fire"];
+                        ntf.userInfo = dict;
+                        [[UIApplication sharedApplication] scheduleLocalNotification:ntf];
+                        [[UIApplication sharedApplication]cancelLocalNotification:notification];
+                    }
+                }
+                
+                
+            }
+            [temp setValue:startDate forKey:kStartDate];
+            [temp setValue:endDate forKey:kEndDate];
+            [temp setValue:dayTime forKey:kDayTime];
+            [temp setValue:currentStatuBtn forKey:kStatus];
+        }else {
             
+            
+            
+            NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+            NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+            NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
+            NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
+            if ([sub2Settings objectForKey:@"id"]) {
+                NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString,startDate];
+                NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
+                [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
+                NSDate *date = [fmtr dateFromString:dateString];
+                UILocalNotification *notification = [[UILocalNotification alloc]init];
+                NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
+                notification.fireDate = [date dateByAddingTimeInterval:-(hour*60*60)];
+                notification.alertBody = eventDesTextView.text;
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                [dict setValue:date forKey:@"date"];
+                [dict setValue:[sub2Settings valueForKey:@"value"] forKey:@"settings"];
+                [dict setValue:@"event" forKey:@"type"];
+                [dict setValue:dayTime forKey:@"dayTime"];
+                [dict setValue:[date dateByAddingTimeInterval:-(hour*60*60)] forKey:@"fire"];
+                notification.userInfo = dict;
+                [[UIApplication sharedApplication]scheduleLocalNotification:notification];
+                
+            }
+            if (!currentStatuBtn)
+                currentStatuBtn = @"Neutral";
+            
+            [temp setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
+            [temp setValue:eventDesTextView.text forKey:kEventDes];
+            [temp setValue:startDate forKey:kStartDate];
+            [temp setValue:endDate forKey:kEndDate];
+            [temp setValue:dayTime forKey:kDayTime];
+            [temp setValue:currentStatuBtn forKey:kStatus];
+            [dataArray addObject:temp];
         }
-        if (!currentStatuBtn)
-            currentStatuBtn = @"Neutral";
-            
-        [temp setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
-        [temp setValue:eventDesTextView.text forKey:kEventDes];
-        [temp setValue:startDate forKey:kStartDate];
-        [temp setValue:endDate forKey:kEndDate];
-        [temp setValue:dayTime forKey:kDayTime];
-        [temp setValue:currentStatuBtn forKey:kStatus];
-        [dataArray addObject:temp];
+        editIndexValue = nil;
+        
+        
+        [self  databaseInsert];
     }
-    editIndexValue = nil;
-    
-    //[self displayButton];
-    
-    [self  databaseInsert];
 }
+
+
+
 
 
 -(IBAction)totalOkButtonClicked:(id)sender {
@@ -1393,7 +1551,6 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
     [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     NSString* str = [formatter stringFromDate:[NSDate date]];
-    
     
     const char *dbpath = [databasePath UTF8String];
     
