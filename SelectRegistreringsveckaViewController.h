@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PlusveckaCalenderViewController.h"
+#import "DinaveckarCell.h"
 #import <sqlite3.h>
 @interface SelectRegistreringsveckaViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {

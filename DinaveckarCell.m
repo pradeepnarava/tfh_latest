@@ -11,6 +11,7 @@
 @implementation DinaveckarCell
 @synthesize cellBtn;
 @synthesize cellLabel;
+@synthesize background;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

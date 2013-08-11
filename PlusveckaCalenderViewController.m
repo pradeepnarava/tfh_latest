@@ -51,8 +51,7 @@
 {
     [super viewDidLoad];
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
-    self.navigationItem.title=@"Plusvecka";
-    
+    self.navigationItem.title=@"Planera en plusvecka";
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
@@ -74,12 +73,14 @@
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
-    UIImage *image = [UIImage imageNamed:@"setting_alarm_button.png"];
-    UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    [okBtn setBackgroundImage:image forState:UIControlStateNormal];
-    [okBtn addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"alarm-button.png"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake(0, 0, 30, 30);
+    
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem = rightButton;
     self.popupView.layer.cornerRadius = 12;
     self.popupView.layer.shadowOpacity = 0.7;
     self.popupView.layer.shadowOffset = CGSizeMake(6, 6);
@@ -189,11 +190,12 @@
                             statusString = @"+";
                         }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
                             statusString = @"-";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"N"]){
-                            statusString = @"N";
+                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+                            statusString = @"Neutral";
                         }
                         
                         [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
+                     
                     }
                 }
             }else{
@@ -205,11 +207,15 @@
                             statusString = @"+";
                         }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
                             statusString = @"-";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"N"]){
-                            statusString = @"N";
+                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+                            statusString = @"Neutral";
                         }
                         
                         [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
+                        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+                        
+                        longPressGesture.minimumPressDuration = 1.0;
+                        [btn addGestureRecognizer:longPressGesture];
                     }
                 }
             }
@@ -217,14 +223,90 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
             }else if ([statusString isEqualToString:@"-"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
-            }else if ([statusString isEqualToString:@"N"]){
+            }else if ([statusString isEqualToString:@"Neutral"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
             }else {
-                //[btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
-                //[btn setTitle:@"" forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+                [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
     }
+}
+
+- (void)longPress:(UIGestureRecognizer *)gesture{
+    
+    
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        
+        UIButton *btn = (UIButton*)[gesture view];
+        NSDate *date=nil;
+        NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+        NSString *subString1 =  [btag substringFromIndex:1];
+        NSString *subString = [subString1 substringToIndex:subString1.length-1];
+        NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
+        if ([s intValue] == 1) {
+            date = [self.weekdays objectAtIndex:0];
+            
+        }else if ([s intValue] == 2) {
+            date = [self.weekdays objectAtIndex:1];
+            
+        }else if ([s intValue] == 3){
+            date = [self.weekdays objectAtIndex:2];
+            
+        }else if ([s intValue] == 4) {
+            date = [self.weekdays objectAtIndex:3];
+            
+        }else if ([s intValue] == 5) {
+            date = [self.weekdays objectAtIndex:4];
+            
+        }else if ([s intValue] == 6) {
+            date = [self.weekdays objectAtIndex:5];
+            
+        }else if ([s intValue] == 7) {
+            date = [self.weekdays objectAtIndex:6];
+        }
+        
+        NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+        
+        buttonString = [[tm objectAtIndex:0] retain];
+        
+        for (int q= 0; q<[dataArray count]; q++) {
+            NSMutableDictionary *temp = [dataArray objectAtIndex:q];
+            
+            if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
+                editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Radera",nil];
+                
+                [alert show];
+                [alert release];
+                break;
+            }
+        }
+        
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    }else {
+        [self raderaClicked:nil];
+        [self displayButton];
+    }
+}
+
+-(void)raderaClicked:(id)sender {
+    
+    
+    if (editIndexValue) {
+        NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
+        [dataArray removeObject:deleDict];
+        [self deleteRecord:deleDict];
+    }
+    editIndexValue = nil;
+    
+    
 }
 
 -(void)getData{
@@ -471,7 +553,7 @@
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        currentStatuBtn=@"N";
+        currentStatuBtn=@"Neutral";
         hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
         mintsTextField1.text = [NSString stringWithFormat:@"00"];
@@ -827,7 +909,7 @@
             currentStatuBtn = btn.currentTitle;
             break;
         case 2:
-            currentStatuBtn = @"N";
+            currentStatuBtn = btn.currentTitle;
             break;
         case 3:
             currentStatuBtn = btn.currentTitle;

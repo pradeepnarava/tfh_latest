@@ -1076,15 +1076,13 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
 
 -(BOOL)findSameTime {
     
-    BOOL isTime;
+    BOOL isTime = NO;
     
     NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
     for (int i = 0; i < [dataArray count]; i++) {
         NSDictionary *tem = [dataArray objectAtIndex:i];
         if ([[tem valueForKey:kStartDate] isEqualToString:startDate]){
             isTime =  YES;
-        }else {
-            isTime = NO;
         }
     }
     return isTime;

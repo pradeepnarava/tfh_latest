@@ -13,7 +13,7 @@
 #define kStatus    @"status"
 #define kDayTime   @"dayTime"
 #define kEventDes  @"eventDes"
-#define kSub1Id    @"Sub1Id"
+#define kSub1Id    @"Sub2Id"
 
 @interface PlusveckaDinaveckar ()
 
@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title=@"Plusvecka";
+    self.navigationItem.title=@"Dina veckor";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
@@ -72,6 +72,8 @@
     
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
+    
+    table.separatorColor = [UIColor clearColor];
     //[self getData];
     // Do any additional setup after loading the view from its nib.
 }
@@ -92,7 +94,7 @@
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1EVENT"];
+        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB2EVENT"];
         
         const char *query_stmt = [querySQL UTF8String];
         
@@ -142,7 +144,7 @@
     NSDate *currDate=[formatter dateFromString:currentDate];
     [formatter2 setDateFormat:@"d/M"];
     [formatter1 setDateFormat:@"yyyy"];
-    while ([earlierDate compare:currDate]==NSOrderedAscending||[earlierDate compare:currDate]==NSOrderedSame) {
+    while ((earlierDate&&[earlierDate compare:currDate]==NSOrderedAscending)||(earlierDate&&[earlierDate compare:currDate]==NSOrderedSame)) {
         NSDate *nextDay = [earlierDate dateByAddingTimeInterval:6*60*60*24];
         NSString *week;
         if ([earlierDate compare:currDate]==NSOrderedAscending && [nextDay compare:currDate]==NSOrderedDescending) {
@@ -189,7 +191,47 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)submitButtonAction:(id)sender {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    for (int k=0; k<[dataArray count]; k++) {
+        NSMutableDictionary *dict = [dataArray objectAtIndex:k];
+        if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
+            [dataArray removeObjectAtIndex:k];
+            for (int m=0; m<[sub1EventsArray count]; m++) {
+                NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:@"dayTime"];
+                NSArray *array = [dayTime componentsSeparatedByString:@" "];
+                NSString *dateString = [array objectAtIndex:0];
+                NSDate *date = [formatter dateFromString:dateString];
+                if ([date compare:[dict valueForKey:@"start"]]==NSOrderedSame||[date compare:[dict valueForKey:@"end"]]==NSOrderedSame||([date compare:[dict valueForKey:@"start"]]==NSOrderedDescending && [date compare:[dict valueForKey:@"end"]]==NSOrderedAscending) ) {
+                    [self deleteRecord:[sub1EventsArray objectAtIndex:m]];
+                }
+            }
+            [table reloadData];
+            break;
+        }
+    }
+}
+
+-(void)deleteRecord:(NSDictionary*)deleDic {
     
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSInteger subId = [[deleDic valueForKey:kSub1Id] integerValue];
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB2EVENT WHERE sub2Id='%d'",subId];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+            
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
 }
 
 - (void)didReceiveMemoryWarning
@@ -229,10 +271,12 @@
     cell.cellBtn.tag = indexPath.row;
     NSMutableDictionary *dict = [dataArray objectAtIndex:indexPath.row];
     if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
-        cell.cellBtn.backgroundColor = [UIColor blueColor];
+        [cell.cellBtn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+        //cell.cellBtn.backgroundColor = [UIColor blueColor];
     }
     else{
-        cell.cellBtn.backgroundColor = [UIColor whiteColor];
+        [cell.cellBtn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+        //cell.cellBtn.backgroundColor = [UIColor whiteColor];
     }
     [cell.cellBtn addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     cell.cellLabel.text = [dict valueForKey:@"week"];
@@ -257,6 +301,7 @@
 
 
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -275,7 +320,7 @@
             calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView_iPad" bundle:nil];
         }
     }
-    calanderView.sub1EventsArray = sub1EventsArray;
+   // calanderView.sub1EventsArray = sub1EventsArray;
     calanderView.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:calanderView animated:YES];
 }

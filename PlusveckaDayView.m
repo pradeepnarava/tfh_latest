@@ -125,8 +125,8 @@
                             statusString = @"+";
                         }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
                             statusString = @"-";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"N"]){
-                            statusString = @"N";
+                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+                            statusString = @"Neutral";
                         }
                         
                         [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
@@ -141,11 +141,15 @@
                             statusString = @"+";
                         }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
                             statusString = @"-";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"N"]){
-                            statusString = @"N";
+                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+                            statusString = @"Neutral";
                         }
                         
                         [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
+                        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+                        
+                        longPressGesture.minimumPressDuration = 1.0;
+                        [btn addGestureRecognizer:longPressGesture];
                     }
                 }
             }
@@ -153,15 +157,68 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
             }else if ([statusString isEqualToString:@"-"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
-            }else if ([statusString isEqualToString:@"N"]){
+            }else if ([statusString isEqualToString:@"Neutral"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
             }else {
-                //[btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
-                //[btn setTitle:@"" forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+                [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
     }
 }
+
+- (void)longPress:(UIGestureRecognizer *)gesture{
+    
+    
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        
+        UIButton *btn = (UIButton*)[gesture view];
+        NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+        NSString *subString1 =  [btag substringFromIndex:1];
+        NSString *subString = [subString1 substringToIndex:subString1.length-1];
+        NSArray *tm = [[self dateFromString:selectedDate] componentsSeparatedByString:@" "];
+        
+        buttonString = [[tm objectAtIndex:0] retain];
+        
+        for (int q= 0; q<[dataArray count]; q++) {
+            NSMutableDictionary *temp = [dataArray objectAtIndex:q];
+            
+            if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
+                editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Radera",nil];
+                
+                [alert show];
+                [alert release];
+                break;
+            }
+        }
+        
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    }else {
+        [self raderaClicked:nil];
+        [self displayButton];
+    }
+}
+
+-(void)raderaClicked:(id)sender {
+    
+    
+    if (editIndexValue) {
+        NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
+        [dataArray removeObject:deleDict];
+        [self deleteRecord:deleDict];
+    }
+    editIndexValue = nil;
+    
+    
+}
+
 
 -(void)backButon {
     [self.navigationController popViewControllerAnimated:YES];
@@ -243,7 +300,7 @@
         }
     }
     if (!isExit) {
-        currentStatuBtn=@"N";
+        currentStatuBtn=@"Neutral";
         eventDesTextView.text = @"";
         hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
@@ -268,7 +325,7 @@
 -(IBAction)okButtonClicked:(id)sender
 {
     [ASDepthModalViewController dismiss];
-    if (isSub2 && !isDinackar) {
+    if (isSub2 ) {
         if (editIndexValue) {
             NSMutableDictionary *temp = [dataArray objectAtIndex:[editIndexValue intValue]];
             NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
@@ -306,7 +363,7 @@
 -(IBAction)raderaButtonClicked:(id)sender {
     
     [ASDepthModalViewController dismiss];
-    if (editIndexValue&&isSub2&& !isDinackar) {
+    if (editIndexValue&&isSub2) {
         NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
         [dataArray removeObject:deleDict];
         [self deleteRecord:deleDict];
@@ -318,7 +375,7 @@
 
 -(IBAction)totalOkButtonAction:(id)sender{
     [ASDepthModalViewController dismiss];
-    if (!isDinackar) {
+   // if (!isDinackar) {
         if (editTotalValue) {
             NSMutableDictionary *temp = [totalArray objectAtIndex:[editTotalValue intValue]];
             [temp setValue:[NSString stringWithFormat:@"%.0f",slider.value] forKey:@"total"];
@@ -333,7 +390,7 @@
         }
         editTotalValue = nil;
         dateIndexValue = nil;
-    }
+   // }
 }
 
 -(void)databaseInsertTotal:(NSDictionary *)dict{

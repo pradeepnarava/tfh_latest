@@ -14,7 +14,7 @@
 
 @implementation PlusveckaSettingsView
 @synthesize scrollVie,sub2Settings;
-@synthesize oneHour,twoHour,threeHour,fourHour,whichHour,sub1EventsArray;
+@synthesize klarButton,whichHour,sub1EventsArray,eventPicker,totalPicker,background,totalHour;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,6 +26,8 @@
 
 - (void)viewDidLoad
 {
+    scrollVie.contentSize = CGSizeMake(320, 687);
+    self.navigationItem.title=@"Påminnelser";
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
@@ -46,6 +48,15 @@
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"da_US"];
+    eventPicker.layer.backgroundColor = [UIColor whiteColor].CGColor;
+   // [[eventPicker.subviews objectAtIndex:0] removeFromSuperview];
+    [eventPicker setBackgroundColor:[UIColor clearColor]];
+    [totalPicker setBackgroundColor:[UIColor clearColor]];
+    eventPicker.frame = CGRectMake(eventPicker.frame.origin.x, eventPicker.frame.origin.y, eventPicker.frame.size.width, 140);
+    totalPicker.frame = CGRectMake(totalPicker.frame.origin.x, totalPicker.frame.origin.y, totalPicker.frame.size.width, 140);
+    [eventPicker setLocale:locale];
+    [totalPicker setLocale:locale];
     NSString *docsDir;
     NSArray *dirPaths;
     
@@ -61,7 +72,7 @@
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
         char *errMsg;
-        const char *sql_stmt3 = "CREATE TABLE IF NOT EXISTS SUB2SETTINGS (id INTEGER PRIMARY KEY AUTOINCREMENT,value TEXT)";
+        const char *sql_stmt3 = "CREATE TABLE IF NOT EXISTS SUB2SETTINGS (id INTEGER PRIMARY KEY AUTOINCREMENT,eventvalue TEXT,totalvalue TEXT)";
         if (sqlite3_exec(exerciseDB, sql_stmt3, NULL, NULL, &errMsg)!=SQLITE_OK) {
             NSLog(@"Failed to create total database");
         }
@@ -79,24 +90,20 @@
     [super viewWillAppear:YES];
 }
 
--(IBAction)hourSelected:(id)sender {
-    
-    UIButton *btn = (UIButton *)sender;
-    for (UIButton *radioButton in [self.scrollVie  subviews]) {
-        if (radioButton.tag != btn.tag && [radioButton isKindOfClass:[UIButton class]]) {
-            if ((radioButton.tag == 21 || radioButton.tag == 22 || radioButton.tag == 23 || radioButton.tag == 24 )) {
-                [radioButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
-            }
-            
-        }
-    }
-    NSString *tagString = [NSString stringWithFormat:@"%d",btn.tag];
-    whichHour = [[tagString substringFromIndex:tagString.length-1]retain];
-    [btn setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+-(IBAction)eventValueChanged:(id)sender{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"HH:mm"];
+    whichHour = [[formatter stringFromDate:eventPicker.date]retain];
+}
+
+-(IBAction)totalValueChanged:(id)sender{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"HH:mm"];
+    totalHour = [[formatter stringFromDate:totalPicker.date]retain];
 }
 
 -(IBAction)okAction:(id)sender{
-    if (whichHour) {
+    if (![whichHour isEqualToString:@"00:00"]&&![totalHour isEqualToString:@"00:00"]) {
         if ([sub2Settings objectForKey:@"id"]) {
             [self updateSettings];
         }
@@ -111,7 +118,7 @@
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *query=[NSString stringWithFormat:@"UPDATE SUB2SETTINGS SET value='%@' WHERE id='%d'",whichHour, [[sub2Settings valueForKey:@"id"]intValue]];
+        NSString *query=[NSString stringWithFormat:@"UPDATE SUB2SETTINGS SET eventvalue='%@',totalvalue='%@' WHERE id='%d'",whichHour,totalHour, [[sub2Settings valueForKey:@"id"]intValue]];
         
         const char *del_stmt = [query UTF8String];
         
@@ -120,7 +127,8 @@
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
             [sub2Settings setValue:whichHour forKey:@"value"];
-            [self setNotifications];
+            [sub2Settings setValue:totalHour forKey:@"totalvalue"];
+            //[self setNotifications];
             NSLog(@"Updated");
             
         }else {
@@ -208,7 +216,7 @@
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB2SETTINGS (value) VALUES (\"%@\")",whichHour];
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB2SETTINGS (value) VALUES (\"%@\",\"%@\")",whichHour,totalHour];
         
         const char *insert_stmt = [insertSQL UTF8String];
         
@@ -231,23 +239,19 @@
     [self setNotifications];
 }
 
--(IBAction)settingsOnOff:(id)sender{
+-(IBAction)eventOnOff:(id)sender{
     if ([sender tag]==0) {
-        scrollVie.hidden = YES;
-        whichHour = nil;
-        if ([sub2Settings objectForKey:@"id"]) {
-            [self deleteSettings];
-        }
     
     }else{
-        scrollVie.hidden = NO;
-        for (UIButton *radioButton in [self.scrollVie  subviews]) {
-            if ([radioButton isKindOfClass:[UIButton class]]) {
-                if (radioButton.tag!=55) {
-                    [radioButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
-                }
-            }
-        }
+       
+    }
+}
+
+-(IBAction)totalOnOff:(id)sender{
+    if ([sender tag]==0) {
+        
+    }else{
+        
     }
 }
 
@@ -292,33 +296,22 @@
             while  (sqlite3_step(statement) == SQLITE_ROW) {
                 NSString *Id = [NSString stringWithFormat:@"%d",sqlite3_column_int(statement,0)];
                 NSString *value = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
+                NSString *totalValue = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
                 sub2Settings = [[NSMutableDictionary alloc]init];
                 [sub2Settings setValue:Id  forKey:@"id"];
                 [sub2Settings setValue:value forKey:@"value"];
+                [sub2Settings setValue:totalValue forKey:@"totalvalue"];
                 whichHour = [value retain];
+                totalHour = [totalValue retain];
             }
         }
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
     if ([sub2Settings objectForKey:@"id"]) {
-        scrollVie.hidden = NO;
-        for (UIButton *radioButton in [self.scrollVie  subviews]) {
-            if ([radioButton isKindOfClass:[UIButton class]]) {
-                NSString *tagString = [NSString stringWithFormat:@"%d",radioButton.tag];
-                NSString *val = [tagString substringFromIndex:tagString.length-1];
-                if (radioButton.tag!=55) {
-                    if ([[sub2Settings valueForKey:@"value"] isEqualToString:val]) {
-                        [radioButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
-                    }
-                    else{
-                        [radioButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
-                    }
-                }
-            }
-        }
+        
     }else{
-        scrollVie.hidden = YES;
+        
     }
 }
 

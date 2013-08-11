@@ -16,7 +16,7 @@
 #define kDayTime   @"dayTime"
 #define kEventDes  @"eventDes"
 #define kSub2Id    @"Sub2Id"
-
+#define kSub1Id    @"Sub1Id"
 
 @interface PlusveckaDinaveckarView ()
 @property (nonatomic, strong) NSString *currentDateBtn,*tabValue;
@@ -43,7 +43,7 @@
 @synthesize dataArray;
 @synthesize editIndexValue,buttonString;
 @synthesize selectedDictionary;
-@synthesize totalArray;
+@synthesize totalArray,dateIndexValue,editTotalValue;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -57,7 +57,7 @@
 {
     [super viewDidLoad];
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
-    self.navigationItem.title=@"Plusvecka";
+    self.navigationItem.title=@"Planera en plusvecka";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
@@ -128,6 +128,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     self.dataArray = [[NSMutableArray alloc]init];
+    self.sub1EventsArray = [[NSMutableArray alloc]init];
     self.totalArray = [[NSMutableArray alloc]init];
     for (int i =0; i <[[self.scrollView subviews] count]; i++) {
         
@@ -190,8 +191,8 @@
                             statusString = @"+";
                         }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
                             statusString = @"-";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"N"]){
-                            statusString = @"N";
+                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+                            statusString = @"Neutral";
                         }
                         
                         [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
@@ -206,8 +207,8 @@
                             statusString = @"+";
                         }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
                             statusString = @"-";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"N"]){
-                            statusString = @"N";
+                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+                            statusString = @"Neutral";
                         }
                         
                         [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
@@ -218,11 +219,11 @@
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
             }else if ([statusString isEqualToString:@"-"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
-            }else if ([statusString isEqualToString:@"N"]){
+            }else if ([statusString isEqualToString:@"Neutral"]){
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
             }else {
-                //[btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
-                //[btn setTitle:@"" forState:UIControlStateNormal];
+                [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+                [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
     }
@@ -257,6 +258,33 @@
                 [itemDict setValue:eventDescription forKey:kEventDes];
                 
                 [dataArray addObject:itemDict];
+            }
+        }
+        
+        NSString *querySQL1 = [NSString stringWithFormat: @"SELECT * FROM SUB1EVENT"];
+        
+        const char *query_stmt1 = [querySQL1 UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt1, -1, &statement, NULL) == SQLITE_OK)
+        {
+            
+            while  (sqlite3_step(statement) == SQLITE_ROW) {
+                NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
+                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
+                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
+                NSString *status = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 5)];
+                NSString *daytime = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 6)];
+                NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 7)];
+                
+                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
+                [itemDict setValue:subId forKey:kSub1Id];
+                [itemDict setValue:startDate forKey:kStartDate];
+                [itemDict setValue:endDate forKey:kEndDate];
+                [itemDict setValue:status forKey:kStatus];
+                [itemDict setValue:daytime forKey:kDayTime];
+                [itemDict setValue:eventDescription forKey:kEventDes];
+                
+                [sub1EventsArray addObject:itemDict];
             }
         }
         sqlite3_finalize(statement);
@@ -467,7 +495,7 @@
         }
     }
     if (!isExit) {
-        currentStatuBtn=@"N";
+        currentStatuBtn=@"Neutral";
         eventDesTextView.text = @"";
         hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
         hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
@@ -492,7 +520,7 @@
 -(IBAction)okButtonClicked:(id)sender
 {
     [ASDepthModalViewController dismiss];
-    /*
+    
     if (editIndexValue) {
         NSMutableDictionary *temp = [dataArray objectAtIndex:[editIndexValue intValue]];
         NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
@@ -523,26 +551,89 @@
     
     [self displayButton];
     
-    [self  databaseInsert];*/
+    [self  databaseInsert];
     
 }
 
 -(IBAction)raderaButtonClicked:(id)sender {
     
     [ASDepthModalViewController dismiss];
-   /* if (editIndexValue) {
+    if (editIndexValue) {
         NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
         [dataArray removeObject:deleDict];
         [self deleteRecord:deleDict];
     }
     editIndexValue = nil;
-    [self displayButton];*/
+    [self displayButton];
     
 }
 
 -(IBAction)totalOkButtonAction:(id)sender{
     [ASDepthModalViewController dismiss];
+    if (editTotalValue) {
+        NSMutableDictionary *temp = [totalArray objectAtIndex:[editTotalValue intValue]];
+        [temp setValue:[NSString stringWithFormat:@"%.0f",slider.value] forKey:@"total"];
+        [self databaseUpdateTotal:temp];
+    }else {
+        NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+        [temp setValue:[NSString stringWithFormat:@"%d",[totalArray count]+1] forKey:@"id"];
+        [temp setValue:dateIndexValue forKey:@"date"];
+        [temp setValue:[NSString stringWithFormat:@"%.0f",slider.value] forKey:@"total"];
+        [totalArray addObject:temp];
+        [self databaseInsertTotal:temp];
+    }
+    editTotalValue = nil;
+    dateIndexValue = nil;
+}
+
+-(void)databaseInsertTotal:(NSDictionary *)dict{
+    const char *dbpath = [databasePath UTF8String];
     
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB2TOTAL (date,total) VALUES (\"%@\", \"%@\")",[dict valueForKey:@"date"],[dict valueForKey:@"total"]];
+        
+        const char *insert_stmt = [insertSQL UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE)
+        {
+            NSLog(@"New Record Created");
+        }
+        else {
+            if(SQLITE_DONE != sqlite3_step(statement))
+                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+            NSLog(@"error for insertig data into database NO");
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
+}
+-(void)databaseUpdateTotal:(NSDictionary *)dict{
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *query=[NSString stringWithFormat:@"UPDATE SUB2TOTAL SET total='%@' WHERE id='%d'",[dict valueForKey:@"total"],[[dict valueForKey:@"id"]intValue]];
+        
+        const char *del_stmt = [query UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, &statement, NULL);
+        
+        if (sqlite3_step(statement) == SQLITE_DONE)
+        {
+            NSLog(@"Updated");
+            
+        }else {
+            NSLog(@"Failed to Update");
+            if(SQLITE_DONE != sqlite3_step(statement))
+                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+        }
+        
+        sqlite3_finalize(statement);
+        
+    }
+    sqlite3_close(exerciseDB);
 }
 
 #pragma mark -- DataBase Methods
@@ -757,7 +848,7 @@
             currentStatuBtn = btn.currentTitle;
             break;
         case 2:
-            currentStatuBtn = @"N";
+            currentStatuBtn = btn.currentTitle;
             break;
         case 3:
             currentStatuBtn = btn.currentTitle;

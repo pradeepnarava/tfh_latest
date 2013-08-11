@@ -33,7 +33,7 @@
 
 ////////////////////// New Code
 @property (nonatomic, retain) NSString *buttonString;
-@property (nonatomic, retain) NSString *editIndexValue;
+@property (nonatomic, retain) NSString *editIndexValue,*editTotalValue,*dateIndexValue;
 
 -(IBAction)statusButtonClicked:(id)sender;
 @end

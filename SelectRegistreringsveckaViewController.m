@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title=@"Plusvecka";
+    self.navigationItem.title=@"Ny Plusvecka";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
@@ -56,6 +56,7 @@
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
+    table.separatorColor = [UIColor clearColor];
     NSString *docsDir;
     NSArray *dirPaths;
     
@@ -131,7 +132,7 @@
     NSDate *currDate=[formatter dateFromString:currentDate];
     [formatter2 setDateFormat:@"d/M"];
     [formatter1 setDateFormat:@"yyyy"];
-    while ([earlierDate compare:currDate]==NSOrderedAscending||[earlierDate compare:currDate]==NSOrderedSame) {
+    while ((earlierDate&&[earlierDate compare:currDate]==NSOrderedAscending)||(earlierDate&&[earlierDate compare:currDate]==NSOrderedSame)) {
         NSDate *nextDay = [earlierDate dateByAddingTimeInterval:6*60*60*24];
         NSString *week;
         if ([earlierDate compare:currDate]==NSOrderedAscending && [nextDay compare:currDate]==NSOrderedDescending) {
@@ -181,6 +182,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0f;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [dataArray count];
@@ -189,15 +194,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath\
 {
-    static  NSString *identifier = @"some";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if(cell==nil){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    static NSString *CellIdentifer = @"CellIdentifier";
+    
+    DinaveckarCell *cell = (DinaveckarCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifer];
+    
+    if (cell == nil) {
+        NSArray *objects =[[NSBundle mainBundle] loadNibNamed:@"DinaveckarCell" owner:self options:nil];
+        
+        for (id object in objects) {
+            if ([object isKindOfClass:[DinaveckarCell class]]) {
+                
+                cell = (DinaveckarCell*)object;
+            }
+        }
     }
     cell.selectedBackgroundView = [[UIView alloc]init];
-    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
-    cell.textLabel.textColor =[UIColor whiteColor];
-    cell.textLabel.text = [[dataArray objectAtIndex:indexPath.row] valueForKey:@"week"];
+    cell.cellBtn.hidden = YES;
+    NSMutableDictionary *dict = [dataArray objectAtIndex:indexPath.row];
+    cell.background.frame = CGRectMake(6, cell.background.frame.origin.y, 288, cell.background.frame.size.height);
+    cell.background.frame = CGRectMake(19, cell.background.frame.origin.y, 262, cell.background.frame.size.height);
+    cell.cellLabel.text = [dict valueForKey:@"week"];
+    cell.cellLabel.highlightedTextColor = [UIColor darkGrayColor];
+    
     return cell;
 }
 
