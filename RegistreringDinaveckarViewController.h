@@ -26,4 +26,8 @@
 
 @property (nonatomic, retain) RegiDinaveckarCalendarViewController *regiDinaCalVC;
 
+
+- (void)deleteRecord:(NSDictionary*)deleDic;
+- (IBAction)submitButtonAction:(id)sender;
+
 @end
