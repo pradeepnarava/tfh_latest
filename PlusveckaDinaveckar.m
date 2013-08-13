@@ -10,11 +10,13 @@
 
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
-#define kStatus    @"status"
-#define kDayTime   @"dayTime"
-#define kEventDes  @"eventDes"
-#define kSub1Id    @"Sub2Id"
-
+#define kCurrentDate  @"currentDate"
+#define kId    @"id"
+#define kSelected @"selected"
+#define kStatus @"status"
+#define kSub2Id @"sub2Id"
+#define kEventDes @"eventDescription"
+#define kDayTime @"dayTime"
 @interface PlusveckaDinaveckar ()
 
 @end
@@ -22,8 +24,8 @@
 
 @implementation PlusveckaDinaveckar
 @synthesize table;
-@synthesize dataArray,sub1EventsArray;
-@synthesize calanderView;
+@synthesize dataArray;
+@synthesize calanderView,sub2EventsArray;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -81,15 +83,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     dataArray = [[NSMutableArray alloc]init];
-    sub1EventsArray = [[NSMutableArray alloc]init];
+    self.sub2EventsArray = [[NSMutableArray alloc]init];
     [self getData];
     [super viewWillAppear:YES];
 }
 
-
-
-
--(void)getData {
+-(void)getSub2events{
     const char *dbpath = [databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
@@ -110,81 +109,57 @@
                 NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 7)];
                 
                 NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
-                [itemDict setValue:subId forKey:kSub1Id];
+                [itemDict setValue:subId forKey:kSub2Id];
                 [itemDict setValue:startDate forKey:kStartDate];
                 [itemDict setValue:endDate forKey:kEndDate];
                 [itemDict setValue:status forKey:kStatus];
                 [itemDict setValue:daytime forKey:kDayTime];
                 [itemDict setValue:eventDescription forKey:kEventDes];
                 
-                [sub1EventsArray addObject:itemDict];
+                [sub2EventsArray addObject:itemDict];
             }
         }
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
-    NSDate *earlierDate = nil,*endDate=nil;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
-    NSDateFormatter *formatter2 = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    for (int k=0; k<[sub1EventsArray count]; k++) {
-        NSString *dayTime = [[sub1EventsArray objectAtIndex:k]valueForKey:@"dayTime"];
-        NSArray *array = [dayTime componentsSeparatedByString:@" "];
-        NSString *dateString = [array objectAtIndex:0];
-        NSDate *date = [formatter dateFromString:dateString];
-        if (!earlierDate || [earlierDate compare:date]==NSOrderedDescending) {
-            earlierDate = date;
-        }
-        if (!endDate || [endDate compare:date]== NSOrderedAscending) {
-            endDate = date;
-        }
-    }
-    NSString *currentDate = [formatter stringFromDate:endDate];
-    NSDate *currDate=[formatter dateFromString:currentDate];
-    [formatter2 setDateFormat:@"d/M"];
-    [formatter1 setDateFormat:@"yyyy"];
-    while ((earlierDate&&[earlierDate compare:currDate]==NSOrderedAscending)||(earlierDate&&[earlierDate compare:currDate]==NSOrderedSame)) {
-        NSDate *nextDay = [earlierDate dateByAddingTimeInterval:6*60*60*24];
-        NSString *week;
-        if ([earlierDate compare:currDate]==NSOrderedAscending && [nextDay compare:currDate]==NSOrderedDescending) {
-            
-            if ([[formatter1 stringFromDate:earlierDate] isEqualToString:[formatter1 stringFromDate:nextDay]]) {
-                week =[NSString stringWithFormat:@"%@ - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:earlierDate]];
-            }
-            else{
-                week =[NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter1 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:nextDay]];
-            }
-        }
-        else if ([[formatter1 stringFromDate:earlierDate] isEqualToString:[formatter1 stringFromDate:nextDay]]) {
-            week =[NSString stringWithFormat:@"%@ - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:earlierDate]];
-        }
-        else{
-            week =[NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter1 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:nextDay]];
-        }
-        BOOL isExist = NO;
-        for (int m=0; m<[sub1EventsArray count]; m++) {
-            NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:@"dayTime"];
-            NSArray *array = [dayTime componentsSeparatedByString:@" "];
-            NSString *dateString = [array objectAtIndex:0];
-            NSDate *date = [formatter dateFromString:dateString];
-            if ([date compare:earlierDate]==NSOrderedSame||[date compare:nextDay]==NSOrderedSame||([date compare:earlierDate]==NSOrderedDescending && [date compare:nextDay]==NSOrderedAscending) ) {
-                isExist = YES;
-                break;
-            }
-        }
-        if (isExist) {
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-            [dict setValue:week forKey:@"week"];
-            [dict setValue:@"F" forKey:@"selected"];
-            [dict setValue:earlierDate forKey:@"start"];
-            [dict setValue:nextDay forKey:@"end"];
-            [dataArray addObject:dict];
-        }
-        earlierDate = [earlierDate dateByAddingTimeInterval:7*24*60*60];
-    }
-    [table reloadData];
+}
+
+
+-(void)getData {
+    const char *dbpath = [databasePath UTF8String];
     
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB2DINAVECKOR"];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            
+            while  (sqlite3_step(statement) == SQLITE_ROW) {
+                NSString *weekId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,0)];
+                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
+                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
+                NSString *currentDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
+                
+                NSDate *startDat = [self dateFromString:startDate];
+                NSDate *endDat = [self dateFromString:endDate];
+                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
+                [itemDict setValue:weekId forKey:kId];
+                [itemDict setValue:startDat forKey:kStartDate];
+                [itemDict setValue:endDat forKey:kEndDate];
+                [itemDict setValue:currentDate forKey:kCurrentDate];
+                [itemDict setValue:@"F" forKey:kSelected];
+                [dataArray addObject:itemDict];
+            }
+        }
+        [table reloadData];
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
+      
+    [self getSub2events];
 }
 
 -(void)backButon {
@@ -193,30 +168,63 @@
 - (IBAction)submitButtonAction:(id)sender {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSMutableDictionary *selectedDict = [[NSMutableDictionary alloc]init];
     for (int k=0; k<[dataArray count]; k++) {
         NSMutableDictionary *dict = [dataArray objectAtIndex:k];
         if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
-            [dataArray removeObjectAtIndex:k];
-            for (int m=0; m<[sub1EventsArray count]; m++) {
-                NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:@"dayTime"];
-                NSArray *array = [dayTime componentsSeparatedByString:@" "];
-                NSString *dateString = [array objectAtIndex:0];
-                NSDate *date = [formatter dateFromString:dateString];
-                if ([date compare:[dict valueForKey:@"start"]]==NSOrderedSame||[date compare:[dict valueForKey:@"end"]]==NSOrderedSame||([date compare:[dict valueForKey:@"start"]]==NSOrderedDescending && [date compare:[dict valueForKey:@"end"]]==NSOrderedAscending) ) {
-                    [self deleteRecord:[sub1EventsArray objectAtIndex:m]];
-                }
-            }
-            [table reloadData];
+            selectedDict = dict;
             break;
         }
     }
+    BOOL isExist = NO;
+    for (int p=0; p<[dataArray count]; p++) {
+        NSMutableDictionary *dict = [dataArray objectAtIndex:p];
+        if (dict!=selectedDict&&[[formatter stringFromDate:[dict valueForKey:kStartDate]] isEqualToString:[formatter stringFromDate:[selectedDict valueForKey:kStartDate]]]&&[[formatter stringFromDate:[dict valueForKey:kEndDate]] isEqualToString:[formatter stringFromDate:[selectedDict valueForKey:kEndDate]]]) {
+            isExist = YES;
+        }
+    }
+    [dataArray removeObject:selectedDict];
+    /*if (!isExist) {
+        for (int m=0; m<[sub2EventsArray count]; m++) {
+            NSString *dayTime = [[sub2EventsArray objectAtIndex:m]valueForKey:kDayTime];
+            NSArray *array = [dayTime componentsSeparatedByString:@" "];
+            NSString *dateString = [array objectAtIndex:0];
+            NSDate *date = [formatter dateFromString:dateString];
+            if ([date compare:[selectedDict valueForKey:kStartDate]]==NSOrderedSame||[date compare:[selectedDict valueForKey:kEndDate]]==NSOrderedSame||([date compare:[selectedDict valueForKey:kStartDate]]==NSOrderedDescending && [date compare:[selectedDict valueForKey:kEndDate]]==NSOrderedAscending) ) {
+                [self deleteRecord:[sub2EventsArray objectAtIndex:m]];
+            }
+        }
+    }*/
+    [table reloadData];
+}
+
+
+
+-(NSDate*)dateFromString:(NSString*)date {
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *dateString = [dateFormatter dateFromString:date];
+    return dateString;
+}
+
+-(NSString*)yearStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+-(NSString*)monthStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"d/M"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
 }
 
 -(void)deleteRecord:(NSDictionary*)deleDic {
     
     if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
         
-        NSInteger subId = [[deleDic valueForKey:kSub1Id] integerValue];
+        NSInteger subId = [[deleDic valueForKey:kSub2Id] integerValue];
         
         NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB2EVENT WHERE sub2Id='%d'",subId];
         
@@ -279,7 +287,13 @@
         //cell.cellBtn.backgroundColor = [UIColor whiteColor];
     }
     [cell.cellBtn addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    cell.cellLabel.text = [dict valueForKey:@"week"];
+    NSString *yearLabel1 = [self yearStringFromDate:[dict valueForKey:kStartDate]];
+    NSString *yearLabel2 = [self yearStringFromDate:[dict valueForKey:kEndDate]];
+    if([yearLabel1 isEqualToString:yearLabel2]){
+        cell.cellLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel1];
+    }else{
+        cell.cellLabel.text = [NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],yearLabel1,[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel2];
+    }
     cell.cellLabel.highlightedTextColor = [UIColor darkGrayColor];
     return cell;
 }

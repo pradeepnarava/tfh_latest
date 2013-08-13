@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <sqlite3.h>
 @class CalendarViewController;
 @class RegistreringDinaveckarViewController;
 
 @interface Registreringsvecka : UIViewController
-
-
+{
+    sqlite3 *exerciseDB;
+    NSString *databasePath;
+    sqlite3_stmt  *statement;
+}
+@property (nonatomic, strong) NSMutableArray *weekArray;
 @property (nonatomic, strong) CalendarViewController *calendarView;
 @property (nonatomic, strong) RegistreringDinaveckarViewController *regDinaveckarView;
 

@@ -18,7 +18,8 @@
 #define kStatus    @"status"
 #define kDayTime   @"dayTime"
 #define kEventDes  @"eventDes"
-#define kSub2Id    @"Sub2Id"
+#define kSub2Id    @"sub2Id"
+#define kSub1Id    @"sub1Id"
 @implementation PlusveckaCalenderViewController
 @synthesize settingsView;
 @synthesize dayView,raderaBtn;
@@ -128,6 +129,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     self.dataArray = [[NSMutableArray alloc]init];
+    self.sub1EventsArray = [[NSMutableArray alloc]init];
     self.totalArray = [[NSMutableArray alloc]init];
     for (int i =0; i <[[self.scrollView subviews] count]; i++) {
         
@@ -137,7 +139,7 @@
             [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
         }
     }
-    [self week:[selectedDictionary valueForKey:@"start"]];
+    [self week:[selectedDictionary valueForKey:kStartDate]];
     [self getData];
     [self displayButton];
     [super viewWillAppear:YES];
@@ -338,6 +340,32 @@
                 [itemDict setValue:eventDescription forKey:kEventDes];
                 
                 [dataArray addObject:itemDict];
+            }
+        }
+        NSString *querySQL1 = [NSString stringWithFormat: @"SELECT * FROM SUB1EVENT"];
+        
+        const char *query_stmt1 = [querySQL1 UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt1, -1, &statement, NULL) == SQLITE_OK)
+        {
+            
+            while  (sqlite3_step(statement) == SQLITE_ROW) {
+                NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
+                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
+                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
+                NSString *status = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 5)];
+                NSString *daytime = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 6)];
+                NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 7)];
+                
+                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
+                [itemDict setValue:subId forKey:kSub1Id];
+                [itemDict setValue:startDate forKey:kStartDate];
+                [itemDict setValue:endDate forKey:kEndDate];
+                [itemDict setValue:status forKey:kStatus];
+                [itemDict setValue:daytime forKey:kDayTime];
+                [itemDict setValue:eventDescription forKey:kEventDes];
+                
+                [sub1EventsArray addObject:itemDict];
             }
         }
         sqlite3_finalize(statement);

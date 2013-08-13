@@ -14,7 +14,7 @@
 
 @implementation PlusveckaSettingsView
 @synthesize scrollVie,sub2Settings;
-@synthesize klarButton,whichHour,sub1EventsArray,eventPicker,totalPicker,background,totalHour;
+@synthesize klarButton,whichHour,sub1EventsArray,eventPicker,totalPicker,background,totalHour,eventView,totalView,totalView1;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,7 +26,6 @@
 
 - (void)viewDidLoad
 {
-    scrollVie.contentSize = CGSizeMake(320, 687);
     self.navigationItem.title=@"Påminnelser";
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
@@ -241,17 +240,17 @@
 
 -(IBAction)eventOnOff:(id)sender{
     if ([sender tag]==0) {
-    
+        eventView.hidden = YES;
     }else{
-       
+        eventView.hidden = NO;
     }
 }
 
 -(IBAction)totalOnOff:(id)sender{
     if ([sender tag]==0) {
-        
+        totalView.hidden = YES;
     }else{
-        
+        totalView.hidden = NO;
     }
 }
 
@@ -308,11 +307,46 @@
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
-    if ([sub2Settings objectForKey:@"id"]) {
-        
+    if (![sub2Settings objectForKey:@"id"]) {
+        whichHour = [@"00:00" retain];
+        totalHour = [@"00:00" retain];
+        eventView.hidden = YES;
+        totalView.hidden = YES;
+        totalView1.frame = CGRectMake(totalView1.frame.origin.x, 85, totalView1.frame.size.width, totalView1.frame.size.height);
+        klarButton.frame = CGRectMake(klarButton.frame.origin.x, 185, klarButton.frame.size.width, klarButton.frame.size.height);
+        background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 225);
+        scrollVie.contentSize = CGSizeMake(320, 230);
     }else{
-        
+        if ([whichHour isEqualToString:@"00:00"]) {
+            eventView.hidden = YES;
+            if ([totalHour isEqualToString:@"00:00"]) {
+                totalView.hidden = YES;
+                totalView1.frame = CGRectMake(totalView1.frame.origin.x, 85, totalView1.frame.size.width, totalView1.frame.size.height);
+                klarButton.frame = CGRectMake(klarButton.frame.origin.x, 185, klarButton.frame.size.width, klarButton.frame.size.height);
+                background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 225);
+                scrollVie.contentSize = CGSizeMake(320, 225);
+            }else{
+                totalView.frame = CGRectMake(totalView.frame.origin.x,185, totalView.frame.size.width, totalView.frame.size.height);
+                totalView1.frame = CGRectMake(totalView1.frame.origin.x, 85, totalView1.frame.size.width, totalView1.frame.size.height);
+                klarButton.frame = CGRectMake(klarButton.frame.origin.x, 185, klarButton.frame.size.width, klarButton.frame.size.height);
+                background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 420);
+                scrollVie.contentSize = CGSizeMake(320, 425);
+            }
+        }else{
+            if ([totalHour isEqualToString:@"00:00"]) {
+                totalView.hidden = YES;
+                klarButton.frame = CGRectMake(klarButton.frame.origin.x, 425, klarButton.frame.size.width, klarButton.frame.size.height);
+                background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 460);
+                scrollVie.contentSize = CGSizeMake(320, 465);
+            }else{
+                scrollVie.contentSize = CGSizeMake(320, 687);
+            }
+        }
     }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"HH:mm"];
+    [eventPicker setDate:[formatter dateFromString:whichHour]];
+    [totalPicker setDate:[formatter dateFromString:totalHour]];
 }
 
 - (void)didReceiveMemoryWarning

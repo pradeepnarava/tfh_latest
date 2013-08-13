@@ -138,7 +138,7 @@
             [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
         }
     }
-    [self week:[selectedDictionary valueForKey:@"start"]];
+    [self week:[selectedDictionary valueForKey:kStartDate]];
     [self getData];
     [self displayButton];
     [super viewWillAppear:YES];

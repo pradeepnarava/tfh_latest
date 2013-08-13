@@ -13,13 +13,11 @@
 @end
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
-#define kStatus    @"status"
-#define kDayTime   @"dayTime"
-#define kEventDes  @"eventDes"
-#define kSub1Id    @"Sub1Id"
+#define kCurrentDate  @"currentDate"
+#define kId    @"id"
 @implementation SelectRegistreringsveckaViewController
 @synthesize table;
-@synthesize dataArray,sub1EventsArray;
+@synthesize dataArray;
 @synthesize calanderView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,7 +70,6 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     dataArray = [[NSMutableArray alloc]init];
-    sub1EventsArray = [[NSMutableArray alloc]init];
     [self getData];
     [super viewWillAppear:YES];
 }
@@ -82,7 +79,7 @@
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1EVENT"];
+        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1DINAVECKOR"];
         
         const char *query_stmt = [querySQL UTF8String];
         
@@ -90,88 +87,45 @@
         {
             
             while  (sqlite3_step(statement) == SQLITE_ROW) {
-                NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
-                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
-                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
-                NSString *status = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 5)];
-                NSString *daytime = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 6)];
-                NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 7)];
+                NSString *weekId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,0)];
+                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
+                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
+                NSString *currentDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
                 
+                NSDate *startDat = [self dateFromString:startDate];
+                NSDate *endDat = [self dateFromString:endDate];
                 NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
-                [itemDict setValue:subId forKey:kSub1Id];
-                [itemDict setValue:startDate forKey:kStartDate];
-                [itemDict setValue:endDate forKey:kEndDate];
-                [itemDict setValue:status forKey:kStatus];
-                [itemDict setValue:daytime forKey:kDayTime];
-                [itemDict setValue:eventDescription forKey:kEventDes];
-                
-                [sub1EventsArray addObject:itemDict];
+                [itemDict setValue:weekId forKey:kId];
+                [itemDict setValue:startDat forKey:kStartDate];
+                [itemDict setValue:endDat forKey:kEndDate];
+                [itemDict setValue:currentDate forKey:kCurrentDate];
+                [dataArray addObject:itemDict];
             }
         }
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
-    NSDate *earlierDate = nil,*endDate=nil;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
-    NSDateFormatter *formatter2 = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    for (int k=0; k<[sub1EventsArray count]; k++) {
-        NSString *dayTime = [[sub1EventsArray objectAtIndex:k]valueForKey:@"dayTime"];
-        NSArray *array = [dayTime componentsSeparatedByString:@" "];
-        NSString *dateString = [array objectAtIndex:0];
-        NSDate *date = [formatter dateFromString:dateString];
-        if (!earlierDate || [earlierDate compare:date]==NSOrderedDescending) {
-            earlierDate = date;
-        }
-        if (!endDate || [endDate compare:date]== NSOrderedAscending) {
-            endDate = date;
-        }
-    }
-    NSString *currentDate = [formatter stringFromDate:endDate];
-    NSDate *currDate=[formatter dateFromString:currentDate];
-    [formatter2 setDateFormat:@"d/M"];
-    [formatter1 setDateFormat:@"yyyy"];
-    while ((earlierDate&&[earlierDate compare:currDate]==NSOrderedAscending)||(earlierDate&&[earlierDate compare:currDate]==NSOrderedSame)) {
-        NSDate *nextDay = [earlierDate dateByAddingTimeInterval:6*60*60*24];
-        NSString *week;
-        if ([earlierDate compare:currDate]==NSOrderedAscending && [nextDay compare:currDate]==NSOrderedDescending) {
-            
-            if ([[formatter1 stringFromDate:earlierDate] isEqualToString:[formatter1 stringFromDate:nextDay]]) {
-                week =[NSString stringWithFormat:@"%@ - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:earlierDate]];
-            }
-            else{
-                week =[NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter1 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:nextDay]];
-            }
-        }
-        else if ([[formatter1 stringFromDate:earlierDate] isEqualToString:[formatter1 stringFromDate:nextDay]]) {
-            week =[NSString stringWithFormat:@"%@ - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:earlierDate]];
-        }
-        else{
-            week =[NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter1 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:nextDay]];
-        }
-        BOOL isExist = NO;
-        for (int m=0; m<[sub1EventsArray count]; m++) {
-            NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:@"dayTime"];
-            NSArray *array = [dayTime componentsSeparatedByString:@" "];
-            NSString *dateString = [array objectAtIndex:0];
-            NSDate *date = [formatter dateFromString:dateString];
-            if ([date compare:earlierDate]==NSOrderedSame||[date compare:nextDay]==NSOrderedSame||([date compare:earlierDate]==NSOrderedDescending && [date compare:nextDay]==NSOrderedAscending) ) {
-                isExist = YES;
-                break;
-            }
-        }
-        if (isExist) {
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-            [dict setValue:week forKey:@"week"];
-            [dict setValue:earlierDate forKey:@"start"];
-            [dict setValue:nextDay forKey:@"end"];
-            [dataArray addObject:dict];
-        }
-        earlierDate = [earlierDate dateByAddingTimeInterval:7*24*60*60];
-    }
-[table reloadData];
+    [table reloadData];
+}
 
+-(NSDate*)dateFromString:(NSString*)date {
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *dateString = [dateFormatter dateFromString:date];
+    return dateString;
+}
+
+-(NSString*)yearStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+-(NSString*)monthStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"d/M"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
 }
 -(void)backButon {
     [self.navigationController popViewControllerAnimated:YES];
@@ -212,8 +166,14 @@
     cell.cellBtn.hidden = YES;
     NSMutableDictionary *dict = [dataArray objectAtIndex:indexPath.row];
     cell.background.frame = CGRectMake(6, cell.background.frame.origin.y, 288, cell.background.frame.size.height);
-    cell.background.frame = CGRectMake(19, cell.background.frame.origin.y, 262, cell.background.frame.size.height);
-    cell.cellLabel.text = [dict valueForKey:@"week"];
+    cell.cellLabel.frame = CGRectMake(19, cell.background.frame.origin.y, 262, cell.background.frame.size.height);
+    NSString *yearLabel1 = [self yearStringFromDate:[dict valueForKey:kStartDate]];
+    NSString *yearLabel2 = [self yearStringFromDate:[dict valueForKey:kEndDate]];
+    if([yearLabel1 isEqualToString:yearLabel2]){
+        cell.cellLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel1];
+    }else{
+        cell.cellLabel.text = [NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],yearLabel1,[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel2];
+    }
     cell.cellLabel.highlightedTextColor = [UIColor darkGrayColor];
     
     return cell;
@@ -237,7 +197,6 @@
             calanderView = [[PlusveckaCalenderViewController alloc]initWithNibName:@"PlusveckaCalenderView_iPad" bundle:nil];
         }
     }
-    calanderView.sub1EventsArray = sub1EventsArray;
     calanderView.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:calanderView animated:YES];
 }

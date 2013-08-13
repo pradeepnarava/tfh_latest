@@ -17,6 +17,6 @@
     sqlite3_stmt  *statement;
 }
 @property (nonatomic,strong) IBOutlet UITableView *table;
-@property (nonatomic,strong) NSMutableArray *dataArray,*sub1EventsArray;
+@property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,strong) PlusveckaCalenderViewController *calanderView;
 @end
