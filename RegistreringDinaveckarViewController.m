@@ -202,10 +202,48 @@
 
 
 - (IBAction)submitButtonAction:(id)sender {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    for (int k=0; k<[dataArray count]; k++) {
+        NSMutableDictionary *dict = [dataArray objectAtIndex:k];
+        if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
+            [dataArray removeObjectAtIndex:k];
+            for (int m=0; m<[sub1EventsArray count]; m++) {
+                NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:@"dayTime"];
+                NSArray *array = [dayTime componentsSeparatedByString:@" "];
+                NSString *dateString = [array objectAtIndex:0];
+                NSDate *date = [formatter dateFromString:dateString];
+                if ([date compare:[dict valueForKey:@"start"]]==NSOrderedSame||[date compare:[dict valueForKey:@"end"]]==NSOrderedSame||([date compare:[dict valueForKey:@"start"]]==NSOrderedDescending && [date compare:[dict valueForKey:@"end"]]==NSOrderedAscending) ) {
+                    [self deleteRecord:[sub1EventsArray objectAtIndex:m]];
+                }
+            }
+            [table reloadData];
+            break;
+        }
+    }
+}
+
+
+-(void)deleteRecord:(NSDictionary*)deleDic {
     
-    
-    
-    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSInteger subId = [[deleDic valueForKey:kSub1Id] integerValue];
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB1EVENT WHERE subId='%d'",subId];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+            
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
 }
 
 - (void)didReceiveMemoryWarning
@@ -261,6 +299,7 @@
 
 
 -(void)cellButtonClicked:(id)sender{
+    
     for (int j=0; j<[dataArray count]; j++) {
         NSMutableDictionary *dict = [dataArray objectAtIndex:j];
         if (j==[sender tag]) {
@@ -269,6 +308,7 @@
             [dict setValue:@"F" forKey:kSelected];
         }
     }
+    
     [table reloadData];
 }
 
