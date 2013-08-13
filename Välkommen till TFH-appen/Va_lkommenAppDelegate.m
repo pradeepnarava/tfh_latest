@@ -46,14 +46,14 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
             
-            self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone" bundle:[NSBundle mainBundle]];
+            self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone" bundle:nil];
     
         } else {
             
-            self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone4" bundle:[NSBundle mainBundle]];
+            self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone4" bundle:nil];
         }
     } else {
-        self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPad" bundle:[NSBundle mainBundle]];
+        self.viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPad" bundle:nil];
     }
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
@@ -110,7 +110,7 @@
             if ([[UIScreen mainScreen] bounds].size.height > 480)
             {
                 
-                viewController  = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController" bundle:nil];
+                viewController  = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone" bundle:nil];
             }else {
                 viewController = [[Va_lkommenViewController alloc] initWithNibName:@"Va_lkommenViewController_iPhone4" bundle:nil];
             }
@@ -166,11 +166,13 @@
         if ([[notification.userInfo valueForKey:kEventNotificationDataKey] isEqualToString:@"Event"]) {
             NSLog(@"Event");
             calendarVC.isEventNotify = YES;
+            calendarVC.isTotalNotify = NO;
             
         }
         else if ([[notification.userInfo valueForKey:kTotalNotificationDataKey] isEqualToString:@"Total"]) {
             NSLog(@"Total");
             calendarVC.isTotalNotify = YES;
+            calendarVC.isEventNotify = NO;
         }
         
         

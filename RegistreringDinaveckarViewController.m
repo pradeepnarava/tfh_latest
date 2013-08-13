@@ -128,6 +128,9 @@
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
+    
+    NSLog(@"SUB1EVENTS is %@",sub1EventsArray);
+    
     NSDate *earlierDate = nil,*endDate=nil;
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
@@ -200,6 +203,9 @@
 
 - (IBAction)submitButtonAction:(id)sender {
     
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -210,7 +216,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%@",dataArray);
+    NSLog(@"data array is %@",dataArray);
     return [dataArray count];
 }
 
@@ -218,7 +224,6 @@
 {
     return 60.0f;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

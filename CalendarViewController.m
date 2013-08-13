@@ -50,6 +50,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize currentStatuBtn;
 @synthesize slider,sliderLabel;
 @synthesize isEventNotify,isTotalNotify;
+@synthesize dataArrayCount;
 
 /////////////////////////***************************///////////
 
@@ -175,7 +176,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSDate *date = [self.weekdays objectAtIndex:0];
         NSArray *tm  = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
         buttonString = [[tm objectAtIndex:0] retain];
-        hoursTextField1.text = @"0";
+        hoursTextField1.text = @"00";
         ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
         [ASDepthModalViewController presentView:self.popupView
                                 backgroundColor:nil
@@ -191,7 +192,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         buttonString = [[tm objectAtIndex:0] retain];
         
         ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-        [ASDepthModalViewController presentView:self.popupView
+        [ASDepthModalViewController presentView:self.totalView
                                 backgroundColor:nil
                                         options:style
                               completionHandler:^{
@@ -200,12 +201,54 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
 }
 
+-(void)getDataSub1EventsCount {
+    
+    dataArrayCount = [[NSMutableArray alloc] init];
+    
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1EVENT"];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            
+            while  (sqlite3_step(statement) == SQLITE_ROW) {
+                NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
+                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
+                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
+                NSString *status = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 5)];
+                NSString *daytime = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 6)];
+                NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 7)];
+                
+                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
+                [itemDict setValue:subId forKey:kSub1Id];
+                [itemDict setValue:startDate forKey:kStartDate];
+                [itemDict setValue:endDate forKey:kEndDate];
+                [itemDict setValue:status forKey:kStatus];
+                [itemDict setValue:daytime forKey:kDayTime];
+                [itemDict setValue:eventDescription forKey:kEventDes];
+                
+                [dataArrayCount addObject:itemDict];
+            }
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
+    
+}
+
 
 -(void)viewWillAppear:(BOOL)animated {
     self.eventStore = [[EKEventStore alloc] init];
     self.dataArray = [[NSMutableArray alloc]init];
     self.totalDataArray = [[NSMutableArray alloc] init];
-    [self checkEventStoreAccessForCalendar];    
+    
+    [self getDataSub1EventsCount];
+    [self checkEventStoreAccessForCalendar];
     [self getDataSub1Events];
     [self getDataSub1Total];
 
@@ -286,8 +329,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 - (void)fetchEvents
 {
     
-     
-    
     NSDate *startDate = [NSDate date];
     NSDate *endDate   = [NSDate distantFuture];
     //Create the end date components
@@ -327,14 +368,14 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSLog(@"%@ %@ %@",dayTime, startDate, endDate);
         
         
-        [calEvent setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
+        [calEvent setValue:[NSNumber numberWithInt:[dataArrayCount count]+1] forKey:kSub1Id];
         [calEvent setValue:[[events objectAtIndex:i] valueForKey:@"title"] forKey:kEventDes];
         [calEvent setValue:startDate forKey:kStartDate];
         [calEvent setValue:endDate forKey:kEndDate];
         [calEvent setValue:dayTime forKey:kDayTime];
         [calEvent setValue:@"Neutral" forKey:kStatus];
+        [dataArrayCount addObject:calEvent];
         [self insertIntoDatabase:calEvent];
-        
     }
 }
 
@@ -971,6 +1012,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
+    NSLog(@"sub events %@",dataArray);
     [self getSub2SettingsData];
     [self displayButton];
 }
@@ -1573,6 +1615,8 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
+    
+    //[self getDataSub1Events];
 }
 
 
