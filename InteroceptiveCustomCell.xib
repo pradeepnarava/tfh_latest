@@ -45,6 +45,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{258, 50}</string>
 								<reference key="NSSuperview" ref="913693028"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="375302188"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="146025160">
@@ -63,6 +64,7 @@
 								<int key="NSvFlags">319</int>
 								<string key="NSFrameSize">{258, 46}</string>
 								<reference key="NSSuperview" ref="913693028"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="275147419"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="146025160"/>
@@ -98,6 +100,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{259, 0}, {46, 49}}</string>
 								<reference key="NSSuperview" ref="913693028"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="792772852"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="146025160"/>
@@ -113,6 +116,8 @@
 								<int key="NSvFlags">315</int>
 								<string key="NSFrame">{{259, 0}, {46, 49}}</string>
 								<reference key="NSSuperview" ref="913693028"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="146025160"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -133,6 +138,7 @@
 						</array>
 						<string key="NSFrameSize">{304, 49}</string>
 						<reference key="NSSuperview" ref="402068941"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="707687573"/>
 						<string key="NSReuseIdentifierKey">_NS:11</string>
 						<reference key="IBUIBackgroundColor" ref="146025160"/>
@@ -145,6 +151,7 @@
 				</array>
 				<string key="NSFrameSize">{304, 50}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="913693028"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -251,7 +258,37 @@
 			<nil key="sourceID"/>
 			<int key="maxID">11</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">InteroceptiveCustomCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="detailValue">UILabel</string>
+						<string key="greenImage">UIImageView</string>
+						<string key="title">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="detailValue">
+							<string key="name">detailValue</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="greenImage">
+							<string key="name">greenImage</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="title">
+							<string key="name">title</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/InteroceptiveCustomCell.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
