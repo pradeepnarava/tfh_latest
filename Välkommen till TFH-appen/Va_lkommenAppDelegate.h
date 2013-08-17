@@ -27,4 +27,7 @@
 @property (strong, nonatomic) Va_lkommenViewController *viewController;
 @property (strong, nonatomic) NSDate *dateSelected;
 
+
+- (void)notification:(UILocalNotification*)notification;
+
 @end

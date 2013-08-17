@@ -419,7 +419,7 @@ int tagValue;
         notif.userInfo = [NSDictionary dictionaryWithObject:@"Total" forKey:kTotalNotificationDataKey];
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
-    }
+    }   
 }
 
 #pragma mark Start Button Clicked
