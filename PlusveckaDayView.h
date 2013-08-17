@@ -9,14 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 #import "ASDepthModalViewController.h"
-
+#import "PlusveckaTidigeraViewController.h"
+#import "PlusveckaForslagViewController.h"
 @interface PlusveckaDayView : UIViewController<UITextFieldDelegate>
 {
     sqlite3 *exerciseDB;
     NSString *databasePath;
     sqlite3_stmt  *statement;
-    BOOL isSub2;
+    BOOL isSub2,isPopup;
 }
+@property (nonatomic, strong) PlusveckaForslagViewController *forslagController;
+@property (nonatomic, strong) PlusveckaTidigeraViewController *tidigeraController;
 @property (nonatomic,strong) NSMutableArray *sub1EventsArray,*dataArray,*totalArray;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
@@ -29,7 +32,7 @@
 @property (nonatomic, strong) NSDate *selectedDate;
 @property (nonatomic, strong) IBOutlet UIButton *dateButton,*raderaBtn;
 @property (nonatomic, strong) NSString *editTotalValue,*dateIndexValue;
-
+@property (nonatomic, strong) NSMutableDictionary *sub2Settings;
 ////////////////////// New Code
 @property (nonatomic, retain) NSString *buttonString;
 @property (nonatomic, retain) NSString *editIndexValue;

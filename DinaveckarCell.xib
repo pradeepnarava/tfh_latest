@@ -44,7 +44,7 @@
 							<object class="IBUIButton" id="936692523">
 								<reference key="NSNextResponder" ref="1132221"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 20}, {20, 21}}</string>
+								<string key="NSFrame">{{8, 8}, {20, 21}}</string>
 								<reference key="NSSuperview" ref="1132221"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="407482408"/>
@@ -82,7 +82,7 @@
 							<object class="IBUIImageView" id="407482408">
 								<reference key="NSNextResponder" ref="1132221"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{34, 5}, {260, 50}}</string>
+								<string key="NSFrame">{{34, 1}, {260, 36}}</string>
 								<reference key="NSSuperview" ref="1132221"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="729590573"/>
@@ -97,7 +97,7 @@
 							<object class="IBUILabel" id="729590573">
 								<reference key="NSNextResponder" ref="1132221"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{49, 20}, {232, 21}}</string>
+								<string key="NSFrame">{{49, 8}, {232, 21}}</string>
 								<reference key="NSSuperview" ref="1132221"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -118,17 +118,17 @@
 									<string key="name">HelveticaNeue-Medium</string>
 									<string key="family">Helvetica Neue</string>
 									<int key="traits">0</int>
-									<double key="pointSize">20</double>
+									<double key="pointSize">18</double>
 								</object>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">HelveticaNeue-Medium</string>
-									<double key="NSSize">20</double>
+									<double key="NSSize">18</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
 						</array>
-						<string key="NSFrameSize">{300, 59}</string>
+						<string key="NSFrameSize">{300, 37}</string>
 						<reference key="NSSuperview" ref="752856006"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="936692523"/>
@@ -144,7 +144,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{300, 60}</string>
+				<string key="NSFrameSize">{300, 38}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1132221"/>
@@ -152,6 +152,7 @@
 				<reference key="IBUIBackgroundColor" ref="909558413"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<reference key="IBUIContentView" ref="1132221"/>
+				<real value="38" key="IBUIRowHeight"/>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">

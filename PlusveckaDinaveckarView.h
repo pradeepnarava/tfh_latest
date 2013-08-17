@@ -11,17 +11,22 @@
 #import "ASDepthModalViewController.h"
 #import "PlusveckaDayView.h"
 #import "PlusveckaSettingsView.h"
+#import "PlusveckaTidigeraViewController.h"
+#import "PlusveckaForslagViewController.h"
 @interface PlusveckaDinaveckarView : UIViewController<UITextFieldDelegate>
 {
     sqlite3 *exerciseDB;
     NSString *databasePath;
     sqlite3_stmt  *statement;
+    BOOL isPopup;
 }
+@property (nonatomic, strong) PlusveckaForslagViewController *forslagController;
+@property (nonatomic, strong) PlusveckaTidigeraViewController *tidigeraController;
 @property (nonatomic,strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;
 @property (nonatomic,strong) NSMutableArray *dateArray,*weekdays,*dataArray,*sub1EventsArray,*totalArray;
 @property (nonatomic,strong) IBOutlet UIButton *monButton1,*tueButton2,*wedButton3,*thrButton4,*friButton5,*satButton6,*sunButton7,*raderaBtn;
-@property (nonatomic,strong) NSMutableDictionary *selectedDictionary;
+@property (nonatomic,strong) NSMutableDictionary *selectedDictionary,*sub2Settings;
 @property (nonatomic,strong) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;

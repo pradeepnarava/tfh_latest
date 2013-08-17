@@ -39,11 +39,11 @@
 @synthesize hoursTextField1,hoursTextField2;
 @synthesize mintsTextField1,mintsTextField2;
 @synthesize eventDesTextView;
-@synthesize slider,sliderLabel;
+@synthesize slider,sliderLabel,sub2Settings;
 @synthesize dataArray;
 @synthesize editIndexValue,buttonString;
 @synthesize selectedDictionary;
-@synthesize totalArray,dateIndexValue,editTotalValue;
+@synthesize totalArray,dateIndexValue,editTotalValue,forslagController,tidigeraController;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -127,21 +127,64 @@
     // Do any additional setup after loading the view from its nib.
 }
 -(void)viewWillAppear:(BOOL)animated{
+    if (isPopup) {
+        isPopup = NO;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        eventDesTextView.text = [defaults valueForKey:@"eventDes"];
+        [defaults removeObjectForKey:@"eventDes"];
+        [defaults synchronize];
+        ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+        [ASDepthModalViewController presentView:self.popupView
+                                backgroundColor:nil
+                                        options:style
+                              completionHandler:^{
+                                  NSLog(@"Modal view closed.");
+                              }];
+    }else{
     self.dataArray = [[NSMutableArray alloc]init];
     self.sub1EventsArray = [[NSMutableArray alloc]init];
     self.totalArray = [[NSMutableArray alloc]init];
-    for (int i =0; i <[[self.scrollView subviews] count]; i++) {
+   /* for (int i =0; i <[[self.scrollView subviews] count]; i++) {
         
         UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
         if ([btn isKindOfClass:[UIButton class]]) {
             [btn setTitle:@"" forState:UIControlStateNormal];
             [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
         }
-    }
+    }*/
     [self week:[selectedDictionary valueForKey:kStartDate]];
     [self getData];
     [self displayButton];
+    [self getSub2SettingsData];
+    }
     [super viewWillAppear:YES];
+}
+
+-(void)getSub2SettingsData{
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB2SETTINGS"];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            
+            while  (sqlite3_step(statement) == SQLITE_ROW) {
+                NSString *Id = [NSString stringWithFormat:@"%d",sqlite3_column_int(statement,0)];
+                NSString *value = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
+                NSString *totalValue = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
+                sub2Settings = [[NSMutableDictionary alloc]init];
+                [sub2Settings setValue:Id  forKey:@"id"];
+                [sub2Settings setValue:value forKey:@"value"];
+                [sub2Settings setValue:totalValue forKey:@"totalvalue"];
+            }
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
 }
 
 -(void)displayButton {
@@ -343,6 +386,56 @@
 }
 -(void)backButon {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(IBAction)franTidigareAction:(id)sender{
+    [ASDepthModalViewController dismiss];
+    isPopup = YES;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!tidigeraController) {
+                tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController" bundle:nil];
+            }
+        }else{
+            if (!tidigeraController) {
+                tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!tidigeraController) {
+            tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController_iPad" bundle:nil];
+        }
+    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:eventDesTextView.text forKey:@"eventDes"];
+    [defaults synchronize];
+    [self.navigationController pushViewController:tidigeraController animated:YES];
+}
+
+-(IBAction)franForslagAction:(id)sender{
+    [ASDepthModalViewController dismiss];
+    isPopup = YES;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!forslagController) {
+                forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController" bundle:nil];
+            }
+        }else{
+            if (!forslagController) {
+                forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!forslagController) {
+            forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController_iPad" bundle:nil];
+        }
+    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:eventDesTextView.text forKey:@"eventDes"];
+    [defaults synchronize];
+    [self.navigationController pushViewController:forslagController animated:YES];
 }
 
 #pragma mark SettingViewController
@@ -573,6 +666,34 @@
     if (editTotalValue) {
         NSMutableDictionary *temp = [totalArray objectAtIndex:[editTotalValue intValue]];
         [temp setValue:[NSString stringWithFormat:@"%.0f",slider.value] forKey:@"total"];
+        if ([sub2Settings objectForKey:@"id"]) {
+            NSMutableArray *notifications = [[[UIApplication sharedApplication]scheduledLocalNotifications]mutableCopy];
+            for (int k=0; k<[notifications count]; k++) {
+                UILocalNotification *ntf = [notifications objectAtIndex:k];
+                NSDictionary *userIn = ntf.userInfo;
+                if ([userIn objectForKey:@"type"]) {
+                    if ([[userIn valueForKey:@"dayTime"] isEqualToString:[temp valueForKey:@"date"]]) {
+                        UILocalNotification *notifi = [[UILocalNotification alloc]init];
+                        NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
+                        [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
+                        NSDate *date = [fmtr dateFromString:[NSString stringWithFormat:@"%@ %@",[userIn valueForKey:@"dayTime"],[sub2Settings valueForKey:@"totalvalue"]]];
+                        notifi.alertBody = [NSString stringWithFormat:@"%.0f",slider.value];
+                        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                        [dict setValue:date forKey:@"date"];
+                        NSString *eventValue = [sub2Settings valueForKey:@"totalvalue"];
+                        [dict setValue:eventValue forKey:@"totalvalue"];
+                        [dict setValue:@"sub2total" forKey:@"type"];
+                        [dict setValue:[userIn valueForKey:@"dayTime"] forKey:@"dayTime"];
+                        [dict setValue:date forKey:@"fire"];
+                        notifi.fireDate = date;
+                        notifi.userInfo = dict;
+                        [[UIApplication sharedApplication] scheduleLocalNotification:notifi];
+                        [[UIApplication sharedApplication]cancelLocalNotification:ntf];
+                        break;
+                    }
+                }
+            }
+        }
         [self databaseUpdateTotal:temp];
     }else {
         NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
@@ -580,6 +701,23 @@
         [temp setValue:dateIndexValue forKey:@"date"];
         [temp setValue:[NSString stringWithFormat:@"%.0f",slider.value] forKey:@"total"];
         [totalArray addObject:temp];
+        if ([sub2Settings objectForKey:@"id"]) {
+            NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
+            [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
+            NSDate *date = [fmtr dateFromString:[NSString stringWithFormat:@"%@ %@",dateIndexValue,[sub2Settings valueForKey:@"totalvalue"]]];
+            UILocalNotification *notification = [[UILocalNotification alloc]init];
+            notification.alertBody = [NSString stringWithFormat:@"%.0f",slider.value];
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            [dict setValue:dateIndexValue forKey:@"dayTime"];
+            [dict setValue:date forKey:@"date"];
+            NSString *eventValue = [sub2Settings valueForKey:@"totalvalue"];
+            [dict setValue:eventValue forKey:@"totalvalue"];
+            [dict setValue:@"sub2total" forKey:@"type"];
+            [dict setValue:date forKey:@"fire"];
+            notification.fireDate = date;
+            notification.userInfo = dict;
+            [[UIApplication sharedApplication]scheduleLocalNotification:notification];
+        }
         [self databaseInsertTotal:temp];
     }
     editTotalValue = nil;
@@ -767,14 +905,69 @@
         NSDictionary *dataDic = [dataArray objectAtIndex:i];
         
         if ([self findContact:[dataDic valueForKey:kSub2Id]]) {
-            NSLog(@"Updating");
+            if ([sub2Settings objectForKey:@"id"]) {
+                NSArray *notifications = [[UIApplication sharedApplication]scheduledLocalNotifications];
+                for (int k=0; k<[notifications count]; k++) {
+                    UILocalNotification *ntf = [notifications objectAtIndex:k];
+                    NSDictionary *userIn = ntf.userInfo;
+                    if ([userIn objectForKey:@"type"]) {
+                        if ([[userIn valueForKey:@"dayTime"] isEqualToString:[dataDic valueForKey:@"dayTime"]]) {
+                            UILocalNotification *notifi = [[UILocalNotification alloc]init];
+                            NSDate *dte = [userIn valueForKey:@"date"];
+                            notifi.alertBody = [dataDic valueForKey:@"eventDescription"];
+                            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                            [dict setValue:dte forKey:@"date"];
+                            NSString *eventValue = [sub2Settings valueForKey:@"eventvalue"];
+                            NSArray *hrsArray = [eventValue componentsSeparatedByString:@":"];
+                            int hours = [[hrsArray objectAtIndex:0]intValue];
+                            int minutes = [[hrsArray objectAtIndex:1]intValue];
+                            int totalMinutes = (hours*60)+minutes;
+                            [dict setValue:eventValue forKey:@"eventvalue"];
+                            [dict setValue:@"event" forKey:@"type"];
+                            [dict setValue:[userIn valueForKey:@"dayTime"] forKey:@"dayTime"];
+                            [dict setValue:[dte dateByAddingTimeInterval:-(totalMinutes*60)] forKey:@"fire"];
+                            notifi.fireDate = [dte dateByAddingTimeInterval:-(totalMinutes*60)];
+                            notifi.userInfo = dict;
+                            [[UIApplication sharedApplication] scheduleLocalNotification:notifi];
+                            [[UIApplication sharedApplication]cancelLocalNotification:ntf];
+                            break;
+                        }
+                    }
+                }
+            }
             [self updateIntDatabase:dataDic];
         }else {
-            NSLog(@"New Record");
+            if ([sub2Settings objectForKey:@"id"]) {
+                NSString *startDate = [dataDic valueForKey:@"startDate"];
+                NSString *dayTime = [dataDic valueForKey:@"dayTime"];
+                NSArray *arrr = [dayTime componentsSeparatedByString:@" "];
+                NSString *buttonString1 = [NSString stringWithFormat:@"%@",[arrr objectAtIndex:0]];
+                NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString1,startDate];
+                NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
+                [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
+                NSDate *date = [fmtr dateFromString:dateString];
+                UILocalNotification *notification = [[UILocalNotification alloc]init];
+                notification.alertBody = [dataDic valueForKey:@"eventDescription"];
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                [dict setValue:date forKey:@"date"];
+                NSString *eventValue = [sub2Settings valueForKey:@"eventvalue"];
+                NSArray *hrsArray = [eventValue componentsSeparatedByString:@":"];
+                int hours = [[hrsArray objectAtIndex:0]intValue];
+                int minutes = [[hrsArray objectAtIndex:1]intValue];
+                int totalMinutes = (hours*60)+minutes;
+                [dict setValue:eventValue forKey:@"eventvalue"];
+                [dict setValue:@"sub2event" forKey:@"type"];
+                [dict setValue:dayTime forKey:@"dayTime"];
+                [dict setValue:[date dateByAddingTimeInterval:-(totalMinutes*60)] forKey:@"fire"];
+                notification.fireDate = [date dateByAddingTimeInterval:-(totalMinutes*60)];
+                notification.userInfo = dict;
+                [[UIApplication sharedApplication]scheduleLocalNotification:notification];
+            }
             [self insertIntoDatabase:dataDic];
         }
     }
 }
+
 
 #pragma mark TotalButtonClicked
 
@@ -830,6 +1023,7 @@
             dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPad" bundle:nil];
         }
     }
+    dayView.sub2Settings = sub2Settings;
     dayView.sub1EventsArray = sub1EventsArray;
     dayView.dataArray = dataArray;
     dayView.totalArray = totalArray;

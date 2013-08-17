@@ -14,7 +14,7 @@
 
 @implementation PlusveckaSettingsView
 @synthesize scrollVie,sub2Settings;
-@synthesize klarButton,whichHour,sub1EventsArray,eventPicker,totalPicker,background,totalHour,eventView,totalView,totalView1;
+@synthesize klarButton,whichHour,sub2EventsArray,eventPicker,totalPicker,background,totalHour,eventView,totalView,totalView1,totalArray;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -109,6 +109,10 @@
         else{
             [self insertSettings];
         }
+    }else{
+        if ([sub2Settings objectForKey:@"id"]) {
+            [self deleteSettings];
+        }
     }
 }
 
@@ -125,7 +129,7 @@
         
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-            [sub2Settings setValue:whichHour forKey:@"value"];
+            [sub2Settings setValue:whichHour forKey:@"eventvalue"];
             [sub2Settings setValue:totalHour forKey:@"totalvalue"];
             //[self setNotifications];
             NSLog(@"Updated");
@@ -140,6 +144,8 @@
         
     }
     sqlite3_close(exerciseDB);
+    [self setEventNotifications];
+    [self setTotalNotifications];
 }
 
 -(void)deleteNotifications{
@@ -153,11 +159,11 @@
     }
 }
 
--(void)setNotifications{
+-(void)setEventNotifications{
     NSArray *notifications = [[UIApplication sharedApplication]scheduledLocalNotifications];
-    for (int m=0; m<[sub1EventsArray count]; m++) {
+    for (int m=0; m<[sub2EventsArray count]; m++) {
         BOOL isExist=NO;
-        NSDictionary *event =[sub1EventsArray objectAtIndex:m];
+        NSDictionary *event =[sub2EventsArray objectAtIndex:m];
         for (int k=0; k<[notifications count]; k++) {
             UILocalNotification *ntf = [notifications objectAtIndex:k];
             NSDictionary *userIn = ntf.userInfo;
@@ -165,15 +171,19 @@
                 if ([[userIn valueForKey:@"dayTime"] isEqualToString:[event valueForKey:@"dayTime"]]) {
                     UILocalNotification *notifi = [[UILocalNotification alloc]init];
                     NSDate *dte = [userIn valueForKey:@"date"];
-                    NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
-                    notifi.fireDate = [dte dateByAddingTimeInterval:-(hour*60*60)];
                     notifi.alertBody = [event valueForKey:@"eventDescription"];
                     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
                     [dict setValue:dte forKey:@"date"];
-                    [dict setValue:[sub2Settings valueForKey:@"value"] forKey:@"settings"];
+                    NSString *eventValue = [sub2Settings valueForKey:@"eventvalue"];
+                    NSArray *hrsArray = [eventValue componentsSeparatedByString:@":"];
+                    int hours = [[hrsArray objectAtIndex:0]intValue];
+                    int minutes = [[hrsArray objectAtIndex:1]intValue];
+                    int totalMinutes = (hours*60)+minutes;
+                    [dict setValue:eventValue forKey:@"eventvalue"];
                     [dict setValue:@"event" forKey:@"type"];
                     [dict setValue:[userIn valueForKey:@"dayTime"] forKey:@"dayTime"];
-                    [dict setValue:[dte dateByAddingTimeInterval:-(hour*60*60)] forKey:@"fire"];
+                    [dict setValue:[dte dateByAddingTimeInterval:-(totalMinutes*60)] forKey:@"fire"];
+                    notifi.fireDate = [dte dateByAddingTimeInterval:-(totalMinutes*60)];
                     notifi.userInfo = dict;
                     [[UIApplication sharedApplication] scheduleLocalNotification:notifi];
                     [[UIApplication sharedApplication]cancelLocalNotification:ntf];
@@ -192,20 +202,75 @@
             [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
             NSDate *date = [fmtr dateFromString:dateString];
             UILocalNotification *notification = [[UILocalNotification alloc]init];
-            NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
-            notification.fireDate = [date dateByAddingTimeInterval:-(hour*60*60)];
             notification.alertBody = [event valueForKey:@"eventDescription"];
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
             [dict setValue:date forKey:@"date"];
-            [dict setValue:[sub2Settings valueForKey:@"value"] forKey:@"settings"];
-            [dict setValue:@"event" forKey:@"type"];
+            NSString *eventValue = [sub2Settings valueForKey:@"eventvalue"];
+            NSArray *hrsArray = [eventValue componentsSeparatedByString:@":"];
+            int hours = [[hrsArray objectAtIndex:0]intValue];
+            int minutes = [[hrsArray objectAtIndex:1]intValue];
+            int totalMinutes = (hours*60)+minutes;
+            [dict setValue:eventValue forKey:@"eventvalue"];
+            [dict setValue:@"sub2event" forKey:@"type"];
             [dict setValue:dayTime forKey:@"dayTime"];
-            [dict setValue:[date dateByAddingTimeInterval:-(hour*60*60)] forKey:@"fire"];
+            [dict setValue:[date dateByAddingTimeInterval:-(totalMinutes*60)] forKey:@"fire"];
+            notification.fireDate = [date dateByAddingTimeInterval:-(totalMinutes*60)];
             notification.userInfo = dict;
             [[UIApplication sharedApplication]scheduleLocalNotification:notification];
         }
     }
     
+}
+
+-(void)setTotalNotifications{
+    NSArray *notifications = [[UIApplication sharedApplication]scheduledLocalNotifications];
+    for (int m=0; m<[totalArray count]; m++) {
+        BOOL isExist=NO;
+        NSDictionary *event =[totalArray objectAtIndex:m];
+        for (int k=0; k<[notifications count]; k++) {
+            UILocalNotification *ntf = [notifications objectAtIndex:k];
+            NSDictionary *userIn = ntf.userInfo;
+            if ([userIn objectForKey:@"type"]) {
+                if ([[userIn valueForKey:@"dayTime"] isEqualToString:[event valueForKey:@"date"]]) {
+                    UILocalNotification *notifi = [[UILocalNotification alloc]init];
+                    NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
+                    [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
+                    NSDate *date = [fmtr dateFromString:[NSString stringWithFormat:@"%@ %@",[userIn valueForKey:@"dayTime"],[sub2Settings valueForKey:@"totalvalue"]]];
+                    notifi.alertBody = [event valueForKey:@"total"];
+                    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                    [dict setValue:date forKey:@"date"];
+                    NSString *eventValue = [sub2Settings valueForKey:@"totalvalue"];
+                    [dict setValue:eventValue forKey:@"totalvalue"];
+                    [dict setValue:@"sub2total" forKey:@"type"];
+                    [dict setValue:[userIn valueForKey:@"dayTime"] forKey:@"dayTime"];
+                    [dict setValue:date forKey:@"fire"];
+                    notifi.fireDate = date;
+                    notifi.userInfo = dict;
+                    [[UIApplication sharedApplication] scheduleLocalNotification:notifi];
+                    [[UIApplication sharedApplication]cancelLocalNotification:ntf];
+                    isExist = YES;
+                    break;
+                }
+            }
+        }
+        if (!isExist) {
+            NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
+            [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
+            NSDate *date = [fmtr dateFromString:[NSString stringWithFormat:@"%@ %@",[event valueForKey:@"date"],[sub2Settings valueForKey:@"totalvalue"]]];
+            UILocalNotification *notification = [[UILocalNotification alloc]init];
+            notification.alertBody = [event valueForKey:@"total"];
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            [dict setValue:[event valueForKey:@"date"] forKey:@"dayTime"];
+            [dict setValue:date forKey:@"date"];
+            NSString *eventValue = [sub2Settings valueForKey:@"totalvalue"];
+            [dict setValue:eventValue forKey:@"totalvalue"];
+            [dict setValue:@"sub2total" forKey:@"type"];
+            [dict setValue:date forKey:@"fire"];
+            notification.fireDate = date;
+            notification.userInfo = dict;
+            [[UIApplication sharedApplication]scheduleLocalNotification:notification];
+        }
+    }
 }
 
 
@@ -215,7 +280,7 @@
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB2SETTINGS (value) VALUES (\"%@\",\"%@\")",whichHour,totalHour];
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB2SETTINGS (eventvalue,totalvalue) VALUES (\"%@\",\"%@\")",whichHour,totalHour];
         
         const char *insert_stmt = [insertSQL UTF8String];
         
@@ -235,22 +300,71 @@
     }
     sqlite3_close(exerciseDB);
     [self getSub2SettingsData];
-    [self setNotifications];
+    [self setEventNotifications];
+    [self setTotalNotifications];
 }
 
 -(IBAction)eventOnOff:(id)sender{
     if ([sender tag]==0) {
         eventView.hidden = YES;
+        whichHour=[@"00:00" retain];
+        totalView1.frame = CGRectMake(totalView1.frame.origin.x, 85, totalView1.frame.size.width, totalView1.frame.size.height);
+        if (totalView.isHidden) {
+            klarButton.frame = CGRectMake(klarButton.frame.origin.x, 185, klarButton.frame.size.width, klarButton.frame.size.height);
+            background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 225);
+            [scrollVie setContentSize:CGSizeMake(320, 230)];
+        }else{
+            klarButton.frame = CGRectMake(klarButton.frame.origin.x, 385, klarButton.frame.size.width, klarButton.frame.size.height);
+            totalView.frame = CGRectMake(totalView.frame.origin.x, 185, totalView.frame.size.width, totalView.frame.size.height);
+            background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 425);
+            [scrollVie setContentSize:CGSizeMake(320, 445)];
+        }
     }else{
         eventView.hidden = NO;
+        totalView1.frame = CGRectMake(totalView1.frame.origin.x, 331, totalView1.frame.size.width, totalView1.frame.size.height);
+        if (totalView.isHidden) {
+            klarButton.frame = CGRectMake(klarButton.frame.origin.x, 425, klarButton.frame.size.width, klarButton.frame.size.height);
+            background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 460);
+            [scrollVie setContentSize:CGSizeMake(320, 480)];
+        }else{
+            totalView.frame = CGRectMake(totalView.frame.origin.x, 421, totalView.frame.size.width, totalView.frame.size.height);
+            klarButton.frame = CGRectMake(klarButton.frame.origin.x, 625, klarButton.frame.size.width, klarButton.frame.size.height);
+            background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 660);
+            [scrollVie setContentSize:CGSizeMake(320, 680)];
+        }
     }
 }
 
 -(IBAction)totalOnOff:(id)sender{
     if ([sender tag]==0) {
         totalView.hidden = YES;
+        totalHour=[@"00:00" retain];
+        if (eventView.isHidden) {
+            totalView1.frame = CGRectMake(totalView1.frame.origin.x, 85, totalView1.frame.size.width, totalView1.frame.size.height);
+            klarButton.frame = CGRectMake(klarButton.frame.origin.x, 185, klarButton.frame.size.width, klarButton.frame.size.height);
+            background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 225);
+            [scrollVie setContentSize:CGSizeMake(320, 245)];
+        }else{
+            totalView1.frame = CGRectMake(totalView1.frame.origin.x, 331, totalView1.frame.size.width, totalView1.frame.size.height);
+            klarButton.frame = CGRectMake(klarButton.frame.origin.x, 430, klarButton.frame.size.width, klarButton.frame.size.height);
+            background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 470);
+            [scrollVie setContentSize:CGSizeMake(320, 490)];
+        }
     }else{
         totalView.hidden = NO;
+        if (eventView.isHidden) {
+            totalView1.frame = CGRectMake(totalView1.frame.origin.x, 85, totalView1.frame.size.width, totalView1.frame.size.height);
+            totalView.frame = CGRectMake(totalView.frame.origin.x, 185, totalView.frame.size.width, totalView.frame.size.height);
+            klarButton.frame = CGRectMake(klarButton.frame.origin.x, 385, klarButton.frame.size.width, klarButton.frame.size.height);
+            background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 425);
+            [scrollVie setContentSize:CGSizeMake(320, 445)];
+        }else{
+            totalView1.frame = CGRectMake(totalView1.frame.origin.x, 331, totalView1.frame.size.width, totalView1.frame.size.height);
+            totalView.frame = CGRectMake(totalView.frame.origin.x, 430, totalView.frame.size.width, totalView.frame.size.height);
+            klarButton.frame = CGRectMake(klarButton.frame.origin.x, 630, klarButton.frame.size.width, klarButton.frame.size.height);
+            background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 665);
+            [scrollVie setContentSize:CGSizeMake(320, 685)];
+        }
     }
 }
 
@@ -324,22 +438,29 @@
                 totalView1.frame = CGRectMake(totalView1.frame.origin.x, 85, totalView1.frame.size.width, totalView1.frame.size.height);
                 klarButton.frame = CGRectMake(klarButton.frame.origin.x, 185, klarButton.frame.size.width, klarButton.frame.size.height);
                 background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 225);
-                scrollVie.contentSize = CGSizeMake(320, 225);
+                [scrollVie setContentSize:CGSizeMake(320, 245)];
             }else{
-                totalView.frame = CGRectMake(totalView.frame.origin.x,185, totalView.frame.size.width, totalView.frame.size.height);
+                totalView.hidden = NO;
                 totalView1.frame = CGRectMake(totalView1.frame.origin.x, 85, totalView1.frame.size.width, totalView1.frame.size.height);
-                klarButton.frame = CGRectMake(klarButton.frame.origin.x, 185, klarButton.frame.size.width, klarButton.frame.size.height);
-                background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 420);
-                scrollVie.contentSize = CGSizeMake(320, 425);
+                totalView.frame = CGRectMake(totalView.frame.origin.x, 185, totalView.frame.size.width, totalView.frame.size.height);
+                klarButton.frame = CGRectMake(klarButton.frame.origin.x, 385, klarButton.frame.size.width, klarButton.frame.size.height);
+                background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 425);
+                [scrollVie setContentSize:CGSizeMake(320, 445)];
             }
         }else{
+            eventView.hidden = NO;
+            totalView1.frame = CGRectMake(totalView1.frame.origin.x, 331, totalView1.frame.size.width, totalView1.frame.size.height);
             if ([totalHour isEqualToString:@"00:00"]) {
                 totalView.hidden = YES;
                 klarButton.frame = CGRectMake(klarButton.frame.origin.x, 425, klarButton.frame.size.width, klarButton.frame.size.height);
                 background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 460);
-                scrollVie.contentSize = CGSizeMake(320, 465);
+                [scrollVie setContentSize:CGSizeMake(320, 480)];
             }else{
-                scrollVie.contentSize = CGSizeMake(320, 687);
+                totalView.hidden = NO;
+                totalView.frame = CGRectMake(totalView.frame.origin.x, 421, totalView.frame.size.width, totalView.frame.size.height);
+                klarButton.frame = CGRectMake(klarButton.frame.origin.x, 625, klarButton.frame.size.width, klarButton.frame.size.height);
+                background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, background.frame.size.width, 660);
+                [scrollVie setContentSize:CGSizeMake(320, 680)];
             }
         }
     }

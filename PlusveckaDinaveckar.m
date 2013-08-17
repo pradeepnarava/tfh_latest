@@ -174,6 +174,7 @@
         NSMutableDictionary *dict = [dataArray objectAtIndex:k];
         if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
             selectedDict = dict;
+            [self deleteDinaveckorRecord:selectedDict];
             break;
         }
     }
@@ -243,6 +244,28 @@
     sqlite3_close(exerciseDB);
 }
 
+-(void)deleteDinaveckorRecord:(NSDictionary*)deleDic {
+    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSInteger subId = [[deleDic valueForKey:kId] integerValue];
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB2DINAVECKOR WHERE id='%d'",subId];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+            
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -256,7 +279,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0f;
+    return 38.0f;
 }
 
 

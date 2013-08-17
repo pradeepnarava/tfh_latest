@@ -59,7 +59,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @synthesize raderaBtn;
 @synthesize totalDataArray;
 @synthesize totalBtnTag;
-@synthesize dayCalendarVC,sub2Settings;
+@synthesize dayCalendarVC;
 
 ///////// ********* Calendar Event from iPhone Calendar Event*********** ///////////
 @synthesize eventsList;
@@ -153,15 +153,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         char *errMsg;
         const char *sql_stmt = "CREATE TABLE IF NOT EXISTS SUB1EVENT (id INTEGER PRIMARY KEY AUTOINCREMENT,subId TEXT,date TEXT,startDate TEXT,endDate TEXT,status TEXT,dayDate TEXT,eventDescription TEXT)";
         const char *sql_stmt1 = "CREATE TABLE IF NOT EXISTS SUB1TOTAL (id INTEGER PRIMARY KEY AUTOINCREMENT,subTId TEXT,date TEXT,total TEXT)";
-        const char *sql_stmt3 = "CREATE TABLE IF NOT EXISTS SUB2SETTINGS (id INTEGER PRIMARY KEY AUTOINCREMENT,value TEXT)";
         if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
             NSLog(@"Failed to create database");
         }
         if (sqlite3_exec(exerciseDB, sql_stmt1, NULL, NULL, &errMsg)!=SQLITE_OK) {
-            NSLog(@"Failed to create total database");
-        }
-        if (sqlite3_exec(exerciseDB, sql_stmt3, NULL, NULL, &errMsg)!=SQLITE_OK) {
             NSLog(@"Failed to create total database");
         }
         sqlite3_close(exerciseDB);
@@ -1013,33 +1009,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     }
     sqlite3_close(exerciseDB);
     NSLog(@"sub events %@",dataArray);
-    [self getSub2SettingsData];
     [self displayButton];
-}
-
--(void)getSub2SettingsData{
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB2SETTINGS"];
-        
-        const char *query_stmt = [querySQL UTF8String];
-        
-        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
-        {
-            
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
-                NSString *Id = [NSString stringWithFormat:@"%d",sqlite3_column_int(statement,0)];
-                NSString *value = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
-                sub2Settings = [[NSMutableDictionary alloc]init];
-                [sub2Settings setValue:Id  forKey:@"id"];
-                [sub2Settings setValue:value forKey:@"value"];
-            }
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
 }
 
 
@@ -1146,34 +1116,6 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
             NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
             NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
             [temp setValue:eventDesTextView.text forKey:kEventDes];
-            if ([sub2Settings objectForKey:@"id"]) {
-                NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString,startDate];
-                NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
-                [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
-                NSDate *date = [fmtr dateFromString:dateString];
-                NSArray *array = [[UIApplication sharedApplication]scheduledLocalNotifications];
-                for (int m=0; m<[array count]; m++) {
-                    UILocalNotification *notification=[array objectAtIndex:m];
-                    UILocalNotification *ntf = [[UILocalNotification alloc]init];
-                    NSMutableDictionary *userInfo = [notification.userInfo mutableCopy];
-                    if ([[temp valueForKey:@"dayTime"] isEqualToString:[userInfo valueForKey:@"dayTime"]]) {
-                        NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
-                        ntf.fireDate = [date dateByAddingTimeInterval:-(hour*60*60)];
-                        ntf.alertBody = eventDesTextView.text;
-                        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-                        [dict setValue:date forKey:@"date"];
-                        [dict setValue:[sub2Settings valueForKey:@"value"] forKey:@"settings"];
-                        [dict setValue:@"event" forKey:@"type"];
-                        [dict setValue:dayTime forKey:@"dayTime"];
-                        [dict setValue:[date dateByAddingTimeInterval:-(hour*60*60)] forKey:@"fire"];
-                        ntf.userInfo = dict;
-                        [[UIApplication sharedApplication] scheduleLocalNotification:ntf];
-                        [[UIApplication sharedApplication]cancelLocalNotification:notification];
-                    }
-                }
-                
-                
-            }
             [temp setValue:startDate forKey:kStartDate];
             [temp setValue:endDate forKey:kEndDate];
             [temp setValue:dayTime forKey:kDayTime];
@@ -1186,25 +1128,6 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
             NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
             NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
             NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
-            if ([sub2Settings objectForKey:@"id"]) {
-                NSString *dateString = [NSString stringWithFormat:@"%@ %@",buttonString,startDate];
-                NSDateFormatter *fmtr = [[NSDateFormatter alloc]init];
-                [fmtr setDateFormat:@"yyyy-MM-dd HH:mm"];
-                NSDate *date = [fmtr dateFromString:dateString];
-                UILocalNotification *notification = [[UILocalNotification alloc]init];
-                NSInteger hour = [[sub2Settings valueForKey:@"value"]intValue];
-                notification.fireDate = [date dateByAddingTimeInterval:-(hour*60*60)];
-                notification.alertBody = eventDesTextView.text;
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-                [dict setValue:date forKey:@"date"];
-                [dict setValue:[sub2Settings valueForKey:@"value"] forKey:@"settings"];
-                [dict setValue:@"event" forKey:@"type"];
-                [dict setValue:dayTime forKey:@"dayTime"];
-                [dict setValue:[date dateByAddingTimeInterval:-(hour*60*60)] forKey:@"fire"];
-                notification.userInfo = dict;
-                [[UIApplication sharedApplication]scheduleLocalNotification:notification];
-                
-            }
             if (!currentStatuBtn)
                 currentStatuBtn = @"Neutral";
             

@@ -10,13 +10,17 @@
 #import <sqlite3.h>
 #import "PlusveckaDayView.h"
 #import "PlusveckaSettingsView.h"
+#import "PlusveckaTidigeraViewController.h"
+#import "PlusveckaForslagViewController.h"
 @interface PlusveckaCalenderViewController : UIViewController<UITextFieldDelegate>
 {
     sqlite3 *exerciseDB;
     NSString *databasePath;
     sqlite3_stmt  *statement;
-    BOOL isSub2;
+    BOOL isSub2,isPopup;
 }
+@property (nonatomic, strong) PlusveckaForslagViewController *forslagController;
+@property (nonatomic, strong) PlusveckaTidigeraViewController *tidigeraController;
 @property (nonatomic,strong) PlusveckaSettingsView *settingsView;
 @property (nonatomic, strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;
@@ -33,4 +37,5 @@
 ////////////////////// New Code
 @property (nonatomic, retain) NSString *buttonString;
 @property (nonatomic, retain) NSString *editIndexValue,*editTotalValue,*dateIndexValue;
+@property (nonatomic,strong) NSMutableDictionary *sub2Settings;
 @end

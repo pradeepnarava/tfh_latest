@@ -21,7 +21,7 @@
 @property (nonatomic,strong)IBOutlet UIButton *klarButton;
 @property (nonatomic, strong)NSString *whichHour,*totalHour;
 @property (nonatomic, strong) NSMutableDictionary *sub2Settings;
-@property (nonatomic, strong) NSMutableArray *sub1EventsArray;
+@property (nonatomic, strong) NSMutableArray *sub2EventsArray,*totalArray;
 
 -(IBAction)eventOnOff:(id)sender;
 -(IBAction)totalOnOff:(id)sender;
