@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
-
+#import "MTPopupWindow.h"
 @class UtvarderingVeckostatestikVC;
 
 @interface UtvarderingVC : UIViewController

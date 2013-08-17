@@ -58,6 +58,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(IBAction)Ilabel:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"￼￼Utvardering.html" insideView:self.view];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

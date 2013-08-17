@@ -917,6 +917,17 @@
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
+    NSArray *notifications = [[UIApplication sharedApplication]scheduledLocalNotifications];
+    for (int k=0; k<[notifications count]; k++) {
+        UILocalNotification *ntf = [notifications objectAtIndex:k];
+        NSDictionary *userIn = ntf.userInfo;
+        if ([userIn objectForKey:@"type"]) {
+            if ([[userIn valueForKey:@"dayTime"] isEqualToString:[deleDic valueForKey:@"dayTime"]]) {
+                [[UIApplication sharedApplication]cancelLocalNotification:ntf];
+                break;
+            }
+        }
+    }
 }
 
 -(void)updateIntDatabase:(NSDictionary*)recordsDic {
