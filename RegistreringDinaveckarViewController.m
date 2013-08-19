@@ -42,7 +42,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     self.navigationItem.title=@"Dinaveckar";
+    
+    self.navigationItem.title=@"Dinaveckar";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
@@ -193,7 +194,6 @@
     }
     
     [table reloadData];
-    
 }
 
 -(void)backButon {
@@ -315,8 +315,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
             if (!regiDinaCalVC) {

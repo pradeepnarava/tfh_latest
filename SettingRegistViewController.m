@@ -230,8 +230,9 @@ int tagValue;
     oneTimeNotificationLabel.hidden =YES;
     oneTimeToDayLabel.hidden = YES;
     oneDayTimeButton.hidden = YES;
-    
 }
+
+
 
 -(void)eventsShow {
     
@@ -251,16 +252,15 @@ int tagValue;
     
 }
 
+
+
 -(void)totalHidden {
-    totalTimeButton.hidden =YES;
-    
+    totalTimeButton.hidden =YES;    
 }
 
 -(void)totalShow {
     totalTimeButton.hidden = NO;
 }
-
-
 
 
 /*-(void)oneTime {
@@ -329,6 +329,7 @@ int tagValue;
 }*/
 
 
+
 -(IBAction)hourSelected:(id)sender {
     
     UIButton *btn = (UIButton *)sender;
@@ -351,6 +352,8 @@ int tagValue;
         [self createDatePicker:btn];
     }
 }
+
+
 
 -(IBAction)kalrButtonClicked:(id)sender {
     
@@ -602,7 +605,6 @@ int tagValue;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

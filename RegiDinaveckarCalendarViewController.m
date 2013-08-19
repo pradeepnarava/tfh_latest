@@ -923,6 +923,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             isTime = NO;
         }
     }
+    
     return isTime;
 }
 
