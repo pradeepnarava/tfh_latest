@@ -11,14 +11,17 @@
 @interface SelectRegistreringsveckaViewController ()
 
 @end
+
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
 #define kCurrentDate  @"currentDate"
 #define kId    @"id"
+
 @implementation SelectRegistreringsveckaViewController
 @synthesize table;
 @synthesize dataArray;
 @synthesize calanderView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

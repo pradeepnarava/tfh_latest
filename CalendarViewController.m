@@ -36,6 +36,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 @end
 
 @implementation CalendarViewController
+
 @synthesize dayView;
 @synthesize scrollView;
 @synthesize settingRegViewCntrl;
@@ -153,6 +154,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         char *errMsg;
         const char *sql_stmt = "CREATE TABLE IF NOT EXISTS SUB1EVENT (id INTEGER PRIMARY KEY AUTOINCREMENT,subId TEXT,date TEXT,startDate TEXT,endDate TEXT,status TEXT,dayDate TEXT,eventDescription TEXT)";
         const char *sql_stmt1 = "CREATE TABLE IF NOT EXISTS SUB1TOTAL (id INTEGER PRIMARY KEY AUTOINCREMENT,subTId TEXT,date TEXT,total TEXT)";
+        
         if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
             NSLog(@"Failed to create database");
@@ -196,6 +198,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                               }];
     }
 }
+
+
 
 -(void)getDataSub1EventsCount {
     
@@ -374,7 +378,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         [self insertIntoDatabase:calEvent];
     }
 }
-
 
 
 
@@ -1091,9 +1094,12 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     BOOL isTime = NO;
     
     NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+    
+    NSLog(@"%@",buttonString);
     for (int i = 0; i < [dataArray count]; i++) {
         NSDictionary *tem = [dataArray objectAtIndex:i];
-        if ([[tem valueForKey:kStartDate] isEqualToString:startDate]){
+        NSArray *tm = [[tem valueForKey:kDayTime] componentsSeparatedByString:@" "];
+        if ([[tem valueForKey:kStartDate] isEqualToString:startDate] && [[tm objectAtIndex:0] isEqualToString:buttonString]){
             isTime =  YES;
         }
     }
@@ -1121,9 +1127,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
             [temp setValue:dayTime forKey:kDayTime];
             [temp setValue:currentStatuBtn forKey:kStatus];
         }else {
-            
-            
-            
+        
             NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
             NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
             NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
@@ -1735,7 +1739,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
             if (h1 < 10) {
                 hoursTextField2.text = [NSString stringWithFormat:@"0%i",h1];
             }else{
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",h1];
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",h1];
             }
         }
     }

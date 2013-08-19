@@ -29,13 +29,13 @@
 {
     UIDatePicker *timePicker;
     UIActionSheet *actionSheet;
-    IBOutlet UIButton *oneHourButton,*twoHourButton,*threeHourButton,*sixHourButton;
+    IBOutlet UIButton *oneHourButton,*twoHourButton,*threeHourButton,*sixHourButton,*oneDayTimeButton;
     IBOutlet UIButton *startTimeButton;
     IBOutlet UIButton *stopTimeButton;
     IBOutlet UIButton *totalTimeButton;
     IBOutlet UIButton *eventButton,*totalButton;
     IBOutlet UILabel *oneTimeNotificationLabel,*totalLabel;
-    
+    IBOutlet UILabel *oneHrLabel,*twoHrLabel,*threeHrLabel,*sixHrLabel,*oneTimeToDayLabel;
     NSString *hoursTimeString;
 }
 
@@ -48,7 +48,6 @@
 @synthesize popupScrollView;
 @synthesize hoursTimeString;
 @synthesize settingsArray;
-
 
 int hoursValue;
 int tagValue;
@@ -73,25 +72,25 @@ int tagValue;
     if ([[NSUserDefaults standardUserDefaults]objectForKey:kEVENTONOFF]) {
         
         if ([[[NSUserDefaults standardUserDefaults]objectForKey:kHOURSTAG] isEqualToString:@"1"]) {
-            [oneHourButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+            [oneHourButton setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
         }else {
-            [oneHourButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+            [oneHourButton setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
         }
         if ([[[NSUserDefaults standardUserDefaults]objectForKey:kHOURSTAG] isEqualToString:@"2"]) {
-            [twoHourButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+            [twoHourButton setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
         }else {
-            [twoHourButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+            [twoHourButton setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
         }
         if ([[[NSUserDefaults standardUserDefaults]objectForKey:kHOURSTAG] isEqualToString:@"3"]) {
-            [threeHourButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+            [threeHourButton setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
         }else {
-            [threeHourButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+            [threeHourButton setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
         }
         
         if ([[[NSUserDefaults standardUserDefaults]objectForKey:kHOURSTAG] isEqualToString:@"6"]) {
-            [sixHourButton setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+            [sixHourButton setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
         }else {
-            [sixHourButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+            [sixHourButton setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
         }
         
         if ([[[NSUserDefaults standardUserDefaults]objectForKey:kHOURSTAG] isEqualToString:@"9"]) {
@@ -123,7 +122,7 @@ int tagValue;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.popupScrollView setContentSize:CGSizeMake(320, 430)];
+    [self.popupScrollView setContentSize:CGSizeMake(320, 595)];
     
     hoursTimeString = [[NSString alloc] init];
 
@@ -153,16 +152,18 @@ int tagValue;
 
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:kEVENTONOFF] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
         [self eventScreens];
+        [self eventsShow];
     }else {
-        self.popupScrollView.hidden = YES;
+
+        [self eventsHidden];
     }
     
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:kTOTALONOFF] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
         [self totalScreens];
+        [self totalShow];
     }
     else {
-        totalTimeButton.hidden = YES;
-        totalLabel.hidden = YES;
+        [self totalHidden];
     }
 }
 
@@ -195,26 +196,70 @@ int tagValue;
 -(IBAction)onoffButtonClicked:(id)sender {
     
     if ([sender tag] == 10) {
-        popupScrollView.hidden = NO;
+        [self eventsShow];
         [popupScrollView reloadInputViews];
         [startTimeButton setTitle:@"" forState:UIControlStateNormal];
         [stopTimeButton setTitle:@"" forState:UIControlStateNormal];
     }
     else if ([sender tag]==11) {
-        popupScrollView.hidden = YES;
+        [self eventsHidden];
         [self cancelEventUserDefaults];
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
     }else if ([sender tag] == 15){
-        totalTimeButton.hidden = NO;
-        totalLabel.hidden = NO;
+        [self totalShow];
         [popupScrollView reloadInputViews];
         [totalTimeButton setTitle:@"" forState:UIControlStateNormal];
     }else if ([sender tag] == 16) {
-        totalLabel.hidden = YES;
-        totalTimeButton.hidden = YES;
+        [self totalHidden];
         [self cancelTotalUserDefaults];
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
     }
+}
+
+-(void)eventsHidden {
+    oneHourButton.hidden = YES;
+    twoHourButton.hidden = YES;
+    threeHourButton.hidden = YES;
+    sixHourButton.hidden = YES;
+    startTimeButton.hidden = YES;
+    stopTimeButton.hidden =YES;
+    oneHrLabel.hidden = YES;
+    twoHrLabel.hidden = YES;
+    threeHrLabel.hidden = YES;
+    sixHrLabel.hidden =YES;
+    oneTimeNotificationLabel.hidden =YES;
+    oneTimeToDayLabel.hidden = YES;
+    oneDayTimeButton.hidden = YES;
+}
+
+
+
+-(void)eventsShow {
+    
+    oneHourButton.hidden = NO;
+    twoHourButton.hidden = NO;
+    threeHourButton.hidden = NO;
+    sixHourButton.hidden = NO;
+    startTimeButton.hidden = NO;
+    stopTimeButton.hidden =NO;
+    oneHrLabel.hidden = NO;
+    twoHrLabel.hidden = NO;
+    threeHrLabel.hidden = NO;
+    sixHrLabel.hidden =NO;
+    oneTimeNotificationLabel.hidden =NO;
+    oneTimeToDayLabel.hidden = NO;
+    oneDayTimeButton.hidden = NO;
+    
+}
+
+
+
+-(void)totalHidden {
+    totalTimeButton.hidden =YES;    
+}
+
+-(void)totalShow {
+    totalTimeButton.hidden = NO;
 }
 
 
@@ -284,6 +329,7 @@ int tagValue;
 }*/
 
 
+
 -(IBAction)hourSelected:(id)sender {
     
     UIButton *btn = (UIButton *)sender;
@@ -295,17 +341,19 @@ int tagValue;
     for (UIButton *radioButton in [self.popupScrollView  subviews]) {
         if (radioButton.tag != btn.tag && [radioButton isKindOfClass:[UIButton class]]) {
             if ((radioButton.tag == 20 || radioButton.tag == 21 || radioButton.tag == 22 || radioButton.tag == 23 || radioButton.tag == 24)) {
-                [radioButton setImage:[UIImage imageNamed:@"uncheck.png"] forState:UIControlStateNormal];
+                [radioButton setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
             }
             
         }
     }
     
-    [btn setImage:[UIImage imageNamed:@"check.png"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
     if (btn.tag == 24) {
         [self createDatePicker:btn];
     }
 }
+
+
 
 -(IBAction)kalrButtonClicked:(id)sender {
     
@@ -557,7 +605,6 @@ int tagValue;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

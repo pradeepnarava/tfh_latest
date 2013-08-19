@@ -16,8 +16,11 @@
 #define kEventDes  @"eventDes"
 #define kSub1Id    @"Sub1Id"
 
-#define kWeek @"week"
 #define kSelected @"selected"
+#define kCurrentDate  @"currentDate"
+#define kId    @"id"
+
+
 
 
 @interface RegistreringDinaveckarViewController ()
@@ -42,7 +45,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-     self.navigationItem.title=@"Dinaveckar";
+    
+    self.navigationItem.title=@"Dinaveckar";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
@@ -94,7 +98,50 @@
     [super dealloc];
 }
 
--(void)getData {
+
+-(void)backButon {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!regiDinaCalVC) {
+                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView" bundle:nil];
+            }
+        }else{
+            if (!regiDinaCalVC) {
+                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!regiDinaCalVC) {
+            regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPad" bundle:nil];
+        }
+    }
+
+    regiDinaCalVC.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:regiDinaCalVC animated:YES];
+}
+
+
+/////////////////////////////Gopalakrishna******??????????????
+
+
+
+-(void)getSub2events{
     const char *dbpath = [databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
@@ -128,101 +175,103 @@
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
-    
-    NSLog(@"SUB1EVENTS is %@",sub1EventsArray);
-    
-    NSDate *earlierDate = nil,*endDate=nil;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
-    NSDateFormatter *formatter2 = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    for (int k=0; k<[sub1EventsArray count]; k++) {
-        NSString *dayTime = [[sub1EventsArray objectAtIndex:k]valueForKey:@"dayTime"];
-        NSArray *array = [dayTime componentsSeparatedByString:@" "];
-        NSString *dateString = [array objectAtIndex:0];
-        NSDate *date = [formatter dateFromString:dateString];
-        if (!earlierDate || [earlierDate compare:date]==NSOrderedDescending) {
-            earlierDate = date;
-        }
-        if (!endDate || [endDate compare:date]== NSOrderedAscending) {
-            endDate = date;
-        }
-    }
-    NSString *currentDate = [formatter stringFromDate:endDate];
-    NSDate *currDate=[formatter dateFromString:currentDate];
-    [formatter2 setDateFormat:@"d/M"];
-    [formatter1 setDateFormat:@"yyyy"];
-    while ([earlierDate compare:currDate]==NSOrderedAscending||[earlierDate compare:currDate]==NSOrderedSame) {
-        NSDate *nextDay = [earlierDate dateByAddingTimeInterval:6*60*60*24];
-        NSString *week;
-        if ([earlierDate compare:currDate]==NSOrderedAscending && [nextDay compare:currDate]==NSOrderedDescending) {
-            
-            if ([[formatter1 stringFromDate:earlierDate] isEqualToString:[formatter1 stringFromDate:nextDay]]) {
-                week =[NSString stringWithFormat:@"%@ - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:earlierDate]];
-            }
-            else{
-                week =[NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter1 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:nextDay]];
-            }
-        }
-        else if ([[formatter1 stringFromDate:earlierDate] isEqualToString:[formatter1 stringFromDate:nextDay]]) {
-            week =[NSString stringWithFormat:@"%@ - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:earlierDate]];
-        }
-        else{
-            week =[NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[formatter2 stringFromDate:earlierDate],[formatter1 stringFromDate:earlierDate],[formatter2 stringFromDate:nextDay],[formatter1 stringFromDate:nextDay]];
-        }
-        BOOL isExist = NO;
-        for (int m=0; m<[sub1EventsArray count]; m++) {
-            NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:kDayTime];
-            NSArray *array = [dayTime componentsSeparatedByString:@" "];
-            NSString *dateString = [array objectAtIndex:0];
-            NSDate *date = [formatter dateFromString:dateString];
-            if ([date compare:earlierDate]==NSOrderedSame||[date compare:nextDay]==NSOrderedSame||([date compare:earlierDate]==NSOrderedDescending && [date compare:nextDay]==NSOrderedAscending) ) {
-                isExist = YES;
-                break;
-            }
-        }
-        if (isExist) {
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-            [dict setValue:week forKey:kWeek];
-            [dict setValue:@"F" forKey:kSelected];
-            [dict setValue:earlierDate forKey:kStartDate];
-            [dict setValue:nextDay forKey:kEndDate];
-            [dataArray addObject:dict];
-        }
-        earlierDate = [earlierDate dateByAddingTimeInterval:7*24*60*60];
-    }
-    
-    [table reloadData];
-    
 }
 
--(void)backButon {
-    [self.navigationController popViewControllerAnimated:YES];
+
+-(void)getData {
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1DINAVECKOR"];
+        
+        const char *query_stmt = [querySQL UTF8String];
+        
+        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            
+            while  (sqlite3_step(statement) == SQLITE_ROW) {
+                NSString *weekId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,0)];
+                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
+                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
+                NSString *currentDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
+                
+                NSDate *startDat = [self dateFromString:startDate];
+                NSDate *endDat = [self dateFromString:endDate];
+                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
+                [itemDict setValue:weekId forKey:kId];
+                [itemDict setValue:startDat forKey:kStartDate];
+                [itemDict setValue:endDat forKey:kEndDate];
+                [itemDict setValue:currentDate forKey:kCurrentDate];
+                [itemDict setValue:@"F" forKey:kSelected];
+                [dataArray addObject:itemDict];
+            }
+        }
+        [table reloadData];
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
+    
+    [self getSub2events];
 }
+
 
 
 - (IBAction)submitButtonAction:(id)sender {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSMutableDictionary *selectedDict = [[NSMutableDictionary alloc]init];
     for (int k=0; k<[dataArray count]; k++) {
         NSMutableDictionary *dict = [dataArray objectAtIndex:k];
-        if ([[dict valueForKey:@"selected"] isEqualToString:@"T"]) {
-            [dataArray removeObjectAtIndex:k];
-            for (int m=0; m<[sub1EventsArray count]; m++) {
-                NSString *dayTime = [[sub1EventsArray objectAtIndex:m]valueForKey:@"dayTime"];
-                NSArray *array = [dayTime componentsSeparatedByString:@" "];
-                NSString *dateString = [array objectAtIndex:0];
-                NSDate *date = [formatter dateFromString:dateString];
-                if ([date compare:[dict valueForKey:@"start"]]==NSOrderedSame||[date compare:[dict valueForKey:@"end"]]==NSOrderedSame||([date compare:[dict valueForKey:@"start"]]==NSOrderedDescending && [date compare:[dict valueForKey:@"end"]]==NSOrderedAscending) ) {
-                    [self deleteRecord:[sub1EventsArray objectAtIndex:m]];
-                }
-            }
-            [table reloadData];
+        if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
+            selectedDict = dict;
+            [self deleteDinaveckorRecord:selectedDict];
             break;
         }
     }
+    BOOL isExist = NO;
+    for (int p=0; p<[dataArray count]; p++) {
+        NSMutableDictionary *dict = [dataArray objectAtIndex:p];
+        if (dict!=selectedDict&&[[formatter stringFromDate:[dict valueForKey:kStartDate]] isEqualToString:[formatter stringFromDate:[selectedDict valueForKey:kStartDate]]]&&[[formatter stringFromDate:[dict valueForKey:kEndDate]] isEqualToString:[formatter stringFromDate:[selectedDict valueForKey:kEndDate]]]) {
+            isExist = YES;
+        }
+    }
+    [dataArray removeObject:selectedDict];
+    /*if (!isExist) {
+     for (int m=0; m<[sub2EventsArray count]; m++) {
+     NSString *dayTime = [[sub2EventsArray objectAtIndex:m]valueForKey:kDayTime];
+     NSArray *array = [dayTime componentsSeparatedByString:@" "];
+     NSString *dateString = [array objectAtIndex:0];
+     NSDate *date = [formatter dateFromString:dateString];
+     if ([date compare:[selectedDict valueForKey:kStartDate]]==NSOrderedSame||[date compare:[selectedDict valueForKey:kEndDate]]==NSOrderedSame||([date compare:[selectedDict valueForKey:kStartDate]]==NSOrderedDescending && [date compare:[selectedDict valueForKey:kEndDate]]==NSOrderedAscending) ) {
+     [self deleteRecord:[sub2EventsArray objectAtIndex:m]];
+     }
+     }
+     }*/
+    [table reloadData];
 }
 
+
+
+-(NSDate*)dateFromString:(NSString*)date {
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *dateString = [dateFormatter dateFromString:date];
+    return dateString;
+}
+
+-(NSString*)yearStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+-(NSString*)monthStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"d/M"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
 
 -(void)deleteRecord:(NSDictionary*)deleDic {
     
@@ -230,7 +279,7 @@
         
         NSInteger subId = [[deleDic valueForKey:kSub1Id] integerValue];
         
-        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB1EVENT WHERE subId='%d'",subId];
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB1EVENT WHERE sub2Id='%d'",subId];
         
         const char *del_stmt = [sql UTF8String];
         
@@ -246,22 +295,41 @@
     sqlite3_close(exerciseDB);
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(void)deleteDinaveckorRecord:(NSDictionary*)deleDic {
+    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSInteger subId = [[deleDic valueForKey:kId] integerValue];
+        
+        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB1DINAVECKOR WHERE id='%d'",subId];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        
+        if (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            NSLog(@"sss");
+            
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
 }
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"data array is %@",dataArray);
     return [dataArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0f;
+    return 38.0f;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -291,15 +359,21 @@
         //cell.cellBtn.backgroundColor = [UIColor whiteColor];
     }
     [cell.cellBtn addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    cell.cellLabel.text = [dict valueForKey:kWeek];
+    NSString *yearLabel1 = [self yearStringFromDate:[dict valueForKey:kStartDate]];
+    NSString *yearLabel2 = [self yearStringFromDate:[dict valueForKey:kEndDate]];
+    if([yearLabel1 isEqualToString:yearLabel2]){
+        cell.cellLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel1];
+    }else{
+        cell.cellLabel.text = [NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],yearLabel1,[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel2];
+    }
     cell.cellLabel.highlightedTextColor = [UIColor darkGrayColor];
     return cell;
 }
 
 
 
+
 -(void)cellButtonClicked:(id)sender{
-    
     for (int j=0; j<[dataArray count]; j++) {
         NSMutableDictionary *dict = [dataArray objectAtIndex:j];
         if (j==[sender tag]) {
@@ -308,35 +382,11 @@
             [dict setValue:@"F" forKey:kSelected];
         }
     }
-    
     [table reloadData];
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!regiDinaCalVC) {
-                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView" bundle:nil];
-            }
-        }else{
-            if (!regiDinaCalVC) {
-                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPhone4" bundle:nil];
-            }
-        }
-    }
-    else{
-        if (!regiDinaCalVC) {
-            regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPad" bundle:nil];
-        }
-    }
 
-    regiDinaCalVC.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:regiDinaCalVC animated:YES];
-}
 
 
 @end

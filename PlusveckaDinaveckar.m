@@ -17,6 +17,8 @@
 #define kSub2Id @"sub2Id"
 #define kEventDes @"eventDescription"
 #define kDayTime @"dayTime"
+
+
 @interface PlusveckaDinaveckar ()
 
 @end
