@@ -123,12 +123,16 @@
     [self.navigationController pushViewController:calendarView animated:YES];
 }
 
+
+
 -(NSString*)dateFromString:(NSDate*)date {
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
 }
+
+
 -(void)databaseInsertWeek:(NSDictionary *)dict{
     const char *dbpath = [databasePath UTF8String];
     
@@ -182,6 +186,8 @@
     
 }
 
+
+
 - (void)week:(NSDate *)_date {
     self.weekArray = [[NSMutableArray alloc] init];
     
@@ -196,6 +202,8 @@
         [self.weekArray addObject:newDate1];
     }
 }
+
+
 
 -(void)databaseInsertTotal:(NSDictionary *)dict{
     const char *dbpath = [databasePath UTF8String];
@@ -220,6 +228,8 @@
     }
     sqlite3_close(exerciseDB);
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {

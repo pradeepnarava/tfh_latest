@@ -381,7 +381,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
-
 -(void)viewDidDisappear:(BOOL)animated {
  
     
@@ -1095,9 +1094,12 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     BOOL isTime = NO;
     
     NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
+    
+    NSLog(@"%@",buttonString);
     for (int i = 0; i < [dataArray count]; i++) {
         NSDictionary *tem = [dataArray objectAtIndex:i];
-        if ([[tem valueForKey:kStartDate] isEqualToString:startDate]){
+        NSArray *tm = [[tem valueForKey:kDayTime] componentsSeparatedByString:@" "];
+        if ([[tem valueForKey:kStartDate] isEqualToString:startDate] && [[tm objectAtIndex:0] isEqualToString:buttonString]){
             isTime =  YES;
         }
     }
@@ -1125,9 +1127,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
             [temp setValue:dayTime forKey:kDayTime];
             [temp setValue:currentStatuBtn forKey:kStatus];
         }else {
-            
-            
-            
+        
             NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
             NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
             NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];

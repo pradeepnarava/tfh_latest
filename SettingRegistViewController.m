@@ -122,7 +122,7 @@ int tagValue;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.popupScrollView setContentSize:CGSizeMake(320, 724)];
+    [self.popupScrollView setContentSize:CGSizeMake(320, 595)];
     
     hoursTimeString = [[NSString alloc] init];
 
