@@ -11,6 +11,7 @@
 		2401C2EE1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */; };
 		2401C2F0179313900081BFEA /* Registreringsvecka_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */; };
 		2401C2F41793218E0081BFEA /* k_popup_day.png in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2F31793218E0081BFEA /* k_popup_day.png */; };
+		24166BBD17BFABE100FF0BAB /* settings_text_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 24166BBC17BFABE100FF0BAB /* settings_text_background.png */; };
 		24171D211777631600182CF4 /* MTPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 24171D201777631600182CF4 /* MTPopupWindow.m */; };
 		2419AA7B17AE0712005724B7 /* UtvarderingVeckostatestikVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2419AA7A17AE0712005724B7 /* UtvarderingVeckostatestikVC.m */; };
 		2419AA7D17AE072F005724B7 /* UtvarderingVeckostatestikView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2419AA7C17AE072F005724B7 /* UtvarderingVeckostatestikView.xib */; };
@@ -348,6 +349,7 @@
 		2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Beteendeaktivering_iPhone4.xib; sourceTree = "<group>"; };
 		2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Registreringsvecka_iPhone4.xib; sourceTree = "<group>"; };
 		2401C2F31793218E0081BFEA /* k_popup_day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = k_popup_day.png; sourceTree = "<group>"; };
+		24166BBC17BFABE100FF0BAB /* settings_text_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_text_background.png; sourceTree = "<group>"; };
 		24171D1F1777631600182CF4 /* MTPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPopupWindow.h; sourceTree = "<group>"; };
 		24171D201777631600182CF4 /* MTPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPopupWindow.m; sourceTree = "<group>"; };
 		2419AA7917AE0712005724B7 /* UtvarderingVeckostatestikVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtvarderingVeckostatestikVC.h; sourceTree = "<group>"; };
@@ -1277,6 +1279,7 @@
 				2419AA7C17AE072F005724B7 /* UtvarderingVeckostatestikView.xib */,
 				2419AA7E17AE075B005724B7 /* UtvarderingVeckostatestikView_iPhone4.xib */,
 				2419AA8017AE093C005724B7 /* UtvarderingVeckostatestikView_iPad.xib */,
+				24166BBC17BFABE100FF0BAB /* settings_text_background.png */,
 				24BFDE3717AD8D800072DEEA /* jämnför_button.png */,
 				24BFDE3517AD8B9F0072DEEA /* text_title_background.png */,
 				24BFDE3317AD8B940072DEEA /* text_title_background@2x.png */,
@@ -1803,10 +1806,14 @@
 				2419AA7F17AE075B005724B7 /* UtvarderingVeckostatestikView_iPhone4.xib in Resources */,
 				2419AA8117AE093C005724B7 /* UtvarderingVeckostatestikView_iPad.xib in Resources */,
 				24BA190817B17C09009659F5 /* UtvarderingCell.xib in Resources */,
+<<<<<<< HEAD
 				5E3B251917C11049001197B9 /* text1-background.png in Resources */,
 				5E3B251A17C11049001197B9 /* text2-background.png in Resources */,
 				5E3B251B17C11049001197B9 /* title1-background.png in Resources */,
 				5E3B251C17C11049001197B9 /* title3-background.png in Resources */,
+=======
+				24166BBD17BFABE100FF0BAB /* settings_text_background.png in Resources */,
+>>>>>>> 3443db4ab83fcb52df68109c61b4246a3c848dca
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1973,8 +1980,8 @@
 		5EA026D0172E7CD100C37EE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: VINAYA MANIKANTA DASEPALLI (99W58C6TZ3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kristian Daoud (HR82V642Y8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kristian Daoud (HR82V642Y8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/Välkommen till TFH-appen-Prefix.pch";
 				INFOPLIST_FILE = "Välkommen till TFH-appen/Välkommen till TFH-appen-Info.plist";
@@ -1990,8 +1997,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C0CD21A-3C92-49B5-B951-0F9EC8284D2C";
+				PROVISIONING_PROFILE = "7976F991-6D81-435B-92F8-B0B4BC55DD3F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7976F991-6D81-435B-92F8-B0B4BC55DD3F";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm7s";
 				WRAPPER_EXTENSION = app;
@@ -2001,8 +2008,8 @@
 		5EA026D1172E7CD100C37EE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kristian Daoud (78RVJ39CQS)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kristian Daoud (HR82V642Y8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kristian Daoud (HR82V642Y8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/Välkommen till TFH-appen-Prefix.pch";
 				INFOPLIST_FILE = "Välkommen till TFH-appen/Välkommen till TFH-appen-Info.plist";
@@ -2018,8 +2025,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4C6DBF27-5211-4776-8F51-003B649247BC";
+				PROVISIONING_PROFILE = "7976F991-6D81-435B-92F8-B0B4BC55DD3F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7976F991-6D81-435B-92F8-B0B4BC55DD3F";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm7s";
 				WRAPPER_EXTENSION = app;
