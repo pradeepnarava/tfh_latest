@@ -24,7 +24,4 @@
 
 -(IBAction)buttonClicked:(id)sender;
 
--(void)getDataFromSub1Event;
--(void)getDataFromSub2Event;
-
 @end
