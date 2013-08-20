@@ -193,7 +193,12 @@
         
         UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
         if ([btn isKindOfClass:[UIButton class]]) {
-            
+            NSMutableArray *layArray = [btn.layer.sublayers mutableCopy];
+            for (CALayer *sublay in layArray) {
+                if ([sublay.name isEqualToString:@"sub2"]) {
+                    [sublay removeFromSuperlayer];
+                }
+            }
             NSString *statusString = nil;
             NSDate *date=nil;
             NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
@@ -258,6 +263,16 @@
                     }
                 }
             }
+            CALayer *layer =[CALayer layer];
+            CALayer *layer1 = [CALayer layer];
+            layer.name = @"sub2";
+            layer1.name = @"sub2";
+            layer.backgroundColor = [UIColor colorWithRed:168.0f/255.0f green:168.0f/255.0f blue:168.0f/255.0f alpha:1.0].CGColor;
+            layer.frame = CGRectMake(0, 0, 1, btn.frame.size.height);
+            layer1.backgroundColor = [UIColor colorWithRed:168.0f/255.0f green:168.0f/255.0f blue:168.0f/255.0f alpha:1.0].CGColor;
+            layer1.frame = CGRectMake(btn.frame.size.width-1, 0, 1, btn.frame.size.height);
+            [btn.layer addSublayer:layer];
+            [btn.layer addSublayer:layer1];
             if ([statusString isEqualToString:@"+"]) {
                 [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
             }else if ([statusString isEqualToString:@"-"]){
