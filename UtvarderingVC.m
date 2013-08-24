@@ -205,26 +205,46 @@
 
 
 -(IBAction)buttonClicked:(id)sender {
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!utvarderingVeckosVC) {
-                utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView" bundle:nil];
-            }
-        }else{
-            if (!utvarderingVeckosVC) {
-                utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView_iPhone4" bundle:nil];
-            }
+    int count = 0;
+    for (int j=0; j<[dataArray count]; j++) {
+        NSMutableDictionary *dict = [dataArray objectAtIndex:j];
+        if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
+            count++;
         }
     }
-    else{
-        if (!utvarderingVeckosVC) {
-            utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView_iPad" bundle:nil];
+    if (count==0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Utvardering"
+                                                        message:@"Please select atleast one"
+                                                       delegate:self cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }else{
+        NSMutableArray *array = [[NSMutableArray alloc]init];
+        for (int j=0; j<[dataArray count]; j++) {
+            NSMutableDictionary *dict = [dataArray objectAtIndex:j];
+                if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
+                    [array addObject:dict];
+                }
         }
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            if ([[UIScreen mainScreen] bounds].size.height > 480) {
+                if (!utvarderingVeckosVC) {
+                    utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView" bundle:nil];
+                }
+            }else{
+                if (!utvarderingVeckosVC) {
+                    utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView_iPhone4" bundle:nil];
+                }
+            }
+        }
+        else{
+            if (!utvarderingVeckosVC) {
+                utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView_iPad" bundle:nil];
+            }
+        }
+        utvarderingVeckosVC.selectedArray = array;
+        [self.navigationController pushViewController:utvarderingVeckosVC animated:YES];
     }
-    
-    [self.navigationController pushViewController:utvarderingVeckosVC animated:YES];
-
 }
 
 

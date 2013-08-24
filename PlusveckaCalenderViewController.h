@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
+#import <QuartzCore/QuartzCore.h>
 #import "PlusveckaDayView.h"
 #import "PlusveckaSettingsView.h"
 #import "PlusveckaTidigeraViewController.h"
