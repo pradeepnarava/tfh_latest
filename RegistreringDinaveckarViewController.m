@@ -21,8 +21,6 @@
 #define kId    @"id"
 
 
-
-
 @interface RegistreringDinaveckarViewController ()
 
 @end
