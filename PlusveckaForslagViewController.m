@@ -63,17 +63,27 @@
 }
 
 - (IBAction)submitButtonAction:(id)sender {
+    NSMutableString *string = [[NSMutableString alloc]init];
+    NSMutableArray *array = [[NSMutableArray alloc]init];
     BOOL isSelected=NO;
     for (NSDictionary *dict in dataArray) {
         if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
             isSelected = YES;
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setValue:[dict valueForKey:kName] forKey:@"eventDes"];
-            [defaults synchronize];
-            break;
+            [array addObject:dict];
         }
     }
     if (isSelected) {
+        for (int p=0; p<[array count]; p++) {
+            NSDictionary *dict = [array objectAtIndex:p];
+            if (p==[array count]-1) {
+                [string appendFormat:@"%@",[dict valueForKey:kName]];
+            }else{
+                [string appendFormat:@"%@,",[dict valueForKey:kName]];
+            }
+        }
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:string forKey:@"eventDes"];
+        [defaults synchronize];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -128,9 +138,11 @@
     for (int j=0; j<[dataArray count]; j++) {
         NSMutableDictionary *dict = [dataArray objectAtIndex:j];
         if (j==[sender tag]) {
-            [dict setValue:@"T" forKey:kSelected];
-        }else{
-            [dict setValue:@"F" forKey:kSelected];
+            if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
+                [dict setValue:@"F" forKey:kSelected];
+            }else{
+                [dict setValue:@"T" forKey:kSelected];
+            }
         }
     }
     [table reloadData];

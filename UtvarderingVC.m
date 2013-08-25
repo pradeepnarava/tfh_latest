@@ -228,19 +228,19 @@
         }
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
             if ([[UIScreen mainScreen] bounds].size.height > 480) {
-                if (!utvarderingVeckosVC) {
+               // if (!utvarderingVeckosVC) {
                     utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView" bundle:nil];
-                }
+              //  }
             }else{
-                if (!utvarderingVeckosVC) {
+               // if (!utvarderingVeckosVC) {
                     utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView_iPhone4" bundle:nil];
-                }
+               // }
             }
         }
         else{
-            if (!utvarderingVeckosVC) {
+           // if (!utvarderingVeckosVC) {
                 utvarderingVeckosVC=[[UtvarderingVeckostatestikVC alloc]initWithNibName:@"UtvarderingVeckostatestikView_iPad" bundle:nil];
-            }
+           // }
         }
         utvarderingVeckosVC.selectedArray = array;
         [self.navigationController pushViewController:utvarderingVeckosVC animated:YES];

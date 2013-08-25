@@ -102,19 +102,19 @@
 -(IBAction)sub2:(id)sender{
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!psc) {
+           // if (!psc) {
                 psc=[[Plusvecka alloc]initWithNibName:@"Plusvecka" bundle:nil];
-            }
+           // }
         }else{
-            if (!psc) {
+           // if (!psc) {
                 psc=[[Plusvecka alloc]initWithNibName:@"Plusvecka_iPhone4" bundle:nil];
-            }
+           // }
         }
     }
     else{
-        if (!psc) {
+       // if (!psc) {
             psc=[[Plusvecka alloc]initWithNibName:@"Plusvecka_iPad" bundle:nil];
-        }
+      //  }
     }
 
     [self.navigationController pushViewController:psc animated:YES];
@@ -124,19 +124,19 @@
 -(IBAction)sub3:(id)sender {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!utvarderingVC) {
+           // if (!utvarderingVC) {
                 utvarderingVC=[[UtvarderingVC alloc]initWithNibName:@"UtvarderingView" bundle:nil];
-            }
+           // }
         }else{
-            if (!utvarderingVC) {
+           // if (!utvarderingVC) {
                 utvarderingVC=[[UtvarderingVC alloc]initWithNibName:@"UtvarderingView_iPhone4" bundle:nil];
-            }
+           // }
         }
     }
     else{
-        if (!utvarderingVC) {
+       // if (!utvarderingVC) {
             utvarderingVC=[[UtvarderingVC alloc]initWithNibName:@"UtvarderingView_iPad" bundle:nil];
-        }
+       // }
     }
     
     [self.navigationController pushViewController:utvarderingVC animated:YES];

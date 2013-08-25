@@ -346,19 +346,19 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!calanderView) {
+            //if (!calanderView) {
                 calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView" bundle:nil];
-            }
+           // }
         }else{
-            if (!calanderView) {
+           // if (!calanderView) {
                 calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView_iPhone4" bundle:nil];
-            }
+           // }
         }
     }
     else{
-        if (!calanderView) {
+        //if (!calanderView) {
             calanderView = [[PlusveckaDinaveckarView alloc]initWithNibName:@"PlusveckaDinaveckarView_iPad" bundle:nil];
-        }
+        //}
     }
    // calanderView.sub1EventsArray = sub1EventsArray;
     calanderView.selectedDictionary = [dataArray objectAtIndex:indexPath.row];

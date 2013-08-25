@@ -244,19 +244,19 @@
     isPopup = YES;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!tidigeraController) {
+            //if (!tidigeraController) {
                 tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController" bundle:nil];
-            }
+            //}
         }else{
-            if (!tidigeraController) {
+            //if (!tidigeraController) {
                 tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController_iPhone4" bundle:nil];
-            }
+            //}
         }
     }
     else{
-        if (!tidigeraController) {
+        //if (!tidigeraController) {
             tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController_iPad" bundle:nil];
-        }
+        //}
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:eventDesTextView.text forKey:@"eventDes"];
@@ -269,19 +269,19 @@
     isPopup = YES;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!forslagController) {
+            //if (!forslagController) {
                 forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController" bundle:nil];
-            }
+            //}
         }else{
-            if (!forslagController) {
+            //if (!forslagController) {
                 forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController_iPhone4" bundle:nil];
-            }
+            //}
         }
     }
     else{
-        if (!forslagController) {
+        //if (!forslagController) {
             forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController_iPad" bundle:nil];
-        }
+       // }
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:eventDesTextView.text forKey:@"eventDes"];
