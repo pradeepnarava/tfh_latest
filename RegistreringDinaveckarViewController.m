@@ -44,7 +44,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title=@"Dinaveckar";
+    self.navigationItem.title=@"Dinaveckor";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         

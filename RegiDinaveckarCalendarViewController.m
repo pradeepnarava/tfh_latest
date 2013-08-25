@@ -91,7 +91,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title=@"Dinaveckar";
+    self.navigationItem.title=@"Dinaveckor";
     
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
     self.popupView.layer.cornerRadius = 12;
@@ -1507,13 +1507,17 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(void)changeText:(UITextField*)textField {
     
     if (textField == hoursTextField1) {
-        if ([textField.text length] > 24) {
-            hoursTextField2.text = @"";
+        if ([textField.text integerValue] >= 24) {
+            hoursTextField2.text = @"00";
         }
-        else {
+        else  {
             int h1 = [textField.text integerValue];
             h1 += 1;
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",h1];
+            if (h1 < 10) {
+                hoursTextField2.text = [NSString stringWithFormat:@"0%i",h1];
+            }else{
+                hoursTextField2.text = [NSString stringWithFormat:@"%i",h1];
+            }
         }
     }
     if (textField == mintsTextField1) {
