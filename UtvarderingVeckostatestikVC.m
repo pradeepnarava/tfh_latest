@@ -254,10 +254,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [lok.tableView removeFromSuperview];
-    [closeButton removeFromSuperview];
-    [lok.tableView removeFromSuperview];
-    [tableImageView removeFromSuperview];
     [self setValues];
 }
 
@@ -601,7 +597,6 @@
     [closeButton removeFromSuperview];
     [lok.tableView removeFromSuperview];
     [tableImageView removeFromSuperview];
-    [lok release];
 }
 
 -(void)backButon {
