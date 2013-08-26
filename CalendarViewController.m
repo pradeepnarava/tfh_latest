@@ -1110,7 +1110,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
 
 -(IBAction)okButtonClicked:(id)sender
 {
-    if ([self findSameTime]) {
+    if ([self findSameTime] && [editIndexValue length] == 0 && editIndexValue == nil) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App" message:@"Gopal" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         [alert show];
         
