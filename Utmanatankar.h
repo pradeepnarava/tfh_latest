@@ -86,8 +86,8 @@
 
 -(IBAction)Closelistofdates:(id)sender;
 
--(IBAction)SelectChekBoxs:(id)sender;
--(IBAction)aMethod:(id)sender;
+- (IBAction)SelectChekBoxs:(id)sender;
+- (IBAction)aMethod:(id)sender;
 - (IBAction)skickaButtonClicked:(id)sender;
 
 @property(nonatomic, retain) IBOutlet UITableView *tableview;

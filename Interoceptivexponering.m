@@ -253,12 +253,13 @@ int tagValueForBtn;
         self.seconds--;
         if (self.seconds == 0 && self.minutes != 0) {
             self.minutes--;
-            self.seconds = 60;
+            self.seconds = 59;
         }
     }
-    self.secondsDisplay.text = [NSString stringWithFormat:@"%d", self.seconds];
-    
-    self.minutesDisplay.text = [NSString stringWithFormat:@"%d", self.minutes];
+    self.secondsDisplay.text = [NSString stringWithFormat:@"%.2d", self.seconds];
+
+
+    self.minutesDisplay.text = [NSString stringWithFormat:@"%.2d", self.minutes];
 }
 
 
@@ -274,8 +275,8 @@ int tagValueForBtn;
     egen.text=@"";
     prc.text=@"0";
     slider.value=0;
-    [self.view bringSubviewToFront:pupview];
-    [UIView beginAnimations:@"curlInView" context:nil];
+    [self.view addSubview:pupview];
+    //[UIView beginAnimations:@"curlInView" context:nil];
     [UIView setAnimationDuration:3.0];
     [UIView commitAnimations];
 }
@@ -293,7 +294,7 @@ int tagValueForBtn;
     if (tagValueForBtn == 8 || tagValueForBtn == 9) {
         timerview.hidden = YES;
     }else {
-        [self.view bringSubviewToFront:timerview];
+        [self.view addSubview:timerview];
         timerview.hidden = NO;
     }
 
@@ -355,21 +356,39 @@ int tagValueForBtn;
     [UIView setAnimationDuration:3.0];
     [UIView commitAnimations];
     
-    self.secondsDisplay.text = [NSString
-                                stringWithFormat:@"%d", self.seconds];
+        self.secondsDisplay.text = [NSString
+                                stringWithFormat:@"%.2d", self.seconds];
+   
     
     self.minutesDisplay.text = [NSString
-                                stringWithFormat:@"%d", self.minutes];
+                                stringWithFormat:@"%.2d", self.minutes];
     self.Reseconds=self.seconds;
     self.Reminutes=self.minutes;
 }
 
 
+#pragma mark NyttButtonClicked
+- (IBAction)ntyyButtonClicked:(id)sender {
+    
+    egen.userInteractionEnabled = YES;
+    scroll.scrollEnabled=NO;
+    pupview.hidden = NO;
+    self.selectedIndexPath = nil;
+    ovning.text=@"";
+    egen.text=@"";
+    prc.text=@"0";
+    slider.value=0;
+    [self.view addSubview:pupview];
+    //[UIView beginAnimations:@"curlInView" context:nil];
+    [UIView setAnimationDuration:3.0];
+    [UIView commitAnimations];
+}
+
 #pragma mark Close Timer
 
 
 - (IBAction)closetimer:(id)sender{
-
+    [startTime setUserInteractionEnabled:YES];
     timerview.hidden=YES;
     scroll.scrollEnabled=YES;
     egen.hidden=NO;
@@ -385,7 +404,8 @@ int tagValueForBtn;
 #pragma mark Start Timer
 
 - (IBAction)starttimer:(id)sender{
-
+    UIButton *b = (UIButton *)sender;
+    [b setUserInteractionEnabled:NO];
     self.secondsTimer = [NSTimer
                          scheduledTimerWithTimeInterval:1.0
                          target:self
@@ -394,17 +414,21 @@ int tagValueForBtn;
                          repeats:YES];
 }
 
+
+
 #pragma mark Reset Timer
 
 
 - (IBAction)Restarttimer:(id)sender {
+    [startTime setUserInteractionEnabled:YES];
     [self.secondsTimer invalidate];
     self.secondsTimer= nil;
-    self.secondsDisplay.text = [NSString
-                                stringWithFormat:@"%d", self.Reseconds];
-    
+   
+        self.secondsDisplay.text = [NSString
+                                    stringWithFormat:@"%.2d", self.Reseconds];
+
     self.minutesDisplay.text = [NSString
-                                stringWithFormat:@"%d", self.Reminutes];
+                                stringWithFormat:@"%.2d", self.Reminutes];
     self.seconds= self.Reseconds;
     self.minutes= self.Reminutes;
     
@@ -414,6 +438,7 @@ int tagValueForBtn;
 #pragma mark Stop Timer
 //Timer Stop
 - (IBAction)stoptimer:(id)sender{
+    [startTime setUserInteractionEnabled:YES];
     [self.secondsTimer invalidate];
     self.secondsTimer= nil;
 }
@@ -431,11 +456,11 @@ int tagValueForBtn;
     
     for (UIButton *radioButton in [pupview  subviews]) {
         if (radioButton.tag != btn.tag && [radioButton isKindOfClass:[UIButton class]] &&  radioButton.tag != 11 && radioButton.tag != 12) {
-            [radioButton setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
+            [radioButton setImage:[UIImage imageNamed:@"LUncheck.png"] forState:UIControlStateNormal];
         }
     }
     
-    [btn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"LChecked.png"] forState:UIControlStateNormal];
     
     switch (btn.tag) {
         case 1:
@@ -446,7 +471,7 @@ int tagValueForBtn;
         case 2:
             ovning.text=@"Tajta kläder (60 min)";
             self.minutes=00;
-            self.seconds=60;
+            self.seconds=59;
             break;
         case 3:
             ovning.text=@"Huvudet mellan benen (90 sek)";
@@ -456,12 +481,12 @@ int tagValueForBtn;
         case 4:
             ovning.text=@"Spring på stället (2 min)";
             self.minutes=01;
-            self.seconds=60;
+            self.seconds=59;
             break;
         case 5:
             ovning.text=@"Fullständig kroppsspänning (1 min)";
             self.minutes=00;
-            self.seconds=60;
+            self.seconds=59;
             break;
         case 6:
             ovning.text=@"Hålla andan (30 sek)";
@@ -483,7 +508,7 @@ int tagValueForBtn;
         case 10:
             ovning.text=@"Vatten i munnen (2 min)";
             self.minutes=01;
-            self.seconds=60;
+            self.seconds=59;
             break;
         default:
             break;
@@ -498,10 +523,7 @@ int tagValueForBtn;
 //Slider Value Changes
 -(IBAction)updateside:(id)sender
 {
-    if([egen.text isEqualToString:@""]){
-        NSLog(@"engen Text is : %@",egen.text);
-    }
-    else {
+    
         
         slider = (UISlider*)sender;
         NSLog(@"Slider Value: %.1f", [slider value]);
@@ -559,7 +581,6 @@ int tagValueForBtn;
         [self.tblView reloadData];
         
         NSLog(@"updated the slide values of allitems is $$$$$$$$$$$$$$ %@",allItems);
-    }
 }
 
 
@@ -618,7 +639,7 @@ int tagValueForBtn;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     egen.userInteractionEnabled = YES;
-    
+
     self.selectedIndexPath = [[NSIndexPath alloc] init];
     
     
@@ -955,6 +976,116 @@ int tagValueForBtn;
     [super viewDidUnload];
 }
 
+
+
+#pragma mark Email
+
+- (IBAction)skickaButtonClicked:(id)sender
+{
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    cameraActionSheet.tag = 1;
+    [cameraActionSheet showInView:self.view];
+}
+
+- (UIImage *)getFormImage
+{
+    UIImage *tempImage = nil;
+    UIGraphicsBeginImageContext(scroll.contentSize);
+    {
+        CGPoint savedContentOffset = scroll.contentOffset;
+        CGRect savedFrame = scroll.frame;
+        
+        scroll.contentOffset = CGPointZero;
+        scroll.frame = CGRectMake(0, 0, scroll.contentSize.width, scroll.contentSize.height);
+        
+        [scroll.layer renderInContext: UIGraphicsGetCurrentContext()];
+        tempImage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        scroll.contentOffset = savedContentOffset;
+        scroll.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    return tempImage;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
+	if (buttonIndex == 0)
+    {
+        UIImage *image = [self getFormImage];
+        if (image)
+        {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Image downloaded" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+    }
+    else if (buttonIndex == 1)
+    {
+        if ([MFMailComposeViewController canSendMail])
+        {
+            MFMailComposeViewController *emailDialog = [[MFMailComposeViewController alloc] init];
+            emailDialog.mailComposeDelegate = self;
+            NSMutableString *htmlMsg = [NSMutableString string];
+            [htmlMsg appendString:@"<html><body><p>"];
+            [htmlMsg appendString:[NSString stringWithFormat:@"Please find the attached form on %@", [NSDate date]]];
+            [htmlMsg appendString:@": </p></body></html>"];
+            
+            NSData *jpegData = UIImageJPEGRepresentation([self getFormImage], 1);
+            
+            NSString *fileName = [NSString stringWithString:[NSDate date]];
+            fileName = [fileName stringByAppendingPathExtension:@"jpeg"];
+            [emailDialog addAttachmentData:jpegData mimeType:@"image/jpeg" fileName:fileName];
+            
+            [emailDialog setSubject:@"Form"];
+            [emailDialog setMessageBody:htmlMsg isHTML:YES];
+            
+            
+            [self presentViewController:emailDialog animated:YES completion:nil];
+        }
+        else
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail cannot be send now. Please check mail has been configured in your device and try again." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    // Notifies users about errors associated with the interface
+    switch (result)
+    {
+            
+        case MFMailComposeResultCancelled:
+            break;
+        case MFMailComposeResultSaved:
+            break;
+        case MFMailComposeResultSent:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail sent successfully" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+            break;
+        case MFMailComposeResultFailed:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail send failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+            break;
+        default:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Mail was not sent." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
+        }
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 - (void)didReceiveMemoryWarning

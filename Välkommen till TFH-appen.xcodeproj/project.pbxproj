@@ -43,6 +43,10 @@
 		24618DEA17A4DAFC00D3D08B /* DayCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24618DE417A4DAFC00D3D08B /* DayCalendarViewController.m */; };
 		24618DEB17A4DAFC00D3D08B /* DayCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE517A4DAFC00D3D08B /* DayCalendarView.xib */; };
 		24618DEC17A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE617A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib */; };
+		2473B6FB17D2FC7E00A465B5 /* LUncheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6F817D2FC7E00A465B5 /* LUncheck.png */; };
+		2473B6FC17D2FC7E00A465B5 /* LChecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6F917D2FC7E00A465B5 /* LChecked@2x.png */; };
+		2473B6FD17D2FC7E00A465B5 /* LChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6FA17D2FC7E00A465B5 /* LChecked.png */; };
+		2473B6FF17D2FC9D00A465B5 /* LUncheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6FE17D2FC9D00A465B5 /* LUncheck@2x.png */; };
 		247751841790672E00CF2518 /* Regisreringsveck_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 247751831790672D00CF2518 /* Regisreringsveck_button.png */; };
 		2489BCDE178DF3AD00C9B184 /* minimized-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 2489BCDB178DF3AD00C9B184 /* minimized-green.png */; };
 		2489BCDF178DF3AD00C9B184 /* minimized-title.png in Resources */ = {isa = PBXBuildFile; fileRef = 2489BCDC178DF3AD00C9B184 /* minimized-title.png */; };
@@ -393,6 +397,10 @@
 		24618DE417A4DAFC00D3D08B /* DayCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayCalendarViewController.m; sourceTree = "<group>"; };
 		24618DE517A4DAFC00D3D08B /* DayCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView.xib; sourceTree = "<group>"; };
 		24618DE617A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView_iPhone4.xib; sourceTree = "<group>"; };
+		2473B6F817D2FC7E00A465B5 /* LUncheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUncheck.png; sourceTree = "<group>"; };
+		2473B6F917D2FC7E00A465B5 /* LChecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LChecked@2x.png"; sourceTree = "<group>"; };
+		2473B6FA17D2FC7E00A465B5 /* LChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LChecked.png; sourceTree = "<group>"; };
+		2473B6FE17D2FC9D00A465B5 /* LUncheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LUncheck@2x.png"; sourceTree = "<group>"; };
 		247751831790672D00CF2518 /* Regisreringsveck_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Regisreringsveck_button.png; sourceTree = "<group>"; };
 		2489BCDB178DF3AD00C9B184 /* minimized-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minimized-green.png"; sourceTree = "<group>"; };
 		2489BCDC178DF3AD00C9B184 /* minimized-title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minimized-title.png"; sourceTree = "<group>"; };
@@ -1172,6 +1180,10 @@
 				5EF355AD1784771B006F9065 /* timer-digitex5.png */,
 				5EEE81E5177C92010009598F /* button.png */,
 				5EF355AB17847630006F9065 /* title-backgroundex5.png */,
+				2473B6FE17D2FC9D00A465B5 /* LUncheck@2x.png */,
+				2473B6F817D2FC7E00A465B5 /* LUncheck.png */,
+				2473B6F917D2FC7E00A465B5 /* LChecked@2x.png */,
+				2473B6FA17D2FC7E00A465B5 /* LChecked.png */,
 				5EEFD16C1737BD21001E0E25 /* Interoceptivexponering.h */,
 				5EEFD16D1737BD21001E0E25 /* Interoceptivexponering.m */,
 				5EEFD16E1737BD21001E0E25 /* Interoceptivexponering.xib */,
@@ -1833,6 +1845,10 @@
 				5E90244217CA2EE800FE333A /* ListOfUtvardering.xib in Resources */,
 				5E18662917CA6C83006C6671 /* DinUtvardering_iPad.xib in Resources */,
 				5E18662B17CA6C83006C6671 /* DinUtvardering.xib in Resources */,
+				2473B6FB17D2FC7E00A465B5 /* LUncheck.png in Resources */,
+				2473B6FC17D2FC7E00A465B5 /* LChecked@2x.png in Resources */,
+				2473B6FD17D2FC7E00A465B5 /* LChecked.png in Resources */,
+				2473B6FF17D2FC9D00A465B5 /* LUncheck@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

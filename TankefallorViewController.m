@@ -222,7 +222,7 @@
 
 - (IBAction)skickaButtonClicked:(id)sender
 {
-    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
     cameraActionSheet.tag = 1;
     [cameraActionSheet showInView:self.view];
 }

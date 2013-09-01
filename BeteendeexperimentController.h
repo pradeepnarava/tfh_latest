@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 
-@interface BeteendeexperimentController : UIViewController<UITableViewDelegate, UITableViewDataSource>{
+@interface BeteendeexperimentController : UIViewController<UITableViewDelegate, UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate>{
     
     
     UILabel *label,*label1;
@@ -57,6 +59,7 @@
 
 - (void)clearalltexts;
 
+- (IBAction)skickaButtonClicked:(id)sender;
 - (IBAction)changeSlider:(id)sender;
 - (IBAction)changeSlider1:(id)sender;
 

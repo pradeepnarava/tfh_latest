@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 
-@interface Interoceptivexponering : UIViewController <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+
+@interface Interoceptivexponering : UIViewController <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate, UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
 {
     //Gopal DataBase
     sqlite3 *exerciseDB;
@@ -42,9 +45,6 @@
 
     //
     NSString *inStr;
-    
-    
-    
 }
 
 //Gopal
@@ -76,6 +76,8 @@
 -(void)updateIntDatabase:(NSDictionary*)recordsDic;
 -(void)deleteRecordsFromDB:(NSDictionary *)tempDict;
 
+- (IBAction)skickaButtonClicked:(id)sender;
+- (IBAction)ntyyButtonClicked:(id)sender;
 - (IBAction)newcolm:(id)sender;
 - (IBAction)closeBtn:(id)sender;
 - (IBAction)closetimer:(id)sender;
