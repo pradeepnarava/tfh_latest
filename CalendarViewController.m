@@ -477,7 +477,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 - (void)longPress:(UIGestureRecognizer *)gesture{
     
-
+    
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
         
@@ -518,7 +518,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             
             if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
                 editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Radera",nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"KBT" message:@"Är du säker på att du vill radera aktiviteten?" delegate:self cancelButtonTitle:@"Avbryt" otherButtonTitles:@"Radera",nil];
                 
                 [alert show];
                 [alert release];
@@ -742,7 +742,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     BOOL isExit=NO;
     for (int q= 0; q<[dataArray count]; q++) {
         NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-
+        
         if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
             editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
             
@@ -760,7 +760,7 @@ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
             }else {
                 hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
             }
-
+            
             isExit = YES;
             raderaBtn.enabled =YES;
         }

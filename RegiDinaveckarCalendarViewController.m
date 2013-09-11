@@ -91,7 +91,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title=@"Dinaveckor";
+    self.navigationItem.title=@"Dina veckor";
     
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
     self.popupView.layer.cornerRadius = 12;
@@ -124,6 +124,13 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
+    
+    UIImage *image = [UIImage imageNamed:@"setting_alarm_button.png"];
+    UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+    [okBtn addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     
     NSString *docsDir;
     NSArray *dirPaths;
@@ -196,6 +203,32 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [totalDataArray release];
     [super dealloc];
 }
+
+
+#pragma mark SettingViewController
+
+-(void)settButtonClicked {
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!settingRegViewCntrl) {
+                settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView" bundle:nil];
+            }
+        }else{
+            if (!settingRegViewCntrl) {
+                settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!settingRegViewCntrl) {
+            settingRegViewCntrl = [[SettingRegistViewController alloc] initWithNibName:@"SettingRegistView_iPad" bundle:nil];
+        }
+    }
+    
+    [self.navigationController pushViewController:settingRegViewCntrl animated:YES];
+}
+
 
 
 -(void)displayButton {
@@ -271,6 +304,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         }
     }
 }
+
 
 
 

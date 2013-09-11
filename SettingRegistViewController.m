@@ -550,10 +550,13 @@ int tagValue;
     
     NSArray *items = [NSArray arrayWithObjects: cancelButton,flexibleSpace1,item,flexibleSpace2,applyButton,nil];
     [toolbar setItems:items animated:YES];
-    
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"da_US"];
     timePicker = [[UIDatePicker alloc]init];
     timePicker.frame = CGRectMake(0,44, 320, 216);
     timePicker.datePickerMode = UIDatePickerModeTime;
+
+   [timePicker setLocale:locale];
+
     
     if (button.tag == 12) {
         if ([startTimeButton.titleLabel.text length] > 0) {
