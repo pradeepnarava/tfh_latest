@@ -101,7 +101,7 @@
 }
 
 -(IBAction)lashorna:(id)sender{
-      [MTPopupWindow showWindowWithHTMLFile:@"lashorna.html" insideView:self.view];
+      [MTPopupWindow showWindowWithHTMLFile:@"ompsykisk.html" insideView:self.view];
 }
 
 - (void)didReceiveMemoryWarning

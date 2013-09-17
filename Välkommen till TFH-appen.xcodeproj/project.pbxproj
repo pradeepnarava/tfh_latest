@@ -301,7 +301,7 @@
 		5EF0E2AB173409A90016A59D /* example.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EF0E29F173409A90016A59D /* example.html */; };
 		5EF0E2AC173409A90016A59D /* flykt.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EF0E2A0173409A90016A59D /* flykt.html */; };
 		5EF0E2AD173409A90016A59D /* Introduktion.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EF0E2A1173409A90016A59D /* Introduktion.html */; };
-		5EF0E2AE173409A90016A59D /* lashorna.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EF0E2A2173409A90016A59D /* lashorna.html */; };
+		5EF0E2AE173409A90016A59D /* ompsykisk.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EF0E2A2173409A90016A59D /* ompsykisk.html */; };
 		5EF0E2AF173409A90016A59D /* om.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EF0E2A3173409A90016A59D /* om.html */; };
 		5EF0E2B0173409A90016A59D /* strategier.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EF0E2A4173409A90016A59D /* strategier.html */; };
 		5EF0E2B1173409A90016A59D /* tanefallor.html in Resources */ = {isa = PBXBuildFile; fileRef = 5EF0E2A5173409A90016A59D /* tanefallor.html */; };
@@ -705,7 +705,7 @@
 		5EF0E29F173409A90016A59D /* example.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = example.html; sourceTree = "<group>"; };
 		5EF0E2A0173409A90016A59D /* flykt.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = flykt.html; sourceTree = "<group>"; };
 		5EF0E2A1173409A90016A59D /* Introduktion.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Introduktion.html; sourceTree = "<group>"; };
-		5EF0E2A2173409A90016A59D /* lashorna.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = lashorna.html; sourceTree = "<group>"; };
+		5EF0E2A2173409A90016A59D /* ompsykisk.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ompsykisk.html; sourceTree = "<group>"; };
 		5EF0E2A3173409A90016A59D /* om.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = om.html; sourceTree = "<group>"; };
 		5EF0E2A4173409A90016A59D /* strategier.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = strategier.html; sourceTree = "<group>"; };
 		5EF0E2A5173409A90016A59D /* tanefallor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = tanefallor.html; sourceTree = "<group>"; };
@@ -1329,13 +1329,16 @@
 		5EF0E29C173409A90016A59D /* THF html files */ = {
 			isa = PBXGroup;
 			children = (
+				5EF0E2A1173409A90016A59D /* Introduktion.html */,
+				5EF0E2A2173409A90016A59D /* ompsykisk.html */,
+				5EF0E2A3173409A90016A59D /* om.html */,
+				5EE8F8C71745195000909F24 /* Registreratankar.html */,
 				5EE83EDD1746124500A73F0B /* Livskompassen.html */,
 				5EE83EDE1746124500A73F0B /* ￼￼Utvardering.html */,
 				5EE83EDF1746124600A73F0B /* Plusvecka.html */,
 				5EE83EDB1746103100A73F0B /* Registreringsvecka.html */,
 				5EE83ED717460D1500A73F0B /* ovningsbeskrivningar.html */,
 				5EE83ED817460D1500A73F0B /* Interoceptivexponering.html */,
-				5EE8F8C71745195000909F24 /* Registreratankar.html */,
 				5EE83ECF174603EC00A73F0B /* Utmanatankar.html */,
 				5EF0E29D173409A90016A59D /* Beteend1-100.html */,
 				5EE83ED11746060700A73F0B /* Alternativtanke.html */,
@@ -1344,9 +1347,6 @@
 				5EF0E29E173409A90016A59D /* Beteendeaktivering.html */,
 				5EF0E29F173409A90016A59D /* example.html */,
 				5EF0E2A0173409A90016A59D /* flykt.html */,
-				5EF0E2A1173409A90016A59D /* Introduktion.html */,
-				5EF0E2A2173409A90016A59D /* lashorna.html */,
-				5EF0E2A3173409A90016A59D /* om.html */,
 				5EF0E2A4173409A90016A59D /* strategier.html */,
 				5EF0E2A5173409A90016A59D /* tanefallor.html */,
 				5EF0E2A6173409A90016A59D /* tanke.html */,
@@ -1598,7 +1598,7 @@
 				5EF0E2AB173409A90016A59D /* example.html in Resources */,
 				5EF0E2AC173409A90016A59D /* flykt.html in Resources */,
 				5EF0E2AD173409A90016A59D /* Introduktion.html in Resources */,
-				5EF0E2AE173409A90016A59D /* lashorna.html in Resources */,
+				5EF0E2AE173409A90016A59D /* ompsykisk.html in Resources */,
 				5EF0E2AF173409A90016A59D /* om.html in Resources */,
 				5EF0E2B0173409A90016A59D /* strategier.html in Resources */,
 				5EF0E2B1173409A90016A59D /* tanefallor.html in Resources */,
