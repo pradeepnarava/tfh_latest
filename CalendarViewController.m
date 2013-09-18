@@ -449,11 +449,13 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                     if ([tag intValue] == [[array objectAtIndex:1] intValue]) {
                         CALayer *layer = [CALayer layer];
                         if ([[dict objectForKey:kStatus ] isEqualToString:@"+"]) {
-                            layer.backgroundColor = [UIColor greenColor].CGColor;
+                            layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_positive.png"]].CGColor;
                         }else if ([[dict objectForKey:kStatus ] isEqualToString:@"-"]) {
-                            layer.backgroundColor = [UIColor redColor].CGColor;
+                            layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_negative.png"]].CGColor;
+                        }else if ([[dict objectForKey:kStatus] isEqualToString:@"Neutral"]){
+                            layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"]].CGColor;
                         }else {
-                            layer.backgroundColor = [UIColor grayColor].CGColor;
+                            layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_empty.png"]].CGColor;
                         }
                         
                         NSString *lastTag = [NSString stringWithFormat:@"%@%@",index,[array objectAtIndex:1]];
