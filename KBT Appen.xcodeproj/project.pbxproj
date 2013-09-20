@@ -573,14 +573,14 @@
 		5E9ECF6D1746745D00A894D0 /* EditLivskompass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditLivskompass.h; sourceTree = "<group>"; };
 		5E9ECF6E1746745D00A894D0 /* EditLivskompass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditLivskompass.m; sourceTree = "<group>"; };
 		5E9ECF6F1746745D00A894D0 /* EditLivskompass.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditLivskompass.xib; sourceTree = "<group>"; };
-		5EA026A9172E7CD100C37EE4 /* Välkommen till TFH-appen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Välkommen till TFH-appen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EA026A9172E7CD100C37EE4 /* KBT Appen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KBT Appen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EA026AC172E7CD100C37EE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5EA026AE172E7CD100C37EE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5EA026B0172E7CD100C37EE4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		5EA026B4172E7CD100C37EE4 /* Välkommen till TFH-appen-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Välkommen till TFH-appen-Info.plist"; sourceTree = "<group>"; };
+		5EA026B4172E7CD100C37EE4 /* KBT Appen-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KBT Appen-Info.plist"; sourceTree = "<group>"; };
 		5EA026B6172E7CD100C37EE4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5EA026B8172E7CD100C37EE4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		5EA026BA172E7CD100C37EE4 /* Välkommen till TFH-appen-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Välkommen till TFH-appen-Prefix.pch"; sourceTree = "<group>"; };
+		5EA026BA172E7CD100C37EE4 /* KBT Appen-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KBT Appen-Prefix.pch"; sourceTree = "<group>"; };
 		5EA026BB172E7CD100C37EE4 /* Va_lkommenAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Va_lkommenAppDelegate.h; sourceTree = "<group>"; };
 		5EA026BC172E7CD100C37EE4 /* Va_lkommenAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Va_lkommenAppDelegate.m; sourceTree = "<group>"; };
 		5EA026BE172E7CD100C37EE4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -983,7 +983,7 @@
 		5EA026AA172E7CD100C37EE4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5EA026A9172E7CD100C37EE4 /* Välkommen till TFH-appen.app */,
+				5EA026A9172E7CD100C37EE4 /* KBT Appen.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1095,10 +1095,10 @@
 				5EA9C622173CFAC900C6E426 /* popupWindowBack.png */,
 				5EA9C623173CFAC900C6E426 /* popupWindowBack@2x.png */,
 				5EF0E29C173409A90016A59D /* THF html files */,
-				5EA026B4172E7CD100C37EE4 /* Välkommen till TFH-appen-Info.plist */,
+				5EA026B4172E7CD100C37EE4 /* KBT Appen-Info.plist */,
 				5EA026B5172E7CD100C37EE4 /* InfoPlist.strings */,
 				5EA026B8172E7CD100C37EE4 /* main.m */,
-				5EA026BA172E7CD100C37EE4 /* Välkommen till TFH-appen-Prefix.pch */,
+				5EA026BA172E7CD100C37EE4 /* KBT Appen-Prefix.pch */,
 				5EA026BE172E7CD100C37EE4 /* Default.png */,
 				5EA026C0172E7CD100C37EE4 /* Default@2x.png */,
 				5EA026C2172E7CD100C37EE4 /* Default-568h@2x.png */,
@@ -1531,9 +1531,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5EA026A8172E7CD100C37EE4 /* Välkommen till TFH-appen */ = {
+		5EA026A8172E7CD100C37EE4 /* KBT Appen */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5EA026CF172E7CD100C37EE4 /* Build configuration list for PBXNativeTarget "Välkommen till TFH-appen" */;
+			buildConfigurationList = 5EA026CF172E7CD100C37EE4 /* Build configuration list for PBXNativeTarget "KBT Appen" */;
 			buildPhases = (
 				5EA026A5172E7CD100C37EE4 /* Sources */,
 				5EA026A6172E7CD100C37EE4 /* Frameworks */,
@@ -1543,9 +1543,9 @@
 			);
 			dependencies = (
 			);
-			name = "Välkommen till TFH-appen";
+			name = "KBT Appen";
 			productName = "Välkommen till TFH-appen";
-			productReference = 5EA026A9172E7CD100C37EE4 /* Välkommen till TFH-appen.app */;
+			productReference = 5EA026A9172E7CD100C37EE4 /* KBT Appen.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1558,7 +1558,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = brilliance;
 			};
-			buildConfigurationList = 5EA026A4172E7CD100C37EE4 /* Build configuration list for PBXProject "Välkommen till TFH-appen" */;
+			buildConfigurationList = 5EA026A4172E7CD100C37EE4 /* Build configuration list for PBXProject "KBT Appen" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1570,7 +1570,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5EA026A8172E7CD100C37EE4 /* Välkommen till TFH-appen */,
+				5EA026A8172E7CD100C37EE4 /* KBT Appen */,
 			);
 		};
 /* End PBXProject section */
@@ -2028,8 +2028,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/Välkommen till TFH-appen-Prefix.pch";
-				INFOPLIST_FILE = "Välkommen till TFH-appen/Välkommen till TFH-appen-Info.plist";
+				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/KBT Appen-Prefix.pch";
+				INFOPLIST_FILE = "Välkommen till TFH-appen/KBT Appen-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2041,7 +2041,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "KBT Appen";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2056,8 +2056,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kristian Daoud (78RVJ39CQS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/Välkommen till TFH-appen-Prefix.pch";
-				INFOPLIST_FILE = "Välkommen till TFH-appen/Välkommen till TFH-appen-Info.plist";
+				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/KBT Appen-Prefix.pch";
+				INFOPLIST_FILE = "Välkommen till TFH-appen/KBT Appen-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2069,7 +2069,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "KBT Appen";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4C6DBF27-5211-4776-8F51-003B649247BC";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2081,7 +2081,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5EA026A4172E7CD100C37EE4 /* Build configuration list for PBXProject "Välkommen till TFH-appen" */ = {
+		5EA026A4172E7CD100C37EE4 /* Build configuration list for PBXProject "KBT Appen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5EA026CD172E7CD100C37EE4 /* Debug */,
@@ -2090,7 +2090,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5EA026CF172E7CD100C37EE4 /* Build configuration list for PBXNativeTarget "Välkommen till TFH-appen" */ = {
+		5EA026CF172E7CD100C37EE4 /* Build configuration list for PBXNativeTarget "KBT Appen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5EA026D0172E7CD100C37EE4 /* Debug */,
