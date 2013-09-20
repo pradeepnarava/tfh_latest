@@ -67,6 +67,11 @@
     NSString *docsDir;
     NSArray *dirPaths;
     
+    
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+    
+    
+    
     // Get the documents directory
     dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     

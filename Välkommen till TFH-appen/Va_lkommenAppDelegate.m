@@ -57,9 +57,12 @@
     }
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        navController.navigationBar.barStyle = UIBarStyleDefault;
         [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPhone.png"] forBarMetrics:UIBarMetricsDefault];
     }else {
+        [navController.navigationBar setBarStyle:UIBarStyleDefault];
        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPad.png"] forBarMetrics:UIBarMetricsDefault]; 
     }
     
