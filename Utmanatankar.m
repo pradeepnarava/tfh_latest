@@ -266,15 +266,15 @@ NSArray *pArray;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    NSLog(@"Gopal");
+    NSLog(@"KBT");
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-        NSLog(@"Gopal");
+    NSLog(@"KBT");
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
-        NSLog(@"Gopal");
+    NSLog(@"KBT");
 }
 
 // Lasdel

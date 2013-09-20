@@ -418,16 +418,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            if ([[sDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            }
-            if ([[eDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
-            }
+           
+                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+           
+                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+           
 
             isExit = YES;
             raderaBtn.enabled =YES;
@@ -435,16 +430,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        if ([subString intValue] < 10) {
-            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[subString intValue]-1];
-        }else {
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
-        }
-        if ([hoursTextField1.text intValue] < 10) {
-            hoursTextField2.text = [NSString stringWithFormat:@"0%i",[hoursTextField1.text intValue]+1];
-        }else {
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
-        }
+       
+            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+       
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+       
         
         raderaBtn.enabled = NO;
         editIndexValue= nil;
@@ -475,25 +465,19 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     BOOL isExit=NO;
     for (int q= 0; q<[dataArray count]; q++) {
         NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-       
+        
         if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
             editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-    
+            
             currentStatuBtn = [temp valueForKey:kStatus];
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            if ([[sDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            }
-            if ([[eDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
-            }
-
+            
+            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+            
+            
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -501,16 +485,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     if (!isExit) {
         eventDesTextView.text = @"";
-        if ([subString intValue] < 10) {
-            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[subString intValue]-1];
-        }else {
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
-        }
-        if ([hoursTextField1.text intValue] < 10) {
-            hoursTextField2.text = [NSString stringWithFormat:@"0%i",[hoursTextField1.text intValue]+1];
-        }else {
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
-        }
+        
+        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+        
+        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+        
         raderaBtn.enabled = NO;
         editIndexValue= nil;
     }
@@ -540,41 +519,27 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     BOOL isExit=NO;
     for (int q= 0; q<[dataArray count]; q++) {
         NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-    
+        
         if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
             editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-
+            
             currentStatuBtn = [temp valueForKey:kStatus];
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            if ([[sDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            }
-            if ([[eDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
-            }
-
+            
+            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
             isExit = YES;
             raderaBtn.enabled =YES;
         }
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        if ([subString intValue] < 10) {
-            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[subString intValue]-1];
-        }else {
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
-        }
-        if ([hoursTextField1.text intValue] < 10) {
-            hoursTextField2.text = [NSString stringWithFormat:@"0%i",[hoursTextField1.text intValue]+1];
-        }else {
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
-        }
+        
+        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+        
+        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled = NO;
         editIndexValue= nil;
     }
@@ -585,7 +550,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
                           }];
-    
 }
 
 
@@ -611,16 +575,10 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            if ([[sDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            }
-            if ([[eDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
-            }
+            
+                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+            
 
             isExit = YES;
             raderaBtn.enabled =YES;
@@ -628,8 +586,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
-        hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
+        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
         raderaBtn.enabled =NO;
         editIndexValue= nil;
     }
@@ -643,6 +601,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                           }];
     
 }
+
+
 -(IBAction)empty4:(id)sender {
     UIButton *btn = (UIButton*)sender;
     NSDate *date=nil;
@@ -663,16 +623,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            if ([[sDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            }
-            if ([[eDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
-            }
+           
+                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+           
+                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+           
 
             isExit = YES;
             raderaBtn.enabled =YES;
@@ -680,16 +635,10 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        if ([subString intValue] < 10) {
-            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[subString intValue]-1];
-        }else {
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
-        }
-        if ([hoursTextField1.text intValue] < 10) {
-            hoursTextField2.text = [NSString stringWithFormat:@"0%i",[hoursTextField1.text intValue]+1];
-        }else {
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
-        }
+       
+            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+       
         raderaBtn.enabled = NO;
         editIndexValue= nil;
     }
@@ -725,16 +674,10 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            if ([[sDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            }
-            if ([[eDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
-            }
+            
+                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+            
 
             isExit = YES;
             raderaBtn.enabled =YES;
@@ -742,16 +685,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        if ([subString intValue] < 10) {
-            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[subString intValue]-1];
-        }else {
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
-        }
-        if ([hoursTextField1.text intValue] < 10) {
-            hoursTextField2.text = [NSString stringWithFormat:@"0%i",[hoursTextField1.text intValue]+1];
-        }else {
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
-        }
+        
+        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+        
+        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+        
         raderaBtn.enabled = NO;
         editIndexValue= nil;
     }
@@ -786,33 +724,23 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
             NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
             eventDesTextView.text = [temp valueForKey:kEventDes];
-            if ([[sDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField1.text = [NSString stringWithFormat:@"0%i",[[sDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-            }
-            if ([[eDA objectAtIndex:0] intValue] < 10) {
-                hoursTextField2.text = [NSString stringWithFormat:@"0%i",[[eDA objectAtIndex:0] intValue]];
-            }else {
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
-            }
-
+            
+            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+            
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+            
+            
             isExit = YES;
             raderaBtn.enabled =YES;
         }
     }
     if (!isExit) {
         eventDesTextView.text = @"";
-        if ([subString intValue] < 10) {
-            hoursTextField1.text = [NSString stringWithFormat:@"0%i",[subString intValue]-1];
-        }else {
-            hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
-        }
-        if ([hoursTextField1.text intValue] < 10) {
-            hoursTextField2.text = [NSString stringWithFormat:@"0%i",[hoursTextField1.text intValue]+1];
-        }else {
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
-        }
+        
+        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+        
+        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+        
         raderaBtn.enabled = NO;
         editIndexValue= nil;
     }
@@ -966,10 +894,10 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 {
     
     if ([self findSameTime]  && [editIndexValue length] == 0 && editIndexValue == nil) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App" message:@"Gopal" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"KBT Appen" message:@"Already Exits" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK",nil];
         [alert show];
-        
-    }else {
+    }
+    else {
     [ASDepthModalViewController dismiss];
 
     if (editIndexValue) {
@@ -1544,14 +1472,10 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         if ([textField.text integerValue] >= 24) {
             hoursTextField2.text = @"00";
         }
-        else  {
+        else {
             int h1 = [textField.text integerValue];
             h1 += 1;
-            if (h1 < 10) {
-                hoursTextField2.text = [NSString stringWithFormat:@"0%i",h1];
-            }else{
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",h1];
-            }
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",h1];
         }
     }
     if (textField == mintsTextField1) {
