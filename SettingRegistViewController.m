@@ -126,7 +126,7 @@ int tagValue;
     
     hoursTimeString = [[NSString alloc] init];
 
-    self.title = @"Settings";
+    self.title = @"Påminnelser";
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 
@@ -416,7 +416,7 @@ int tagValue;
         notif.fireDate = [self localDateAndTime:oneTimeNotificationLabel.text];
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.repeatInterval = NSDayCalendarUnit;
-        notif.alertBody = @"Registrera aktivitet";
+        notif.alertBody = @"Påminnelser";
         notif.alertAction = @"View";
         notif.userInfo = [NSDictionary dictionaryWithObject:@"Event" forKey:kEventNotificationDataKey];
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
@@ -438,7 +438,7 @@ int tagValue;
                 notif.fireDate = sTime;
                 notif.soundName = UILocalNotificationDefaultSoundName;
                 notif.repeatInterval = NSDayCalendarUnit;
-                notif.alertBody = @"Registrera aktivitet";
+                notif.alertBody = @"Påminnelser";
                 notif.alertAction = @"View";
                 
                 notif.userInfo = [NSDictionary dictionaryWithObject:@"Event" forKey:kEventNotificationDataKey];
@@ -462,7 +462,7 @@ int tagValue;
         notif.fireDate = [self localDateAndTime:totalTimeButton.titleLabel.text];
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.repeatInterval = NSDayCalendarUnit;
-        notif.alertBody = @"Specifiera dagens sinnesstämning";
+        notif.alertBody = @"Påminnelser";
         notif.alertAction = @"View";
         notif.userInfo = [NSDictionary dictionaryWithObject:@"Total" forKey:kTotalNotificationDataKey];
         

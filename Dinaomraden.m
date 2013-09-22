@@ -895,7 +895,7 @@
         notif.repeatInterval = NSWeekdayCalendarUnit;
         notif.timeZone = [NSTimeZone defaultTimeZone];
         
-        notif.alertBody = @"Did you forget something?";
+        notif.alertBody = @"Påminnelser";
         notif.alertAction = @"Show me";
         notif.soundName = UILocalNotificationDefaultSoundName;
         notif.applicationIconBadgeNumber = 1;
