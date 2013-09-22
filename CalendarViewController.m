@@ -1780,7 +1780,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     [textField resignFirstResponder];
+    
     return YES;
 }
 

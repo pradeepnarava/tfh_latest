@@ -470,7 +470,6 @@
     
     
     self.week = _date;
-    
     self.weekdays = [[NSMutableArray alloc] init];
     
     for (int i =0; i < 7; i++)
@@ -634,7 +633,6 @@
         
     }else if ([s intValue] == 3){
         date = [self.weekdays objectAtIndex:2];
-        
     }else if ([s intValue] == 4) {
         date = [self.weekdays objectAtIndex:3];
         
