@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E82CD0017EE82C600E500FD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFA17EE82C600E500FD /* Icon.png */; };
+		1E82CD0117EE82C600E500FD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFB17EE82C600E500FD /* Icon@2x.png */; };
+		1E82CD0217EE82C600E500FD /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFC17EE82C600E500FD /* Icon-Small-50.png */; };
+		1E82CD0317EE82C600E500FD /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFD17EE82C600E500FD /* Icon-72.png */; };
+		1E82CD0417EE82C600E500FD /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFE17EE82C600E500FD /* Icon-Small@2x.png */; };
+		1E82CD0517EE82C600E500FD /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFF17EE82C600E500FD /* Icon-Small.png */; };
 		2401C2E01792F8080081BFEA /* setting_alarm_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2DF1792F8080081BFEA /* setting_alarm_button.png */; };
 		2401C2EE1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */; };
 		2401C2F0179313900081BFEA /* Registreringsvecka_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */; };
@@ -356,6 +362,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E82CCFA17EE82C600E500FD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		1E82CCFB17EE82C600E500FD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		1E82CCFC17EE82C600E500FD /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		1E82CCFD17EE82C600E500FD /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		1E82CCFE17EE82C600E500FD /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		1E82CCFF17EE82C600E500FD /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		2401C2DF1792F8080081BFEA /* setting_alarm_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_alarm_button.png; sourceTree = "<group>"; };
 		2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Beteendeaktivering_iPhone4.xib; sourceTree = "<group>"; };
 		2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Registreringsvecka_iPhone4.xib; sourceTree = "<group>"; };
@@ -874,6 +886,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E82CCF917EE82B100E500FD /* app icons */ = {
+			isa = PBXGroup;
+			children = (
+				1E82CCFA17EE82C600E500FD /* Icon.png */,
+				1E82CCFB17EE82C600E500FD /* Icon@2x.png */,
+				1E82CCFC17EE82C600E500FD /* Icon-Small-50.png */,
+				1E82CCFD17EE82C600E500FD /* Icon-72.png */,
+				1E82CCFE17EE82C600E500FD /* Icon-Small@2x.png */,
+				1E82CCFF17EE82C600E500FD /* Icon-Small.png */,
+			);
+			name = "app icons";
+			sourceTree = "<group>";
+		};
 		2401C2E11793120A0081BFEA /* PopOverView */ = {
 			isa = PBXGroup;
 			children = (
@@ -959,6 +984,7 @@
 		5EA026A0172E7CD100C37EE4 = {
 			isa = PBXGroup;
 			children = (
+				1E82CCF917EE82B100E500FD /* app icons */,
 				2456C5B91795AD2100F36A2F /* Accelerate.framework */,
 				5EA735A21758D634001D56C7 /* TPMultiLayoutViewController.h */,
 				5EA735A31758D634001D56C7 /* TPMultiLayoutViewController.m */,
@@ -1617,6 +1643,7 @@
 				5EED2AEB173E530400CF77B3 /* ma_leftArrow.png in Resources */,
 				5EED2AEC173E530400CF77B3 /* ma_leftArrow@2x.png in Resources */,
 				5EED2AED173E530400CF77B3 /* ma_rightArrow.png in Resources */,
+				1E82CD0117EE82C600E500FD /* Icon@2x.png in Resources */,
 				5EED2AEE173E530400CF77B3 /* ma_rightArrow@2x.png in Resources */,
 				5EED2AEF173E530400CF77B3 /* ma_topBackground.png in Resources */,
 				5EF8F6751740DE8700D9CD5E /* ListOfKompass.xib in Resources */,
@@ -1724,6 +1751,7 @@
 				248C087F1773F935007B660A /* läsdel.png in Resources */,
 				248C08801773F935007B660A /* läsdel@2x.png in Resources */,
 				248C08811773F935007B660A /* läsdel@2x~ipad.png in Resources */,
+				1E82CD0017EE82C600E500FD /* Icon.png in Resources */,
 				248C08821773F935007B660A /* läsdel~ipad.png in Resources */,
 				24AE0F3E1776181C0073A880 /* exempel-från-livet-background@2x.png in Resources */,
 				24AE0F3F1776181C0073A880 /* shorter-bottom.png in Resources */,
@@ -1756,6 +1784,7 @@
 				5EEE8215177C9C450009598F /* övningar-beteendeövningar-background.png in Resources */,
 				5EEE8216177C9C450009598F /* övningar-exponeringsövningar-background.png in Resources */,
 				5EEE8217177C9C450009598F /* ovningar_tankeovningar_background.png in Resources */,
+				1E82CD0317EE82C600E500FD /* Icon-72.png in Resources */,
 				24BC2FE6177E1F8100A9EBB0 /* TankefallorViewController_iPhone4.xib in Resources */,
 				24DEDD6017807C5500DFB920 /* OveningarViewController_iPhone4.xib in Resources */,
 				24DEDD661780AF1100DFB920 /* BeteendeexperimentController_iPhone4.xib in Resources */,
@@ -1772,9 +1801,11 @@
 				2441515D17892DA90087957E /* om-button_ipad.png in Resources */,
 				2441515E17892DA90087957E /* startsida-button_ipad.png in Resources */,
 				2441519C17894F610087957E /* topbar_ipad.png in Resources */,
+				1E82CD0417EE82C600E500FD /* Icon-Small@2x.png in Resources */,
 				2441519D17894F610087957E /* topbar_ipad@2x.png in Resources */,
 				2441519F178958DD0087957E /* tillbaka-button_ipad.png in Resources */,
 				24356DAC1789C6D4000CD4B8 /* Interoceptivexponering_iPhone4.xib in Resources */,
+				1E82CD0217EE82C600E500FD /* Icon-Small-50.png in Resources */,
 				24396A681789CA7600D8E2FD /* BeteendeexperimentController_iPad.xib in Resources */,
 				5E9187F0178B0BA300FF9BDE /* Interoceptivexponering_iPad.xib in Resources */,
 				248D1579178B37AA0045AADB /* tillbaka1@2x.png in Resources */,
@@ -1826,6 +1857,7 @@
 				248BF53E17AAEB2000556BF8 /* button_off_iphone.png in Resources */,
 				248BF53F17AAEB2000556BF8 /* button_off_iphone@2x.png in Resources */,
 				248BF54117AAEC1E00556BF8 /* button_on_iphone@2x.png in Resources */,
+				1E82CD0517EE82C600E500FD /* Icon-Small.png in Resources */,
 				248BF54317AAEC4C00556BF8 /* button_on_iphone.png in Resources */,
 				24BFDE2C17AD88BB0072DEEA /* UtvarderingView.xib in Resources */,
 				24BFDE2E17AD88E40072DEEA /* UtvarderingView_iPhone4.xib in Resources */,
@@ -2053,7 +2085,7 @@
 		5EA026D1172E7CD100C37EE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Kristian Daoud (78RVJ39CQS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Välkommen till TFH-appen/Välkommen till TFH-appen-Prefix.pch";
