@@ -222,7 +222,7 @@
 
 - (IBAction)skickaButtonClicked:(id)sender
 {
-    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Avbryt" destructiveButtonTitle:nil otherButtonTitles:@"Ladda ner", @"E-mail", nil];
     cameraActionSheet.tag = 1;
     [cameraActionSheet showInView:self.view];
 }
@@ -380,7 +380,7 @@
             
             const char *del_stmt = [query UTF8String];
             
-            if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
+            if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK){
                 if(SQLITE_DONE != sqlite3_step(statement))
                     NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
                 NSLog(@"sss");
