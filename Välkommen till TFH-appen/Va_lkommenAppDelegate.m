@@ -66,6 +66,10 @@
        [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationbar_iPad.png"] forBarMetrics:UIBarMetricsDefault]; 
     }
     
+    
+    [navController.navigationBar setTranslucent:NO];
+    
+    
     [self.window setRootViewController:navController];
     [self.window makeKeyAndVisible];
     
