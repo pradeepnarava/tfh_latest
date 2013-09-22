@@ -333,8 +333,8 @@
                 NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
                 NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
                 eventDesTextView.text = [temp valueForKey:kEventDes];
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
                 mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
                 mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
                 isExit = YES;
@@ -353,8 +353,8 @@
                 NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
                 NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
                 eventDesTextView.text = [temp valueForKey:kEventDes];
-                hoursTextField1.text = [NSString stringWithFormat:@"%i",[[sDA objectAtIndex:0] intValue]];
-                hoursTextField2.text = [NSString stringWithFormat:@"%i",[[eDA objectAtIndex:0] intValue]];
+                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
                 mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
                 mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
                 isExit = YES;
@@ -368,8 +368,8 @@
     if (!isExit) {
         currentStatuBtn=@"Neutral";
         eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%i",[subString intValue]-1];
-        hoursTextField2.text = [NSString stringWithFormat:@"%i",[hoursTextField1.text intValue]+1];
+        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
         mintsTextField1.text = [NSString stringWithFormat:@"00"];
         mintsTextField2.text = [NSString stringWithFormat:@"00"];
         raderaBtn.enabled = NO;
@@ -843,12 +843,12 @@
     
     if (textField == hoursTextField1) {
         if ([textField.text length] > 24) {
-            hoursTextField2.text = @"";
+            hoursTextField2.text = @"00";
         }
         else {
             int h1 = [textField.text integerValue];
             h1 += 1;
-            hoursTextField2.text = [NSString stringWithFormat:@"%i",h1];
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",h1];
         }
     }
     if (textField == mintsTextField1) {
