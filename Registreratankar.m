@@ -155,6 +155,7 @@ int s=0;
 {
     self.navigationItem.title=@"Registrera tankar";
     
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
@@ -225,6 +226,10 @@ int s=0;
         }
         
         sqlite3_close(exerciseDB);
+        
+        
+        [self getTop1Date];
+
         
     } else {
         NSLog(@"Failed to open/create database");
@@ -365,6 +370,11 @@ int s=0;
         
         if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
         {
+            //activating buttons
+            raderabutton.enabled=YES;
+            _skickaButton.enabled = YES;
+
+            
             //NSLog(@"%@",[listexercise1 objectAtIndex:s] );
             if([[exercise1_list objectAtIndex:0] isEqualToString:@"Null"]){
                 NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO EXERCISEONE (date,negative,situation,beteenden,overiga) VALUES (\"%@\", \"%@\", \"%@\" ,\"%@\",\"%@\")", str, negative.text,situation.text, beteenden.text , overiga.text];
@@ -388,6 +398,12 @@ int s=0;
                 sqlite3_close(exerciseDB);
             }
             else{
+                
+                //activating buttons
+                raderabutton.enabled=YES;
+                _skickaButton.enabled = YES;
+
+                
                 NSLog(@"Updated");
                 NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISEONE SET negative='%@', situation='%@' , beteenden='%@', overiga='%@' WHERE date='%@' ",negative.text,situation.text, beteenden.text,overiga.text, [listexercise1 objectAtIndex:s]];
                 const char *del_stmt = [query UTF8String];
@@ -449,7 +465,7 @@ int s=0;
 
 - (IBAction)skickaButtonClicked:(id)sender
 {
-    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Avbryt" destructiveButtonTitle:nil otherButtonTitles:@"Ladda ner", @"E-mail", nil];
     cameraActionSheet.tag = 1;
     [cameraActionSheet showInView:self.view];
 }
@@ -630,6 +646,74 @@ int s=0;
     [UIView commitAnimations];
     [self getlistofDates];
         //[self.navigationController pushViewController:eevc animated:YES];
+}
+
+
+
+-(void)getTop1Date {
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+//        NSString *querySQL = [NSString stringWithFormat:@""];
+        
+        NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISEONE WHERE date=(SELECT date FROM EXERCISEONE  ORDER BY date DESC LIMIT 1)"];
+        
+//        [exercise1_list removeAllObjects];
+//        [exercise1_list addObject:SelectedDate];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            
+//            [self setIsSaved:YES];
+            
+            char* c1 = (char*) sqlite3_column_text(statement,2);
+            NSString *tmp1;
+            if (c1 != NULL){
+                tmp1 = [NSString stringWithUTF8String:c1];
+                NSLog(@"value form db :%@",tmp1);
+                negative.text=tmp1;
+            }
+            char* c2 = (char*) sqlite3_column_text(statement,3);
+            NSString *tmp2;
+            if (c2 != NULL){
+                tmp2 = [NSString stringWithUTF8String:c2];
+                NSLog(@"value form db :%@",tmp2);
+                situation.text=tmp2;
+            }
+            
+            char* c3 = (char*) sqlite3_column_text(statement,4);
+            NSString *tmp3;
+            if (c3!= NULL){
+                tmp3= [NSString stringWithUTF8String:c3];
+                NSLog(@"value form db :%@",tmp3);
+                beteenden.text=tmp3;
+            }
+            
+            char* c4 = (char*) sqlite3_column_text(statement,5);
+            NSString *tmp4;
+            if (c4 != NULL){
+                tmp4= [NSString stringWithUTF8String:c4];
+                NSLog(@"value form db :%@",tmp4);
+                overiga.text=tmp4;
+            }
+            
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+        
+    }
+    
+    listofdates.hidden = YES;
+    scroll.scrollEnabled = YES;
+    PopupView1.hidden=YES;
+    PopupView3.hidden=YES;
+    PopupView2.hidden=YES;
+    isSaved = NO;
+    NSLog(@"value of s%@",[listexercise1 objectAtIndex:s]);
 }
 
 

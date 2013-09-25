@@ -399,6 +399,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [super dealloc];
 }
 
+//Sön,Mån,Tis,Ons,Tors,Fre,Lör
 
 -(void)displayButton {
     
@@ -424,8 +425,13 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
    
             if (btn.tag!=10000) {
                 [btn addTarget:self action:@selector(touchBegan:withEvent:) forControlEvents:UIControlEventTouchUpInside];
-                btn.layer.borderColor = [UIColor blackColor].CGColor;
+                btn.layer.borderColor = [UIColor clearColor].CGColor;
                 btn.layer.borderWidth = 1.0f;
+               
+                UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+                
+                longPressGesture.minimumPressDuration = 1.0;
+                [btn addGestureRecognizer:longPressGesture];
             }
             
             
@@ -463,7 +469,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                         CGRect frame = CGRectMake(btn.frame.origin.x, btn.frame.origin.y+([[startArray objectAtIndex:1] intValue]/2), btn.frame.size.width,(lastBtn.frame.origin.y - btn.frame.origin.y)+([[endArray objectAtIndex:1] intValue]/2)+(btn.frame.size.height-([[startArray objectAtIndex:1] intValue]/2)));
                         
                         layer.frame = frame;
-                        
                         layer.zPosition  = 100;
                         NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
                         int c = [tag intValue] +1;
@@ -487,13 +492,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                         [self.scrollView.layer insertSublayer:layer atIndex:0];
                     }
                 }
-                UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
                 
-                longPressGesture.minimumPressDuration = 1.0;
-                [btn addGestureRecognizer:longPressGesture];
             }
         }
     }
+}
 
     /*for (int i =0; i <[[self.scrollView subviews] count]; i++) {
      
@@ -565,7 +568,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
      }
      }
      }*/
-}
+
 
 
 
@@ -574,6 +577,19 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     UIButton *btn = (UIButton*)c;
     UITouch *touch = [[ev allTouches] anyObject];
     BOOL isExist = NO;
+    NSDate *date=nil;
+    
+    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+    //NSString *subString =  [btag substringFromIndex:1];
+    
+    NSLog(@"-----$$$$$ %i",[[btag substringToIndex:1] intValue]);
+    
+    date = [self.weekdays objectAtIndex:[[btag substringToIndex:1] intValue]-1];
+    
+    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
+    
+    buttonString = [[tm objectAtIndex:0] retain];
+    
     CGPoint touchPoint = [touch locationInView:self.view];
     for (CALayer *layer in self.scrollView.layer.sublayers) {
         if ([layer containsPoint:[self.scrollView.layer convertPoint:touchPoint toLayer:layer]] && btn.layer != layer) {
@@ -583,11 +599,54 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
     if (!isExist) {
         NSLog(@"-----$$$$$ %@",btn.layer.name);
+        
     }
+    
+    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+    [ASDepthModalViewController presentView:self.popupView
+                            backgroundColor:nil
+                                    options:style
+                          completionHandler:^{
+                              NSLog(@"Modal view closed.");
+                          }];
+   
+   /* for (int q= 0; q<[dataArray count]; q++) {
+        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
+        
+        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
+            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
+            currentStatuBtn = [temp valueForKey:kStatus];
+            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
+            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
+            eventDesTextView.text = [temp valueForKey:kEventDes];
+            
+            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+            
+            
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+            
+            
+            isExist = YES;
+            raderaBtn.enabled =YES;
+        }
+    }
+    if (!isExist) {
+        eventDesTextView.text = @"";
+        
+        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+        
+        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+        
+        raderaBtn.enabled = NO;
+        editIndexValue= nil;
+        
+    }*/
 }
 
+
+
+
 - (void)longPress:(UIGestureRecognizer *)gesture{
-    
     
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
@@ -643,8 +702,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
--(IBAction)empty:(id)sender {
-    
+-(void)empty:(id)sender {
     
     UIButton *btn = (UIButton*)sender;
     
@@ -700,7 +758,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
--(IBAction)empty1:(id)sender {
+-(void)empty1:(id)sender {
     
     UIButton *btn = (UIButton*)sender;
     NSDate *date=nil;
@@ -750,7 +808,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
--(IBAction)empty2:(id)sender {
+-(void)empty2:(id)sender {
     
     UIButton *btn = (UIButton*)sender;
     NSDate *date=nil;
@@ -803,7 +861,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
--(IBAction)empty3:(id)sender {
+-(void)empty3:(id)sender {
     UIButton *btn = (UIButton*)sender;
     NSDate *date=nil;
     
@@ -857,7 +915,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
     
     
--(IBAction)empty4:(id)sender {
+-(void)empty4:(id)sender {
     UIButton *btn = (UIButton*)sender;
     NSDate *date=nil;
     date = [self.weekdays objectAtIndex:4];
@@ -906,7 +964,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
--(IBAction)empty5:(id)sender {
+-(void)empty5:(id)sender {
     UIButton *btn = (UIButton*)sender;
     NSDate *date=nil;
     date = [self.weekdays objectAtIndex:5];
@@ -959,7 +1017,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
--(IBAction)empty6:(id)sender {
+-(void)empty6:(id)sender {
     UIButton *btn = (UIButton*)sender;
     NSDate *date=nil;
     date = [self.weekdays objectAtIndex:6];

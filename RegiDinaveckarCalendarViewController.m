@@ -88,10 +88,37 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
+
+-(NSString*)yearStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+-(NSString*)monthStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"d/M"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title=@"Dina veckor";
+    
+    NSLog(@"%@",selectedDictionary);
+    
+    NSString *titleStrin = nil;
+    
+    NSString *yearLabel1 = [self yearStringFromDate:[selectedDictionary valueForKey:kStartDate]];
+    NSString *yearLabel2 = [self yearStringFromDate:[selectedDictionary valueForKey:kEndDate]];
+    if([yearLabel1 isEqualToString:yearLabel2]){
+       titleStrin  = [NSString stringWithFormat:@"%@ - %@ (%@)",[self monthStringFromDate:[selectedDictionary valueForKey:kStartDate]],[self monthStringFromDate:[selectedDictionary valueForKey:kEndDate]],yearLabel1];
+    }else{
+        titleStrin  = [NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[self monthStringFromDate:[selectedDictionary valueForKey:kStartDate]],yearLabel1,[self monthStringFromDate:[selectedDictionary valueForKey:kEndDate]],yearLabel2];
+    }
+    self.navigationItem.title = titleStrin;
     
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
     self.popupView.layer.cornerRadius = 12;

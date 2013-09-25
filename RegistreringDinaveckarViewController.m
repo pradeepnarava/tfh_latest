@@ -111,28 +111,6 @@
 
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!regiDinaCalVC) {
-                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView" bundle:nil];
-            }
-        }else{
-            if (!regiDinaCalVC) {
-                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPhone4" bundle:nil];
-            }
-        }
-    }
-    else{
-        if (!regiDinaCalVC) {
-            regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPad" bundle:nil];
-        }
-    }
-
-    regiDinaCalVC.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:regiDinaCalVC animated:YES];
-}
 
 
 /////////////////////////////Gopalakrishna******??????????????
@@ -364,8 +342,32 @@
     }else{
         cell.cellLabel.text = [NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],yearLabel1,[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel2];
     }
-    cell.cellLabel.highlightedTextColor = [UIColor darkGrayColor];
+    cell.cellLabel.highlightedTextColor = [UIColor grayColor];
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        if ([[UIScreen mainScreen] bounds].size.height > 480) {
+            if (!regiDinaCalVC) {
+                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView" bundle:nil];
+            }
+        }else{
+            if (!regiDinaCalVC) {
+                regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPhone4" bundle:nil];
+            }
+        }
+    }
+    else{
+        if (!regiDinaCalVC) {
+            regiDinaCalVC = [[RegiDinaveckarCalendarViewController alloc]initWithNibName:@"RegiDinaveckarCalendarView_iPad" bundle:nil];
+        }
+    }
+    
+    regiDinaCalVC.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:regiDinaCalVC animated:YES];
 }
 
 
@@ -380,6 +382,7 @@
             [dict setValue:@"F" forKey:kSelected];
         }
     }
+    
     [table reloadData];
 }
 
