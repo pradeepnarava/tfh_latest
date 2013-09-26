@@ -100,6 +100,7 @@
 
 
 -(IBAction)sub2:(id)sender{
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
            // if (!psc) {
