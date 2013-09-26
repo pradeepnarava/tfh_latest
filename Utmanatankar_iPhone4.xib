@@ -507,6 +507,9 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="skickaButtonClicked:" destination="-1" eventType="touchUpInside" id="st2-g2-kHR"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="267">
                             <rect key="frame" x="169" y="1266" width="73" height="32"/>
@@ -908,7 +911,7 @@
                                     <rect key="frame" x="20" y="82" width="259" height="259"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <mutableString key="text">Här ska du skriva ner det som faktiskt talar för att den negativa automatiska tanken stämmer. Om din NAT exempelvis är ”Om jag går på festen kommer jag att få ångest och göra bort mig” så kan bevisen för vara: ”Jag är nervös” eller ”Jag har sovit dåligt och är inte sugen på att festa idag”. Om din NAT istället är ”Alla tycker att jag är så himla värdelös på jobbet” kan bevisen för vara: ”Jag har inte hunnit göra mina arbetsuppgifter som min chef sa att jag skulle göra".</mutableString>
+                                    <string key="text">Här ska du skriva ner det som faktiskt talar för att den negativa automatiska tanken stämmer. Om din NAT exempelvis är ”Om jag går på festen kommer jag att få ångest och göra bort mig” så kan bevisen för vara: ”Jag är nervös” eller ”Jag har sovit dåligt och är inte sugen på att festa idag”. Om din NAT istället är ”Alla tycker att jag är så himla värdelös på jobbet” kan bevisen för vara: ”Jag har inte hunnit göra mina arbetsuppgifter som min chef sa att jag skulle göra".</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
@@ -1036,7 +1039,7 @@
                                     <rect key="frame" x="20" y="82" width="259" height="259"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <string key="text">En negativ automatisk tanke är en negativ tolkning av en situation, som bidrar till att du känner ångest eller nedstämdhet. En NAT poppar ofta upp ur tomma intet utan att vi reflekterar över det. Det kan vara att du nedvärderar dig själv (”Jag glömde nycklarna hemma, jag är så himla dålig”) vilket är vanligt vid depression, det kan också vara tankar som bidrar till att du känner ångest eller rädsla inför någonting (”Mitt hjärta bultar fort, jag kommer att få en hjärtattack!”), vilket är vanligt vid panikångest. Om du har social fobi kan tanken vara: ”När jag får ordet på seminariet kommer alla att märka att jag är nervös”.</string>
+                                    <mutableString key="text">Här ska du skriva ner det som talar emot din negativa automatiska tanke. Om din NAT är ” Om jag går på festen kommer jag att få ångest och göra bort mig” så kan motbevisen vara: ”Jag var på fest förra helgen, det gick bra”, ”Idag känner jag mig ganska pigg och lite sugen på fest”. Om din NAT istället är ”Alla tycker att jag är så himla värdelös på jobbet” så kan motbevisen vara: ”Jag är inte bra på allt, men vissa saker är jag faktiskt bra på” eller ”Jag är inte snabbast på det jag gör, men jag gör det noggrant och mina arbetskamrater tycker om mig”.</mutableString>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
@@ -1100,7 +1103,8 @@
                                     <rect key="frame" x="20" y="82" width="259" height="259"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <string key="text">En negativ automatisk tanke är en negativ tolkning av en situation, som bidrar till att du känner ångest eller nedstämdhet. En NAT poppar ofta upp ur tomma intet utan att vi reflekterar över det. Det kan vara att du nedvärderar dig själv (”Jag glömde nycklarna hemma, jag är så himla dålig”) vilket är vanligt vid depression, det kan också vara tankar som bidrar till att du känner ångest eller rädsla inför någonting (”Mitt hjärta bultar fort, jag kommer att få en hjärtattack!”), vilket är vanligt vid panikångest. Om du har social fobi kan tanken vara: ”När jag får ordet på seminariet kommer alla att märka att jag är nervös”.</string>
+                                    <string key="text">Innehåller din NAT någon tankefälla?
+Ibland innehåller en NAT en tankefälla, som vi har berättat om tidigare. Ifall din NAT innehåller en eller fler tankefällor kan du ange det här, annars kan du lämna det här fältet tomt.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
@@ -1158,7 +1162,7 @@
                                     <rect key="frame" x="16" y="59" width="269" height="116"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <string key="text">￼Flykt-, undvikande- eller säkerhetsbeteenden är beteenden som uppstår som en följd av NAT, och som på ett eller annat sätt begränsar ditt liv. Flyktbeteende innebär att du ”flyr” från exempelvis en fest eller föreläsning p.g.a. en NAT (”Ingen tycker om mig på den här festen”). Undvikandebeteende innebär att du undviker olika sammanhang (tunnelbana, bio) p.g.a. en NAT (”Jag kommer att få en panikattack på bion”). Säkerhetsbeteende innebär att du genom olika beteenden (lyssna på musik på tunnelbanan) försöker minska obehaget som en NAT orsakar (”Om jag åker tunnelbana kommer det att kännas otäckt”).</string>
+                                    <mutableString key="text">Finns det någon balanserad/mer realistisk tanke som summerar bevisen för och emot din NAT? Vad drar du för slutsatser av dina svar? Genom att hitta en mer balanserad tanke låter du inte din NAT ”smita igenom” och påverka dig negativt i för stor utsträckning. Kanske är din balanserade tanke i själva verket positiv?</mutableString>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>

@@ -96,6 +96,88 @@ NSArray *pArray;
     return YES;
 }
 
+
+#pragma mark Loading the last saved Data
+-(void)LoadSavedData {
+    //SELECT * FROM EXERCISE3 WHERE date=(SELECT date FROM EXERCISE3 ORDER BY date DESC LIMIT 1)
+    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE3 WHERE date=(SELECT date FROM EXERCISE3 ORDER BY date DESC LIMIT 1)"];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            char* ch1 = (char*) sqlite3_column_text(statement,2);
+            
+            if (ch1 != NULL){
+                c1.text = [NSString stringWithUTF8String:ch1];
+                NSLog(@"value form db :%@",c1.text);
+                
+            }
+            char* ch2 = (char*) sqlite3_column_text(statement,3);
+            
+            if (ch2 != NULL){
+                c2.text = [NSString stringWithUTF8String:ch2];
+                NSLog(@"value form db :%@",c2.text);
+                
+            }
+            
+            char* ch3 = (char*) sqlite3_column_text(statement,4);
+            
+            if (ch3!= NULL){
+                c3.text= [NSString stringWithUTF8String:ch3];
+                NSLog(@"value form db :%@",c3.text);
+                int z=[c3.text intValue];
+                float vOut = (float)z;
+                slider.value=vOut;
+                
+            }
+            
+            char* ch4 = (char*) sqlite3_column_text(statement,5);
+            
+            if (ch4 != NULL){
+                c4.text= [NSString stringWithUTF8String:ch4];
+                NSLog(@"value form db :%@",c4.text);
+                
+            }
+            char* ch5 = (char*) sqlite3_column_text(statement,6);
+            
+            if (ch5!= NULL){
+                c5.text= [NSString stringWithUTF8String:ch5];
+                NSLog(@"value form db :%@",c5.text);
+                
+            }
+            
+            char* ch6 = (char*) sqlite3_column_text(statement,7);
+            
+            if (ch6 != NULL){
+                c6.text= [NSString stringWithUTF8String:ch6];
+                NSLog(@"value form db :%@",c6.text);
+                
+            }
+            
+            
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+    }
+//    listofdates.hidden = YES;
+//    scroll.scrollEnabled = YES;
+//    Label1Popup.hidden=YES;
+//    isSaved = NO;
+
+    
+    
+    
+    
+}
+
+
+
 #pragma mark ViewLifeCycle Methods
 
 - (void)viewDidLoad
@@ -233,6 +315,8 @@ NSArray *pArray;
         {
             NSLog(@"Failed to create database");
         }
+        
+        [self LoadSavedData];
         
         sqlite3_close(exerciseDB);
         
@@ -457,10 +541,12 @@ NSArray *pArray;
     //Get the string date
     
     NSString* str1 = [formatter stringFromDate:date];
-    raderaButton.enabled=NO;
+   
     NSLog(@"date%@",str1);
     if ([c1.text isEqualToString:@""]&&[c2.text isEqualToString:@""]&&[c4.text isEqualToString:@""]
         &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
+        
+         raderaButton.enabled=NO;
     }else{
         
         
@@ -514,6 +600,7 @@ NSArray *pArray;
 
             }
         }
+         raderaButton.enabled=YES;
         UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Sparat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert1 show];
         [alert1 release];
@@ -526,29 +613,17 @@ NSArray *pArray;
         &&[c5.text isEqualToString:@""]&&[c6.text isEqualToString:@""]) {
         
     }else{
-        if (isSaved == YES) {
-            alert=[[UIAlertView alloc] initWithTitle:nil message:@"Vill du ta bort all text som du skrivit ner i övningen?"
-                                            delegate:self
-                                   cancelButtonTitle:@"Forsätt"
-                                   otherButtonTitles:@"Avbryt", nil];
-            alert.tag=kAlertViewOne;
-            [alert show];
-            [alert release];
-        }
-        else {
-            c1.text=@"";
-            c2.text=@"";
-            c3.text=@"0%";
-            c4.text=@"";
-            c5.text=@"";
-            c6.text=@"";
-            slider.value=0.0;
-            raderaButton.enabled=NO;
-            [listexercise3 removeAllObjects];
-            y=0;
-            [listexercise3 addObject:@"Null"];
-            //isSaved = YES;
-        }
+        
+        
+        
+        alert=[[UIAlertView alloc] initWithTitle:nil message:@"Vill du ta bort all text som du skrivit ner i övningen?"
+                                        delegate:self
+                               cancelButtonTitle:@"Forsätt"
+                               otherButtonTitles:@"Avbryt", nil];
+        alert.tag=kAlertViewOne;
+        [alert show];
+        [alert release];
+        
     }
 }
 
@@ -557,18 +632,37 @@ NSArray *pArray;
     NSLog(@"ok");
     if(alert.tag  == kAlertViewOne) {
         if (buttonIndex == 0) {
-            NSLog(@"new form");
-            c1.text=@"";
-            c2.text=@"";
-            c3.text=@"0%";
-            c4.text=@"";
-            c5.text=@"";
-            c6.text=@"";
-            slider.value=0.0;
-            raderaButton.enabled=NO;
-            [list_exercise3 removeAllObjects];
-            y=0;
-            [list_exercise3 addObject:@"Null"];
+            
+            
+            if (isSaved == YES) {
+                //
+                NSLog(@"new form");
+                c1.text=@"";
+                c2.text=@"";
+                c3.text=@"0%";
+                c4.text=@"";
+                c5.text=@"";
+                c6.text=@"";
+                slider.value=0.0;
+                raderaButton.enabled=NO;
+                [list_exercise3 removeAllObjects];
+                y=0;
+                [list_exercise3 addObject:@"Null"];
+            }
+            else {
+                c1.text=@"";
+                c2.text=@"";
+                c3.text=@"0%";
+                c4.text=@"";
+                c5.text=@"";
+                c6.text=@"";
+                slider.value=0.0;
+                raderaButton.enabled=NO;
+                [listexercise3 removeAllObjects];
+                y=0;
+                [listexercise3 addObject:@"Null"];
+                //isSaved = YES;
+            }
             //isSaved = YES;
         }else{
             //isSaved = YES;
@@ -928,7 +1022,7 @@ NSArray *pArray;
 
 - (IBAction)skickaButtonClicked:(id)sender
 {
-    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Avbryt" destructiveButtonTitle:nil otherButtonTitles:@"Ladda ner", @"E-mail", nil];
     cameraActionSheet.tag = 1;
     [cameraActionSheet showInView:self.view];
 }
