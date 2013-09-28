@@ -616,7 +616,7 @@ NSArray *pArray;
         
         
         
-        alert=[[UIAlertView alloc] initWithTitle:nil message:@"Vill du ta bort all text som du skrivit ner i övningen?"
+        alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat formuläret, vill du fortsätta?    "
                                         delegate:self
                                cancelButtonTitle:@"Forsätt"
                                otherButtonTitles:@"Avbryt", nil];
