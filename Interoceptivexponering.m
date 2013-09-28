@@ -21,7 +21,7 @@
 
 
 @interface Interoceptivexponering ()
-
+@property (nonatomic, assign) int hours;
 @property (nonatomic, assign) int seconds;
 @property (nonatomic, assign) int minutes;
 @property (nonatomic, assign) int Reseconds;
@@ -33,11 +33,13 @@
 
 @implementation Interoceptivexponering
 @synthesize ovning,egen,slider,tblView,prc;
+@synthesize hoursDisplay;
 @synthesize secondsDisplay;
 @synthesize minutesDisplay;
 @synthesize secondsTimer;
 @synthesize seconds;
 @synthesize minutes;
+@synthesize hours;
 @synthesize allItems;
 
 @synthesize selectedIndexPath;
@@ -61,6 +63,7 @@ int tagValueForBtn;
 }
 
 -(void)dealloc{
+    [hoursDisplay release];
     [super dealloc];
     [timerQuestionLabel release];
     [allItems release];
@@ -186,9 +189,9 @@ int tagValueForBtn;
     timerview.hidden=YES;
     
     
-    UITapGestureRecognizer *tapGesture3 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ovninglabelalert:)] autorelease];
-    [ovning addGestureRecognizer:tapGesture3];
+//    UITapGestureRecognizer *tapGesture3 =
+//    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ovninglabelalert:)] autorelease];
+//    [ovning addGestureRecognizer:tapGesture3];
     
     
     // Get the documents directory
@@ -247,15 +250,42 @@ int tagValueForBtn;
 - (void)timerFireMethod:(NSTimer *) theTimer
 {
     
-    if(self.seconds ==0 && self.minutes ==0){
+    if(self.seconds ==0 && self.minutes ==0 && self.hours == 0){
+        
+        [self.secondsTimer invalidate];
+
+        
+        NSDictionary * temp_dict=[self.allItems objectAtIndex:[allItems count]-1];
+        NSString * string_body = [NSString stringWithFormat:@"%@ : Tiden är ute",[temp_dict objectForKey:@"question"]];
+        
+        UILocalNotification * local = [[UILocalNotification alloc]  init];
+        local.alertBody = string_body;
+        
+        local.alertAction = nil;
+        
+        local.soundName = UILocalNotificationDefaultSoundName;
+        
+        local.fireDate = [NSDate date];
+        [[UIApplication sharedApplication] scheduleLocalNotification:local];
+        
         
     }else{
-        self.seconds--;
+        
+        NSLog(@"running ");
+       
+        if (self.minutes == 0  && self.hours !=0) {
+            self.hours--;
+            self.minutes = 59;
+            self.seconds = 60;
+        }
         if (self.seconds == 0 && self.minutes != 0) {
             self.minutes--;
-            self.seconds = 59;
+            self.seconds = 60;
         }
+         self.seconds--;
+        
     }
+    self.hoursDisplay.text = [NSString stringWithFormat:@"%.2d",self.hours];
     self.secondsDisplay.text = [NSString stringWithFormat:@"%.2d", self.seconds];
 
 
@@ -275,7 +305,7 @@ int tagValueForBtn;
     egen.text=@"";
     prc.text=@"0";
     slider.value=0;
-    [self.view addSubview:pupview];
+    //[self.view addSubview:pupview];
     //[UIView beginAnimations:@"curlInView" context:nil];
     [UIView setAnimationDuration:3.0];
     [UIView commitAnimations];
@@ -356,6 +386,8 @@ int tagValueForBtn;
     [UIView setAnimationDuration:3.0];
     [UIView commitAnimations];
     
+    
+        self.hoursDisplay.text = [NSString stringWithFormat:@"%.2d",self.hours];
         self.secondsDisplay.text = [NSString
                                 stringWithFormat:@"%.2d", self.seconds];
    
@@ -396,6 +428,7 @@ int tagValueForBtn;
     prc.hidden=NO;
     [self.secondsTimer invalidate];
     self.secondsTimer= nil;
+    hoursDisplay.text =@"00";
     secondsDisplay.text=@"00";
     minutesDisplay.text=@"00";
 }
@@ -424,7 +457,9 @@ int tagValueForBtn;
     [self.secondsTimer invalidate];
     self.secondsTimer= nil;
    
-        self.secondsDisplay.text = [NSString
+    self.hoursDisplay.text = [NSString stringWithFormat:@"%.2d",self.hours];
+    
+    self.secondsDisplay.text = [NSString
                                     stringWithFormat:@"%.2d", self.Reseconds];
 
     self.minutesDisplay.text = [NSString
@@ -465,37 +500,44 @@ int tagValueForBtn;
     switch (btn.tag) {
         case 1:
             ovning.text=@"Skaka huvudet (30 sek)";
+            self.hours=00;
             self.seconds=30;
             self.minutes=00;
             break;
         case 2:
             ovning.text=@"Tajta kläder (60 min)";
+            self.hours=01;
             self.minutes=00;
-            self.seconds=59;
+            self.seconds=00;
             break;
         case 3:
             ovning.text=@"Huvudet mellan benen (90 sek)";
+            self.hours=00;
             self.minutes=01;
             self.seconds=30;
             break;
         case 4:
             ovning.text=@"Spring på stället (2 min)";
-            self.minutes=01;
-            self.seconds=59;
+            self.hours=00;
+            self.minutes=02;
+            self.seconds=00;
             break;
         case 5:
             ovning.text=@"Fullständig kroppsspänning (1 min)";
-            self.minutes=00;
-            self.seconds=59;
+            self.hours=00;
+            self.minutes=01;
+            self.seconds=00;
             break;
         case 6:
             ovning.text=@"Hålla andan (30 sek)";
+            self.hours=00;
             self.seconds=30;
             self.minutes=00;
             break;
         case 7:
             
             ovning.text=@"Hyperventilera (90 sek)";
+            self.hours=00;
             self.minutes=01;
             self.seconds=30;
             break;
@@ -507,6 +549,7 @@ int tagValueForBtn;
             break;
         case 10:
             ovning.text=@"Vatten i munnen (2 min)";
+            self.hours=00;
             self.minutes=01;
             self.seconds=59;
             break;
@@ -973,6 +1016,7 @@ int tagValueForBtn;
 
 
 - (void)viewDidUnload{
+    [self setHoursDisplay:nil];
     [super viewDidUnload];
 }
 

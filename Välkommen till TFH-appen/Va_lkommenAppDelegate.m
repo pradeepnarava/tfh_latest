@@ -103,11 +103,16 @@
         
    // }
     
+    NSLog(@"got notification");
+    
     [self notification:notification];
 }
 
 
 - (void)notification:(UILocalNotification*)notification {
+    
+    
+    
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {

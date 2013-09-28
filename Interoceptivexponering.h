@@ -63,8 +63,8 @@
 
 
 
-
 //timer
+@property (retain, nonatomic) IBOutlet UILabel *hoursDisplay;
 @property (nonatomic, retain) IBOutlet UILabel *secondsDisplay;
 @property (nonatomic, retain) IBOutlet UILabel *minutesDisplay;
 @property (nonatomic, retain) NSTimer *secondsTimer;
