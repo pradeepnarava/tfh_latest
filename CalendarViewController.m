@@ -96,6 +96,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [super viewDidLoad];
     
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
+    
     self.popupView.layer.cornerRadius = 12;
     self.popupView.layer.shadowOpacity = 0.7;
     self.popupView.layer.shadowOffset = CGSizeMake(6, 6);
@@ -108,6 +109,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     self.totalView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     
     raderaBtn.enabled = NO;
+    
     self.navigationItem.title=@"Calendar";
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
@@ -418,23 +420,21 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         }
     }
     
-    for (int i =0; i <[[self.scrollView subviews] count]; i++) {
+    for (id sub in self.scrollView.subviews) {
         
-        UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
-        if ([btn isKindOfClass:[UIButton class]]) {
-   
-            if (btn.tag!=10000) {
-                [btn addTarget:self action:@selector(touchBegan:withEvent:) forControlEvents:UIControlEventTouchUpInside];
-                btn.layer.borderColor = [UIColor clearColor].CGColor;
-                btn.layer.borderWidth = 1.0f;
-               
-                UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-                
-                longPressGesture.minimumPressDuration = 1.0;
-                [btn addGestureRecognizer:longPressGesture];
-            }
+        if ([sub isKindOfClass:[UIButton class]]) {
+            UIButton *btn = sub;
             
+            [btn addTarget:self action:@selector(touchBegan:withEvent:) forControlEvents:UIControlEventTouchUpInside];
+            btn.layer.borderColor = [UIColor clearColor].CGColor;
+            btn.layer.borderWidth = 1.0f;
             
+            UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+            
+            longPressGesture.minimumPressDuration = 1.0;
+            [btn addGestureRecognizer:longPressGesture];
+            
+        
             NSString *index = [[NSString stringWithFormat:@"%d",btn.tag] substringToIndex:1];
             NSString *tag = [[NSString stringWithFormat:@"%d",btn.tag] substringFromIndex:1];
             
@@ -449,24 +449,36 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                 if ([[tm objectAtIndex:0] isEqualToString:date]) {
                     
                     NSArray *startArray = [[dict objectForKey:kStartDate] componentsSeparatedByString:@":"];
-                    NSArray *endArray = [[dict objectForKey:kStartDate] componentsSeparatedByString:@":"];
-
+                    NSArray *endArray = [[dict objectForKey:kEndDate] componentsSeparatedByString:@":"];
+                    
                     
                     if ([tag intValue] == [[array objectAtIndex:1] intValue]) {
                         CALayer *layer = [CALayer layer];
-                        if ([[dict objectForKey:kStatus ] isEqualToString:@"+"]) {
-                            layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_positive.png"]].CGColor;
+
+                        if ([[dict objectForKey:kStatus] isEqualToString:@"+"]) {
+
+                        layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_positive.png"]].CGColor;
                         }else if ([[dict objectForKey:kStatus ] isEqualToString:@"-"]) {
+
                             layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_negative.png"]].CGColor;
                         }else if ([[dict objectForKey:kStatus] isEqualToString:@"Neutral"]){
+
                             layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"]].CGColor;
-                        }else {
-                            layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_empty.png"]].CGColor;
                         }
                         
-                        NSString *lastTag = [NSString stringWithFormat:@"%@%@",index,[array objectAtIndex:1]];
+                        NSString *lastTag = nil;
+                        int firstTa = [[startArray objectAtIndex:0] intValue];
+                        int secondTa = [[endArray objectAtIndex:0] intValue];
+
+                        if (firstTa != secondTa) {
+
+                            lastTag = [NSString stringWithFormat:@"%@%d",index,secondTa+1];
+                        }else {
+                            lastTag = [NSString stringWithFormat:@"%@%@",index,[array objectAtIndex:1]];
+                        }
                         UIButton *lastBtn = (UIButton *)[self.scrollView viewWithTag:[lastTag intValue]];
-                        CGRect frame = CGRectMake(btn.frame.origin.x, btn.frame.origin.y+([[startArray objectAtIndex:1] intValue]/2), btn.frame.size.width,(lastBtn.frame.origin.y - btn.frame.origin.y)+([[endArray objectAtIndex:1] intValue]/2)+(btn.frame.size.height-([[startArray objectAtIndex:1] intValue]/2)));
+                        CGRect frame = CGRectMake(btn.frame.origin.x, btn.frame.origin.y+([[startArray objectAtIndex:1] intValue]/2), btn.frame.size.width,(lastBtn.frame.origin.y - btn.frame.origin.y - btn.frame.size.height)+([[endArray objectAtIndex:1] intValue]/2)+(btn.frame.size.height-([[startArray objectAtIndex:1] intValue]/2)));
+                       
                         
                         layer.frame = frame;
                         layer.zPosition  = 100;
@@ -580,7 +592,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     NSDate *date=nil;
     
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    //NSString *subString =  [btag substringFromIndex:1];
+    NSString *subString =  [btag substringFromIndex:1];
     
     NSLog(@"-----$$$$$ %i",[[btag substringToIndex:1] intValue]);
     
@@ -590,18 +602,43 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     buttonString = [[tm objectAtIndex:0] retain];
     
-    CGPoint touchPoint = [touch locationInView:self.view];
+    CGPoint touchPoint = [touch locationInView:self.scrollView];
     for (CALayer *layer in self.scrollView.layer.sublayers) {
         if ([layer containsPoint:[self.scrollView.layer convertPoint:touchPoint toLayer:layer]] && btn.layer != layer) {
-            NSLog(@"---%@",layer.name);
+            NSLog(@"data ---%d",[layer.name intValue]);
+            NSMutableDictionary *temp = [dataArray objectAtIndex:[layer.name intValue]];
+            
+                editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
+                currentStatuBtn = [temp valueForKey:kStatus];
+                NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
+                NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
+                eventDesTextView.text = [temp valueForKey:kEventDes];
+                
+                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+                
+                
+                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+                
+                
+           
+                raderaBtn.enabled =YES;
+           
             isExist = YES;
         }
     }
     if (!isExist) {
-        NSLog(@"-----$$$$$ %@",btn.layer.name);
+        NSLog(@"not -----$$$$$ %@",btn.layer.name);
+        eventDesTextView.text = @"";
+        
+        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+        
+        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+        
+        raderaBtn.enabled = NO;
+        editIndexValue= nil;
+        
         
     }
-    
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     [ASDepthModalViewController presentView:self.popupView
                             backgroundColor:nil
@@ -609,8 +646,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
                           }];
+}
+
    
-   /* for (int q= 0; q<[dataArray count]; q++) {
+   
+    /*for (int q= 0; q<[dataArray count]; q++) {
         NSMutableDictionary *temp = [dataArray objectAtIndex:q];
         
         if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
@@ -641,7 +681,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         editIndexValue= nil;
         
     }*/
-}
 
 
 
@@ -650,8 +689,49 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
-        
+    
         UIButton *btn = (UIButton*)[gesture view];
+        BOOL isExist = NO;
+        NSDate *date=nil;
+        
+        NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+        //NSString *subString =  [btag substringFromIndex:1];
+        
+        NSLog(@"-----$$$$$ %i",[[btag substringToIndex:1] intValue]);
+        
+        date = [self.weekdays objectAtIndex:[[btag substringToIndex:1] intValue]-1];
+        
+        NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
+        
+        buttonString = [[tm objectAtIndex:0] retain];
+        
+        CGPoint touchPoint = [gesture locationInView:self.scrollView];
+        for (CALayer *layer in self.scrollView.layer.sublayers) {
+            if ([layer containsPoint:[self.scrollView.layer convertPoint:touchPoint toLayer:layer]] && btn.layer != layer) {
+                editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"KBT" message:@"Är du säker på att du vill radera aktiviteten?" delegate:self cancelButtonTitle:@"Avbryt" otherButtonTitles:@"Radera",nil];
+                
+                [alert show];
+                [alert release];
+                break;
+                
+                isExist = YES;
+            }
+        }
+        if (!isExist) {
+            NSLog(@"not -----$$$$$ %@",btn.layer.name);
+            /*eventDesTextView.text = @"";
+            
+            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+            
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+            
+            raderaBtn.enabled = NO;
+            editIndexValue= nil;*/
+        
+        }
+        
+        /*UIButton *btn = (UIButton*)[gesture view];
         NSDate *date=nil;
         
         NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
@@ -688,13 +768,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             
             if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
                 editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"KBT" message:@"Är du säker på att du vill radera aktiviteten?" delegate:self cancelButtonTitle:@"Avbryt" otherButtonTitles:@"Radera",nil];
-                
-                [alert show];
-                [alert release];
-                break;
+         
             }
-        }
+        }*/
     }
 }
 
@@ -702,7 +778,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 
--(void)empty:(id)sender {
+/*-(void)empty:(id)sender {
     
     UIButton *btn = (UIButton*)sender;
     
@@ -756,6 +832,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                               NSLog(@"Modal view closed.");
                           }];
 }
+
 
 
 -(void)empty1:(id)sender {
@@ -939,7 +1016,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
             hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
             
-            
             isExit = YES;
             raderaBtn.enabled =YES;
         }
@@ -1065,7 +1141,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                               NSLog(@"Modal view closed.");
                           }];
     
-}
+}*/
 
 
 -(void)getDataSub1Events {
@@ -1457,6 +1533,46 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 }
 
 
+#define ksSunDay @"Sön"  //Sunday
+#define ksMonDay @"Män"  //Monday
+#define ksTueDay @"Tis"  //Tuesday
+#define ksWedDay @"Ons"  //Wendesday
+#define ksThuDay @"Tors" //Thursday
+#define ksFriDay @"Fre"  //Friday
+#define ksSatDay @"Lör"  //Saturday
+
+
+#define keSunDay @"Sun"  //Sunday
+#define keMonDay @"Mon"  //Monday
+#define keTueDay @"Tue"  //Tuesday
+#define keWedDay @"Wed"  //Wendesday
+#define keThuDay @"Thu" //Thursday
+#define keFriDay @"Fri"  //Friday
+#define keSatDay @"Sat"  //Saturday
+
+
+-(NSString *)weekdayString:(NSString*)indexString {
+    NSString *sDayString = nil;
+    
+    if ([indexString isEqualToString:keSunDay]) {
+        sDayString = ksSunDay;
+    }else if ([indexString isEqualToString:keMonDay]) {
+        sDayString = ksMonDay;
+    }else if ([indexString isEqualToString:keTueDay]) {
+        sDayString = ksTueDay;
+    }else if ([indexString isEqualToString:keWedDay]) {
+        sDayString = ksWedDay;
+    }else if ([indexString isEqualToString:keThuDay]) {
+        sDayString = ksThuDay;
+    }else if ([indexString isEqualToString:keFriDay]) {
+        sDayString = ksFriDay;
+    }else if ([indexString isEqualToString:keSatDay]) {
+        sDayString = ksSatDay;
+    }
+    
+    return sDayString;
+}
+
 
 -(void)updateScreens {
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease];
@@ -1470,29 +1586,31 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         NSDateComponents *weekdayComponents =[gregorian components:NSWeekdayCalendarUnit fromDate:date];
         NSInteger weekday = [weekdayComponents weekday];
         [gregorian release];
-        NSString *weeday =[weekdaySymbols objectAtIndex:weekday-1];
         
+        NSString *weeday =[weekdaySymbols objectAtIndex:weekday-1];
+        NSLog(@"weekday is %@",weeday);
         switch (i) {
             case 0:
-                [monButton1 setTitle:weeday forState:UIControlStateNormal];
+                
+                [monButton1 setTitle:[self weekdayString:weeday] forState:UIControlStateNormal];
                 break;
             case 1:
-                [tueButton2 setTitle:weeday forState:UIControlStateNormal];
+                [tueButton2 setTitle:[self weekdayString:weeday] forState:UIControlStateNormal];
                 break;
             case 2:
-                [wedButton3 setTitle:weeday forState:UIControlStateNormal];
+                [wedButton3 setTitle:[self weekdayString:weeday] forState:UIControlStateNormal];
                 break;
             case 3:
-                [thrButton4 setTitle:weeday forState:UIControlStateNormal];
+                [thrButton4 setTitle:[self weekdayString:weeday] forState:UIControlStateNormal];
                 break;
             case 4:
-                [friButton5 setTitle:weeday forState:UIControlStateNormal];
+                [friButton5 setTitle:[self weekdayString:weeday] forState:UIControlStateNormal];
                 break;
             case 5:
-                [satButton6 setTitle:weeday forState:UIControlStateNormal];
+                [satButton6 setTitle:[self weekdayString:weeday] forState:UIControlStateNormal];
                 break;
             case 6:
-                [sunButton7 setTitle:weeday forState:UIControlStateNormal];
+                [sunButton7 setTitle:[self weekdayString:weeday] forState:UIControlStateNormal];
                 break;
             default:
                 break;

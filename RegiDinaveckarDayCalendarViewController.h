@@ -46,7 +46,6 @@
 -(IBAction)sliderValueChanged:(UISlider*)sender;
 
 
-
 -(IBAction)totalOkButtonClicked:(id)sender;
 -(IBAction)totalButtonClicked:(id)sender;
 

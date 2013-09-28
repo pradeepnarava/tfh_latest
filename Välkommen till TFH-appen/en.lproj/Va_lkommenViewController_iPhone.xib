@@ -23,12 +23,8 @@
                     <rect key="frame" x="29" y="44" width="260" height="65"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" image="introduktion.png">
-                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" backgroundImage="introduktion.png">
+                        <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                     </state>
                     <connections>
                         <action selector="introduktion:" destination="-1" eventType="touchUpInside" id="52"/>
@@ -38,12 +34,8 @@
                     <rect key="frame" x="29" y="129" width="260" height="65"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" image="ovningar.png">
-                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" backgroundImage="ovningar.png">
+                        <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                     </state>
                     <connections>
                         <action selector="oveningarbutton:" destination="-1" eventType="touchUpInside" id="55"/>
@@ -53,27 +45,21 @@
                     <rect key="frame" x="29" y="214" width="260" height="65"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" image="ompsykisk.png">
-                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" backgroundImage="ompsykisk.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                     </state>
                     <connections>
                         <action selector="lashorna:" destination="-1" eventType="touchUpInside" id="53"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="33">
-                    <rect key="frame" x="87" y="326" width="144" height="65"/>
+                    <rect key="frame" x="88" y="336" width="144" height="65"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" image="om.png">
-                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" backgroundImage="om.png">
+                        <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                     </state>
                     <connections>
                         <action selector="om:" destination="-1" eventType="touchUpInside" id="54"/>

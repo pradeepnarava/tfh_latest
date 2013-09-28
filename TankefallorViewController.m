@@ -403,38 +403,15 @@
     if([alltTV1.text isEqualToString:@""] && [alltTV2.text isEqualToString:@""] && [kataTV1.text isEqualToString:@""] && [kataTV2.text isEqualToString:@""]&& [diskTV1.text isEqualToString:@""] && [diskTV2.text isEqualToString:@""] && [attTV1.text isEqualToString:@""] && [attTV2.text isEqualToString:@""] && [etikTV1.text isEqualToString:@""] && [etikTV2.text isEqualToString:@""]&& [forTV1.text isEqualToString:@""] && [forTV2.text isEqualToString:@""] && [tankTV1.text isEqualToString:@""] && [tankTV2.text isEqualToString:@""] && [overTV1.text isEqualToString:@""] && [overTV2.text isEqualToString:@""]&& [persTV1.text isEqualToString:@""] && [persTV2.text isEqualToString:@""] && [mansTV1.text isEqualToString:@""] && [mansTV2.text isEqualToString:@""] && [mentTV1.text isEqualToString:@""] && [mentTV2.text isEqualToString:@""]){
         
     }else {
-        if (isSaved == YES) {
-            
-            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Vill du ta bort all text som du skrivit ner i övningen?"
-                                            delegate:self
-                                   cancelButtonTitle:@"Forsätt"
-                                   otherButtonTitles:@"Avbryt", nil];
-            alert.tag=kAlertViewOne;
-            [alert show];
-            [alert release];
-        }
-        else {
-            [self clearalltexts];
-            sqlite3_stmt    *statement;
-            
-            const char *dbpath = [databasePath UTF8String];
-            
-            if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK) {
-                
-                NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET allc1='%@',allc2='%@',katac1='%@',katac2='%@',diskc1='%@',diskc2='%@',attc1='%@',attc2='%@',etikc1='%@',etikc2='%@',forc1='%@',forc2='%@',mentc1='%@',mentc2='%@',tankc1='%@',tankc2='%@',overc1='%@',overc2='%@',persc1='%@',persc2='%@',mansc1='%@',mansc2='%@'",alltTV1.text,alltTV2.text, kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
-                
-                const char *del_stmt = [query UTF8String];
-                
-                if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
-                    if(SQLITE_DONE != sqlite3_step(statement))
-                        NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
-                    NSLog(@"sss");
-                    
-                }
-                sqlite3_finalize(statement);
-                sqlite3_close(exerciseDB);
-            }
-        }
+        
+        
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Vill du ta bort all text som du skrivit ner i övningen?"
+                                                     delegate:self
+                                            cancelButtonTitle:@"Forsätt"
+                                            otherButtonTitles:@"Avbryt", nil];
+        alert.tag=kAlertViewOne;
+        [alert show];
+        [alert release];
     }
 }
 
@@ -443,7 +420,31 @@
 {
     if (alertView.tag == kAlertViewOne) {
         if (buttonIndex == 0) {
-            [self clearalltexts];
+            if (isSaved == YES) {
+                [self clearalltexts];
+            }
+            else {
+                [self clearalltexts];
+                sqlite3_stmt    *statement;
+                
+                const char *dbpath = [databasePath UTF8String];
+                
+                if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK) {
+                    
+                    NSString *query=[NSString stringWithFormat:@"UPDATE EXERCISETWO SET allc1='%@',allc2='%@',katac1='%@',katac2='%@',diskc1='%@',diskc2='%@',attc1='%@',attc2='%@',etikc1='%@',etikc2='%@',forc1='%@',forc2='%@',mentc1='%@',mentc2='%@',tankc1='%@',tankc2='%@',overc1='%@',overc2='%@',persc1='%@',persc2='%@',mansc1='%@',mansc2='%@'",alltTV1.text,alltTV2.text, kataTV1.text,kataTV2.text,diskTV1.text,diskTV2.text,attTV1.text,attTV2.text,etikTV1.text,etikTV2.text,forTV1.text,forTV2.text,mentTV1.text,mentTV2.text,tankTV1.text,tankTV2.text,overTV1.text,overTV2.text,persTV1.text,persTV2.text,mansTV1.text,mansTV2.text];
+                    
+                    const char *del_stmt = [query UTF8String];
+                    
+                    if (sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL)==SQLITE_OK);{
+                        if(SQLITE_DONE != sqlite3_step(statement))
+                            NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+                        NSLog(@"sss");
+                        
+                    }
+                    sqlite3_finalize(statement);
+                    sqlite3_close(exerciseDB);
+                }
+            }
         }
     }
 }
