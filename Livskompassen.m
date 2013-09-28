@@ -35,7 +35,7 @@
     // [btnDone setTintColor:[UIColor Color]];
     UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
     [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.navigationItem setBackBarButtonItem:btnDone];
+    [self.navigationController.navigationItem setBackBarButtonItem:btnDone];
     
     //[self.view addSubview:scrollView];
     //scrollView.hidden=YES;
