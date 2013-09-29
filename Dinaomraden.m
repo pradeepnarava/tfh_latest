@@ -82,11 +82,10 @@ NSString *omrade2choosenName=@"";
                                    rightSegmentState:UIControlStateSelected
                                           barMetrics:UIBarMetricsDefault];
 
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    // [btnDone setTintColor:[UIColor Color]];
-    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
-    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.navigationItem setBackBarButtonItem:btnDone];
+//    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
+//    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
+//    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//    [self.navigationItem setBackBarButtonItem:btnDone];
     
     dateOfCurrentItem = nil;
     scrollView.contentSize = self.view.frame.size;
@@ -157,8 +156,38 @@ NSString *omrade2choosenName=@"";
     [filemgr release];
     
     [self averagevalue];
-    // Do any additional setup after loading the view from its nib.
+    
+    // code added by malkit to make the navigatoin appear and work like the other views
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        
+    }
+    else {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    }
+    
 }
+-(void)backButon {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+    
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
