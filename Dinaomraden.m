@@ -1088,7 +1088,8 @@
 //            }
 //            else
 //            {
-                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+            // code changes by malkit....alert title cleared
+                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
                 [insertAlert show];
 //            }
             
@@ -1097,7 +1098,7 @@
         } else {
             NSLog(@"no");
             NSLog(@"error: %s", sqlite3_errmsg(exerciseDB));
-            UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form Update/Save Failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+            UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"" message:@"Form Update/Save Failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
             [insertAlert show];
         }
         sqlite3_finalize(statement);
@@ -1113,10 +1114,10 @@
 //    }
 //    else
 //    {
-      UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+      UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
                                         delegate:self
                                cancelButtonTitle:nil
-                               otherButtonTitles:@"Fortsätt utan att spara", @"Avbryt", nil];
+                               otherButtonTitles:@"Fortsätt", @"Avbryt", nil];
         alert.tag = 1;
         
         [alert show];
