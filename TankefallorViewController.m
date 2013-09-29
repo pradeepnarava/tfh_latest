@@ -88,7 +88,7 @@
         
         [UIView animateWithDuration:0.5
                          animations:^{
-                             [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30) animated:YES];
+                             [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y -70) animated:YES];
                          }
                          completion:^(BOOL finished){
                              // whatever you need to do when animations are complete
