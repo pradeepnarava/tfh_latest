@@ -450,7 +450,7 @@
     settingsView.hidden = YES;
     label1.text=@"Familj";
     label2.text=@"Vänner";
-    label3.text=@"kärlek";
+    label3.text=@"Kärlek";
     label4.text=@"Arbete";
     label5.text=@"Ekonomi";
     label6.text=@"Kost";
