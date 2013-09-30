@@ -878,13 +878,13 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="480">
-                                    <rect key="frame" x="41" y="55" width="210" height="21"/>
+                                    <rect key="frame" x="26" y="55" width="244" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <attributedString key="attributedText">
                                         <fragment content="Dina bevis">
                                             <attributes>
                                                 <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
                                                     <tabStops/>
                                                 </paragraphStyle>
                                                 <integer key="NSUnderline" value="1"/>
@@ -999,7 +999,7 @@
                                         <fragment content="Dina motbevis">
                                             <attributes>
                                                 <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
                                                     <tabStops/>
                                                 </paragraphStyle>
                                                 <integer key="NSUnderline" value="1"/>
@@ -1013,7 +1013,8 @@
                                     <rect key="frame" x="20" y="82" width="259" height="259"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <string key="text">Här ska du skriva ner det som talar emot din negativa automatiska tanke. Om din NAT är ” Om jag går på festen kommer jag att få ångest och göra bort mig” så kan motbevisen vara: ”Jag var på fest förra helgen, det gick bra”, ”Idag känner jag mig ganska pigg och lite sugen på fest”. Om din NAT istället är ”Alla tycker att jag är så himla värdelös på jobbet” så kan motbevisen vara: ”Jag är inte bra på allt, men vissa saker är jag faktiskt bra på” eller ”Jag är inte snabbast på det jag gör, men jag gör det noggrant och mina arbetskamrater tycker om mig”.</string>
+                                    <mutableString key="text">Här ska du skriva ner det som talar emot din negativa automatiska tanke. Om din NAT är ” Om jag går på festen kommer jag att få ångest och göra bort mig” så kan motbevisen vara: ”Jag var på fest förra helgen, det gick bra”, ”Idag känner jag mig ganska pigg och lite sugen på fest”. Om din NAT istället är ”Alla tycker att jag är så himla värdelös på jobbet” så kan motbevisen vara: ”Jag är inte bra på allt, men vissa saker är jag faktiskt bra på” eller ”Jag är inte snabbast på det jag gör, men jag gör det noggrant och mina arbetskamrater tycker om mig”.
+Här kan du, om du vill, använda dig av ”Strategier för att utmana negativa tankar”.</mutableString>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
@@ -1047,24 +1048,11 @@
                                     <rect key="frame" x="41" y="57" width="210" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <attributedString key="attributedText">
-                                        <fragment content="Negativ automatisk tanke">
+                                        <fragment content="Tankefällor">
                                             <attributes>
                                                 <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural">
-                                                    <tabStops>
-                                                        <textTab alignment="left" location="28.299999237060547"/>
-                                                        <textTab alignment="left" location="56.650001525878906"/>
-                                                        <textTab alignment="left" location="85"/>
-                                                        <textTab alignment="left" location="113.34999847412109"/>
-                                                        <textTab alignment="left" location="141.69999694824219"/>
-                                                        <textTab alignment="left" location="170.05000305175781"/>
-                                                        <textTab alignment="left" location="198.39999389648438"/>
-                                                        <textTab alignment="left" location="226.75"/>
-                                                        <textTab alignment="left" location="255.10000610351562"/>
-                                                        <textTab alignment="left" location="283.45001220703125"/>
-                                                        <textTab alignment="left" location="311.79998779296875"/>
-                                                        <textTab alignment="left" location="340.14999389648438"/>
-                                                    </tabStops>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                    <tabStops/>
                                                 </paragraphStyle>
                                                 <integer key="NSUnderline" value="1"/>
                                                 <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1115,7 +1103,7 @@ Ibland innehåller en NAT en tankefälla, som vi har berättat om tidigare. Ifal
                                         <fragment content="Alternativ Tanke">
                                             <attributes>
                                                 <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
                                                     <tabStops/>
                                                 </paragraphStyle>
                                                 <integer key="NSUnderline" value="1"/>
