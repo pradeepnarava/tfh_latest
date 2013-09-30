@@ -256,6 +256,105 @@ NSString *omrade2choosenName=@"";
                 rTextView2 = [NSString stringWithString:tmp15];
             }
             
+            // code to set recent values on buttons - malkit
+            char* c151 = (char*) sqlite3_column_text(statement,6);
+            NSString *tmp151;
+            if (c15 != NULL){
+                tmp151 = [NSString stringWithUTF8String:c151];
+                //                NSLog(@"value form db :%@",tmp15);
+                
+                [averageBt setTitle:tmp151 forState:UIControlStateNormal];
+            }
+            char* c152 = (char*) sqlite3_column_text(statement,7);
+            NSString *tmp152;
+            if (c152 != NULL){
+                tmp152 = [NSString stringWithUTF8String:c152];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf1.text = [NSString stringWithString:tmp152];
+            }
+            char* c153 = (char*) sqlite3_column_text(statement,8);
+            NSString *tmp153;
+            if (c153 != NULL){
+                tmp153 = [NSString stringWithUTF8String:c153];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf2.text = [NSString stringWithString:tmp153];
+            }
+            
+            char* c154 = (char*) sqlite3_column_text(statement,9);
+            NSString *tmp154;
+            if (c154 != NULL){
+                tmp154 = [NSString stringWithUTF8String:c154];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf3.text = [NSString stringWithString:tmp154];
+            }
+            
+            char* c155 = (char*) sqlite3_column_text(statement,10);
+            NSString *tmp155;
+            if (c155 != NULL){
+                tmp155 = [NSString stringWithUTF8String:c155];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf4.text = [NSString stringWithString:tmp155];
+            }
+            
+            char* c156 = (char*) sqlite3_column_text(statement,11);
+            NSString *tmp156;
+            if (c156 != NULL){
+                tmp156 = [NSString stringWithUTF8String:c156];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf5.text = [NSString stringWithString:tmp156];
+            }
+            
+            char* c157 = (char*) sqlite3_column_text(statement,12);
+            NSString *tmp157;
+            if (c157 != NULL){
+                tmp157 = [NSString stringWithUTF8String:c157];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf6.text = [NSString stringWithString:tmp157];
+            }
+            
+            char* c158 = (char*) sqlite3_column_text(statement,13);
+            NSString *tmp158;
+            if (c158 != NULL){
+                tmp158 = [NSString stringWithUTF8String:c158];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf7.text = [NSString stringWithString:tmp158];
+            }
+            
+            char* c159 = (char*) sqlite3_column_text(statement,14);
+            NSString *tmp159;
+            if (c159 != NULL){
+                tmp159 = [NSString stringWithUTF8String:c159];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf8.text = [NSString stringWithString:tmp159];
+            }
+            
+            char* c160 = (char*) sqlite3_column_text(statement,15);
+            NSString *tmp160;
+            if (c160 != NULL){
+                tmp160 = [NSString stringWithUTF8String:c160];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf9.text = [NSString stringWithString:tmp160];
+            }
+            
+            char* c161 = (char*) sqlite3_column_text(statement,16);
+            NSString *tmp161;
+            if (c161 != NULL){
+                tmp161 = [NSString stringWithUTF8String:c161];
+                //                NSLog(@"value form db :%@",tmp15);
+                tf10.text = [NSString stringWithString:tmp161];
+            }
+
+
+
+
+
+
+
+
+
+
+            
+            
             break;
         }
         
@@ -265,6 +364,9 @@ NSString *omrade2choosenName=@"";
             _recentLabel1.hidden = NO;
             
             _recentLabel1.text = rLabel1;
+            // showing recent saved omrades code by malkit
+            omradeLabel1.text=rLabel1;
+            [textview setText:rTextView1];
         }
         else
         {
@@ -278,6 +380,9 @@ NSString *omrade2choosenName=@"";
             _recentLabel2.hidden = NO;
             
             _recentLabel2.text = rLabel2;
+            omradeLabel2.text=rLabel2;
+            [self.textview1 setText:rTextView2];
+            
         }
         else
         {
