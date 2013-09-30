@@ -184,6 +184,8 @@ int c=0;
                  NSLog(@"create database");
             }
             
+            
+            [self LoadSavedData];
             sqlite3_close(exerciseDB);
             
         } else {
@@ -277,7 +279,7 @@ int c=0;
     if ([ex3c1.text isEqualToString:@""] &&[ex3c2.text isEqualToString:@""]&&[ex3c3.text isEqualToString:@""]&&[ex3c4.text isEqualToString:@""]&&[ex3c5.text isEqualToString:@""]) {
         
     }else{
-        
+        raderabutton.enabled=YES;
         //DATE TEXT,  DATUM TEXT ,EXPERIMENTET TEXT,FORUTSAGE TEXT, RESULTAT TEXT,LARDOMAR TEXT
         const char *dbpath = [databasePath UTF8String];
         
@@ -424,6 +426,101 @@ int c=0;
     [UIView commitAnimations];
       [self getlistofDates];
 }
+
+
+
+
+
+#pragma mark Loading the last saved Data
+-(void)LoadSavedData {
+    //SELECT * FROM EXERCISE3 WHERE date=(SELECT date FROM EXERCISE3 ORDER BY date DESC LIMIT 1)
+    
+    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+        
+        NSString *sql = [NSString stringWithFormat: @"SELECT * FROM EXERCISE4 WHERE date=(SELECT date FROM EXERCISE4 ORDER BY date DESC LIMIT 1)"];
+        
+        const char *del_stmt = [sql UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            
+            char* c1 = (char*) sqlite3_column_text(statement,2);
+            
+            if (c1 != NULL){
+                ex3c1.text = [NSString stringWithUTF8String:c1];
+                NSLog(@"value form db :%@",ex3c1.text );
+                
+            }
+            char* c2 = (char*) sqlite3_column_text(statement,3);
+            
+            if (c2 != NULL){
+                ex3c2.text  = [NSString stringWithUTF8String:c2];
+                NSLog(@"value form db :%@",ex3c2.text );
+                
+            }
+            
+            char* c3 = (char*) sqlite3_column_text(statement,4);
+            
+            if (c3!= NULL){
+                ex3c3.text = [NSString stringWithUTF8String:c3];
+                NSLog(@"value form db :%@",ex3c3.text );
+            }
+            char* c4 = (char*) sqlite3_column_text(statement,5);
+            
+            if (c4!= NULL){
+                slabel1.text = [NSString stringWithUTF8String:c4];
+                NSLog(@"value form db :%@",slabel1.text );
+                int z=[slabel1.text intValue];
+                float vOut = (float)z;
+                slider.value=vOut;
+                //slabel1.text=@"30%";
+            }
+            char* c5 = (char*) sqlite3_column_text(statement,6);
+            
+            if (c5 != NULL){
+                ex3c4.text = [NSString stringWithUTF8String:c5];
+                NSLog(@"value form db :%@",ex3c4.text );
+                
+            }
+            char* c6 = (char*) sqlite3_column_text(statement,7);
+            
+            if (c6 != NULL){
+                ex3c5.text = [NSString stringWithUTF8String:c6];
+                NSLog(@"value form db :%@",ex3c5.text );
+                
+            }
+            char* c7 = (char*) sqlite3_column_text(statement,8);
+            
+            if (c7 != NULL){
+                NSString *str = [NSString stringWithUTF8String:c7];
+                NSLog(@"value form db :%@",str);
+                slabel2.text=str;
+                int z=[slabel2.text intValue];
+                float vOut = (float)z;
+                slider1.value=vOut;
+            }
+        }
+        
+        sqlite3_finalize(statement);
+        sqlite3_close(exerciseDB);
+        
+        
+    }
+    scroll.scrollEnabled = YES;
+    listofdates.hidden = YES;
+//    isSaved = NO;
+
+    isSaved = YES;
+    
+    
+    
+    
+    
+}
+
+
+
+
 
 
 -(void)getlistofDates {
@@ -611,7 +708,7 @@ int c=0;
 
 - (IBAction)skickaButtonClicked:(id)sender
 {
-    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Avbryt" destructiveButtonTitle:nil otherButtonTitles:@"Ladda ner", @"E-mail", nil];
     cameraActionSheet.tag = 1;
     [cameraActionSheet showInView:self.view];
 }
