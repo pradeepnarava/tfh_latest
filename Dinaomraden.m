@@ -1900,6 +1900,10 @@ else if(btn.tag==10){
                         olderDate = [[[NSString alloc] initWithUTF8String:date] autorelease];
                         break;
                     }
+                    else
+                    {
+                        olderDate=@"";
+                    }
                 }
                 
             }
@@ -1921,6 +1925,11 @@ else if(btn.tag==10){
         
         dinKom.presentDate = [[NSString alloc] initWithString:dateOfCurrentItem];
         dinKom.oldDate = [[NSString alloc] initWithString:olderDate];
+        if ([olderDate isEqualToString:@""]) {
+            dinKom.isComparisonGraph=NO;
+        
+        }
+        else
         dinKom.isComparisonGraph = YES;
         //    dinKom.delegate = self;
         [self.navigationController pushViewController:dinKom animated:YES];
