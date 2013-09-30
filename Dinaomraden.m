@@ -15,6 +15,10 @@
 @end
 
 @implementation Dinaomraden
+bool isOmrade1choosesn=false;
+bool isOmrade2choosesn=false;
+NSString *omrade1choosenName=@"";
+NSString *omrade2choosenName=@"";
 @synthesize  textview;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -78,11 +82,10 @@
                                    rightSegmentState:UIControlStateSelected
                                           barMetrics:UIBarMetricsDefault];
 
-    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    // [btnDone setTintColor:[UIColor Color]];
-    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
-    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.navigationItem setBackBarButtonItem:btnDone];
+//    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
+//    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
+//    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//    [self.navigationItem setBackBarButtonItem:btnDone];
     
     dateOfCurrentItem = nil;
     scrollView.contentSize = self.view.frame.size;
@@ -153,8 +156,38 @@
     [filemgr release];
     
     [self averagevalue];
-    // Do any additional setup after loading the view from its nib.
+    
+    // code added by malkit to make the navigatoin appear and work like the other views
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        
+    }
+    else {
+        
+        UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+        [okBtn setBackgroundImage:image forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+    }
+    
 }
+-(void)backButon {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+    
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -439,18 +472,102 @@
     if ([sender view].tag == 0)
     {
         isOmrade1 = YES;
+        if (isOmrade1choosesn) {
+            
+            if ([omrade1choosenName isEqualToString:@"cb1"]) {
+                    [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb2"]) {
+                [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb3"]) {
+                [cb3 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb4"]) {
+                [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb5"]) {
+                [cb5 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb6"]) {
+                [cb6 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb7"]) {
+                [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb8"]) {
+                [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb9"]) {
+                [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade1choosenName isEqualToString:@"cb10"]) {
+                [cb10 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+
+
+        }
     }
     else
     {
         isOmrade1 = NO;
+        if (isOmrade2choosesn) {
+            
+            if ([omrade2choosenName isEqualToString:@"cb1"]) {
+                [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb2"]) {
+                [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb3"]) {
+                [cb3 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb4"]) {
+                [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb5"]) {
+                [cb5 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb6"]) {
+                [cb6 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb7"]) {
+                [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb8"]) {
+                [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb9"]) {
+                [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            else if ([omrade2choosenName isEqualToString:@"cb10"]) {
+                [cb10 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+            }
+            
+            
+        }
+
     }
+    
+    // code to set checkboxes accordingly
+//    if(isOmrade1)
+//    {
+//        if(isOmrade1choosesn)
+//        {
+//            
+//        }
+//    }
+    // resetting all the checkboxes
+  
+
+    
     
     [self.view bringSubviewToFront:subView];
     subView.hidden = NO;
     settingsView.hidden = YES;
     label1.text=@"Familj";
     label2.text=@"Vänner";
-    label3.text=@"kärlek";
+    label3.text=@"Kärlek";
     label4.text=@"Arbete";
     label5.text=@"Ekonomi";
     label6.text=@"Kost";
@@ -484,11 +601,18 @@
             {
                 if (isOmrade1)
                 {
+                     isOmrade1choosesn=true;
+                    
+                     omrade1choosenName=@"cb1";
                     [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                     omradeLabel1.text=label1.text;
                 }
                 else
                 {
+                    isOmrade2choosesn=true;
+                    
+                    omrade2choosenName=@"cb1";
+
                     [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                     omradeLabel2.text=label1.text;
                 }
@@ -508,10 +632,18 @@
                 [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
                 if (isOmrade1)
                 {
+                    isOmrade1choosesn=false;
+                    
+                    omrade1choosenName=@"";
+                    
                     omradeLabel1.text = @"";
                 }
                 else
                 {
+
+                    isOmrade2choosesn=false;
+                    
+                    omrade2choosenName=@"";
                     omradeLabel2.text = @"";
                 }
             }
@@ -523,11 +655,17 @@
         {
             if (isOmrade1)
             {
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb2";
                 [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label2.text;
             }
             else
             {
+                                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb2";
                 [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel2.text=label2.text;
             }
@@ -548,10 +686,16 @@
             if (isOmrade1)
             {
                 omradeLabel1.text = @"";
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"cb2";
             }
             else
             {
                 omradeLabel2.text = @"";
+                                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"cb2";
             }
         }
    
@@ -562,11 +706,18 @@
         {
             if (isOmrade1)
             {
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb3";
                 [cb3 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label3.text;
             }
             else
             {
+                
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb3";
                 [cb3 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel2.text=label3.text;
             }
@@ -586,10 +737,16 @@
             [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
             if (isOmrade1)
             {
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
                 omradeLabel1.text = @"";
             }
             else
             {
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
                 omradeLabel2.text = @"";
             }
         }
@@ -601,11 +758,18 @@
         {
             if (isOmrade1)
             {
-                [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb4";
+                                [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label4.text;
             }
             else
             {
+
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb4";
                 [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel2.text=label4.text;
             }
@@ -625,10 +789,16 @@
             [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
             if (isOmrade1)
             {
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
                 omradeLabel1.text = @"";
             }
             else
             {
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
                 omradeLabel2.text = @"";
             }
         }
@@ -640,11 +810,18 @@
         {
             if (isOmrade1)
             {
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb5";
                 [cb5 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label5.text;
             }
             else
             {
+
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb5";
                 [cb5 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel2.text=label5.text;
             }
@@ -664,10 +841,16 @@
             [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
             if (isOmrade1)
             {
-                omradeLabel1.text = @"";
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
+                                omradeLabel1.text = @"";
             }
             else
             {
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
                 omradeLabel2.text = @"";
             }
         }
@@ -678,11 +861,18 @@
         {
             if (isOmrade1)
             {
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb6";
                 [cb6 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label6.text;
             }
             else
             {
+
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb6";
                 [cb6 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel2.text=label6.text;
             }
@@ -702,10 +892,17 @@
             [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
             if (isOmrade1)
             {
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
                 omradeLabel1.text = @"";
             }
             else
             {
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
+
                 omradeLabel2.text = @"";
             }
         }
@@ -717,11 +914,18 @@
         {
             if (isOmrade1)
             {
-                [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb7";
+                                [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label7.text;
             }
             else
             {
+
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb7";
                 [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel2.text=label7.text;
             }
@@ -741,10 +945,18 @@
             [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
             if (isOmrade1)
             {
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
+
                 omradeLabel1.text = @"";
             }
             else
             {
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
+
                 omradeLabel2.text = @"";
             }
         }
@@ -754,11 +966,17 @@
     {
         if (isOmrade1)
         {
+            isOmrade1choosesn=true;
+            
+            omrade1choosenName=@"cb8";
             [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
             omradeLabel1.text=label8.text;
         }
         else
         {
+            isOmrade2choosesn=true;
+            
+            omrade2choosenName=@"cb8";
             [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
             omradeLabel2.text=label8.text;
         }
@@ -778,10 +996,18 @@
         [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
         if (isOmrade1)
         {
+            isOmrade1choosesn=false;
+            
+            omrade1choosenName=@"";
+
             omradeLabel1.text = @"";
         }
         else
         {
+            isOmrade2choosesn=false;
+            
+            omrade2choosenName=@"";
+
             omradeLabel2.text = @"";
         }
     }
@@ -792,11 +1018,17 @@
     {
         if (isOmrade1)
         {
+            isOmrade1choosesn=true;
+            
+            omrade1choosenName=@"cb9";
             [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
             omradeLabel1.text=label9.text;
         }
         else
         {
+            isOmrade2choosesn=true;
+            
+            omrade2choosenName=@"cb9";
             [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
             omradeLabel2.text=label9.text;
         }
@@ -816,10 +1048,18 @@
         [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
         if (isOmrade1)
         {
+            isOmrade1choosesn=false;
+            
+            omrade1choosenName=@"";
+
             omradeLabel1.text = @"";
         }
         else
         {
+            isOmrade2choosesn=false;
+            
+            omrade2choosenName=@"";
+
             omradeLabel2.text = @"";
         }
     }
@@ -831,11 +1071,17 @@
         {
             if (isOmrade1)
             {
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb10";
                 [cb10 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label10.text;
             }
             else
             {
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb10";
                 [cb10 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel2.text=label10.text;
             }
@@ -855,10 +1101,18 @@
             [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
             if (isOmrade1)
             {
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
+
                 omradeLabel1.text = @"";
             }
             else
             {
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
+
                 omradeLabel2.text = @"";
             }
         }
@@ -868,6 +1122,18 @@
     
 -(IBAction)CloseBtn:(id)sender
 {
+    [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    
+    [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+    
     if (!subView.isHidden)
     {
         subView.hidden = YES;
@@ -1056,7 +1322,7 @@
         sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-            omradeLabel1.text=@"";
+        /*    omradeLabel1.text=@"";
             omradeLabel2.text = @"";
             textview.text=@"";
             _textview1.text = @"";
@@ -1079,7 +1345,7 @@
             _recentLabel1.hidden = YES;
             
             _recentButton2.hidden = YES;
-            _recentLabel2.hidden = YES;
+            _recentLabel2.hidden = YES;*/   // commented out the code to preserve the last saved values
             
 //            if (rows == 0)
 //            {
@@ -1088,7 +1354,8 @@
 //            }
 //            else
 //            {
-                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+            // code changes by malkit....alert title cleared
+                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
                 [insertAlert show];
 //            }
             
@@ -1097,7 +1364,7 @@
         } else {
             NSLog(@"no");
             NSLog(@"error: %s", sqlite3_errmsg(exerciseDB));
-            UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Form Update/Save Failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+            UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"" message:@"Form Update/Save Failed" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
             [insertAlert show];
         }
         sqlite3_finalize(statement);
@@ -1113,10 +1380,10 @@
 //    }
 //    else
 //    {
-      UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+      UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
                                         delegate:self
                                cancelButtonTitle:nil
-                               otherButtonTitles:@"Fortsätt utan att spara", @"Avbryt", nil];
+                               otherButtonTitles:@"Fortsätt", @"Avbryt", nil];
         alert.tag = 1;
         
         [alert show];
