@@ -17,6 +17,7 @@
 @implementation Dinaomraden
 bool isOmrade1choosesn=false;
 bool isOmrade2choosesn=false;
+bool NewFormCheck=false;
 NSString *omrade1choosenName=@"";
 NSString *omrade2choosenName=@"";
 @synthesize  textview;
@@ -41,6 +42,8 @@ NSString *omrade2choosenName=@"";
 //}
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    NewFormCheck=true;
+
     [textField resignFirstResponder];
 }
 
@@ -698,7 +701,8 @@ NSString *omrade2choosenName=@"";
 -(IBAction)selectedcheckbox:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
-    
+    NewFormCheck=true;
+
     if (btn.tag == 1)
     {
               NSLog(@"%@",scb);
@@ -1462,6 +1466,7 @@ NSString *omrade2choosenName=@"";
             // code changes by malkit....alert title cleared
                 UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
                 [insertAlert show];
+            NewFormCheck=false;
 //            }
             
 //            dateOfCurrentItem = [[NSString alloc] initWithString:str];
@@ -1485,6 +1490,10 @@ NSString *omrade2choosenName=@"";
 //    }
 //    else
 //    {
+    
+    if (NewFormCheck) {
+        
+    
       UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
                                         delegate:self
                                cancelButtonTitle:nil
@@ -1492,7 +1501,30 @@ NSString *omrade2choosenName=@"";
         alert.tag = 1;
         
         [alert show];
-        [alert release];
+        [alert release];}
+    else
+    {
+        NSLog(@"new form");
+        omradeLabel1.text=@"";
+        omradeLabel2.text = @"";
+        textview.text=@"";
+        _textview1.text = @"";
+        tf1.text=@"1";
+        tf2.text=@"1";
+        tf3.text=@"1";
+        tf4.text=@"1";
+        tf5.text=@"1";
+        tf6.text=@"1";
+        tf7.text=@"1";
+        tf8.text=@"1";
+        tf9.text=@"1";
+        tf10.text=@"1";
+        [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
+        dateOfCurrentItem = nil;
+        _raderaButton.enabled = NO;
+        skickaButton.enabled = NO;
+
+    }
 //    }
 
 }
@@ -1656,6 +1688,7 @@ NSString *omrade2choosenName=@"";
 
 -(IBAction)Increase:(id)sender
 {
+    NewFormCheck=true;
      UIButton *btn = (UIButton *)sender;
     if(btn.tag==1){
         int box1=[tf1.text intValue];
@@ -1744,6 +1777,8 @@ else if(btn.tag==10){
 
 
 -(IBAction)Decrease:(id)sender{
+    NewFormCheck=true;
+
      UIButton *btn = (UIButton *)sender;
     if(btn.tag==1){
         int box1=[tf1.text intValue];
@@ -1832,7 +1867,7 @@ else if(btn.tag==10){
 {
     if (dateOfCurrentItem)
     {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"Är du säker på att du vill radera formuläret?"
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"" message:@"Är du säker på att du vill radera formuläret?"
                                                      delegate:self
                                             cancelButtonTitle:nil
                                             otherButtonTitles:@"Radera", @"Avbryt", nil];
