@@ -44,6 +44,7 @@
     
     self.navigationItem.title=@"Utvärdering";
     
+    // code added by malkit to make the navigatoin appear and work like the other views
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
