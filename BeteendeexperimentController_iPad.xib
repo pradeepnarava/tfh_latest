@@ -289,6 +289,9 @@
                             <state key="highlighted">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="skickaButtonClicked:" destination="-1" eventType="touchUpInside" id="ZcM-Oa-w3h"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="45">
                             <rect key="frame" x="403" y="1204" width="88" height="32"/>
