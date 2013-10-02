@@ -261,6 +261,10 @@ int tagValueForBtn;
         UILocalNotification * local = [[UILocalNotification alloc]  init];
         local.alertBody = string_body;
         
+        NSDictionary *infoDict = [NSDictionary dictionaryWithObjectsAndKeys:@"Key1", @"key", nil];
+        local.userInfo = infoDict;
+
+        
         local.alertAction = nil;
         
         local.soundName = UILocalNotificationDefaultSoundName;
@@ -928,6 +932,7 @@ int tagValueForBtn;
             slider.value=0;
         }
     }
+    
 }
 
 
