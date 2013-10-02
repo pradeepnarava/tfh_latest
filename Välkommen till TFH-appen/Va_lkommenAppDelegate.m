@@ -102,12 +102,22 @@
         */
         
    // }
-    
-    [self notification:notification];
+    NSDictionary * userinfo = [notification userInfo];
+    NSString * keyvalue = [userinfo objectForKey:@"key"];
+    if ([keyvalue isEqualToString:@"Key1"]) {
+        
+    }
+    else {
+        NSLog(@"got notification");
+        [self notification:notification];
+    }
 }
 
 
 - (void)notification:(UILocalNotification*)notification {
+    
+    
+    
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {

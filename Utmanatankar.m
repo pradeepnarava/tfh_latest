@@ -45,7 +45,7 @@ NSArray *pArray;
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    isSaved = YES;
+//    isSaved = YES;
     if([text isEqualToString:@"\n"])
     {
         [textView resignFirstResponder];
@@ -76,6 +76,7 @@ NSArray *pArray;
         
         }
     else {
+        isSaved =NO;
         return YES;
     }
     
@@ -84,6 +85,7 @@ NSArray *pArray;
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
+    isSaved = NO;
     [UIView animateWithDuration:0.5
                      animations:^{
                          [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30) animated:YES];
@@ -168,7 +170,7 @@ NSArray *pArray;
 //    listofdates.hidden = YES;
 //    scroll.scrollEnabled = YES;
 //    Label1Popup.hidden=YES;
-//    isSaved = NO;
+    isSaved = YES;
 
     
     
@@ -566,7 +568,7 @@ NSArray *pArray;
                 if (sqlite3_step(statement) == SQLITE_DONE)
                 {
                     
-                    isSaved = NO;
+                    isSaved = YES;
                     NSLog(@"Save");
                 }
                 else {
@@ -593,6 +595,10 @@ NSArray *pArray;
                     //isSaved
                     
                 }
+                else
+                {
+                    isSaved = YES;
+                }
 
                 sqlite3_finalize(statement);
                 sqlite3_close(exerciseDB);
@@ -614,15 +620,33 @@ NSArray *pArray;
         
     }else{
         
+        if (isSaved == NO) {
+            alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat formuläret, vill du fortsätta?    "
+                                            delegate:self
+                                   cancelButtonTitle:@"Forsätt"
+                                   otherButtonTitles:@"Avbryt", nil];
+            alert.tag=kAlertViewOne;
+            [alert show];
+            [alert release];
+            
+        }
+        else
+        {
+            NSLog(@"new form");
+            c1.text=@"";
+            c2.text=@"";
+            c3.text=@"0%";
+            c4.text=@"";
+            c5.text=@"";
+            c6.text=@"";
+            slider.value=0.0;
+            raderaButton.enabled=NO;
+            [list_exercise3 removeAllObjects];
+            y=0;
+            [list_exercise3 addObject:@"Null"];
+        }
         
         
-        alert=[[UIAlertView alloc] initWithTitle:nil message:@"Du har inte sparat formuläret, vill du fortsätta?    "
-                                        delegate:self
-                               cancelButtonTitle:@"Forsätt"
-                               otherButtonTitles:@"Avbryt", nil];
-        alert.tag=kAlertViewOne;
-        [alert show];
-        [alert release];
         
     }
 }
@@ -865,7 +889,7 @@ NSArray *pArray;
     listofdates.hidden = YES;
     scroll.scrollEnabled = YES;
     Label1Popup.hidden=YES;
-    isSaved = NO;
+    isSaved = YES;
 }
 
 
