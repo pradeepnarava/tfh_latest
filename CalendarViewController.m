@@ -434,7 +434,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             longPressGesture.minimumPressDuration = 1.0;
             [btn addGestureRecognizer:longPressGesture];
             
-        
+            
             NSString *index = [[NSString stringWithFormat:@"%d",btn.tag] substringToIndex:1];
             NSString *tag = [[NSString stringWithFormat:@"%d",btn.tag] substringFromIndex:1];
             
@@ -445,7 +445,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                 NSString *date = [array objectAtIndex:0];
                 
                 NSArray *tm = [[self dateFromStringCal:[weekdays objectAtIndex:[index intValue]-1]] componentsSeparatedByString:@" "];
-
+                
                 if ([[tm objectAtIndex:0] isEqualToString:date]) {
                     
                     NSArray *startArray = [[dict objectForKey:kStartDate] componentsSeparatedByString:@":"];
@@ -453,33 +453,32 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                     
                     
                     if ([tag intValue] == [[array objectAtIndex:1] intValue]) {
+                        
                         CALayer *layer = [CALayer layer];
-
+                        
                         if ([[dict objectForKey:kStatus] isEqualToString:@"+"]) {
-
-                        layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_positive.png"]].CGColor;
+                            layer.backgroundColor = [UIColor greenColor].CGColor;
                         }else if ([[dict objectForKey:kStatus ] isEqualToString:@"-"]) {
-
-                            layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_negative.png"]].CGColor;
+                            layer.backgroundColor = [UIColor redColor].CGColor;
                         }else if ([[dict objectForKey:kStatus] isEqualToString:@"Neutral"]){
-
-                            layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"]].CGColor;
+                            layer.backgroundColor = [UIColor darkGrayColor].CGColor;
+                        }else {
+                            [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+                            [btn setTitle:@"" forState:UIControlStateNormal];
                         }
                         
                         NSString *lastTag = nil;
                         int firstTa = [[startArray objectAtIndex:0] intValue];
                         int secondTa = [[endArray objectAtIndex:0] intValue];
-
+                        
                         if (firstTa != secondTa) {
-
+                            
                             lastTag = [NSString stringWithFormat:@"%@%d",index,secondTa+1];
                         }else {
                             lastTag = [NSString stringWithFormat:@"%@%@",index,[array objectAtIndex:1]];
                         }
                         UIButton *lastBtn = (UIButton *)[self.scrollView viewWithTag:[lastTag intValue]];
                         CGRect frame = CGRectMake(btn.frame.origin.x, btn.frame.origin.y+([[startArray objectAtIndex:1] intValue]/2), btn.frame.size.width,(lastBtn.frame.origin.y - btn.frame.origin.y - btn.frame.size.height)+([[endArray objectAtIndex:1] intValue]/2)+(btn.frame.size.height-([[startArray objectAtIndex:1] intValue]/2)));
-                       
-                        
                         layer.frame = frame;
                         layer.zPosition  = 100;
                         NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
@@ -504,7 +503,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                         [self.scrollView.layer insertSublayer:layer atIndex:0];
                     }
                 }
-                
             }
         }
     }
@@ -593,8 +591,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
-    
-    NSLog(@"-----$$$$$ %i",[[btag substringToIndex:1] intValue]);
     
     date = [self.weekdays objectAtIndex:[[btag substringToIndex:1] intValue]-1];
     
@@ -731,6 +727,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         
         }
         
+    }
+}
+
         /*UIButton *btn = (UIButton*)[gesture view];
         NSDate *date=nil;
         
@@ -771,8 +770,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
          
             }
         }*/
-    }
-}
+
 
 
 
@@ -1179,7 +1177,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         sqlite3_finalize(statement);
     }
     sqlite3_close(exerciseDB);
-    NSLog(@"sub events %@",dataArray);
+
     [self displayButton];
 }
 

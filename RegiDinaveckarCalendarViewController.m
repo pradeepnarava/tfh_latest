@@ -367,6 +367,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 
 -(void)touchBegan:(UIControl*)c withEvent:(UIEvent*)ev {
+   
     UIButton *btn = (UIButton*)c;
     UITouch *touch = [[ev allTouches] anyObject];
     BOOL isExist = NO;

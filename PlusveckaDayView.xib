@@ -28,11 +28,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="background-ipone5.png" id="18">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="19">
-                    <rect key="frame" x="0.0" y="33" width="320" height="435"/>
+                    <rect key="frame" x="0.0" y="35" width="320" height="446"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="20">
@@ -189,13 +189,6 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="42">
-                            <rect key="frame" x="14" y="686" width="23" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="05" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="43">
                             <rect key="frame" x="14" y="136" width="23" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -204,7 +197,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" userInteractionEnabled="NO" tag="111" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="379">
-                            <rect key="frame" x="59" y="0.0" width="125" height="29"/>
+                            <rect key="frame" x="40" y="0.0" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -234,7 +227,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="121" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="381">
-                            <rect key="frame" x="59" y="29" width="125" height="29"/>
+                            <rect key="frame" x="40" y="29" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -264,7 +257,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="131" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="383">
-                            <rect key="frame" x="59" y="58" width="125" height="29"/>
+                            <rect key="frame" x="40" y="58" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -294,7 +287,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="141" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="385">
-                            <rect key="frame" x="59" y="87" width="125" height="29"/>
+                            <rect key="frame" x="40" y="87" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -324,7 +317,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="151" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="387">
-                            <rect key="frame" x="59" y="116" width="125" height="29"/>
+                            <rect key="frame" x="40" y="116" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -354,7 +347,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="161" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="389">
-                            <rect key="frame" x="59" y="145" width="125" height="29"/>
+                            <rect key="frame" x="40" y="145" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -384,7 +377,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="171" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="391">
-                            <rect key="frame" x="59" y="174" width="125" height="29"/>
+                            <rect key="frame" x="40" y="174" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -414,7 +407,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="181" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="393">
-                            <rect key="frame" x="59" y="203" width="125" height="29"/>
+                            <rect key="frame" x="40" y="203" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -444,7 +437,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="191" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="395">
-                            <rect key="frame" x="59" y="232" width="125" height="29"/>
+                            <rect key="frame" x="40" y="232" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -474,7 +467,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="397">
-                            <rect key="frame" x="59" y="261" width="125" height="29"/>
+                            <rect key="frame" x="40" y="261" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -504,7 +497,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1111" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="399">
-                            <rect key="frame" x="59" y="290" width="125" height="29"/>
+                            <rect key="frame" x="40" y="290" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -534,7 +527,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1121" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="401">
-                            <rect key="frame" x="59" y="319" width="125" height="29"/>
+                            <rect key="frame" x="40" y="319" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -564,7 +557,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1131" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="403">
-                            <rect key="frame" x="59" y="348" width="125" height="29"/>
+                            <rect key="frame" x="40" y="348" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -594,7 +587,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1141" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="405">
-                            <rect key="frame" x="59" y="377" width="125" height="29"/>
+                            <rect key="frame" x="40" y="377" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -624,7 +617,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1151" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="407">
-                            <rect key="frame" x="59" y="406" width="125" height="29"/>
+                            <rect key="frame" x="40" y="406" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -654,7 +647,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1161" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="409">
-                            <rect key="frame" x="59" y="435" width="125" height="29"/>
+                            <rect key="frame" x="40" y="435" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -684,7 +677,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1171" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="411">
-                            <rect key="frame" x="59" y="464" width="125" height="29"/>
+                            <rect key="frame" x="40" y="464" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -714,7 +707,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1181" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="413">
-                            <rect key="frame" x="59" y="493" width="125" height="29"/>
+                            <rect key="frame" x="40" y="493" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -744,7 +737,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1191" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="415">
-                            <rect key="frame" x="59" y="522" width="125" height="29"/>
+                            <rect key="frame" x="40" y="522" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -774,7 +767,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1201" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="417">
-                            <rect key="frame" x="59" y="551" width="125" height="29"/>
+                            <rect key="frame" x="40" y="551" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -804,7 +797,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1211" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="419">
-                            <rect key="frame" x="59" y="580" width="125" height="29"/>
+                            <rect key="frame" x="40" y="580" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -834,7 +827,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1221" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="421">
-                            <rect key="frame" x="59" y="609" width="125" height="29"/>
+                            <rect key="frame" x="40" y="609" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -864,7 +857,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1231" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="423">
-                            <rect key="frame" x="59" y="638" width="125" height="29"/>
+                            <rect key="frame" x="40" y="638" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -894,7 +887,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" tag="1241" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="425">
-                            <rect key="frame" x="59" y="667" width="125" height="29"/>
+                            <rect key="frame" x="40" y="667" width="144" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <state key="normal" backgroundImage="kalendar_cell_empty.png">
@@ -927,7 +920,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4">
-                    <rect key="frame" x="57" y="4" width="250" height="31"/>
+                    <rect key="frame" x="41" y="4" width="266" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Måndag" backgroundImage="cell.png">
@@ -939,7 +932,7 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="17">
-                    <rect key="frame" x="57" y="468" width="250" height="31"/>
+                    <rect key="frame" x="41" y="483" width="266" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Total sinnesstämning" backgroundImage="cell.png">
