@@ -25,7 +25,6 @@
 @property (strong, nonatomic) IBOutlet UIView *popupView,*totalView;
 @property (nonatomic, strong) IBOutlet UISlider *slider;
 @property (nonatomic, strong) IBOutlet UILabel *sliderLabel;
-
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField1,*mintsTextField1;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextField2,*mintsTextField2;
 @property (nonatomic, strong) IBOutlet UITextView *eventDesTextView;

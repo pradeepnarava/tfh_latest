@@ -173,6 +173,8 @@
     }
 }
 
+
+
 -(void)getSub2SettingsData{
     const char *dbpath = [databasePath UTF8String];
     
@@ -201,205 +203,10 @@
 }
 
 
-
 -(void)displayButton {
     
-    for (id button in self.scrollView.subviews) {
-        if ([button isKindOfClass:[UIButton class]]) {
-            UIButton *btn = button;
-            if (btn.layer.name) {
-                btn.layer.name = nil;
-            }
-        }
-    }
-    NSMutableArray *array = [self.scrollView.layer.sublayers mutableCopy];
-    for (CALayer *layer in array) {
-        if (layer.name) {
-            [layer removeFromSuperlayer];
-        }
-    }
-    
-    for (id sub in self.scrollView.subviews) {
+    for (int i =0; i <[[self.scrollView subviews] count]; i++) {
         
-        if ([sub isKindOfClass:[UIButton class]]) {
-            UIButton *btn = sub;
-            
-            [btn addTarget:self action:@selector(touchBegan:withEvent:) forControlEvents:UIControlEventTouchUpInside];
-            btn.layer.borderColor = [UIColor clearColor].CGColor;
-            btn.layer.borderWidth = 1.0f;
-            
-           
-            NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-            
-            NSLog(@"btag is :%i",[btag intValue]);
-            
-            NSString *subString1 =  [btag substringFromIndex:1];
-            
-            NSLog(@"subString1 is :%i",[subString1 intValue]);
-            
-           NSString *subString = [subString1 substringToIndex:subString1.length-1];
-
-            NSLog(@"subString is :%i",[subString intValue]);
-            
-            NSString *whichString = [subString1 substringFromIndex:subString1.length-1];
-            
-            
-            NSLog(@"dayTag is : %c",[btag characterAtIndex:0]);
-            
-            NSString *index1 = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-            
-            NSString *tag1 = [subString1 substringToIndex:subString1.length-1];
-            
-            if ([whichString isEqualToString:@"1"]) {
-                
-                for (int g =0; g<[sub1EventsArray count]; g++) {
-                    
-                    NSMutableDictionary *tempDict = [sub1EventsArray objectAtIndex:g];
-                    
-                    NSString *dayTime = [tempDict objectForKey:kDayTime];
-                    NSArray *array = [dayTime componentsSeparatedByString:@" "];
-                    NSString *date = [array objectAtIndex:0];
-                    
-                    NSArray *tm = [[self dateFromStringCal:[weekdays objectAtIndex:[index1 intValue]-1]] componentsSeparatedByString:@" "];
-                    
-                    
-                    if ([[tm objectAtIndex:0] isEqualToString:date]) {
-                        
-                        NSArray *startArray = [[tempDict objectForKey:kStartDate] componentsSeparatedByString:@":"];
-                        NSArray *endArray = [[tempDict objectForKey:kEndDate] componentsSeparatedByString:@":"];
-                        
-                        
-                        if ([tag1 intValue] == [[array objectAtIndex:1] intValue]) {
-                            
-                            
-                            CALayer *layer = [CALayer layer];
-                            
-                            if ([[tempDict objectForKey:kStatus] isEqualToString:@"+"]) {
-                                layer.backgroundColor = [UIColor greenColor].CGColor;
-                            }else if ([[tempDict objectForKey:kStatus ] isEqualToString:@"-"]) {
-                                layer.backgroundColor = [UIColor redColor].CGColor;
-                            }else if ([[tempDict objectForKey:kStatus] isEqualToString:@"Neutral"]){
-                                layer.backgroundColor = [UIColor darkGrayColor].CGColor;
-                            }
-                            
-                            NSString *lastTag = nil;
-                            int firstTa = [[startArray objectAtIndex:0] intValue];
-                            int secondTa = [[endArray objectAtIndex:0] intValue];
-                            int sub = 1;
-                            
-                            if (firstTa != secondTa) {
-                                
-                                lastTag = [NSString stringWithFormat:@"%@%d%i",index1,secondTa+1,sub];
-                            }else {
-                                lastTag = [NSString stringWithFormat:@"%@%@%i",index1,[array objectAtIndex:1],sub];
-                            }
-                            UIButton *lastBtn = (UIButton *)[self.scrollView viewWithTag:[lastTag intValue]];
-                            CGRect frame = CGRectMake(btn.frame.origin.x, btn.frame.origin.y+([[startArray objectAtIndex:1] intValue]/2), btn.frame.size.width,(lastBtn.frame.origin.y - btn.frame.origin.y - btn.frame.size.height)+([[endArray objectAtIndex:1] intValue]/2)+(btn.frame.size.height-([[startArray objectAtIndex:1] intValue]/2)));
-
-                            layer.frame = frame;
-                            layer.zPosition  = 10;
-                            NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
-                            int c = [tag1 intValue] +1;
-                            while (c < [[array objectAtIndex:1] intValue] && c > [tag1 intValue]) {
-                                [tagsArray addObject:[NSString stringWithFormat:@"%@%d",index1,c]];
-                                c++;
-                            }
-                            for (int z= 0; z < [tagsArray count]; z++) {
-                                UIButton *middleButton = (UIButton *)[self.scrollView viewWithTag:[[tagsArray objectAtIndex:z] intValue]];
-                                middleButton.layer.name = dayTime;
-                            }
-                            CATextLayer *label = [[CATextLayer alloc] init];
-                            [label setFont:@"Helvetica"];
-
-                            [label setFontSize:12];
-                            [label setFrame:CGRectMake(0, (frame.size.height/2)-10, frame.size.width, 20)];
-                            [label setString:[tempDict objectForKey:kEventDes]];
-                            [label setAlignmentMode:kCAAlignmentCenter];
-                            [label setForegroundColor:[[UIColor blackColor] CGColor]];
-                            layer.name = [NSString stringWithFormat:@"%d",g];
-                            [layer addSublayer:label];
-                            [self.scrollView.layer insertSublayer:layer atIndex:0];
-                        }
-                    }
-                }
-            }else{
-                for (int g =0; g<[dataArray count]; g++) {
-                    NSMutableDictionary *tempDict = [dataArray objectAtIndex:g];
-                    
-                    NSString *dayTime = [tempDict objectForKey:kDayTime];
-                    NSArray *array = [dayTime componentsSeparatedByString:@" "];
-                    NSString *date = [array objectAtIndex:0];
-                    
-                    NSArray *tm = [[self dateFromStringCal:[weekdays objectAtIndex:[index1 intValue]-1]] componentsSeparatedByString:@" "];
-                    
-                    
-                    if ([[tm objectAtIndex:0] isEqualToString:date]) {
-                        
-                        NSArray *startArray = [[tempDict objectForKey:kStartDate] componentsSeparatedByString:@":"];
-                        NSArray *endArray = [[tempDict objectForKey:kEndDate] componentsSeparatedByString:@":"];
-                        
-                        if ([tag1 intValue] == [[array objectAtIndex:1] intValue]) {
-                            
-                            
-                            CALayer *layer = [CALayer layer];
-                            
-                            if ([[tempDict objectForKey:kStatus] isEqualToString:@"+"]) {
-                                layer.backgroundColor = [UIColor greenColor].CGColor;
-                            }else if ([[tempDict objectForKey:kStatus ] isEqualToString:@"-"]) {
-                                layer.backgroundColor = [UIColor redColor].CGColor;
-                            }else if ([[tempDict objectForKey:kStatus] isEqualToString:@"Neutral"]){
-                                layer.backgroundColor = [UIColor darkGrayColor].CGColor;
-                            }
-                            
-                            NSString *lastTag = nil;
-                            int firstTa = [[startArray objectAtIndex:0] intValue];
-                            int secondTa = [[endArray objectAtIndex:0] intValue];
-                            int sub = 2;
-                            if (firstTa != secondTa) {
-                                
-                                lastTag = [NSString stringWithFormat:@"%@%d%i",index1,secondTa+1,sub];
-                            }else {
-                                lastTag = [NSString stringWithFormat:@"%@%@%i",index1,[array objectAtIndex:1],sub];
-                            }
-                            UIButton *lastBtn = (UIButton *)[self.scrollView viewWithTag:[lastTag intValue]];
-                            CGRect frame = CGRectMake(btn.frame.origin.x, btn.frame.origin.y+([[startArray objectAtIndex:1] intValue]/2), btn.frame.size.width,(lastBtn.frame.origin.y - btn.frame.origin.y - btn.frame.size.height)+([[endArray objectAtIndex:1] intValue]/2)+(btn.frame.size.height-([[startArray objectAtIndex:1] intValue]/2)));
-                            layer.frame = frame;
-                            layer.zPosition  = 100;
-                            NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
-                            int c = [tag1 intValue] +1;
-                            while (c < [[array objectAtIndex:1] intValue] && c > [tag1 intValue]) {
-                                [tagsArray addObject:[NSString stringWithFormat:@"%@%d",index1,c]];
-                                c++;
-                            }
-                            for (int z= 0; z < [tagsArray count]; z++) {
-                                UIButton *middleButton = (UIButton *)[self.scrollView viewWithTag:[[tagsArray objectAtIndex:z] intValue]];
-                                middleButton.layer.name = dayTime;
-                            }
-                            CATextLayer *label = [[CATextLayer alloc] init];
-                            [label setFont:@"Helvetica"];
-                            [label setFontSize:12];
-                            [label setFrame:CGRectMake(0, (frame.size.height/2)-10, frame.size.width, 20)];
-                            [label setString:[tempDict objectForKey:kEventDes]];
-                            [label setAlignmentMode:kCAAlignmentCenter];
-                            [label setForegroundColor:[[UIColor blackColor] CGColor]];
-                            layer.name = [NSString stringWithFormat:@"%d",g];
-                            [layer addSublayer:label];
-                            [self.scrollView.layer insertSublayer:layer atIndex:0];
-                        }
-                    }
-            
-                    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-                    
-                    longPressGesture.minimumPressDuration = 1.0;
-                    [btn addGestureRecognizer:longPressGesture];
-                }
-            }
-        }
-    }
-}
-
-   /* for (int i =0; i <[[self.scrollView subviews] count]; i++) {
-    
         UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
         if ([btn isKindOfClass:[UIButton class]]) {
             NSMutableArray *layArray = [btn.layer.sublayers mutableCopy];
@@ -453,7 +260,7 @@
                         }
                         
                         [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
-                     
+                        
                     }
                 }
             }else{
@@ -498,7 +305,8 @@
                 [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
-    }*/
+    }
+}
 
 -(NSString*)dateFromStringCal:(NSDate*)date {
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -508,140 +316,7 @@
 }
 
 
--(void)touchBegan:(UIControl*)c withEvent:(UIEvent*)ev {
-    
-    UIButton *btn = (UIButton*)c;
-    UITouch *touch = [[ev allTouches] anyObject];
-    BOOL isExist = NO;
-    NSDate *date=nil;
-    
-    
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString1 =  [btag substringFromIndex:1];
-    NSString *subString = [subString1 substringToIndex:subString1.length-1];
-    NSString *whichString = [subString1 substringFromIndex:subString1.length-1];
-    
-    NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-    
-    date = [self.weekdays objectAtIndex:[s intValue]-1];
-    
-    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    
-    buttonString = [[tm objectAtIndex:0] retain];
-    
-    CGPoint touchPoint = [touch locationInView:self.scrollView];
-
-    for (CALayer *layer in self.scrollView.layer.sublayers) {
-        if ([layer containsPoint:[self.scrollView.layer convertPoint:touchPoint toLayer:layer]] && btn.layer != layer) {
-            NSLog(@"data ---%d",[layer.name intValue]);
-            if ([whichString isEqualToString:@"1"]) {
-                isSub2 = NO;
-                
-                NSMutableDictionary *temp = [sub1EventsArray objectAtIndex:[layer.name intValue]];
-                
-                editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
-                currentStatuBtn = [temp valueForKey:kStatus];
-                NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-                NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-                eventDesTextView.text = [temp valueForKey:kEventDes];
-                
-                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-                
-                
-                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-                isExist = YES;
-                raderaBtn.enabled =YES;
-
-            }else{
-                isSub2 = YES;
-                for (int q= 0; q<[dataArray count]; q++) {
-                    NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-                    if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-                        editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-                        NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-                        NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-                        eventDesTextView.text = [temp valueForKey:kEventDes];
-                        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-                        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-                        mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
-                        mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
-                        isExist = YES;
-                        raderaBtn.enabled = YES;
-                    }
-                }
-            }
-        }
-    }
-    if (!isExist) {
-        NSLog(@"not -----$$$$$ %@",btn.layer.name);
-        eventDesTextView.text = @"";
-        currentStatuBtn=@"Neutral";
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        mintsTextField1.text = [NSString stringWithFormat:@"00"];
-        mintsTextField2.text = [NSString stringWithFormat:@"00"];
-        raderaBtn.enabled = NO;
-        
-        
-    }
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
-}
-
-
 - (void)longPress:(UIGestureRecognizer *)gesture{
-    
-    if (gesture.state == UIGestureRecognizerStateBegan)
-    {
-        UIButton *btn = (UIButton*)[gesture view];
-        NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-        //NSString *subString1 =  [btag substringFromIndex:1];
-        //NSString *subString = [subString1 substringToIndex:subString1.length-1];
-        NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-    
-        BOOL isExist = NO;
-        NSDate *date=nil;
-        
-        date = [self.weekdays objectAtIndex:[s intValue]-1];
-        
-        NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-        
-        buttonString = [[tm objectAtIndex:0] retain];
-        
-        CGPoint touchPoint = [gesture locationInView:self.scrollView];
-        for (CALayer *layer in self.scrollView.layer.sublayers) {
-            if ([layer containsPoint:[self.scrollView.layer convertPoint:touchPoint toLayer:layer]] && btn.layer != layer) {
-                editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"KBT" message:@"Är du säker på att du vill radera aktiviteten?" delegate:self cancelButtonTitle:@"Avbryt" otherButtonTitles:@"Radera",nil];
-                
-                [alert show];
-                [alert release];
-                break;
-                
-                isExist = YES;
-            }
-        }
-        if (!isExist) {
-            NSLog(@"not -----$$$$$ %@",btn.layer.name);
-            /*eventDesTextView.text = @"";
-             
-             hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-             
-             hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-             
-             raderaBtn.enabled = NO;
-             editIndexValue= nil;*/
-            
-        }
-    }
-}
-
-/*- (void)longPress:(UIGestureRecognizer *)gesture{
     
     
     if (gesture.state == UIGestureRecognizerStateBegan)
@@ -684,7 +359,7 @@
             
             if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
                 editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Radera",nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"KBT" message:@"Är du säker på att du vill radera aktiviteten?" delegate:self cancelButtonTitle:@"Avbryt" otherButtonTitles:@"Radera",nil];
                 
                 [alert show];
                 [alert release];
@@ -693,7 +368,7 @@
         }
         
     }
-}*/
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
@@ -963,7 +638,7 @@
     return dateString;
 }
 
-/*-(void)emptyCell:(id)sender {
+-(void)emptyCell:(id)sender {
     UIButton *btn = (UIButton*)sender;
     NSDate *date=nil;
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
@@ -1053,7 +728,7 @@
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
                           }];
-}*/
+}
 
 -(IBAction)closeButtonClicked:(id)sender
 {
