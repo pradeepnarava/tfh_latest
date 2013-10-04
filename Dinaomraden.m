@@ -228,6 +228,13 @@ NSString *omrade2choosenName=@"";
         sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
         while (sqlite3_step(statement) == SQLITE_ROW)
         {
+            char* c001 = (char*) sqlite3_column_text(statement,1);
+            NSString *tmp001;
+            if (c001 != NULL){
+                tmp001 = [NSString stringWithUTF8String:c001];
+                //                NSLog(@"value form db :%@",tmp1);
+                dateOfCurrentItem = [[NSString alloc] initWithString:tmp001];
+            }
             
             char* c1 = (char*) sqlite3_column_text(statement,2);
             NSString *tmp1;
