@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E50186417FF4EF100FD004A /* beep-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1E50186317FF4EF100FD004A /* beep-5.wav */; };
+		1E50186617FF4F0800FD004A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E50186517FF4F0800FD004A /* AVFoundation.framework */; };
 		1E82CD0017EE82C600E500FD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFA17EE82C600E500FD /* Icon.png */; };
 		1E82CD0117EE82C600E500FD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFB17EE82C600E500FD /* Icon@2x.png */; };
 		1E82CD0217EE82C600E500FD /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFC17EE82C600E500FD /* Icon-Small-50.png */; };
@@ -362,6 +364,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E50186317FF4EF100FD004A /* beep-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "beep-5.wav"; sourceTree = "<group>"; };
+		1E50186517FF4F0800FD004A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1E82CCFA17EE82C600E500FD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		1E82CCFB17EE82C600E500FD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		1E82CCFC17EE82C600E500FD /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -869,6 +873,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E50186617FF4F0800FD004A /* AVFoundation.framework in Frameworks */,
 				2456C5BA1795AD2100F36A2F /* Accelerate.framework in Frameworks */,
 				5EEAA3C717463442005737CC /* CoreData.framework in Frameworks */,
 				5EEAA3C617463434005737CC /* QuartzCore.framework in Frameworks */,
@@ -886,6 +891,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E50186217FF4ED200FD004A /* audio Files */ = {
+			isa = PBXGroup;
+			children = (
+				1E50186317FF4EF100FD004A /* beep-5.wav */,
+			);
+			name = "audio Files";
+			sourceTree = "<group>";
+		};
 		1E82CCF917EE82B100E500FD /* app icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -984,6 +997,7 @@
 		5EA026A0172E7CD100C37EE4 = {
 			isa = PBXGroup;
 			children = (
+				1E50186217FF4ED200FD004A /* audio Files */,
 				1E82CCF917EE82B100E500FD /* app icons */,
 				2456C5B91795AD2100F36A2F /* Accelerate.framework */,
 				5EA735A21758D634001D56C7 /* TPMultiLayoutViewController.h */,
@@ -1017,6 +1031,7 @@
 		5EA026AB172E7CD100C37EE4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E50186517FF4F0800FD004A /* AVFoundation.framework */,
 				5EA026F1172E9D7D00C37EE4 /* libsqlite3.dylib */,
 				5EED2AF0173E5BAB00CF77B3 /* EventKit.framework */,
 				5EED2AF1173E5BAB00CF77B3 /* EventKitUI.framework */,
@@ -1850,6 +1865,7 @@
 				249F9963179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib in Resources */,
 				5E262A1F17A01D7300E1EE56 /* DinaveckarCell.xib in Resources */,
 				5E262A2117A01E9A00E1EE56 /* date-background.png in Resources */,
+				1E50186417FF4EF100FD004A /* beep-5.wav in Resources */,
 				24B93F4217A98DAE003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib in Resources */,
 				24B93F4317A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib in Resources */,
 				248BF53917AAC6A600556BF8 /* RegiDinaveckarDayCalendarView_iPhone4.xib in Resources */,

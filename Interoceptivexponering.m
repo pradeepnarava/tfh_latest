@@ -9,6 +9,7 @@
 #import "Interoceptivexponering.h"
 #import "MTPopupWindow.h"
 #import "InteroceptiveCustomCell.h"
+#import <AVFoundation/AVFoundation.h>
 
 
 #define kAlertViewOne 1
@@ -255,6 +256,16 @@ int tagValueForBtn;
         [self.secondsTimer invalidate];
 
         
+        //playing sound after the completion of the time 
+        //beep-5.wav
+        NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"beep-5" ofType:@"wav"];
+        NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+        
+        AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+        player.numberOfLoops = 1; //Infinite
+        
+        [player play];
+        
         NSDictionary * temp_dict=[self.allItems objectAtIndex:[allItems count]-1];
         NSString * string_body = [NSString stringWithFormat:@"%@ : Tiden är ute",[temp_dict objectForKey:@"question"]];
         
@@ -267,7 +278,7 @@ int tagValueForBtn;
         
         local.alertAction = nil;
         
-        local.soundName = UILocalNotificationDefaultSoundName;
+        local.soundName = @"beep-5.wav";
         
         local.fireDate = [NSDate date];
         [[UIApplication sharedApplication] scheduleLocalNotification:local];
