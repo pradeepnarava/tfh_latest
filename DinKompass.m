@@ -329,8 +329,12 @@
 //        NSLog(@"DATES ARRAY = %@", datesArray);
         if ([datesArray count] > 0 && [averageArray count] > 0)
         {
+//            _presentDate = [NSString stringWithString:[datesArray lastObject]];
+//            _oldDate = [NSString stringWithString:[datesArray objectAtIndex:0]];
+            
             _presentDate = [NSString stringWithString:[datesArray lastObject]];
             _oldDate = [NSString stringWithString:[datesArray objectAtIndex:0]];
+
             [self initPlot];
         }
         else
@@ -543,6 +547,8 @@
 	x.majorTickLineStyle = axisLineStyle;
 	x.majorTickLength = 4.0f;
 	x.tickDirection = CPTSignNegative;
+
+
     
 	CGFloat dateCount = 10;
 	NSMutableSet *xLabels = [NSMutableSet setWithCapacity:dateCount];
@@ -558,7 +564,9 @@
     }
     else
     {
-        array = [[NSArray alloc] initWithArray:datesArray];
+        NSArray* reversedArray = [[datesArray reverseObjectEnumerator] allObjects];
+        array = [[NSArray alloc] initWithArray:reversedArray];
+        //array = [[NSArray alloc] initWithArray:datesArray];
 //        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([datesArray count])];
     }
     
