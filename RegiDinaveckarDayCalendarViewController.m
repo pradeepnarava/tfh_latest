@@ -218,11 +218,21 @@
         }
 
         if ([statusString isEqualToString:@"+"]) {
-            [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
+//            [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
+            
+            // 109, 169, 88
+            [but setBackgroundColor:[UIColor colorWithRed:109.0/255.0 green:169.0/255.0 blue:88.0/255.0 alpha:1.0]];
+            
         }else if ([statusString isEqualToString:@"-"]){
-            [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
+//            [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
+            //202, 84, 25
+            [but setBackgroundColor:[UIColor colorWithRed:202.0/255.0 green:84.0/255.0 blue:25.0/255.0 alpha:1.0]];
+
         }else if ([statusString isEqualToString:@"Neutral"]){
-            [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
+         //   [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
+            // 196, 196, 196
+            [but setBackgroundColor:[UIColor colorWithRed:196.0/255.0 green:196.0/255.0 blue:196.0/255.0 alpha:1.0]];
+
         }else {
             [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
             [but setTitle:@"" forState:UIControlStateNormal];
