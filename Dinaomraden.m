@@ -1438,6 +1438,8 @@ NSString *omrade2choosenName=@"";
         sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
+            _recentLabel1.text=omradeLabel1.text;
+            _recentLabel2.text=omradeLabel2.text;
         /*    omradeLabel1.text=@"";
             omradeLabel2.text = @"";
             textview.text=@"";
@@ -1511,11 +1513,15 @@ NSString *omrade2choosenName=@"";
         [alert release];}
     else
     {
+//        _recentButton1.hidden = YES;
+//        _recentButton2.hidden = YES;
         NSLog(@"new form");
         omradeLabel1.text=@"";
         omradeLabel2.text = @"";
         textview.text=@"";
         _textview1.text = @"";
+//        _recentLabel1.text=@"";
+//        _recentLabel2.text=@"";
         tf1.text=@"1";
         tf2.text=@"1";
         tf3.text=@"1";
@@ -1530,6 +1536,7 @@ NSString *omrade2choosenName=@"";
         dateOfCurrentItem = nil;
         _raderaButton.enabled = NO;
         skickaButton.enabled = NO;
+        
 
     }
 //    }
