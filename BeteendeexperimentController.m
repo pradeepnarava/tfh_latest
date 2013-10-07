@@ -38,7 +38,6 @@ int c=0;
 }
 
 #pragma  mark TextViewDelegate Methods
-
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     isSaved = YES;

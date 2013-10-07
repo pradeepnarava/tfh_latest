@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="4510" systemVersion="13A598" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -345,7 +345,7 @@
                                 <!--2013-06-05 14:56:11 +0000-->
                             </date>
                             <timeZone key="timeZone" name="America/Los_Angeles">
-                                <mutableData key="data">
+                                <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -363,7 +363,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                             </timeZone>
                             <connections>
                                 <action selector="displayDate:" destination="-1" eventType="valueChanged" id="75"/>
@@ -426,7 +426,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <rect key="frame" x="20" y="80" width="339" height="261"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <mutableString key="text">En negativ automatisk tanke är en negativ tolkning av en situation, som bidrar till att du känner ångest eller nedstämdhet. En NAT poppar ofta upp ur tomma intet utan att vi reflekterar över det. Det kan vara att du nedvärderar dig själv (”Jag glömde nycklarna hemma, jag är så himla dålig”) vilket är vanligt vid depression, det kan också vara tankar som bidrar till att du känner ångest eller rädsla inför någonting (”Mitt hjärta bultar fort, jag kommer att få en hjärtattack!”), vilket är vanligt vid panikångest. Om du har social fobi kan tanken vara: ”När jag får ordet på seminariet kommer alla att märka att jag är nervös”.</mutableString>
+                                    <string key="text">En negativ automatisk tanke är en negativ tolkning av en situation, som bidrar till att du känner ångest eller nedstämdhet. En NAT poppar ofta upp ur tomma intet utan att vi reflekterar över det. Det kan vara att du nedvärderar dig själv (”Jag glömde nycklarna hemma, jag är så himla dålig”) vilket är vanligt vid depression, det kan också vara tankar som bidrar till att du känner ångest eller rädsla inför någonting (”Mitt hjärta bultar fort, jag kommer att få en hjärtattack!”), vilket är vanligt vid panikångest. Om du har social fobi kan tanken vara: ”När jag får ordet på seminariet kommer alla att märka att jag är nervös”.</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>

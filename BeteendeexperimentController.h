@@ -12,7 +12,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 
-@interface BeteendeexperimentController : UIViewController<UITableViewDelegate, UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate>{
+@interface BeteendeexperimentController : UIViewController<UITableViewDelegate, UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,UITextViewDelegate>{
     
     
     UILabel *label,*label1;

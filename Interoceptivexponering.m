@@ -9,6 +9,7 @@
 #import "Interoceptivexponering.h"
 #import "MTPopupWindow.h"
 #import "InteroceptiveCustomCell.h"
+#import <AVFoundation/AVFoundation.h>
 
 
 #define kAlertViewOne 1
@@ -24,6 +25,7 @@
 @property (nonatomic, assign) int hours;
 @property (nonatomic, assign) int seconds;
 @property (nonatomic, assign) int minutes;
+@property (nonatomic, assign) int Rhours;
 @property (nonatomic, assign) int Reseconds;
 @property (nonatomic, assign) int Reminutes;
 
@@ -255,6 +257,17 @@ int tagValueForBtn;
         [self.secondsTimer invalidate];
 
         
+        //playing sound after the completion of the time
+                //beep-5.wav
+        NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"beep-5" ofType:@"wav"];
+        NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+       
+        AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+        player.numberOfLoops = 1; //Only Once
+               
+        [player play];
+       
+        
         NSDictionary * temp_dict=[self.allItems objectAtIndex:[allItems count]-1];
         NSString * string_body = [NSString stringWithFormat:@"%@ : Tiden är ute",[temp_dict objectForKey:@"question"]];
         
@@ -267,7 +280,7 @@ int tagValueForBtn;
         
         local.alertAction = nil;
         
-        local.soundName = UILocalNotificationDefaultSoundName;
+        local.soundName = @"beep-5.wav"; 
         
         local.fireDate = [NSDate date];
         [[UIApplication sharedApplication] scheduleLocalNotification:local];
@@ -332,6 +345,7 @@ int tagValueForBtn;
         timerview.hidden = NO;
     }
 
+    [self.secondsTimer invalidate];
     egen.hidden=NO;
     slider.hidden=NO;
     prc.hidden=NO;
@@ -398,6 +412,7 @@ int tagValueForBtn;
     
     self.minutesDisplay.text = [NSString
                                 stringWithFormat:@"%.2d", self.minutes];
+    self.Rhours = self.hours;
     self.Reseconds=self.seconds;
     self.Reminutes=self.minutes;
 }
@@ -468,6 +483,7 @@ int tagValueForBtn;
 
     self.minutesDisplay.text = [NSString
                                 stringWithFormat:@"%.2d", self.Reminutes];
+    self.hours = self.Rhours;
     self.seconds= self.Reseconds;
     self.minutes= self.Reminutes;
     
