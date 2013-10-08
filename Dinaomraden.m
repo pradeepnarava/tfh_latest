@@ -43,7 +43,7 @@ NSString *omrade2choosenName=@"";
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     NewFormCheck=true;
-
+    
     [textField resignFirstResponder];
 }
 
@@ -60,9 +60,9 @@ NSString *omrade2choosenName=@"";
     
     // Customing the segmented control
     UIImage *segmentSelected = [[UIImage imageNamed:@"segSelected.png"]
-     resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+                                resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
     UIImage *segmentUnselected = [[UIImage imageNamed:@"segUnSelected.png"]
-     resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
+                                  resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 15)];
     UIImage *segmentSelectedUnselected = [UIImage imageNamed:@"segSelectedUnSelected.png"];
     UIImage *segUnselectedSelected = [UIImage imageNamed:@"segUnSelectedSelected.png"];
     UIImage *segmentUnselectedUnselected = [UIImage imageNamed:@"segUnSelectedUnSelected.png"];
@@ -84,16 +84,16 @@ NSString *omrade2choosenName=@"";
                                  forLeftSegmentState:UIControlStateNormal
                                    rightSegmentState:UIControlStateSelected
                                           barMetrics:UIBarMetricsDefault];
-
-//    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
-//    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
-//    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//    [self.navigationItem setBackBarButtonItem:btnDone];
+    
+    //    UIBarButtonItem *btnDone = [[UIBarButtonItem alloc] initWithTitle:@"Tillbaka" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    //    UIImage *stretchable = [UIImage imageNamed:@"tillbakabutton.png"] ;
+    //    [btnDone setBackButtonBackgroundImage:stretchable forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    //    [self.navigationItem setBackBarButtonItem:btnDone];
     
     dateOfCurrentItem = nil;
     scrollView.contentSize = self.view.frame.size;
     //CGRect frame = CGRectMake(10, 270, 350, 50);
-   // subView = [[UIView alloc] initWithFrame:frame];
+    // subView = [[UIView alloc] initWithFrame:frame];
     subView.frame = CGRectMake(0, self.view.frame.size.height - subView.frame.size.height, self.view.frame.size.width, subView.frame.size.height);
     [self.view addSubview:subView];
     subView.hidden=YES;
@@ -106,12 +106,12 @@ NSString *omrade2choosenName=@"";
     
     UITapGestureRecognizer *tapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelalert:)] autorelease];
     [omradeLabel1 addGestureRecognizer:tapGesture];
-//    [omradeLabel2 addGestureRecognizer:tapGesture];
+    //    [omradeLabel2 addGestureRecognizer:tapGesture];
     
     UITapGestureRecognizer *tapGesture1 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelalert:)] autorelease];
     [omradeLabel2 addGestureRecognizer:tapGesture1];
     
-//    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"                                                                    style:UIBarButtonItemStylePlain target:self action:@selector(settingsbutton:)];
+    //    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"                                                                    style:UIBarButtonItemStylePlain target:self action:@selector(settingsbutton:)];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:@"alarm-button.png"] forState:UIControlStateNormal];
@@ -189,18 +189,18 @@ NSString *omrade2choosenName=@"";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-    
+
 
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    [self initPlot];
+    //    [self initPlot];
     [self setRecentItems];
 }
 
 - (void)setRecentItems
-{    
+{
     NSString *docsDir;
     NSArray *dirPaths;
     sqlite3 *exerciseDB;
@@ -228,19 +228,26 @@ NSString *omrade2choosenName=@"";
         sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
         while (sqlite3_step(statement) == SQLITE_ROW)
         {
+            char* c001 = (char*) sqlite3_column_text(statement,1);
+            NSString *tmp001;
+            if (c001 != NULL){
+                tmp001 = [NSString stringWithUTF8String:c001];
+                //                NSLog(@"value form db :%@",tmp1);
+                dateOfCurrentItem = [[NSString alloc] initWithString:tmp001];
+            }
             
             char* c1 = (char*) sqlite3_column_text(statement,2);
             NSString *tmp1;
             if (c1 != NULL){
                 tmp1 = [NSString stringWithUTF8String:c1];
-//                NSLog(@"value form db :%@",tmp1);
+                //                NSLog(@"value form db :%@",tmp1);
                 rLabel1 = [NSString stringWithString:tmp1];
             }
             char* c2 = (char*) sqlite3_column_text(statement,3);
             NSString *tmp2;
             if (c2 != NULL){
                 tmp2 = [NSString stringWithUTF8String:c2];
-//                NSLog(@"value form db :%@",tmp2);
+                //                NSLog(@"value form db :%@",tmp2);
                 rTextView1 = [NSString stringWithString:tmp2];
             }
             
@@ -248,14 +255,14 @@ NSString *omrade2choosenName=@"";
             NSString *tmp14;
             if (c14 != NULL){
                 tmp14 = [NSString stringWithUTF8String:c14];
-//                NSLog(@"value form db :%@",tmp14);
+                //                NSLog(@"value form db :%@",tmp14);
                 rLabel2 = [NSString stringWithString:tmp14];
             }
             char* c15 = (char*) sqlite3_column_text(statement,5);
             NSString *tmp15;
             if (c15 != NULL){
                 tmp15 = [NSString stringWithUTF8String:c15];
-//                NSLog(@"value form db :%@",tmp15);
+                //                NSLog(@"value form db :%@",tmp15);
                 rTextView2 = [NSString stringWithString:tmp15];
             }
             
@@ -346,16 +353,16 @@ NSString *omrade2choosenName=@"";
                 //                NSLog(@"value form db :%@",tmp15);
                 tf10.text = [NSString stringWithString:tmp161];
             }
-
-
-
-
-
-
-
-
-
-
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             break;
@@ -428,14 +435,14 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp1;
                 if (c1 != NULL){
                     tmp1 = [NSString stringWithUTF8String:c1];
-//                    NSLog(@"value form db :%@",tmp1);
+                    //                    NSLog(@"value form db :%@",tmp1);
                     omradeLabel1.text=tmp1;
                 }
                 char* c2 = (char*) sqlite3_column_text(statement,3);
                 NSString *tmp2;
                 if (c2 != NULL){
                     tmp2 = [NSString stringWithUTF8String:c2];
-//                    NSLog(@"value form db :%@",tmp2);
+                    //                    NSLog(@"value form db :%@",tmp2);
                     textview.text=tmp2;
                 }
                 
@@ -443,14 +450,14 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp14;
                 if (c14 != NULL){
                     tmp14 = [NSString stringWithUTF8String:c14];
-//                    NSLog(@"value form db :%@",tmp14);
+                    //                    NSLog(@"value form db :%@",tmp14);
                     omradeLabel2.text=tmp14;
                 }
                 char* c15 = (char*) sqlite3_column_text(statement,5);
                 NSString *tmp15;
                 if (c15 != NULL){
                     tmp15 = [NSString stringWithUTF8String:c15];
-//                    NSLog(@"value form db :%@",tmp15);
+                    //                    NSLog(@"value form db :%@",tmp15);
                     self.textview1.text=tmp15;
                 }
                 
@@ -458,7 +465,7 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp3;
                 if (c3!= NULL){
                     tmp3= [NSString stringWithUTF8String:c3];
-//                    NSLog(@"value form db :%@",tmp3);
+                    //                    NSLog(@"value form db :%@",tmp3);
                     [averageBt setTitle:tmp3 forState:UIControlStateNormal];
                 }
                 
@@ -466,7 +473,7 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp4;
                 if (c4!= NULL){
                     tmp4= [NSString stringWithUTF8String:c4];
-//                    NSLog(@"value form db :%@",tmp4);
+                    //                    NSLog(@"value form db :%@",tmp4);
                     tf1.text = tmp4;
                 }
                 
@@ -474,7 +481,7 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp5;
                 if (c5!= NULL){
                     tmp5= [NSString stringWithUTF8String:c5];
-//                    NSLog(@"value form db :%@",tmp5);
+                    //                    NSLog(@"value form db :%@",tmp5);
                     tf2.text = tmp5;
                 }
                 
@@ -482,7 +489,7 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp6;
                 if (c6!= NULL){
                     tmp6= [NSString stringWithUTF8String:c6];
-//                    NSLog(@"value form db :%@",tmp6);
+                    //                    NSLog(@"value form db :%@",tmp6);
                     tf3.text = tmp6;
                 }
                 
@@ -490,7 +497,7 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp7;
                 if (c7!= NULL){
                     tmp7= [NSString stringWithUTF8String:c7];
-//                    NSLog(@"value form db :%@",tmp7);
+                    //                    NSLog(@"value form db :%@",tmp7);
                     tf4.text = tmp7;
                 }
                 
@@ -498,7 +505,7 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp8;
                 if (c8!= NULL){
                     tmp8= [NSString stringWithUTF8String:c8];
-//                    NSLog(@"value form db :%@",tmp8);
+                    //                    NSLog(@"value form db :%@",tmp8);
                     tf5.text = tmp8;
                 }
                 
@@ -506,7 +513,7 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp9;
                 if (c9!= NULL){
                     tmp9= [NSString stringWithUTF8String:c9];
-//                    NSLog(@"value form db :%@",tmp9);
+                    //                    NSLog(@"value form db :%@",tmp9);
                     tf6.text = tmp9;
                 }
                 
@@ -514,7 +521,7 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp10;
                 if (c10!= NULL){
                     tmp10= [NSString stringWithUTF8String:c10];
-//                    NSLog(@"value form db :%@",tmp10);
+                    //                    NSLog(@"value form db :%@",tmp10);
                     tf7.text = tmp10;
                 }
                 
@@ -522,15 +529,15 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp11;
                 if (c11!= NULL){
                     tmp11= [NSString stringWithUTF8String:c11];
-//                    NSLog(@"value form db :%@",tmp11);
-                   tf8.text = tmp11;
+                    //                    NSLog(@"value form db :%@",tmp11);
+                    tf8.text = tmp11;
                 }
                 
                 char* c12 = (char*) sqlite3_column_text(statement,15);
                 NSString *tmp12;
                 if (c12!= NULL){
                     tmp12= [NSString stringWithUTF8String:c12];
-//                    NSLog(@"value form db :%@",tmp12);
+                    //                    NSLog(@"value form db :%@",tmp12);
                     tf9.text = tmp12;
                 }
                 
@@ -538,15 +545,15 @@ NSString *omrade2choosenName=@"";
                 NSString *tmp13;
                 if (c13!= NULL){
                     tmp13= [NSString stringWithUTF8String:c13];
-//                    NSLog(@"value form db :%@",tmp13);
+                    //                    NSLog(@"value form db :%@",tmp13);
                     tf10.text = tmp13;
                 }
-             }
+            }
             
             sqlite3_finalize(statement);
             sqlite3_close(exerciseDB);
         }
-//        dateOfCurrentItem = nil;
+        //        dateOfCurrentItem = nil;
     }
     else
     {
@@ -583,7 +590,7 @@ NSString *omrade2choosenName=@"";
         if (isOmrade1choosesn) {
             
             if ([omrade1choosenName isEqualToString:@"cb1"]) {
-                    [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
             }
             else if ([omrade1choosenName isEqualToString:@"cb2"]) {
                 [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
@@ -612,8 +619,8 @@ NSString *omrade2choosenName=@"";
             else if ([omrade1choosenName isEqualToString:@"cb10"]) {
                 [cb10 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
             }
-
-
+            
+            
         }
     }
     else
@@ -654,20 +661,20 @@ NSString *omrade2choosenName=@"";
             
             
         }
-
+        
     }
     
     // code to set checkboxes accordingly
-//    if(isOmrade1)
-//    {
-//        if(isOmrade1choosesn)
-//        {
-//            
-//        }
-//    }
+    //    if(isOmrade1)
+    //    {
+    //        if(isOmrade1choosesn)
+    //        {
+    //
+    //        }
+    //    }
     // resetting all the checkboxes
-  
-
+    
+    
     
     
     [self.view bringSubviewToFront:subView];
@@ -683,7 +690,7 @@ NSString *omrade2choosenName=@"";
     label8.text=@"Vila";
     label9.text=@"Fritid";
     label10.text=@"Sömn";
- 
+    
     
     [UIView beginAnimations:@"curlInView" context:nil];
     
@@ -702,64 +709,64 @@ NSString *omrade2choosenName=@"";
 {
     UIButton *btn = (UIButton *)sender;
     NewFormCheck=true;
-
+    
     if (btn.tag == 1)
     {
-              NSLog(@"%@",scb);
-            if(cb1.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        NSLog(@"%@",scb);
+        if(cb1.currentImage==[UIImage imageNamed:@"uncheck.png"])
+        {
+            if (isOmrade1)
             {
-                if (isOmrade1)
-                {
-                     isOmrade1choosesn=true;
-                    
-                     omrade1choosenName=@"cb1";
-                    [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                    omradeLabel1.text=label1.text;
-                }
-                else
-                {
-                    isOmrade2choosesn=true;
-                    
-                    omrade2choosenName=@"cb1";
-
-                    [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-                    omradeLabel2.text=label1.text;
-                }
+                isOmrade1choosesn=true;
                 
-                [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+                omrade1choosenName=@"cb1";
+                [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label1.text;
             }
             else
             {
-                [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-                if (isOmrade1)
-                {
-                    isOmrade1choosesn=false;
-                    
-                    omrade1choosenName=@"";
-                    
-                    omradeLabel1.text = @"";
-                }
-                else
-                {
-
-                    isOmrade2choosesn=false;
-                    
-                    omrade2choosenName=@"";
-                    omradeLabel2.text = @"";
-                }
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb1";
+                
+                [cb1 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label1.text;
             }
+            
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+        }
+        else
+        {
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            if (isOmrade1)
+            {
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
+                
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
+                omradeLabel2.text = @"";
+            }
+        }
     }
     else if(btn.tag == 2)
     {
-       
+        
         if(cb2.currentImage==[UIImage imageNamed:@"uncheck.png"])
         {
             if (isOmrade1)
@@ -772,7 +779,7 @@ NSString *omrade2choosenName=@"";
             }
             else
             {
-                                isOmrade2choosesn=true;
+                isOmrade2choosesn=true;
                 
                 omrade2choosenName=@"cb2";
                 [cb2 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
@@ -802,12 +809,12 @@ NSString *omrade2choosenName=@"";
             else
             {
                 omradeLabel2.text = @"";
-                                isOmrade2choosesn=false;
+                isOmrade2choosesn=false;
                 
                 omrade2choosenName=@"cb2";
             }
         }
-   
+        
     }
     else if(btn.tag == 3){
         
@@ -870,12 +877,12 @@ NSString *omrade2choosenName=@"";
                 isOmrade1choosesn=true;
                 
                 omrade1choosenName=@"cb4";
-                                [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                [cb4 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label4.text;
             }
             else
             {
-
+                
                 isOmrade2choosesn=true;
                 
                 omrade2choosenName=@"cb4";
@@ -927,7 +934,7 @@ NSString *omrade2choosenName=@"";
             }
             else
             {
-
+                
                 isOmrade2choosesn=true;
                 
                 omrade2choosenName=@"cb5";
@@ -953,7 +960,7 @@ NSString *omrade2choosenName=@"";
                 isOmrade1choosesn=false;
                 
                 omrade1choosenName=@"";
-                                omradeLabel1.text = @"";
+                omradeLabel1.text = @"";
             }
             else
             {
@@ -963,7 +970,7 @@ NSString *omrade2choosenName=@"";
                 omradeLabel2.text = @"";
             }
         }
-       
+        
     }else if(btn.tag == 6)
     {
         if(cb6.currentImage==[UIImage imageNamed:@"uncheck.png"])
@@ -978,7 +985,7 @@ NSString *omrade2choosenName=@"";
             }
             else
             {
-
+                
                 isOmrade2choosesn=true;
                 
                 omrade2choosenName=@"cb6";
@@ -1011,12 +1018,12 @@ NSString *omrade2choosenName=@"";
                 isOmrade2choosesn=false;
                 
                 omrade2choosenName=@"";
-
+                
                 omradeLabel2.text = @"";
             }
         }
-      
-     
+        
+        
     }else if(btn.tag == 7)
     {
         if(cb7.currentImage==[UIImage imageNamed:@"uncheck.png"])
@@ -1026,12 +1033,12 @@ NSString *omrade2choosenName=@"";
                 isOmrade1choosesn=true;
                 
                 omrade1choosenName=@"cb7";
-                                [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                [cb7 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
                 omradeLabel1.text=label7.text;
             }
             else
             {
-
+                
                 isOmrade2choosesn=true;
                 
                 omrade2choosenName=@"cb7";
@@ -1057,7 +1064,7 @@ NSString *omrade2choosenName=@"";
                 isOmrade1choosesn=false;
                 
                 omrade1choosenName=@"";
-
+                
                 omradeLabel1.text = @"";
             }
             else
@@ -1065,117 +1072,117 @@ NSString *omrade2choosenName=@"";
                 isOmrade2choosesn=false;
                 
                 omrade2choosenName=@"";
-
+                
                 omradeLabel2.text = @"";
             }
         }
     }else if(btn.tag == 8)
     {
-    if(cb8.currentImage==[UIImage imageNamed:@"uncheck.png"])
-    {
-        if (isOmrade1)
+        if(cb8.currentImage==[UIImage imageNamed:@"uncheck.png"])
         {
-            isOmrade1choosesn=true;
+            if (isOmrade1)
+            {
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb8";
+                [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label8.text;
+            }
+            else
+            {
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb8";
+                [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label8.text;
+            }
             
-            omrade1choosenName=@"cb8";
-            [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-            omradeLabel1.text=label8.text;
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
         }
         else
         {
-            isOmrade2choosesn=true;
-            
-            omrade2choosenName=@"cb8";
-            [cb8 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-            omradeLabel2.text=label8.text;
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            if (isOmrade1)
+            {
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
+                
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
+                
+                omradeLabel2.text = @"";
+            }
         }
         
-        [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    }
-    else
-    {
-        [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        if (isOmrade1)
+    }else if(btn.tag == 9){
+        
+        if(cb9.currentImage==[UIImage imageNamed:@"uncheck.png"])
         {
-            isOmrade1choosesn=false;
+            if (isOmrade1)
+            {
+                isOmrade1choosesn=true;
+                
+                omrade1choosenName=@"cb9";
+                [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel1.text=label9.text;
+            }
+            else
+            {
+                isOmrade2choosesn=true;
+                
+                omrade2choosenName=@"cb9";
+                [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
+                omradeLabel2.text=label9.text;
+            }
             
-            omrade1choosenName=@"";
-
-            omradeLabel1.text = @"";
+            [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
         }
         else
         {
-            isOmrade2choosesn=false;
-            
-            omrade2choosenName=@"";
-
-            omradeLabel2.text = @"";
-        }
-    }
-    
-}else if(btn.tag == 9){
-    
-    if(cb9.currentImage==[UIImage imageNamed:@"uncheck.png"])
-    {
-        if (isOmrade1)
-        {
-            isOmrade1choosesn=true;
-            
-            omrade1choosenName=@"cb9";
-            [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-            omradeLabel1.text=label9.text;
-        }
-        else
-        {
-            isOmrade2choosesn=true;
-            
-            omrade2choosenName=@"cb9";
-            [cb9 setImage:[UIImage imageNamed:@"check.png"]  forState:UIControlStateNormal];
-            omradeLabel2.text=label9.text;
+            [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
+            if (isOmrade1)
+            {
+                isOmrade1choosesn=false;
+                
+                omrade1choosenName=@"";
+                
+                omradeLabel1.text = @"";
+            }
+            else
+            {
+                isOmrade2choosesn=false;
+                
+                omrade2choosenName=@"";
+                
+                omradeLabel2.text = @"";
+            }
         }
         
-        [cb2 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb3 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb4 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb5 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb6 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb7 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb8 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        [cb10 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-    }
-    else
-    {
-        [cb9 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
-        if (isOmrade1)
-        {
-            isOmrade1choosesn=false;
-            
-            omrade1choosenName=@"";
-
-            omradeLabel1.text = @"";
-        }
-        else
-        {
-            isOmrade2choosesn=false;
-            
-            omrade2choosenName=@"";
-
-            omradeLabel2.text = @"";
-        }
-    }
-    
-    
+        
     }else if(btn.tag == 10){
-      
+        
         if(cb10.currentImage==[UIImage imageNamed:@"uncheck.png"])
         {
             if (isOmrade1)
@@ -1213,7 +1220,7 @@ NSString *omrade2choosenName=@"";
                 isOmrade1choosesn=false;
                 
                 omrade1choosenName=@"";
-
+                
                 omradeLabel1.text = @"";
             }
             else
@@ -1221,14 +1228,14 @@ NSString *omrade2choosenName=@"";
                 isOmrade2choosesn=false;
                 
                 omrade2choosenName=@"";
-
+                
                 omradeLabel2.text = @"";
             }
         }
         
     }
 }
-    
+
 -(IBAction)CloseBtn:(id)sender
 {
     [cb1 setImage:[UIImage imageNamed:@"uncheck.png"]  forState:UIControlStateNormal];
@@ -1251,20 +1258,20 @@ NSString *omrade2choosenName=@"";
     {
         UILocalNotification *notif = [[UILocalNotification alloc] init];
         
-//        NSCalendar *cal = [NSCalendar currentCalendar];
-//                
-//        for (int i = 0; i <= 6; i++)
-//        {
-//            NSDate *newDate = [[_reminderDatePicker date] dateByAddingTimeInterval:(60 * 60 * 24 * i)];
-//            
-//            NSDateComponents *newDateComp = [cal components:NSWeekdayCalendarUnit fromDate:newDate];
-//            
-//            if (_weekSegmentControl.selectedSegmentIndex + 1 == [newDateComp weekday])
-//            {
-//                notif.fireDate = newDate;
-//                notif.repeatInterval = NSWeekdayCalendarUnit;
-//            }
-//        }
+        //        NSCalendar *cal = [NSCalendar currentCalendar];
+        //
+        //        for (int i = 0; i <= 6; i++)
+        //        {
+        //            NSDate *newDate = [[_reminderDatePicker date] dateByAddingTimeInterval:(60 * 60 * 24 * i)];
+        //
+        //            NSDateComponents *newDateComp = [cal components:NSWeekdayCalendarUnit fromDate:newDate];
+        //
+        //            if (_weekSegmentControl.selectedSegmentIndex + 1 == [newDateComp weekday])
+        //            {
+        //                notif.fireDate = newDate;
+        //                notif.repeatInterval = NSWeekdayCalendarUnit;
+        //            }
+        //        }
         
         notif.fireDate = [_reminderDatePicker date];
         notif.repeatInterval = NSWeekdayCalendarUnit;
@@ -1288,20 +1295,20 @@ NSString *omrade2choosenName=@"";
 -(IBAction)averagevalue
 {
     int box1=[tf1.text intValue];
-//    NSLog(@"%d",box1);
-     int box2=[tf2.text intValue];
-   int box3=[tf3.text intValue];
-   int box4=[tf4.text intValue];
+    //    NSLog(@"%d",box1);
+    int box2=[tf2.text intValue];
+    int box3=[tf3.text intValue];
+    int box4=[tf4.text intValue];
     int box5=[tf5.text intValue];
-     int box6=[tf6.text intValue];
+    int box6=[tf6.text intValue];
     int box7=[tf7.text intValue];
     int box8=[tf8.text intValue];
-   int box9=[tf9.text intValue];
+    int box9=[tf9.text intValue];
     int box10=[tf10.text intValue];
     
     float sumValue=box1+box2+box3+box4+box5+box6+box7+box8+box9+box10;
     float avgValue=sumValue/10;
-     //NSLog(@"%.1f",avgValue);
+    //NSLog(@"%.1f",avgValue);
     NSString *str=[NSString stringWithFormat: @"%.1f", avgValue];
     [averageBt setTitle:str forState:UIControlStateNormal];
     
@@ -1329,7 +1336,7 @@ NSString *omrade2choosenName=@"";
         
         _reminderDatePicker.hidden = NO;
         
-//        _weekSegmentControl.hidden = NO;
+        //        _weekSegmentControl.hidden = NO;
         
         _settingBImageView.hidden = NO;
         _settingBLabel.hidden = NO;
@@ -1343,7 +1350,7 @@ NSString *omrade2choosenName=@"";
         
         _reminderDatePicker.hidden = YES;
         
-//        _weekSegmentControl.hidden = YES;
+        //        _weekSegmentControl.hidden = YES;
         
         _settingBImageView.hidden = YES;
         _settingBLabel.hidden = YES;
@@ -1414,8 +1421,8 @@ NSString *omrade2choosenName=@"";
         NSLog(@"ROW COUNT = %i", rows);
         NSString *insertSQL;
         
-//        [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
-//        str = [formatter stringFromDate:date];
+        //        [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
+        //        str = [formatter stringFromDate:date];
         
         if (!dateOfCurrentItem)
         {
@@ -1431,45 +1438,47 @@ NSString *omrade2choosenName=@"";
         sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-        /*    omradeLabel1.text=@"";
-            omradeLabel2.text = @"";
-            textview.text=@"";
-            _textview1.text = @"";
-            tf1.text=@"1";
-            tf2.text=@"1";
-            tf3.text=@"1";
-            tf4.text=@"1";
-            tf5.text=@"1";
-            tf6.text=@"1";
-            tf7.text=@"1";
-            tf8.text=@"1";
-            tf9.text=@"1";
-            tf10.text=@"1";
-            [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
-            dateOfCurrentItem = nil;
-            _raderaButton.enabled = NO;
-            skickaButton.enabled = NO;
+            _recentLabel1.text=omradeLabel1.text;
+            _recentLabel2.text=omradeLabel2.text;
+            /*    omradeLabel1.text=@"";
+             omradeLabel2.text = @"";
+             textview.text=@"";
+             _textview1.text = @"";
+             tf1.text=@"1";
+             tf2.text=@"1";
+             tf3.text=@"1";
+             tf4.text=@"1";
+             tf5.text=@"1";
+             tf6.text=@"1";
+             tf7.text=@"1";
+             tf8.text=@"1";
+             tf9.text=@"1";
+             tf10.text=@"1";
+             [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
+             dateOfCurrentItem = nil;
+             _raderaButton.enabled = NO;
+             skickaButton.enabled = NO;
+             
+             _recentButton1.hidden = YES;
+             _recentLabel1.hidden = YES;
+             
+             _recentButton2.hidden = YES;
+             _recentLabel2.hidden = YES;*/   // commented out the code to preserve the last saved values
             
-            _recentButton1.hidden = YES;
-            _recentLabel1.hidden = YES;
-            
-            _recentButton2.hidden = YES;
-            _recentLabel2.hidden = YES;*/   // commented out the code to preserve the last saved values
-            
-//            if (rows == 0)
-//            {
-//                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
-//                [insertAlert show];
-//            }
-//            else
-//            {
+            //            if (rows == 0)
+            //            {
+            //                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+            //                [insertAlert show];
+            //            }
+            //            else
+            //            {
             // code changes by malkit....alert title cleared
-                UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
-                [insertAlert show];
+            UIAlertView *insertAlert = [[[UIAlertView alloc] initWithTitle:@"" message:@"Sparat" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] autorelease];
+            [insertAlert show];
             NewFormCheck=false;
-//            }
+            //            }
             
-//            dateOfCurrentItem = [[NSString alloc] initWithString:str];
+            //            dateOfCurrentItem = [[NSString alloc] initWithString:str];
             
         } else {
             NSLog(@"no");
@@ -1480,29 +1489,63 @@ NSString *omrade2choosenName=@"";
         sqlite3_finalize(statement);
         sqlite3_close(exerciseDB);
     }
-
+    
 }
 -(IBAction)NewBtn:(id)sender
 {
-//    if([label.text isEqualToString:@""] && [textview.text isEqualToString:@""] )
-//    {
-//        
-//    }
-//    else
-//    {
+    //    if([label.text isEqualToString:@""] && [textview.text isEqualToString:@""] )
+    //    {
+    //
+    //    }
+    //    else
+    //    {
     
     if (NewFormCheck) {
         
-    
-      UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
-                                        delegate:self
-                               cancelButtonTitle:nil
-                               otherButtonTitles:@"Fortsätt", @"Avbryt", nil];
+        
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"" message:@"Du har inte sparat ditt formulär, är du säker på att du vill fortsätta?"
+                                                     delegate:self
+                                            cancelButtonTitle:nil
+                                            otherButtonTitles:@"Fortsätt", @"Avbryt", nil];
         alert.tag = 1;
         
         [alert show];
         [alert release];}
     else
+    {
+        //        _recentButton1.hidden = YES;
+        //        _recentButton2.hidden = YES;
+        NSLog(@"new form");
+        omradeLabel1.text=@"";
+        omradeLabel2.text = @"";
+        textview.text=@"";
+        _textview1.text = @"";
+        //        _recentLabel1.text=@"";
+        //        _recentLabel2.text=@"";
+        tf1.text=@"1";
+        tf2.text=@"1";
+        tf3.text=@"1";
+        tf4.text=@"1";
+        tf5.text=@"1";
+        tf6.text=@"1";
+        tf7.text=@"1";
+        tf8.text=@"1";
+        tf9.text=@"1";
+        tf10.text=@"1";
+        [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
+        dateOfCurrentItem = nil;
+        _raderaButton.enabled = NO;
+        skickaButton.enabled = NO;
+        
+        
+    }
+    //    }
+    
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"ok");
+    
+    if (buttonIndex == 0 && alertView.tag == 1)
     {
         NSLog(@"new form");
         omradeLabel1.text=@"";
@@ -1523,64 +1566,35 @@ NSString *omrade2choosenName=@"";
         dateOfCurrentItem = nil;
         _raderaButton.enabled = NO;
         skickaButton.enabled = NO;
-
+        
     }
-//    }
-
-}
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"ok");
-    
-        if (buttonIndex == 0 && alertView.tag == 1)
-        {
-            NSLog(@"new form");
-            omradeLabel1.text=@"";
-            omradeLabel2.text = @"";
-            textview.text=@"";
-            _textview1.text = @"";
-            tf1.text=@"1";
-              tf2.text=@"1";
-              tf3.text=@"1";
-            tf4.text=@"1";
-              tf5.text=@"1";
-              tf6.text=@"1";
-              tf7.text=@"1";
-              tf8.text=@"1";
-              tf9.text=@"1";
-              tf10.text=@"1";
-               [averageBt setTitle:@"1.0" forState:UIControlStateNormal];
-            dateOfCurrentItem = nil;
-            _raderaButton.enabled = NO;
-            skickaButton.enabled = NO;
+    else if (buttonIndex == 0 && alertView.tag == 2)
+    {
+        sqlite3 *exerciseDB;
+        sqlite3_stmt    *statement;
+        if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
             
-        }
-        else if (buttonIndex == 0 && alertView.tag == 2)
-        {
-            sqlite3 *exerciseDB;
-            sqlite3_stmt    *statement;
-            if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+            NSLog(@"Date of Item to be delete = %@", dateOfCurrentItem);
+            NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE7 WHERE date='%@'", dateOfCurrentItem];
+            
+            const char *del_stmt = [sql UTF8String];
+            
+            sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+            if (sqlite3_step(statement) == SQLITE_DONE) {
                 
-                NSLog(@"Date of Item to be delete = %@", dateOfCurrentItem);
-                NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE7 WHERE date='%@'", dateOfCurrentItem];
+                NSLog(@"Deleted");
+                UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Raderat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+                [alert1 show];
+                [alert1 release];
                 
-                const char *del_stmt = [sql UTF8String];
-                
-                sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
-                if (sqlite3_step(statement) == SQLITE_DONE) {
-                    
-                    NSLog(@"Deleted");
-                    UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Raderat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-                    [alert1 show];
-                    [alert1 release];
-                    
-                    dateOfCurrentItem = nil;
-                    [self updateCurrentItem];
-                }
-                
-                sqlite3_finalize(statement);
-                sqlite3_close(exerciseDB);
+                dateOfCurrentItem = nil;
+                [self updateCurrentItem];
             }
+            
+            sqlite3_finalize(statement);
+            sqlite3_close(exerciseDB);
         }
+    }
 }
 -(IBAction)listofvalues:(id)sender
 {
@@ -1624,7 +1638,7 @@ NSString *omrade2choosenName=@"";
     {
         tableImageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0, scrollView.contentSize.height - 280, self.view.frame.size.width, 280)] autorelease];
         [tableImageView setImage:[UIImage imageNamed:@"scrollbottom.png"]];
-//        lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
+        //        lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         {
             lok = [[ListOfKompass alloc]initWithNibName:@"ListOfKompass" bundle:nil];
@@ -1635,9 +1649,9 @@ NSString *omrade2choosenName=@"";
         
         lok.delegate = self;
         //    [self.navigationController pushViewController:lok animated:YES];
-//        lok.tableView.layer.cornerRadius = 10;
-//        lok.tableView.layer.borderColor = [UIColor blueColor].CGColor;
-//        lok.tableView.layer.borderWidth = 3;
+        //        lok.tableView.layer.cornerRadius = 10;
+        //        lok.tableView.layer.borderColor = [UIColor blueColor].CGColor;
+        //        lok.tableView.layer.borderWidth = 3;
         
         lok.tableView.frame = CGRectMake(10, tableImageView.frame.origin.y + 10, self.view.frame.size.width - 20, 210);
         
@@ -1649,7 +1663,7 @@ NSString *omrade2choosenName=@"";
         closeButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-//        [self.view addSubview:lok.tableView];
+        //        [self.view addSubview:lok.tableView];
         [self.view addSubview:tableImageView];
         [self.view addSubview:lok.tableView];
         [self.view addSubview:closeButton];
@@ -1689,7 +1703,7 @@ NSString *omrade2choosenName=@"";
 -(IBAction)Increase:(id)sender
 {
     NewFormCheck=true;
-     UIButton *btn = (UIButton *)sender;
+    UIButton *btn = (UIButton *)sender;
     if(btn.tag==1){
         int box1=[tf1.text intValue];
         if(box1 != 10){
@@ -1697,80 +1711,80 @@ NSString *omrade2choosenName=@"";
             NSString *str=[NSString stringWithFormat: @"%d", box1];
             tf1.text=str;
         }
-      
+        
     }
-else if(btn.tag==2){
-    int box1=[tf2.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf2.text=str;
+    else if(btn.tag==2){
+        int box1=[tf2.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf2.text=str;
+        }
     }
-}
-else if(btn.tag==3){
-    int box1=[tf3.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf3.text=str;
+    else if(btn.tag==3){
+        int box1=[tf3.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf3.text=str;
+        }
     }
-}
-else if(btn.tag==4){
-    int box1=[tf4.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf4.text=str;
+    else if(btn.tag==4){
+        int box1=[tf4.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf4.text=str;
+        }
     }
-}
-else if(btn.tag==5){
-    int box1=[tf5.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf5.text=str;
+    else if(btn.tag==5){
+        int box1=[tf5.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf5.text=str;
+        }
     }
-}
-else if(btn.tag==6){
-    int box1=[tf6.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf6.text=str;
+    else if(btn.tag==6){
+        int box1=[tf6.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf6.text=str;
+        }
     }
-}
-else if(btn.tag==7){
-    int box1=[tf7.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf7.text=str;
+    else if(btn.tag==7){
+        int box1=[tf7.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf7.text=str;
+        }
     }
-}
-else if(btn.tag==8){
-    int box1=[tf8.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf8.text=str;
+    else if(btn.tag==8){
+        int box1=[tf8.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf8.text=str;
+        }
     }
-}
-else if(btn.tag==9){
-    int box1=[tf9.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf9.text=str;
+    else if(btn.tag==9){
+        int box1=[tf9.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf9.text=str;
+        }
     }
-}
-else if(btn.tag==10){
-    int box1=[tf10.text intValue];
-    if(box1 != 10){
-        box1++;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf10.text=str;
+    else if(btn.tag==10){
+        int box1=[tf10.text intValue];
+        if(box1 != 10){
+            box1++;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf10.text=str;
+        }
     }
-}
     
     [self averagevalue];
 }
@@ -1778,15 +1792,15 @@ else if(btn.tag==10){
 
 -(IBAction)Decrease:(id)sender{
     NewFormCheck=true;
-
-     UIButton *btn = (UIButton *)sender;
+    
+    UIButton *btn = (UIButton *)sender;
     if(btn.tag==1){
         int box1=[tf1.text intValue];
-          if(box1 != 1){
-        box1--;
-        NSString *str=[NSString stringWithFormat: @"%d", box1];
-        tf1.text=str;
-          }
+        if(box1 != 1){
+            box1--;
+            NSString *str=[NSString stringWithFormat: @"%d", box1];
+            tf1.text=str;
+        }
     }
     else if(btn.tag==2){
         int box1=[tf2.text intValue];
@@ -1901,7 +1915,7 @@ else if(btn.tag==10){
     
     docsDir = [dirPaths objectAtIndex:0];
     
-//    sqlite3 *exerciseDB;
+    //    sqlite3 *exerciseDB;
     
     // Build the path to the database file
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
@@ -1962,10 +1976,10 @@ else if(btn.tag==10){
         dinKom.oldDate = [[NSString alloc] initWithString:olderDate];
         if ([olderDate isEqualToString:@""]) {
             dinKom.isComparisonGraph=NO;
-        
+            
         }
         else
-        dinKom.isComparisonGraph = YES;
+            dinKom.isComparisonGraph = YES;
         //    dinKom.delegate = self;
         [self.navigationController pushViewController:dinKom animated:YES];
     }
@@ -1985,7 +1999,7 @@ else if(btn.tag==10){
         
         _reminderDatePicker.hidden = NO;
         
-//        _weekSegmentControl.hidden = NO;
+        //        _weekSegmentControl.hidden = NO;
         
         _settingBImageView.hidden = NO;
         _settingBLabel.hidden = NO;
@@ -2002,7 +2016,7 @@ else if(btn.tag==10){
         
         _reminderDatePicker.hidden = YES;
         
-//        _weekSegmentControl.hidden = YES;
+        //        _weekSegmentControl.hidden = YES;
         
         _settingBImageView.hidden = YES;
         _settingBLabel.hidden = YES;
@@ -2093,28 +2107,28 @@ else if(btn.tag==10){
 //- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 //{
 //    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-//    
+//
 //    if ([title isEqualToString:@"Delete"]) {
 //        NSLog(@"Delete.");
 //        sqlite3_stmt    *statement;
 //        if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
-//            
+//
 //            NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE7 WHERE date='%@'", dateoflivskompass];
-//            
+//
 //            const char *del_stmt = [sql UTF8String];
-//            
+//
 //            sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
 //            if (sqlite3_step(statement) == SQLITE_ROW) {
-//                
+//
 //                NSLog(@"sss");
 //            }
-//            
+//
 //            sqlite3_finalize(statement);
 //            sqlite3_close(exerciseDB);
-//            
-//            
+//
+//
 //        }
-//        
+//
 //    }
 //}
 
@@ -2130,7 +2144,7 @@ else if(btn.tag==10){
     [subView release];
     [_reminderOnButton release];
     [_reminderOffButton release];
-//    [_weekSegmentControl release];
+    //    [_weekSegmentControl release];
     [_reminderDatePicker release];
     [_textview1 release];
     [_recentButton1 release];
