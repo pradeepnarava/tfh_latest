@@ -29,6 +29,7 @@ static CGSize kWindowMarginSize;
 @interface MTPopupWindow() <UIWebViewDelegate>
 {
     UIView* _dimView;
+    UIButton* _closeBtn;
     UIView* _bgView;
     UIActivityIndicatorView* _loader;
 }
@@ -174,6 +175,10 @@ static CGSize kWindowMarginSize;
     [v addSubview: _dimView];
     [_dimView layoutMaximizeInView:v withInset:0];
     
+    //add the button behind the layer in the popup
+    _closeBtn = [[UIButton alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [_closeBtn addTarget:self action:@selector(closePopupWindow) forControlEvents:UIControlEventTouchUpInside];
+    
     //add the popup container
     _bgView = [[UIView alloc] init];
     [v addSubview: _bgView];
@@ -212,7 +217,8 @@ static CGSize kWindowMarginSize;
             [self.webView loadHTMLString: fileContents baseURL:[[NSBundle mainBundle] resourceURL]];
         }
     }
-    
+  
+    [_bgView addSubview:_closeBtn];
     //make the close button
     MTPopupWindowCloseButton* btnClose = [MTPopupWindowCloseButton buttonInView:self];
     [btnClose addTarget:self action:@selector(closePopupWindow) forControlEvents:UIControlEventTouchUpInside];
@@ -263,6 +269,7 @@ static CGSize kWindowMarginSize;
                         //turn the background view to black color
                         _dimView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
                         
+                        
                         //fade in the web view
                         self.webView.alpha = 1.0f;
                         
@@ -300,6 +307,7 @@ static CGSize kWindowMarginSize;
                         
                         //fade out the black background
                         _dimView.backgroundColor = [UIColor clearColor];
+                        
                         
                         //remove the popup window from the view hierarchy
                         [self removeFromSuperview];
