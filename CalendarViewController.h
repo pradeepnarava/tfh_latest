@@ -97,13 +97,13 @@
 -(void)databaseInsertTotal;
 -(UIView*)popupView;
 
--(IBAction)empty:(id)sender;
--(IBAction)empty1:(id)sender;
--(IBAction)empty2:(id)sender;
--(IBAction)empty3:(id)sender;
--(IBAction)empty4:(id)sender;
--(IBAction)empty5:(id)sender;
--(IBAction)empty6:(id)sender;
+-(void)empty:(id)sender;
+-(void)empty1:(id)sender;
+-(void)empty2:(id)sender;
+-(void)empty3:(id)sender;
+-(void)empty4:(id)sender;
+-(void)empty5:(id)sender;
+-(void)empty6:(id)sender;
 
 
 -(IBAction)raderaButtonClicked:(id)sender;

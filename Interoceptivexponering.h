@@ -85,8 +85,6 @@
 - (IBAction)Restarttimer:(id)sender;
 - (IBAction)stoptimer:(id)sender;
 - (IBAction)selectedcheckbox:(id)sender;
-@property (retain, nonatomic) IBOutlet UIButton *RaderaButton;
-- (IBAction)Radera:(id)sender;
 
 - (IBAction)SparaButton:(id)sender;
 - (IBAction)titlelabelalert:(id)sender;
