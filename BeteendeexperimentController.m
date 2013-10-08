@@ -33,9 +33,12 @@ int c=0;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
+
+
 
 #pragma  mark TextViewDelegate Methods
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -79,7 +82,23 @@ int c=0;
 {
     [UIView animateWithDuration:0.5
                      animations:^{
-                         [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, textView.frame.origin.y - 30) animated:YES];
+                         if (textView == ex3c2) {
+                             NSLog(@"1");
+                             [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, ex3c2.frame.origin.y - 30) animated:YES];
+                         }
+                         if (textView == ex3c3) {
+                             NSLog(@"2");
+                             [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, ex3c3.frame.origin.y - 30) animated:YES];
+                         }
+                         if (textView == ex3c4) {
+                             NSLog(@"3");
+                             [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, ex3c4.frame.origin.y - 30) animated:YES];
+                         }
+                         if (textView == ex3c5) {
+                             NSLog(@"4");
+                             [scroll setContentOffset:CGPointMake(scroll.frame.origin.x, ex3c5.frame.origin.y - 30) animated:YES];
+                         }
+                         
                      }
                      completion:^(BOOL finished){
                          // whatever you need to do when animations are complete
@@ -92,8 +111,8 @@ int c=0;
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    [ex3c1 resignFirstResponder];
-    //picker.hidden=YES;
+//    [ex3c1 resignFirstResponder];
+    picker.hidden=YES;
     return YES;
 }
 
@@ -113,6 +132,8 @@ int c=0;
 {
     self.navigationItem.title=@"Beteendeexperiment";
     
+    scroll.tag =0;
+    scroll1.tag = 1;
     
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
