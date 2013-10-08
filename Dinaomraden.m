@@ -10,8 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DinKompass.h"
 
-@interface Dinaomraden ()
+#define kYYYYMMDDHHMM @"yyyy-MM-dd HH:mm"
 
+@interface Dinaomraden ()
+@property(nonatomic,retain)UIDatePicker *timePicker;
+@property(nonatomic,retain)UIActionSheet *actionSheet;
 @end
 
 @implementation Dinaomraden
@@ -20,7 +23,7 @@ bool isOmrade2choosesn=false;
 bool NewFormCheck=false;
 NSString *omrade1choosenName=@"";
 NSString *omrade2choosenName=@"";
-@synthesize  textview;
+@synthesize  textview,actionSheet,timePicker,dayPickerOutlet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -1273,7 +1276,93 @@ NSString *omrade2choosenName=@"";
         //            }
         //        }
         
-        notif.fireDate = [_reminderDatePicker date];
+        
+        // change here to set the fireda------ malkit
+        
+//        notif.fireDate = [_reminderDatePicker date];
+//        
+//        
+        
+        NSDate *fireDate = [NSDate date];
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+         NSDateComponents *componentsForFireDate = [calendar components:(NSYearCalendarUnit |   NSHourCalendarUnit | NSMinuteCalendarUnit| NSSecondCalendarUnit | NSWeekdayCalendarUnit) fromDate: fireDate];
+        
+        
+        NSArray *arr = [[dayPickerOutlet currentTitle] componentsSeparatedByString:@":"];
+
+        
+        if(_weekdaysPickerOutlet.selectedSegmentIndex==0)
+        {
+            // code for monday
+            [componentsForFireDate setWeekday: 1] ;
+            [componentsForFireDate setHour: (int)[arr objectAtIndex:0]] ;
+            [componentsForFireDate setMinute:(int)[arr objectAtIndex:1]] ;
+            [componentsForFireDate setSecond:0] ;
+
+        }
+        if(_weekdaysPickerOutlet.selectedSegmentIndex==1)
+        {
+            // code for monday
+            [componentsForFireDate setWeekday: 2] ;
+            [componentsForFireDate setHour: (int)[arr objectAtIndex:0]] ;
+            [componentsForFireDate setMinute:(int)[arr objectAtIndex:1]] ;
+            [componentsForFireDate setSecond:0] ;
+            
+        }
+        if(_weekdaysPickerOutlet.selectedSegmentIndex==2)
+        {
+            // code for monday
+            [componentsForFireDate setWeekday: 3] ;
+            [componentsForFireDate setHour: (int)[arr objectAtIndex:0]] ;
+            [componentsForFireDate setMinute:(int)[arr objectAtIndex:1]] ;
+            [componentsForFireDate setSecond:0] ;
+            
+        }
+        if(_weekdaysPickerOutlet.selectedSegmentIndex==3)
+        {
+            // code for monday
+            [componentsForFireDate setWeekday: 4] ;
+            [componentsForFireDate setHour: (int)[arr objectAtIndex:0]] ;
+            [componentsForFireDate setMinute:(int)[arr objectAtIndex:1]] ;
+            [componentsForFireDate setSecond:0] ;
+            
+        }
+        if(_weekdaysPickerOutlet.selectedSegmentIndex==4)
+        {
+            // code for monday
+            [componentsForFireDate setWeekday: 5] ;
+            [componentsForFireDate setHour: (int)[arr objectAtIndex:0]] ;
+            [componentsForFireDate setMinute:(int)[arr objectAtIndex:1]] ;
+            [componentsForFireDate setSecond:0] ;
+            
+        }
+        if(_weekdaysPickerOutlet.selectedSegmentIndex==5)
+        {
+            // code for monday
+            [componentsForFireDate setWeekday: 6] ;
+            [componentsForFireDate setHour: (int)[arr objectAtIndex:0]] ;
+            [componentsForFireDate setMinute:(int)[arr objectAtIndex:1]] ;
+            [componentsForFireDate setSecond:0] ;
+            
+        }
+        if(_weekdaysPickerOutlet.selectedSegmentIndex==6)
+        {
+            // code for monday
+            [componentsForFireDate setWeekday: 0] ;
+            [componentsForFireDate setHour: (int)[arr objectAtIndex:0]] ;
+            [componentsForFireDate setMinute:(int)[arr objectAtIndex:1]] ;
+            [componentsForFireDate setSecond:0] ;
+            
+        }
+
+
+
+
+
+
+        notif.fireDate = fireDate;
+        
+
         notif.repeatInterval = NSWeekdayCalendarUnit;
         notif.timeZone = [NSTimeZone defaultTimeZone];
         
@@ -1287,7 +1376,8 @@ NSString *omrade2choosenName=@"";
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
         [notif release];
-        
+        [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+
         settingsView.hidden = YES;
     }
 }
@@ -1327,14 +1417,14 @@ NSString *omrade2choosenName=@"";
     settingsView.hidden = NO;
     subView.hidden = YES;
     
-    [_reminderDatePicker setDate:[NSDate date]];
+//    [_reminderDatePicker setDate:[NSDate date]];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Reminder"])
     {
         _reminderOnButton.enabled = NO;
         _reminderOffButton.enabled = YES;
         
-        _reminderDatePicker.hidden = NO;
+//        _reminderDatePicker.hidden = NO;
         
         //        _weekSegmentControl.hidden = NO;
         
@@ -1348,7 +1438,7 @@ NSString *omrade2choosenName=@"";
         _reminderOnButton.enabled = NO;
         _reminderOffButton.enabled = YES;
         
-        _reminderDatePicker.hidden = YES;
+       // _reminderDatePicker.hidden = YES;
         
         //        _weekSegmentControl.hidden = YES;
         
@@ -1997,7 +2087,7 @@ NSString *omrade2choosenName=@"";
         _reminderOnButton.enabled = NO;
         _reminderOffButton.enabled = YES;
         
-        _reminderDatePicker.hidden = NO;
+      //  _reminderDatePicker.hidden = NO;
         
         //        _weekSegmentControl.hidden = NO;
         
@@ -2014,7 +2104,7 @@ NSString *omrade2choosenName=@"";
         _reminderOffButton.enabled = NO;
         _reminderOnButton.enabled = YES;
         
-        _reminderDatePicker.hidden = YES;
+      //  _reminderDatePicker.hidden = YES;
         
         //        _weekSegmentControl.hidden = YES;
         
@@ -2145,7 +2235,7 @@ NSString *omrade2choosenName=@"";
     [_reminderOnButton release];
     [_reminderOffButton release];
     //    [_weekSegmentControl release];
-    [_reminderDatePicker release];
+    //[_reminderDatePicker release];
     [_textview1 release];
     [_recentButton1 release];
     [_recentButton2 release];
@@ -2156,6 +2246,8 @@ NSString *omrade2choosenName=@"";
     [_settingBLabel release];
     [_settingBImageView release];
     [_settingBTitleImageView release];
+    [_weekdaysPickerOutlet release];
+    [dayPickerOutlet release];
     [super dealloc];
 }
 
@@ -2274,4 +2366,91 @@ NSString *omrade2choosenName=@"";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)viewDidUnload {
+    [self setWeekdaysPickerOutlet:nil];
+    [self setDayPickerOutlet:nil];
+    [super viewDidUnload];
+}
+- (IBAction)weekdaysPickerAction:(id)sender {
+}
+
+#pragma mark Create DateTimePicker
+
+-(void)createDatePicker:(UIButton*)button  {
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+    toolbar.backgroundColor = [UIColor clearColor];
+    toolbar.opaque = NO;
+    toolbar.translucent = YES;
+    toolbar.frame = CGRectMake(0,0, 320, 44);
+    
+    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(60,2,200, 40)];
+    lblTitle.backgroundColor = [UIColor clearColor];
+    lblTitle.textColor = [UIColor whiteColor];
+    lblTitle.font = [UIFont boldSystemFontOfSize:18];
+    
+    lblTitle.textAlignment = UITextAlignmentCenter;
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:lblTitle];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone	 target:self action:@selector(dismissActionSheet)];
+    
+    UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(applyTime)];
+    
+    
+    UIBarButtonItem *flexibleSpace1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *flexibleSpace2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    NSArray *items = [NSArray arrayWithObjects: cancelButton,flexibleSpace1,item,flexibleSpace2,applyButton,nil];
+    [toolbar setItems:items animated:YES];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"da_US"];
+    timePicker = [[UIDatePicker alloc]init];
+    timePicker.frame = CGRectMake(0,44, 320, 216);
+    timePicker.datePickerMode = UIDatePickerModeTime;
+    
+    [timePicker setLocale:locale];
+    
+    
+    
+    actionSheet = [[UIActionSheet alloc] init];
+    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [actionSheet showInView:self.view];
+    [actionSheet setBounds:CGRectMake(0, 0, 320, 500)];
+    [actionSheet addSubview:toolbar];
+    [actionSheet addSubview:timePicker];
+    
+}
+
+-(void)applyTime
+{
+    [dayPickerOutlet setTitle:[self stringFromDateTimes:timePicker.date] forState:UIControlStateNormal];
+    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+-(NSString *)stringFromDateTimes:(NSDate*)_date{
+    
+    NSDateFormatter *_dateFormatter = [[NSDateFormatter alloc] init];
+    [_dateFormatter setDateFormat:kYYYYMMDDHHMM];
+    NSString *currentDate = [_dateFormatter stringFromDate:_date];
+    NSArray *timer = [currentDate componentsSeparatedByString:@" "];
+    return [timer objectAtIndex:1];
+}
+
+
+
+-(void)dismissActionSheet
+{
+    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+
+
+
+- (IBAction)dayPickerAction:(id)sender {
+    UIButton *but = (UIButton *)sender;
+    
+    [self createDatePicker:but];
+
+}
 @end

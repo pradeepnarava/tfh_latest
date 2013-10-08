@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -18,6 +18,7 @@
                 <outlet property="cb7" destination="630" id="2331"/>
                 <outlet property="cb8" destination="631" id="2332"/>
                 <outlet property="cb9" destination="632" id="749"/>
+                <outlet property="dayPickerOutlet" destination="wV5-96-itq" id="Fxw-Um-ODU"/>
                 <outlet property="kiLabel" destination="929" id="3390"/>
                 <outlet property="label1" destination="1424" id="1480"/>
                 <outlet property="label10" destination="1475" id="1489"/>
@@ -36,7 +37,6 @@
                 <outlet property="recentButton2" destination="3367" id="3378"/>
                 <outlet property="recentLabel1" destination="3366" id="3379"/>
                 <outlet property="recentLabel2" destination="3368" id="3380"/>
-                <outlet property="reminderDatePicker" destination="3311" id="3312"/>
                 <outlet property="reminderOffButton" destination="879" id="3313"/>
                 <outlet property="reminderOnButton" destination="869" id="3314"/>
                 <outlet property="scrollView" destination="4" id="2328"/>
@@ -69,6 +69,7 @@
                 <outlet property="tf8" destination="353" id="518"/>
                 <outlet property="tf9" destination="354" id="519"/>
                 <outlet property="view" destination="4" id="154"/>
+                <outlet property="weekdaysPickerOutlet" destination="bBp-RD-mHT" id="rif-Kj-e8X"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -1266,17 +1267,17 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Kl:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="929">
-                    <rect key="frame" x="153" y="201" width="20" height="21"/>
+                    <rect key="frame" x="122" y="278" width="37" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="963">
-                    <rect key="frame" x="130" y="502" width="67" height="32"/>
+                    <rect key="frame" x="130" y="476" width="67" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Klara" backgroundImage="bbutton.png">
+                    <state key="normal" title="Klar" backgroundImage="bbutton.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -1287,34 +1288,34 @@
                         <action selector="CloseBtn:" destination="-1" eventType="touchUpInside" id="976"/>
                     </connections>
                 </button>
-                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="3311">
-                    <rect key="frame" x="20" y="230" width="286" height="216"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <date key="date" timeIntervalSinceReferenceDate="392807745.10114402">
-                        <!--2013-06-13 09:15:45 +0000-->
-                    </date>
-                    <timeZone key="timeZone" name="America/Los_Angeles">
-                        <data key="data">
-VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
-y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
-5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
-8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
-AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
-DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
-HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
-KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
-OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
-Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
-VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
-Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
-cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
-f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</data>
-                    </timeZone>
-                </datePicker>
+                <segmentedControl autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="bBp-RD-mHT">
+                    <rect key="frame" x="22" y="194" width="280" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.64498745440000005" alpha="1" colorSpace="calibratedWhite"/>
+                    <segments>
+                        <segment title="Mon"/>
+                        <segment title="Tue"/>
+                        <segment title="Wed"/>
+                        <segment title="Thu"/>
+                        <segment title="Fri"/>
+                        <segment title="Sat"/>
+                        <segment title="Sun"/>
+                    </segments>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="weekdaysPickerAction:" destination="-1" eventType="valueChanged" id="Nqz-Qg-4gX"/>
+                    </connections>
+                </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wV5-96-itq">
+                    <rect key="frame" x="149" y="274" width="58" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" backgroundImage="settings_digital_input.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="dayPickerAction:" destination="-1" eventType="touchUpInside" id="M6T-Zl-BXI"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
         </view>
@@ -1334,6 +1335,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="radera.png" width="138" height="60"/>
         <image name="rate-text.png" width="128" height="66"/>
         <image name="rate-title.png" width="128" height="66"/>
+        <image name="settings_digital_input.png" width="99" height="31"/>
         <image name="uncheck.png" width="32" height="32"/>
     </resources>
 </document>

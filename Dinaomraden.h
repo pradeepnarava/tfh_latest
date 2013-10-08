@@ -43,7 +43,7 @@
 }
 @property (retain, nonatomic) IBOutlet UIButton *raderaButton;
 
-@property (retain, nonatomic) IBOutlet UIDatePicker *reminderDatePicker;
+//@property (retain, nonatomic) IBOutlet UIDatePicker *reminderDatePicker;
 @property (retain, nonatomic) IBOutlet UIButton *reminderOnButton;
 @property (retain, nonatomic) IBOutlet UIButton *reminderOffButton;
 
@@ -72,4 +72,10 @@
 - (IBAction)generateGraph:(id)sender;
 - (IBAction)reminderOnOff:(UIButton *)sender;
 - (IBAction)recentButtonsClicked:(id)sender;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *weekdaysPickerOutlet;
+- (IBAction)weekdaysPickerAction:(id)sender;
+
+@property (retain, nonatomic) IBOutlet UIButton *dayPickerOutlet;
+- (IBAction)dayPickerAction:(id)sender;
+
 @end
