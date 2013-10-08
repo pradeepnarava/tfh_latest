@@ -66,6 +66,7 @@ int tagValueForBtn;
 
 -(void)dealloc{
     [hoursDisplay release];
+    [_RaderaButton release];
     [super dealloc];
     [timerQuestionLabel release];
     [allItems release];
@@ -258,6 +259,7 @@ int tagValueForBtn;
 
         
         //playing sound after the completion of the time
+<<<<<<< HEAD
                 //beep-5.wav
         NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"beep-5" ofType:@"wav"];
         NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
@@ -267,6 +269,16 @@ int tagValueForBtn;
                
         [player play];
        
+=======
+        //beep-5.wav
+        NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"beep-5" ofType:@"wav"];
+        NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+        
+        AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+        player.numberOfLoops = 1; //Infinite
+        
+        [player play];
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
         
         NSDictionary * temp_dict=[self.allItems objectAtIndex:[allItems count]-1];
         NSString * string_body = [NSString stringWithFormat:@"%@ : Tiden är ute",[temp_dict objectForKey:@"question"]];
@@ -280,7 +292,11 @@ int tagValueForBtn;
         
         local.alertAction = nil;
         
+<<<<<<< HEAD
         local.soundName = @"beep-5.wav"; 
+=======
+        local.soundName = @"beep-5.wav";
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
         
         local.fireDate = [NSDate date];
         [[UIApplication sharedApplication] scheduleLocalNotification:local];
@@ -854,6 +870,13 @@ int tagValueForBtn;
 }
 
 
+- (IBAction)Radera:(id)sender {
+    UIAlertView * alert=[[UIAlertView alloc] initWithTitle:nil message:@"Är du säker på att du vill radera formuläret?" delegate:self cancelButtonTitle:@"Radera" otherButtonTitles:@"Avbryt", nil];
+    alert.tag=kAlertViewTwo;
+    [alert show];
+    [alert release];
+}
+
 -(IBAction)SparaButton:(id)sender {
     
     
@@ -948,7 +971,47 @@ int tagValueForBtn;
             slider.value=0;
         }
     }
-    
+    else if(alertView.tag == kAlertViewTwo) {
+        if (buttonIndex == 0) {
+            
+            
+//            if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
+            
+               // NSString *sql = [NSString stringWithFormat: @"DELETE FROM EXERCISE5 WHERE date='%@'", [listexercise3 objectAtIndex:y] ];
+                
+//                const char *del_stmt = [sql UTF8String];
+//                
+//                sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
+//                if (sqlite3_step(statement) == SQLITE_ROW) {
+//                    
+//                    NSLog(@"sss");
+//                }
+//                
+//                sqlite3_finalize(statement);
+//                sqlite3_close(exerciseDB);
+                
+                
+//            }
+//            c1.text=@"";
+//            c2.text=@"";
+//            c3.text=@"0%";
+//            c4.text=@"";
+//            c5.text=@"";
+//            c6.text=@"";
+//            raderaButton.enabled=NO;
+//            [list_exercise3 removeAllObjects];
+//            y=0;
+//            [list_exercise3 addObject:@"Null"];
+//            [self getlistofDates3];
+            egen.text = @"";
+            ovning.text = @"";
+            
+            UIAlertView * alert1 = [[UIAlertView alloc] initWithTitle:nil message:@"Raderat" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+            [alert1 show];
+            [alert1 release];
+        }
+
+    }
 }
 
 
@@ -1038,6 +1101,7 @@ int tagValueForBtn;
 
 - (void)viewDidUnload{
     [self setHoursDisplay:nil];
+    [self setRaderaButton:nil];
     [super viewDidUnload];
 }
 
@@ -1047,7 +1111,7 @@ int tagValueForBtn;
 
 - (IBAction)skickaButtonClicked:(id)sender
 {
-    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", @"Email", nil];
+    UIActionSheet *cameraActionSheet = [[UIActionSheet alloc] initWithTitle:@"Skicka" delegate:self cancelButtonTitle:@"Avbryt" destructiveButtonTitle:nil otherButtonTitles:@"Ladda ner", @"E-mail", nil];
     cameraActionSheet.tag = 1;
     [cameraActionSheet showInView:self.view];
 }

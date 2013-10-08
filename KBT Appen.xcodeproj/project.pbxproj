@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< HEAD
 		1E82CA8118032D3700671BB0 /* beep-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CA8018032D3700671BB0 /* beep-5.wav */; };
 		1E82CA8318032D9400671BB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E82CA8218032D9400671BB0 /* AVFoundation.framework */; };
+=======
+		1E50186417FF4EF100FD004A /* beep-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1E50186317FF4EF100FD004A /* beep-5.wav */; };
+		1E50186617FF4F0800FD004A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E50186517FF4F0800FD004A /* AVFoundation.framework */; };
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
 		1E82CD0017EE82C600E500FD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFA17EE82C600E500FD /* Icon.png */; };
 		1E82CD0117EE82C600E500FD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFB17EE82C600E500FD /* Icon@2x.png */; };
 		1E82CD0217EE82C600E500FD /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFC17EE82C600E500FD /* Icon-Small-50.png */; };
@@ -37,6 +42,12 @@
 		2441519C17894F610087957E /* topbar_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2441519A17894F610087957E /* topbar_ipad.png */; };
 		2441519D17894F610087957E /* topbar_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2441519B17894F610087957E /* topbar_ipad@2x.png */; };
 		2441519F178958DD0087957E /* tillbaka-button_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2441519E178958DD0087957E /* tillbaka-button_ipad.png */; };
+		244948BE17FDDBCF003AD78B /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244948BD17FDDBCF003AD78B /* CalendarView.xib */; };
+		244948C017FDDC29003AD78B /* CalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244948BF17FDDC29003AD78B /* CalendarView_iPhone4.xib */; };
+		244948C317FDDCA6003AD78B /* DayCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244948C117FDDCA6003AD78B /* DayCalendarView.xib */; };
+		244948C417FDDCA6003AD78B /* DayCalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244948C217FDDCA6003AD78B /* DayCalendarView_iPhone4.xib */; };
+		244948C717FDDFD3003AD78B /* PlusveckaCalenderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244948C517FDDFD3003AD78B /* PlusveckaCalenderView.xib */; };
+		244948C817FDDFD3003AD78B /* PlusveckaCalenderView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244948C617FDDFD3003AD78B /* PlusveckaCalenderView_iPhone4.xib */; };
 		244A049D179104DE0020ECE1 /* kalendar_cell_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A0497179104DE0020ECE1 /* kalendar_cell_empty.png */; };
 		244A049E179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A0498179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png */; };
 		244A049F179104DE0020ECE1 /* kalendar_cell_negative.png in Resources */ = {isa = PBXBuildFile; fileRef = 244A0499179104DE0020ECE1 /* kalendar_cell_negative.png */; };
@@ -46,11 +57,7 @@
 		2456C5B81795AD1000F36A2F /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 2456C5B61795AD1000F36A2F /* UIImage+Blur.m */; };
 		2456C5BA1795AD2100F36A2F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2456C5B91795AD2100F36A2F /* Accelerate.framework */; };
 		24618DE717A4DAFC00D3D08B /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24618DE017A4DAFC00D3D08B /* CalendarViewController.m */; };
-		24618DE817A4DAFC00D3D08B /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE117A4DAFC00D3D08B /* CalendarView.xib */; };
-		24618DE917A4DAFC00D3D08B /* CalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE217A4DAFC00D3D08B /* CalendarView_iPhone4.xib */; };
 		24618DEA17A4DAFC00D3D08B /* DayCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24618DE417A4DAFC00D3D08B /* DayCalendarViewController.m */; };
-		24618DEB17A4DAFC00D3D08B /* DayCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE517A4DAFC00D3D08B /* DayCalendarView.xib */; };
-		24618DEC17A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE617A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib */; };
 		2473B6FB17D2FC7E00A465B5 /* LUncheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6F817D2FC7E00A465B5 /* LUncheck.png */; };
 		2473B6FC17D2FC7E00A465B5 /* LChecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6F917D2FC7E00A465B5 /* LChecked@2x.png */; };
 		2473B6FD17D2FC7E00A465B5 /* LChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6FA17D2FC7E00A465B5 /* LChecked.png */; };
@@ -172,9 +179,7 @@
 		5E5BC5111798336C0098725B /* SelectRegistreringsveckaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5BC50F1798336C0098725B /* SelectRegistreringsveckaViewController.m */; };
 		5E5BC5121798336C0098725B /* SelectRegistreringsveckaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5BC5101798336C0098725B /* SelectRegistreringsveckaViewController.xib */; };
 		5E5BC5141798373B0098725B /* SelectRegistreringsveckaViewController_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5BC5131798373A0098725B /* SelectRegistreringsveckaViewController_iPhone4.xib */; };
-		5E5BC52017983E950098725B /* PlusveckaCalenderView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5BC51C17983E950098725B /* PlusveckaCalenderView_iPhone4.xib */; };
 		5E5BC52117983E950098725B /* PlusveckaCalenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5BC51E17983E950098725B /* PlusveckaCalenderViewController.m */; };
-		5E5BC52217983E950098725B /* PlusveckaCalenderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5BC51F17983E950098725B /* PlusveckaCalenderView.xib */; };
 		5E5D718B17300E38003A8E44 /* TankefallorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E5D718917300E38003A8E44 /* TankefallorViewController.m */; };
 		5E5D718C17300E39003A8E44 /* TankefallorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5D718A17300E38003A8E44 /* TankefallorViewController.xib */; };
 		5E87C546178C5432001D6174 /* tillbaka1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E87C545178C5432001D6174 /* tillbaka1.png */; };
@@ -364,8 +369,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
 		1E82CA8018032D3700671BB0 /* beep-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "beep-5.wav"; sourceTree = "<group>"; };
 		1E82CA8218032D9400671BB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+=======
+		1E50186317FF4EF100FD004A /* beep-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "beep-5.wav"; sourceTree = "<group>"; };
+		1E50186517FF4F0800FD004A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
 		1E82CCFA17EE82C600E500FD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		1E82CCFB17EE82C600E500FD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		1E82CCFC17EE82C600E500FD /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -397,6 +407,12 @@
 		2441519A17894F610087957E /* topbar_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topbar_ipad.png; sourceTree = "<group>"; };
 		2441519B17894F610087957E /* topbar_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topbar_ipad@2x.png"; sourceTree = "<group>"; };
 		2441519E178958DD0087957E /* tillbaka-button_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tillbaka-button_ipad.png"; sourceTree = "<group>"; };
+		244948BD17FDDBCF003AD78B /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
+		244948BF17FDDC29003AD78B /* CalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView_iPhone4.xib; sourceTree = "<group>"; };
+		244948C117FDDCA6003AD78B /* DayCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView.xib; sourceTree = "<group>"; };
+		244948C217FDDCA6003AD78B /* DayCalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView_iPhone4.xib; sourceTree = "<group>"; };
+		244948C517FDDFD3003AD78B /* PlusveckaCalenderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaCalenderView.xib; sourceTree = "<group>"; };
+		244948C617FDDFD3003AD78B /* PlusveckaCalenderView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaCalenderView_iPhone4.xib; sourceTree = "<group>"; };
 		244A0497179104DE0020ECE1 /* kalendar_cell_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kalendar_cell_empty.png; sourceTree = "<group>"; };
 		244A0498179104DE0020ECE1 /* kalendar_cell_emptycell_neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kalendar_cell_emptycell_neutral.png; sourceTree = "<group>"; };
 		244A0499179104DE0020ECE1 /* kalendar_cell_negative.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kalendar_cell_negative.png; sourceTree = "<group>"; };
@@ -409,12 +425,8 @@
 		2456C5B91795AD2100F36A2F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		24618DDF17A4DAFC00D3D08B /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		24618DE017A4DAFC00D3D08B /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
-		24618DE117A4DAFC00D3D08B /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
-		24618DE217A4DAFC00D3D08B /* CalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView_iPhone4.xib; sourceTree = "<group>"; };
 		24618DE317A4DAFC00D3D08B /* DayCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayCalendarViewController.h; sourceTree = "<group>"; };
 		24618DE417A4DAFC00D3D08B /* DayCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayCalendarViewController.m; sourceTree = "<group>"; };
-		24618DE517A4DAFC00D3D08B /* DayCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView.xib; sourceTree = "<group>"; };
-		24618DE617A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView_iPhone4.xib; sourceTree = "<group>"; };
 		2473B6F817D2FC7E00A465B5 /* LUncheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUncheck.png; sourceTree = "<group>"; };
 		2473B6F917D2FC7E00A465B5 /* LChecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LChecked@2x.png"; sourceTree = "<group>"; };
 		2473B6FA17D2FC7E00A465B5 /* LChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LChecked.png; sourceTree = "<group>"; };
@@ -550,10 +562,8 @@
 		5E5BC50F1798336C0098725B /* SelectRegistreringsveckaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRegistreringsveckaViewController.m; sourceTree = "<group>"; };
 		5E5BC5101798336C0098725B /* SelectRegistreringsveckaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRegistreringsveckaViewController.xib; sourceTree = "<group>"; };
 		5E5BC5131798373A0098725B /* SelectRegistreringsveckaViewController_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectRegistreringsveckaViewController_iPhone4.xib; sourceTree = "<group>"; };
-		5E5BC51C17983E950098725B /* PlusveckaCalenderView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaCalenderView_iPhone4.xib; sourceTree = "<group>"; };
 		5E5BC51D17983E950098725B /* PlusveckaCalenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlusveckaCalenderViewController.h; sourceTree = "<group>"; };
 		5E5BC51E17983E950098725B /* PlusveckaCalenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlusveckaCalenderViewController.m; sourceTree = "<group>"; };
-		5E5BC51F17983E950098725B /* PlusveckaCalenderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlusveckaCalenderView.xib; sourceTree = "<group>"; };
 		5E5D718817300E38003A8E44 /* TankefallorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TankefallorViewController.h; sourceTree = "<group>"; };
 		5E5D718917300E38003A8E44 /* TankefallorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TankefallorViewController.m; sourceTree = "<group>"; };
 		5E5D718A17300E38003A8E44 /* TankefallorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TankefallorViewController.xib; sourceTree = "<group>"; };
@@ -873,7 +883,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				1E82CA8318032D9400671BB0 /* AVFoundation.framework in Frameworks */,
+=======
+				1E50186617FF4F0800FD004A /* AVFoundation.framework in Frameworks */,
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
 				2456C5BA1795AD2100F36A2F /* Accelerate.framework in Frameworks */,
 				5EEAA3C717463442005737CC /* CoreData.framework in Frameworks */,
 				5EEAA3C617463434005737CC /* QuartzCore.framework in Frameworks */,
@@ -891,12 +905,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+<<<<<<< HEAD
 		1E82CA7F18032D2700671BB0 /* sound Files */ = {
 			isa = PBXGroup;
 			children = (
 				1E82CA8018032D3700671BB0 /* beep-5.wav */,
 			);
 			name = "sound Files";
+=======
+		1E50186217FF4ED200FD004A /* audio Files */ = {
+			isa = PBXGroup;
+			children = (
+				1E50186317FF4EF100FD004A /* beep-5.wav */,
+			);
+			name = "audio Files";
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
 			sourceTree = "<group>";
 		};
 		1E82CCF917EE82B100E500FD /* app icons */ = {
@@ -997,7 +1020,11 @@
 		5EA026A0172E7CD100C37EE4 = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				1E82CA7F18032D2700671BB0 /* sound Files */,
+=======
+				1E50186217FF4ED200FD004A /* audio Files */,
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
 				1E82CCF917EE82B100E500FD /* app icons */,
 				2456C5B91795AD2100F36A2F /* Accelerate.framework */,
 				5EA735A21758D634001D56C7 /* TPMultiLayoutViewController.h */,
@@ -1031,7 +1058,11 @@
 		5EA026AB172E7CD100C37EE4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				1E82CA8218032D9400671BB0 /* AVFoundation.framework */,
+=======
+				1E50186517FF4F0800FD004A /* AVFoundation.framework */,
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
 				5EA026F1172E9D7D00C37EE4 /* libsqlite3.dylib */,
 				5EED2AF0173E5BAB00CF77B3 /* EventKit.framework */,
 				5EED2AF1173E5BAB00CF77B3 /* EventKitUI.framework */,
@@ -1282,12 +1313,12 @@
 				248BF53617AAC6A600556BF8 /* RegiDinaveckarDayCalendarView.xib */,
 				24618DDF17A4DAFC00D3D08B /* CalendarViewController.h */,
 				24618DE017A4DAFC00D3D08B /* CalendarViewController.m */,
-				24618DE117A4DAFC00D3D08B /* CalendarView.xib */,
-				24618DE217A4DAFC00D3D08B /* CalendarView_iPhone4.xib */,
+				244948BD17FDDBCF003AD78B /* CalendarView.xib */,
+				244948BF17FDDC29003AD78B /* CalendarView_iPhone4.xib */,
 				24618DE317A4DAFC00D3D08B /* DayCalendarViewController.h */,
 				24618DE417A4DAFC00D3D08B /* DayCalendarViewController.m */,
-				24618DE517A4DAFC00D3D08B /* DayCalendarView.xib */,
-				24618DE617A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib */,
+				244948C117FDDCA6003AD78B /* DayCalendarView.xib */,
+				244948C217FDDCA6003AD78B /* DayCalendarView_iPhone4.xib */,
 				24B54E2717907D0700AAA236 /* SettingRegistViewController.h */,
 				24B54E2817907D0700AAA236 /* SettingRegistViewController.m */,
 				24F8BD2A17E0CBE600748366 /* SettingRegistView.xib */,
@@ -1305,8 +1336,8 @@
 				5E5BC5131798373A0098725B /* SelectRegistreringsveckaViewController_iPhone4.xib */,
 				5E5BC51D17983E950098725B /* PlusveckaCalenderViewController.h */,
 				5E5BC51E17983E950098725B /* PlusveckaCalenderViewController.m */,
-				5E5BC51F17983E950098725B /* PlusveckaCalenderView.xib */,
-				5E5BC51C17983E950098725B /* PlusveckaCalenderView_iPhone4.xib */,
+				244948C517FDDFD3003AD78B /* PlusveckaCalenderView.xib */,
+				244948C617FDDFD3003AD78B /* PlusveckaCalenderView_iPhone4.xib */,
 				5EB8E5AD17BE063500A6654B /* PlusveckaTidigeraViewController.h */,
 				5EB8E5AE17BE063500A6654B /* PlusveckaTidigeraViewController.m */,
 				5EB8E5AF17BE063500A6654B /* PlusveckaTidigeraViewController.xib */,
@@ -1626,6 +1657,7 @@
 				5EA026C9172E7CD100C37EE4 /* Va_lkommenViewController_iPhone.xib in Resources */,
 				5EA026CC172E7CD100C37EE4 /* Va_lkommenViewController_iPad.xib in Resources */,
 				5EA026E7172E84DC00C37EE4 /* OveningarViewController_iPhone.xib in Resources */,
+				244948C717FDDFD3003AD78B /* PlusveckaCalenderView.xib in Resources */,
 				5EA026EC172E8A8B00C37EE4 /* Registreratankar.xib in Resources */,
 				5E5D718C17300E39003A8E44 /* TankefallorViewController.xib in Resources */,
 				5E8F73051732A99C00A7F893 /* BeteendeexperimentController.xib in Resources */,
@@ -1642,6 +1674,7 @@
 				5EF0E2AE173409A90016A59D /* ompsykisk.html in Resources */,
 				5EF0E2AF173409A90016A59D /* om.html in Resources */,
 				5EF0E2B0173409A90016A59D /* strategier.html in Resources */,
+				244948BE17FDDBCF003AD78B /* CalendarView.xib in Resources */,
 				5EF0E2B1173409A90016A59D /* tanefallor.html in Resources */,
 				5EF0E2B2173409A90016A59D /* tanke.html in Resources */,
 				5EF0E2B3173409A90016A59D /* tankefallar.html in Resources */,
@@ -1754,6 +1787,7 @@
 				D8D3B986176F50BD0077711A /* button-on.png in Resources */,
 				D83F4DEE1770BA0B00D850EF /* alarm-button.png in Resources */,
 				2424F1FC177220530012A934 /* läsdel-popup.png in Resources */,
+				244948C417FDDCA6003AD78B /* DayCalendarView_iPhone4.xib in Resources */,
 				2424F200177222840012A934 /* background-iPad.png in Resources */,
 				2424F201177222840012A934 /* background-ipone4.png in Resources */,
 				2424F202177222840012A934 /* background-ipone5.png in Resources */,
@@ -1776,6 +1810,7 @@
 				24AE0F4617761B1C0073A880 /* title-background.png in Resources */,
 				24AE0F4917761B3C0073A880 /* exempel-från-livet-background.png in Resources */,
 				24AE0F4A17761B3C0073A880 /* text-background.png in Resources */,
+				244948C817FDDFD3003AD78B /* PlusveckaCalenderView_iPhone4.xib in Resources */,
 				24AE0F4D1776EB510073A880 /* Klar_button.png in Resources */,
 				24AE0F4E1776EB510073A880 /* Klar_button@2x.png in Resources */,
 				D8F5D37117771550002E4C8B /* segSelected.png in Resources */,
@@ -1783,6 +1818,7 @@
 				D8F5D37317771550002E4C8B /* segUnSelected.png in Resources */,
 				D8F5D37417771550002E4C8B /* segUnSelectedSelected.png in Resources */,
 				D8F5D37517771550002E4C8B /* segUnSelectedUnSelected.png in Resources */,
+				244948C317FDDCA6003AD78B /* DayCalendarView.xib in Resources */,
 				5EA03259177890C200A1C08E /* KanslorViewController_iPhone4.xib in Resources */,
 				5EE97CCC1779E03A005BD961 /* definition-popup.png in Resources */,
 				5EE97CCE1779F5E3005BD961 /* definition-popup@2x.png in Resources */,
@@ -1845,12 +1881,11 @@
 				5E5BC50D179831DA0098725B /* Plusvecka_iPhone4.xib in Resources */,
 				5E5BC5121798336C0098725B /* SelectRegistreringsveckaViewController.xib in Resources */,
 				5E5BC5141798373B0098725B /* SelectRegistreringsveckaViewController_iPhone4.xib in Resources */,
-				5E5BC52017983E950098725B /* PlusveckaCalenderView_iPhone4.xib in Resources */,
-				5E5BC52217983E950098725B /* PlusveckaCalenderView.xib in Resources */,
 				5EBEAA9F17996C0700679AA4 /* PlusveckaDinaveckar.xib in Resources */,
 				24BDD498179AD0E000BEDACC /* settings_digital_input.png in Resources */,
 				24BDD49A179B0D3200BEDACC /* SettingRegistView_iPhone4.xib in Resources */,
 				5E88C5DE179BDE470054DC92 /* PlusveckaDinaveckar_iPhone4.xib in Resources */,
+				244948C017FDDC29003AD78B /* CalendarView_iPhone4.xib in Resources */,
 				5E88C5E3179BE42F0054DC92 /* PlusveckaDinaveckarView.xib in Resources */,
 				5E88C5E5179BE5D40054DC92 /* PlusveckaDinaveckarView_iPhone4.xib in Resources */,
 				5E88C5EA179BEC2B0054DC92 /* PlusveckaDayView.xib in Resources */,
@@ -1861,11 +1896,15 @@
 				249F9963179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib in Resources */,
 				5E262A1F17A01D7300E1EE56 /* DinaveckarCell.xib in Resources */,
 				5E262A2117A01E9A00E1EE56 /* date-background.png in Resources */,
+<<<<<<< HEAD
 				24618DE817A4DAFC00D3D08B /* CalendarView.xib in Resources */,
 				24618DE917A4DAFC00D3D08B /* CalendarView_iPhone4.xib in Resources */,
 				24618DEB17A4DAFC00D3D08B /* DayCalendarView.xib in Resources */,
 				24618DEC17A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib in Resources */,
 				1E82CA8118032D3700671BB0 /* beep-5.wav in Resources */,
+=======
+				1E50186417FF4EF100FD004A /* beep-5.wav in Resources */,
+>>>>>>> a9e1cab3b5f6497876b9674ef837821bc1799a29
 				24B93F4217A98DAE003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib in Resources */,
 				24B93F4317A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib in Resources */,
 				248BF53917AAC6A600556BF8 /* RegiDinaveckarDayCalendarView_iPhone4.xib in Resources */,
