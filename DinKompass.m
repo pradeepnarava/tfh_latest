@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    self.view.backgroundColor = [UIColor greenColor];
+    //    self.view.backgroundColor = [UIColor greenColor];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:@"Skicka" forState:UIControlStateNormal];
@@ -202,20 +202,20 @@
     CGRect contentRect = CGRectMake(0,0, 480, 320);
     self.view.bounds = contentRect;
     
-   NSMutableArray *data = [NSMutableArray array];
+    NSMutableArray *data = [NSMutableArray array];
     //    [data addObject:[NSValue valueWithCGPoint:CGPointMake(-10, 100)]];
     //    [data addObject:[NSValue valueWithCGPoint:CGPointMake(-8, 95)]];
     //    [data addObject:[NSValue valueWithCGPoint:CGPointMake(-6, 85)]];
     //    [data addObject:[NSValue valueWithCGPoint:CGPointMake(-4, 70)]];
     //    [data addObject:[NSValue valueWithCGPoint:CGPointMake(-2, 50)]];
     // [data addObject:[NSValue valueWithCGPoint:CGPointMake(0, 0)]];
-   [data addObject:[NSValue valueWithCGPoint:CGPointMake(2, 3.89)]];
+    [data addObject:[NSValue valueWithCGPoint:CGPointMake(2, 3.89)]];
     [data addObject:[NSValue valueWithCGPoint:CGPointMake(4, 4.44)]];
     [data addObject:[NSValue valueWithCGPoint:CGPointMake(6, 5.75)]];
     // [data addObject:[NSValue valueWithCGPoint:CGPointMake(8, 64)]];
-     //[data addObject:[NSValue valueWithCGPoint:CGPointMake(10, 100)]];
-//self.scatterPlot = [[TUTSimpleScatterPlot alloc] initWithHostingView:_graphHostingView andData:data];
-//[self.scatterPlot initialisePlot];
+    //[data addObject:[NSValue valueWithCGPoint:CGPointMake(10, 100)]];
+    //self.scatterPlot = [[TUTSimpleScatterPlot alloc] initWithHostingView:_graphHostingView andData:data];
+    //[self.scatterPlot initialisePlot];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -230,23 +230,23 @@
         presentArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:_presentDate]];
         olderArray = [[NSMutableArray alloc] initWithArray:[self getValuesForDate:_oldDate]];
         
-//        NSLog(@"PRESENT ARRAY = %@", presentArray);
-//        NSLog(@"OLDER ARRAY = %@", olderArray);
+        //        NSLog(@"PRESENT ARRAY = %@", presentArray);
+        //        NSLog(@"OLDER ARRAY = %@", olderArray);
         [self initPlot];
     }
     else
     {
-//        DateSelectingViewController *dateSelector;
-//        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-//        {
-//            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController" bundle:nil];
-//        }else
-//        {
-//            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController_iPad" bundle:nil];
-//        }
-//
-//        dateSelector.delegate = self;
-//        [self presentViewController:dateSelector animated:YES completion:nil];
+        //        DateSelectingViewController *dateSelector;
+        //        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        //        {
+        //            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController" bundle:nil];
+        //        }else
+        //        {
+        //            dateSelector = [[DateSelectingViewController alloc] initWithNibName:@"DateSelectingViewController_iPad" bundle:nil];
+        //        }
+        //
+        //        dateSelector.delegate = self;
+        //        [self presentViewController:dateSelector animated:YES completion:nil];
         averageArray = [[NSMutableArray alloc] init];
         datesArray = [[NSMutableArray alloc] init];
         
@@ -279,58 +279,62 @@
                 {
                     //                NSLog(@"Date OF CURRENT ITEM = %@", dateOfCurrentItem);
                     //                NSDate *presentDate = [formatter dateFromString:dateOfCurrentItem];
-//                    NSDate *rowDate = [formatter dateFromString:[NSString stringWithUTF8String:date]];
-//                    
-//                    if (([rowDate compare:[formatter dateFromString:startDate]] == NSOrderedDescending || [rowDate compare:[formatter dateFromString:startDate]] == NSOrderedSame) && ([rowDate compare:[formatter dateFromString:endDate]] == NSOrderedAscending || [rowDate compare:[formatter dateFromString:endDate]] == NSOrderedSame))
-//                    {
-                        char* c3 = (char*) sqlite3_column_text(statement,6);
-                        NSString *tmp3;
-                        if (c3!= NULL)
-                        {
-//                            NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-//                            [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
-//                            [dateFormatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
-//                            NSDate *rowDate = [dateFormatter dateFromString:[NSString stringWithUTF8String:date]];
-//                            
-////                            NSDate* sourceDate = [NSDate date];
-//                            
-//                            NSLog(@"DB DATE = %@", [NSString stringWithUTF8String:date]);
-//                            
-//                            [dateFormatter setDateFormat:@"MMM dd, yyyy"];
-//                            
-//                            NSDate *finaldate = [dateFormatter dateFromString:[dateFormatter stringFromDate:rowDate]];
-                            
-//                            NSDate *sourceDate = [NSDate date];
-//                            NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-//                            NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
-//                            
-//                            NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
-//                            NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
-//                            NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
-//                            
-//                            NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval sinceDate:finaldate] autorelease];
-                            NSArray *dateComponents = [[[NSArray alloc] initWithArray:[[NSString stringWithUTF8String:date] componentsSeparatedByString:@" "]] autorelease];
-                            
-//                            NSLog(@"Date = %@", destinationDate);
-//                            NSLog(@"STring From Date = %@", [dateFormatter stringFromDate:destinationDate]);
-                            tmp3= [NSString stringWithUTF8String:c3];
-//                            NSLog(@"value form db :%@",tmp3);
-                            [averageArray addObject:[NSNumber numberWithFloat:[tmp3 floatValue]]];
-                            [datesArray addObject:[NSString stringWithFormat:@"%@ %@,\n  %@", [dateComponents objectAtIndex:0], [dateComponents objectAtIndex:1], [dateComponents objectAtIndex:2]]];
-                        }
+                    //                    NSDate *rowDate = [formatter dateFromString:[NSString stringWithUTF8String:date]];
+                    //
+                    //                    if (([rowDate compare:[formatter dateFromString:startDate]] == NSOrderedDescending || [rowDate compare:[formatter dateFromString:startDate]] == NSOrderedSame) && ([rowDate compare:[formatter dateFromString:endDate]] == NSOrderedAscending || [rowDate compare:[formatter dateFromString:endDate]] == NSOrderedSame))
+                    //                    {
+                    char* c3 = (char*) sqlite3_column_text(statement,6);
+                    NSString *tmp3;
+                    if (c3!= NULL)
+                    {
+                        //                            NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+                        //                            [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
+                        //                            [dateFormatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
+                        //                            NSDate *rowDate = [dateFormatter dateFromString:[NSString stringWithUTF8String:date]];
+                        //
+                        ////                            NSDate* sourceDate = [NSDate date];
+                        //
+                        //                            NSLog(@"DB DATE = %@", [NSString stringWithUTF8String:date]);
+                        //
+                        //                            [dateFormatter setDateFormat:@"MMM dd, yyyy"];
+                        //
+                        //                            NSDate *finaldate = [dateFormatter dateFromString:[dateFormatter stringFromDate:rowDate]];
                         
-//                    }
+                        //                            NSDate *sourceDate = [NSDate date];
+                        //                            NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+                        //                            NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+                        //
+                        //                            NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
+                        //                            NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
+                        //                            NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+                        //
+                        //                            NSDate* destinationDate = [[[NSDate alloc] initWithTimeInterval:interval sinceDate:finaldate] autorelease];
+                        NSArray *dateComponents = [[[NSArray alloc] initWithArray:[[NSString stringWithUTF8String:date] componentsSeparatedByString:@" "]] autorelease];
+                        
+                        //                            NSLog(@"Date = %@", destinationDate);
+                        //                            NSLog(@"STring From Date = %@", [dateFormatter stringFromDate:destinationDate]);
+                        tmp3= [NSString stringWithUTF8String:c3];
+                        //                            NSLog(@"value form db :%@",tmp3);
+                        [averageArray addObject:[NSNumber numberWithFloat:[tmp3 floatValue]]];
+                        [datesArray addObject:[NSString stringWithFormat:@"%@ %@,\n  %@", [dateComponents objectAtIndex:0], [dateComponents objectAtIndex:1], [dateComponents objectAtIndex:2]]];
+                    }
+                    
+                    //                    }
                 }
             }
             sqlite3_finalize(statement);
             sqlite3_close(exerciseDB);
         }
-//        NSLog(@"AVERAGES ARRAY = %@", averageArray);
-//        NSLog(@"DATES ARRAY = %@", datesArray);
+        //        NSLog(@"AVERAGES ARRAY = %@", averageArray);
+        //        NSLog(@"DATES ARRAY = %@", datesArray);
         if ([datesArray count] > 0 && [averageArray count] > 0)
         {
+            //            _presentDate = [NSString stringWithString:[datesArray lastObject]];
+            //            _oldDate = [NSString stringWithString:[datesArray objectAtIndex:0]];
+            
             _presentDate = [NSString stringWithString:[datesArray lastObject]];
             _oldDate = [NSString stringWithString:[datesArray objectAtIndex:0]];
+            
             [self initPlot];
         }
         else
@@ -374,7 +378,7 @@
 -(void)configureHost {
 	self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:self.view.bounds];
 	self.hostView.allowPinchScaling = NO;
-//    self.hostView.backgroundColor = [UIColor redColor];
+    //    self.hostView.backgroundColor = [UIColor redColor];
 	[self.view addSubview:self.hostView];
 }
 
@@ -434,16 +438,16 @@
         [graph addPlot:oldPlot toPlotSpace:plotSpace];
         
         // 3 - Set up plot space
-//        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, oldPlot, nil]];
+        //        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, oldPlot, nil]];
         plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(11)];
         plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(11)];
         
-//        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-//        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
-//        plotSpace.xRange = xRange;
-//        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-//        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
-//        plotSpace.yRange = yRange;
+        //        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+        //        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
+        //        plotSpace.xRange = xRange;
+        //        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
+        //        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
+        //        plotSpace.yRange = yRange;
         // 4 - Create styles and symbols
         CPTMutableLineStyle *presentLineStyle = [presentPlot.dataLineStyle mutableCopy];
         presentLineStyle.lineWidth = 2.5;
@@ -478,15 +482,15 @@
         [graph addPlot:presentPlot toPlotSpace:plotSpace];
         
         // 3 - Set up plot space
-//        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, nil]];
+        //        [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:presentPlot, nil]];
         plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(11)];
         plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([datesArray count] + 1)];
-//        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
-//        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
-//        plotSpace.xRange = xRange;
-//        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-//        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
-//        plotSpace.yRange = yRange;
+        //        CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
+        //        [xRange expandRangeByFactor:CPTDecimalFromCGFloat(6.2f)];
+        //        plotSpace.xRange = xRange;
+        //        CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
+        //        [yRange expandRangeByFactor:CPTDecimalFromCGFloat(11.6f)];
+        //        plotSpace.yRange = yRange;
         
         // 4 - Create styles and symbols
         CPTMutableLineStyle *presentLineStyle = [presentPlot.dataLineStyle mutableCopy];
@@ -519,9 +523,9 @@
 	CPTMutableLineStyle *tickLineStyle = [CPTMutableLineStyle lineStyle];
 	tickLineStyle.lineColor = [CPTColor blackColor];
 	tickLineStyle.lineWidth = 2.0f;
-//	CPTMutableLineStyle *gridLineStyle = [CPTMutableLineStyle lineStyle];
-//	tickLineStyle.lineColor = [CPTColor blackColor];
-//	tickLineStyle.lineWidth = 1.0f;
+    //	CPTMutableLineStyle *gridLineStyle = [CPTMutableLineStyle lineStyle];
+    //	tickLineStyle.lineColor = [CPTColor blackColor];
+    //	tickLineStyle.lineWidth = 1.0f;
 	// 2 - Get axis set
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
 	// 3 - Configure x-axis
@@ -544,6 +548,8 @@
 	x.majorTickLength = 4.0f;
 	x.tickDirection = CPTSignNegative;
     
+    
+    
 	CGFloat dateCount = 10;
 	NSMutableSet *xLabels = [NSMutableSet setWithCapacity:dateCount];
 	NSMutableSet *xLocations = [NSMutableSet setWithCapacity:dateCount];
@@ -554,12 +560,14 @@
     if (_isComparisonGraph)
     {
         array = [[NSArray alloc] initWithObjects:@"Fam", @"Vän", @"Kär", @"Arb", @"Eko", @"Kost", @"Mot", @"Vila", @"Frit", @"Sömn", nil];
-//        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
+        //        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
     }
     else
     {
-        array = [[NSArray alloc] initWithArray:datesArray];
-//        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([datesArray count])];
+        NSArray* reversedArray = [[datesArray reverseObjectEnumerator] allObjects];
+        array = [[NSArray alloc] initWithArray:reversedArray];
+        //array = [[NSArray alloc] initWithArray:datesArray];
+        //        x.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([datesArray count])];
     }
     
 	for (NSString *date in array)
@@ -582,8 +590,8 @@
 	y.title = @"Medelvärde";
 	y.titleTextStyle = axisTitleStyle;
 	y.titleOffset = -40.0f;
-	y.axisLineStyle = axisLineStyle; 
-//	y.majorGridLineStyle = gridLineStyle;
+	y.axisLineStyle = axisLineStyle;
+    //	y.majorGridLineStyle = gridLineStyle;
 	y.labelingPolicy = CPTAxisLabelingPolicyNone;
 	y.labelTextStyle = axisTextStyle;
 	y.labelOffset = 16.0f;
@@ -591,7 +599,7 @@
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
-//    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
+    //    y.visibleRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(10)];
 	NSInteger majorIncrement = 1;
 	NSInteger minorIncrement = 1;
 	CGFloat yMax = 10.0f;  // should determine dynamically based on max price
@@ -653,90 +661,90 @@
             NSString *tmp4;
             if (c4!= NULL){
                 tmp4= [NSString stringWithUTF8String:c4];
-//                NSLog(@"value form db :%@",tmp4);
+                //                NSLog(@"value form db :%@",tmp4);
                 [array addObject:[NSNumber numberWithInt:[tmp4 intValue]]];
-//                tf1.text = tmp4;
+                //                tf1.text = tmp4;
             }
             
             char* c5 = (char*) sqlite3_column_text(statement,8);
             NSString *tmp5;
             if (c5!= NULL){
                 tmp5= [NSString stringWithUTF8String:c5];
-//                NSLog(@"value form db :%@",tmp5);
+                //                NSLog(@"value form db :%@",tmp5);
                 [array addObject:[NSNumber numberWithInt:[tmp5 intValue]]];
-//                tf2.text = tmp5;
+                //                tf2.text = tmp5;
             }
             
             char* c6 = (char*) sqlite3_column_text(statement,9);
             NSString *tmp6;
             if (c6!= NULL){
                 tmp6= [NSString stringWithUTF8String:c6];
-//                NSLog(@"value form db :%@",tmp6);
+                //                NSLog(@"value form db :%@",tmp6);
                 [array addObject:[NSNumber numberWithInt:[tmp6 intValue]]];
-//                tf3.text = tmp6;
+                //                tf3.text = tmp6;
             }
             
             char* c7 = (char*) sqlite3_column_text(statement,10);
             NSString *tmp7;
             if (c7!= NULL){
                 tmp7= [NSString stringWithUTF8String:c7];
-//                NSLog(@"value form db :%@",tmp7);
+                //                NSLog(@"value form db :%@",tmp7);
                 [array addObject:[NSNumber numberWithInt:[tmp7 intValue]]];
-//                tf4.text = tmp7;
+                //                tf4.text = tmp7;
             }
             
             char* c8 = (char*) sqlite3_column_text(statement,11);
             NSString *tmp8;
             if (c8!= NULL){
                 tmp8= [NSString stringWithUTF8String:c8];
-//                NSLog(@"value form db :%@",tmp8);
+                //                NSLog(@"value form db :%@",tmp8);
                 [array addObject:[NSNumber numberWithInt:[tmp8 intValue]]];
-//                tf5.text = tmp8;
+                //                tf5.text = tmp8;
             }
             
             char* c9 = (char*) sqlite3_column_text(statement,12);
             NSString *tmp9;
             if (c9!= NULL){
                 tmp9= [NSString stringWithUTF8String:c9];
-//                NSLog(@"value form db :%@",tmp9);
+                //                NSLog(@"value form db :%@",tmp9);
                 [array addObject:[NSNumber numberWithInt:[tmp9 intValue]]];
-//                tf6.text = tmp9;
+                //                tf6.text = tmp9;
             }
             
             char* c10 = (char*) sqlite3_column_text(statement,13);
             NSString *tmp10;
             if (c10!= NULL){
                 tmp10= [NSString stringWithUTF8String:c10];
-//                NSLog(@"value form db :%@",tmp10);
+                //                NSLog(@"value form db :%@",tmp10);
                 [array addObject:[NSNumber numberWithInt:[tmp10 intValue]]];
-//                tf7.text = tmp10;
+                //                tf7.text = tmp10;
             }
             
             char* c11 = (char*) sqlite3_column_text(statement,14);
             NSString *tmp11;
             if (c11!= NULL){
                 tmp11= [NSString stringWithUTF8String:c11];
-//                NSLog(@"value form db :%@",tmp11);
+                //                NSLog(@"value form db :%@",tmp11);
                 [array addObject:[NSNumber numberWithInt:[tmp11 intValue]]];
-//                tf8.text = tmp11;
+                //                tf8.text = tmp11;
             }
             
             char* c12 = (char*) sqlite3_column_text(statement,15);
             NSString *tmp12;
             if (c12!= NULL){
                 tmp12= [NSString stringWithUTF8String:c12];
-//                NSLog(@"value form db :%@",tmp12);
+                //                NSLog(@"value form db :%@",tmp12);
                 [array addObject:[NSNumber numberWithInt:[tmp12 intValue]]];
-//                tf9.text = tmp12;
+                //                tf9.text = tmp12;
             }
             
             char* c13 = (char*) sqlite3_column_text(statement,16);
             NSString *tmp13;
             if (c13!= NULL){
                 tmp13= [NSString stringWithUTF8String:c13];
-//                NSLog(@"value form db :%@",tmp13);
+                //                NSLog(@"value form db :%@",tmp13);
                 [array addObject:[NSNumber numberWithInt:[tmp13 intValue]]];
-//                tf10.text = tmp13;
+                //                tf10.text = tmp13;
             }
         }
         
@@ -758,7 +766,7 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-//	NSInteger valueCount = [[[CPDStockPriceStore sharedInstance] datesInMonth] count];
+    //	NSInteger valueCount = [[[CPDStockPriceStore sharedInstance] datesInMonth] count];
 	switch (fieldEnum) {
 		case CPTScatterPlotFieldX:
 			if (index < (_isComparisonGraph ? 10 : [datesArray count])) {
