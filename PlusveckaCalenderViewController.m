@@ -85,7 +85,8 @@
     }
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setBackgroundImage:[UIImage imageNamed:@"alarm-button.png"] forState:UIControlStateNormal];
+    
+    [button setBackgroundImage:[UIImage imageNamed:@"setting_alarm_button.png"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     button.frame = CGRectMake(0, 0, 30, 30);
     
@@ -275,11 +276,10 @@
                             CALayer *layer = [CALayer layer];
                             
                             if ([[tempDict objectForKey:kStatus] isEqualToString:@"+"]) {
-                                layer.backgroundColor = [UIColor greenColor].CGColor;
-                            }else if ([[tempDict objectForKey:kStatus ] isEqualToString:@"-"]) {
-                                layer.backgroundColor = [UIColor redColor].CGColor;
+                                layer.backgroundColor = [UIColor colorWithRed:109.0/255.0 green:169.0/255.0 blue:88.0/255.0 alpha:1.0].CGColor;                            }else if ([[tempDict objectForKey:kStatus ] isEqualToString:@"-"]) {
+                                    layer.backgroundColor = [UIColor colorWithRed:202.0/255.0 green:84.0/255.0 blue:25.0/255.0 alpha:1.0].CGColor;
                             }else if ([[tempDict objectForKey:kStatus] isEqualToString:@"Neutral"]){
-                                layer.backgroundColor = [UIColor darkGrayColor].CGColor;
+                                layer.backgroundColor = [UIColor colorWithRed:196.0/255.0 green:196.0/255.0 blue:196.0/255.0 alpha:1.0].CGColor;
                             }
                             
                             NSString *lastTag = nil;
@@ -344,11 +344,11 @@
                             CALayer *layer = [CALayer layer];
                             
                             if ([[tempDict objectForKey:kStatus] isEqualToString:@"+"]) {
-                                layer.backgroundColor = [UIColor greenColor].CGColor;
+                                layer.backgroundColor = [UIColor colorWithRed:109.0/255.0 green:169.0/255.0 blue:88.0/255.0 alpha:1.0].CGColor;
                             }else if ([[tempDict objectForKey:kStatus ] isEqualToString:@"-"]) {
-                                layer.backgroundColor = [UIColor redColor].CGColor;
+                                layer.backgroundColor = [UIColor colorWithRed:202.0/255.0 green:84.0/255.0 blue:25.0/255.0 alpha:1.0].CGColor;
                             }else if ([[tempDict objectForKey:kStatus] isEqualToString:@"Neutral"]){
-                                layer.backgroundColor = [UIColor darkGrayColor].CGColor;
+                                layer.backgroundColor = [UIColor colorWithRed:196.0/255.0 green:196.0/255.0 blue:196.0/255.0 alpha:1.0].CGColor;
                             }
                             
                             NSString *lastTag = nil;
