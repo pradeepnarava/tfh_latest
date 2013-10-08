@@ -10,5 +10,6 @@
 #import "TidigeraCell.h"
 @interface PlusveckaForslagViewController : UIViewController
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *HeadingsArray;
 @property (nonatomic, strong) IBOutlet UITableView *table;
 @end

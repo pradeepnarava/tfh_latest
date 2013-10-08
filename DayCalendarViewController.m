@@ -255,13 +255,15 @@
                     if ([tag intValue] == [[array objectAtIndex:1] intValue]) {
                         
                         CALayer *layer = [CALayer layer];
+           
+                        
                         
                         if ([[dict objectForKey:kStatus] isEqualToString:@"+"]) {
-                            layer.backgroundColor = [UIColor greenColor].CGColor;
+                            layer.backgroundColor = [UIColor colorWithRed:109.0/255.0 green:169.0/255.0 blue:88.0/255.0 alpha:1.0].CGColor;
                         }else if ([[dict objectForKey:kStatus ] isEqualToString:@"-"]) {
-                            layer.backgroundColor = [UIColor redColor].CGColor;
+                            layer.backgroundColor = [UIColor colorWithRed:202.0/255.0 green:84.0/255.0 blue:25.0/255.0 alpha:1.0].CGColor;
                         }else if ([[dict objectForKey:kStatus] isEqualToString:@"Neutral"]){
-                            layer.backgroundColor = [UIColor darkGrayColor].CGColor;
+                            layer.backgroundColor = [UIColor colorWithRed:196.0/255.0 green:196.0/255.0 blue:196.0/255.0 alpha:1.0].CGColor;
                         }else {
                             [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
                             [btn setTitle:@"" forState:UIControlStateNormal];

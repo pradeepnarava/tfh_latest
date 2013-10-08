@@ -462,8 +462,8 @@ static const CGFloat kCorner       = 5.0;
 	
 	[self.title drawInRect:_textRect
 				  withFont:self.textFont
-			 lineBreakMode:UILineBreakModeTailTruncation
-				 alignment:UITextAlignmentLeft];
+			 lineBreakMode:NSLineBreakByTruncatingTail
+				 alignment:NSTextAlignmentLeft];
 }
 
 - (void)tapDetectingView:(TapDetectingView *)view gotSingleTapAtPoint:(CGPoint)tapPoint {
@@ -709,8 +709,8 @@ static NSString const * const HOURS_24[] = {
 	for (i=0; i < HOURS_IN_DAY; i++) {
 		[HOURS[i] drawInRect: _textRect[i]
 					withFont:self.textFont
-			   lineBreakMode:UILineBreakModeTailTruncation
-				   alignment:UITextAlignmentRight];
+			   lineBreakMode:NSLineBreakByTruncatingTail
+				   alignment:NSTextAlignmentRight];
 		
 		CGContextMoveToPoint(c, _lineX, _lineY[i]);
 		CGContextAddLineToPoint(c, self.bounds.size.width, _lineY[i]);
