@@ -1281,7 +1281,9 @@ NSString *omrade2choosenName=@"";
         
 //        notif.fireDate = [_reminderDatePicker date];
 //        
-//        
+//
+        if(![[dayPickerOutlet currentTitle] isEqualToString:@""])
+        {
         
         NSDate *fireDate = [NSDate date];
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -1362,7 +1364,7 @@ NSString *omrade2choosenName=@"";
 
         notif.fireDate = fireDate;
         
-
+        [notif.userInfo setValue:@"key2" forKey:@"keyDina"];
         notif.repeatInterval = NSWeekdayCalendarUnit;
         notif.timeZone = [NSTimeZone defaultTimeZone];
         
@@ -1376,6 +1378,8 @@ NSString *omrade2choosenName=@"";
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notif];
         [notif release];
+            [dayPickerOutlet setTitle:@"" forState:UIControlStateNormal];
+        }
         [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
 
         settingsView.hidden = YES;

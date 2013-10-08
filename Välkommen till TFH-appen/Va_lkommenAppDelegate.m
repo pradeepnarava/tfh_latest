@@ -104,7 +104,12 @@
    // }
     NSDictionary * userinfo = [notification userInfo];
     NSString * keyvalue = [userinfo objectForKey:@"key"];
+    NSString * keyval2 = [userinfo objectForKey:@"notifyKey"];
     if ([keyvalue isEqualToString:@"Key1"]) {
+        
+    }
+    else if ([keyval2 isEqualToString:@"Reminder"])
+    {
         
     }
     else {
