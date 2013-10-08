@@ -335,6 +335,8 @@
 		5EF7ECD21743C7B4004D0EDD /* DinKompass.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF7ECD01743C7B4004D0EDD /* DinKompass.xib */; };
 		5EF8F6741740DE8700D9CD5E /* ListOfKompass.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8F6721740DE8600D9CD5E /* ListOfKompass.m */; };
 		5EF8F6751740DE8700D9CD5E /* ListOfKompass.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EF8F6731740DE8700D9CD5E /* ListOfKompass.xib */; };
+		963AE043180429A600D3D40A /* weekday-button-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 963AE041180429A500D3D40A /* weekday-button-off.png */; };
+		963AE044180429A600D3D40A /* weekday-button-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 963AE042180429A500D3D40A /* weekday-button-on.png */; };
 		D82DF59F1768500800B92E24 /* Livskompassen_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82DF59E1768500800B92E24 /* Livskompassen_iPad.xib */; };
 		D82DF5A11768512500B92E24 /* ListOfKompass_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82DF5A01768512500B92E24 /* ListOfKompass_iPad.xib */; };
 		D82DF5A31768515500B92E24 /* DinKompass_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82DF5A21768515500B92E24 /* DinKompass_iPad.xib */; };
@@ -760,6 +762,8 @@
 		5EF8F6711740DE8600D9CD5E /* ListOfKompass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfKompass.h; sourceTree = "<group>"; };
 		5EF8F6721740DE8600D9CD5E /* ListOfKompass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfKompass.m; sourceTree = "<group>"; };
 		5EF8F6731740DE8700D9CD5E /* ListOfKompass.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListOfKompass.xib; sourceTree = "<group>"; };
+		963AE041180429A500D3D40A /* weekday-button-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weekday-button-off.png"; sourceTree = "<group>"; };
+		963AE042180429A500D3D40A /* weekday-button-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weekday-button-on.png"; sourceTree = "<group>"; };
 		D82DF59E1768500800B92E24 /* Livskompassen_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Livskompassen_iPad.xib; sourceTree = "<group>"; };
 		D82DF5A01768512500B92E24 /* ListOfKompass_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListOfKompass_iPad.xib; sourceTree = "<group>"; };
 		D82DF5A21768515500B92E24 /* DinKompass_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DinKompass_iPad.xib; sourceTree = "<group>"; };
@@ -997,6 +1001,8 @@
 		5EA026A0172E7CD100C37EE4 = {
 			isa = PBXGroup;
 			children = (
+				963AE041180429A500D3D40A /* weekday-button-off.png */,
+				963AE042180429A500D3D40A /* weekday-button-on.png */,
 				1E82CA7F18032D2700671BB0 /* sound Files */,
 				1E82CCF917EE82B100E500FD /* app icons */,
 				2456C5B91795AD2100F36A2F /* Accelerate.framework */,
@@ -1624,6 +1630,7 @@
 				5EA026B7172E7CD100C37EE4 /* InfoPlist.strings in Resources */,
 				5EA026C3172E7CD100C37EE4 /* Default-568h@2x.png in Resources */,
 				5EA026C9172E7CD100C37EE4 /* Va_lkommenViewController_iPhone.xib in Resources */,
+				963AE044180429A600D3D40A /* weekday-button-on.png in Resources */,
 				5EA026CC172E7CD100C37EE4 /* Va_lkommenViewController_iPad.xib in Resources */,
 				5EA026E7172E84DC00C37EE4 /* OveningarViewController_iPhone.xib in Resources */,
 				5EA026EC172E8A8B00C37EE4 /* Registreratankar.xib in Resources */,
@@ -1659,6 +1666,7 @@
 				5EED2AEC173E530400CF77B3 /* ma_leftArrow@2x.png in Resources */,
 				5EED2AED173E530400CF77B3 /* ma_rightArrow.png in Resources */,
 				1E82CD0117EE82C600E500FD /* Icon@2x.png in Resources */,
+				963AE043180429A600D3D40A /* weekday-button-off.png in Resources */,
 				5EED2AEE173E530400CF77B3 /* ma_rightArrow@2x.png in Resources */,
 				5EED2AEF173E530400CF77B3 /* ma_topBackground.png in Resources */,
 				5EF8F6751740DE8700D9CD5E /* ListOfKompass.xib in Resources */,
@@ -2090,8 +2098,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "KBT Appen";
-				PROVISIONING_PROFILE = "90455B07-5220-4D15-AF57-D34DE3D75CE5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "90455B07-5220-4D15-AF57-D34DE3D75CE5";
+				PROVISIONING_PROFILE = "7C051754-E60A-4140-844A-293EAC57AE46";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7C051754-E60A-4140-844A-293EAC57AE46";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm7s";
 				WRAPPER_EXTENSION = app;
@@ -2118,8 +2126,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "KBT Appen";
-				PROVISIONING_PROFILE = "90455B07-5220-4D15-AF57-D34DE3D75CE5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "90455B07-5220-4D15-AF57-D34DE3D75CE5";
+				PROVISIONING_PROFILE = "7C051754-E60A-4140-844A-293EAC57AE46";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7C051754-E60A-4140-844A-293EAC57AE46";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 arm7s";
 				WRAPPER_EXTENSION = app;
