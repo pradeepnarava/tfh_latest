@@ -188,7 +188,10 @@ NSString *omrade2choosenName=@"";
     
 }
 -(void)backButon {
-    
+    if(settingsView.hidden==NO){
+        settingsView.hidden=YES;
+    }
+    else
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -1432,6 +1435,9 @@ NSString *omrade2choosenName=@"";
         
         //        _weekSegmentControl.hidden = NO;
         
+        _weekdaysPickerOutlet.hidden=NO;
+        dayPickerOutlet.hidden=NO;
+        
         _settingBImageView.hidden = NO;
         _settingBLabel.hidden = NO;
         _settingBTitleImageView.hidden = NO;
@@ -1445,6 +1451,9 @@ NSString *omrade2choosenName=@"";
        // _reminderDatePicker.hidden = YES;
         
         //        _weekSegmentControl.hidden = YES;
+        _weekdaysPickerOutlet.hidden=YES;
+        dayPickerOutlet.hidden=YES;
+
         
         _settingBImageView.hidden = YES;
         _settingBLabel.hidden = YES;
@@ -2094,6 +2103,9 @@ NSString *omrade2choosenName=@"";
       //  _reminderDatePicker.hidden = NO;
         
         //        _weekSegmentControl.hidden = NO;
+        _weekdaysPickerOutlet.hidden=NO;
+        dayPickerOutlet.hidden=NO;
+
         
         _settingBImageView.hidden = NO;
         _settingBLabel.hidden = NO;
@@ -2111,6 +2123,10 @@ NSString *omrade2choosenName=@"";
       //  _reminderDatePicker.hidden = YES;
         
         //        _weekSegmentControl.hidden = YES;
+        
+        _weekdaysPickerOutlet.hidden=YES;
+        dayPickerOutlet.hidden=YES;
+
         
         _settingBImageView.hidden = YES;
         _settingBLabel.hidden = YES;
