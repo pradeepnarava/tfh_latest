@@ -124,6 +124,9 @@ int tagValue;
     [super viewDidLoad];
     [self.popupScrollView setContentSize:CGSizeMake(320, 595)];
     
+    
+    [self.klarButton addTarget:self action:@selector(kalrButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     hoursTimeString = [[NSString alloc] init];
 
     self.title = @"Påminnelser";
@@ -414,7 +417,8 @@ int tagValue;
     
         UILocalNotification *notif = [[UILocalNotification alloc] init];
         notif.fireDate = [self localDateAndTime:oneTimeNotificationLabel.text];
-        notif.soundName = UILocalNotificationDefaultSoundName;
+       // notif.soundName = UILocalNotificationDefaultSoundName;
+        notif.soundName = @"beep-5.wav";
         notif.repeatInterval = NSDayCalendarUnit;
         notif.alertBody = @"Påminnelser";
         notif.alertAction = @"View";
@@ -436,7 +440,8 @@ int tagValue;
                 
                 UILocalNotification *notif = [[UILocalNotification alloc] init];
                 notif.fireDate = sTime;
-                notif.soundName = UILocalNotificationDefaultSoundName;
+                notif.soundName = @"beep-5.wav";
+                //notif.soundName = UILocalNotificationDefaultSoundName;
                 notif.repeatInterval = NSDayCalendarUnit;
                 notif.alertBody = @"Påminnelser";
                 notif.alertAction = @"View";
@@ -615,4 +620,12 @@ int tagValue;
 
 
 
+- (void)dealloc {
+    [_klarButton release];
+    [super dealloc];
+}
+- (void)viewDidUnload {
+    [self setKlarButton:nil];
+    [super viewDidUnload];
+}
 @end

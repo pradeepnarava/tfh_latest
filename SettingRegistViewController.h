@@ -11,6 +11,7 @@
 @interface SettingRegistViewController : UIViewController
 
 @property (nonatomic, strong)IBOutlet UIScrollView *popupScrollView;
+@property (retain, nonatomic) IBOutlet UIButton *klarButton;
 
 
 -(IBAction)onoffButtonClicked:(id)sender;

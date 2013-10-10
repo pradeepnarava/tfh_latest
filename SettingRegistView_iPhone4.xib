@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A598" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingRegistViewController">
             <connections>
                 <outlet property="eventButton" destination="88" id="128"/>
+                <outlet property="klarButton" destination="147" id="17v-sc-XO5"/>
                 <outlet property="oneDayTimeButton" destination="103" id="146"/>
                 <outlet property="oneHourButton" destination="99" id="129"/>
                 <outlet property="oneHrLabel" destination="110" id="130"/>
@@ -331,18 +332,15 @@
                         </label>
                     </subviews>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="147">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="147">
                     <rect key="frame" x="124" y="383" width="73" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                     <state key="normal" title="Klar" backgroundImage="Klar_button.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
                     <connections>
-                        <action selector="kalrButtonClicked:" destination="-1" eventType="touchUpInside" id="148"/>
+                        <action selector="kalrButtonClicked:" destination="-1" eventType="touchUpInside" id="5sH-8N-iDh"/>
                     </connections>
                 </button>
             </subviews>

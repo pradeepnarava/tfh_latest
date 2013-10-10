@@ -167,6 +167,7 @@
         for (int k=0; k<[notifications count]; k++) {
             UILocalNotification *ntf = [notifications objectAtIndex:k];
             NSDictionary *userIn = ntf.userInfo;
+            ntf.soundName = UILocalNotificationDefaultSoundName;
             if ([userIn objectForKey:@"type"]) {
                 if ([[userIn valueForKey:@"dayTime"] isEqualToString:[event valueForKey:@"dayTime"]]) {
                     UILocalNotification *notifi = [[UILocalNotification alloc]init];
@@ -203,6 +204,7 @@
             NSDate *date = [fmtr dateFromString:dateString];
             UILocalNotification *notification = [[UILocalNotification alloc]init];
             notification.alertBody = [event valueForKey:@"eventDescription"];
+            notification.soundName = UILocalNotificationDefaultSoundName;
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
             [dict setValue:date forKey:@"date"];
             NSString *eventValue = [sub2Settings valueForKey:@"eventvalue"];
@@ -230,6 +232,7 @@
         for (int k=0; k<[notifications count]; k++) {
             UILocalNotification *ntf = [notifications objectAtIndex:k];
             NSDictionary *userIn = ntf.userInfo;
+            ntf.soundName = UILocalNotificationDefaultSoundName;
             if ([userIn objectForKey:@"type"]) {
                 if ([[userIn valueForKey:@"dayTime"] isEqualToString:[event valueForKey:@"date"]]) {
                     UILocalNotification *notifi = [[UILocalNotification alloc]init];
@@ -259,6 +262,7 @@
             NSDate *date = [fmtr dateFromString:[NSString stringWithFormat:@"%@ %@",[event valueForKey:@"date"],[sub2Settings valueForKey:@"totalvalue"]]];
             UILocalNotification *notification = [[UILocalNotification alloc]init];
             notification.alertBody = [event valueForKey:@"total"];
+            notification.soundName = UILocalNotificationDefaultSoundName;
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
             [dict setValue:[event valueForKey:@"date"] forKey:@"dayTime"];
             [dict setValue:date forKey:@"date"];
