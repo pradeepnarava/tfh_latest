@@ -53,11 +53,37 @@
     return self;
 }
 
+
+-(NSString*)yearStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+-(NSString*)monthStringFromDate:(NSDate*)date{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"d/M"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
     self.navigationItem.title=@"Planera en plusvecka";
+    
+    
+    NSString *titleStrin = nil;
+    
+    NSString *yearLabel1 = [self yearStringFromDate:[selectedDictionary valueForKey:kStartDate]];
+    NSString *yearLabel2 = [self yearStringFromDate:[selectedDictionary valueForKey:kEndDate]];
+    if([yearLabel1 isEqualToString:yearLabel2]){
+        titleStrin  = [NSString stringWithFormat:@"%@ - %@ (%@)",[self monthStringFromDate:[selectedDictionary valueForKey:kStartDate]],[self monthStringFromDate:[selectedDictionary valueForKey:kEndDate]],yearLabel1];
+    }else{
+        titleStrin  = [NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[self monthStringFromDate:[selectedDictionary valueForKey:kStartDate]],yearLabel1,[self monthStringFromDate:[selectedDictionary valueForKey:kEndDate]],yearLabel2];
+    }
+    self.navigationItem.title = titleStrin;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         

@@ -1,15 +1,18 @@
 //
-//  PlusveckaCalander.m
-//  Välkommen till TFH-appen
+// PlusveckaCalander.m
+// Välkommen till TFH-appen
 //
-//  Created by Brilliance Tech Sols on 7/18/13.
-//  Copyright (c) 2013 brilliance. All rights reserved.
+// Created by Brilliance Tech Sols on 7/18/13.
+// Copyright (c) 2013 brilliance. All rights reserved.
 //
 
 #import "PlusveckaCalenderViewController.h"
 #import "ASDepthModalViewController.h"
 
 @interface PlusveckaCalenderViewController ()
+{
+    int run;
+}
 
 @property (nonatomic, strong) NSString *currentDateBtn,*tabValue;
 @property (nonatomic, strong) NSString *currentStatuBtn;
@@ -18,12 +21,12 @@
 
 
 #define kStartDate @"startDate"
-#define kEndDate   @"endDate"
-#define kStatus    @"status"
-#define kDayTime   @"dayTime"
-#define kEventDes  @"eventDes"
-#define kSub2Id    @"sub2Id"
-#define kSub1Id    @"sub1Id"
+#define kEndDate @"endDate"
+#define kStatus @"status"
+#define kDayTime @"dayTime"
+#define kEventDes @"eventDes"
+#define kSub2Id @"sub2Id"
+#define kSub1Id @"sub1Id"
 
 
 @implementation PlusveckaCalenderViewController
@@ -57,11 +60,56 @@
     return self;
 }
 
+- (void)weekDB:(NSDate *)_date {
+    self.weekArray = [[NSMutableArray alloc] init];
+    
+    for (int i =1; i <= 7; i++)
+    {
+        NSDateComponents *comps1 = [[NSDateComponents alloc] init];
+        [comps1 setMonth:0];
+        [comps1 setDay:+i];
+        [comps1 setHour:0];
+        NSCalendar *calendar1 = [NSCalendar currentCalendar];
+        NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:[NSDate date] options:0];
+        [self.weekArray addObject:newDate1];
+    }
+}
+
+-(void)databaseInsertWeek:(NSDictionary *)dict{
+    const char *dbpath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB2DINAVECKOR (startDate,endDate,currentDate) VALUES (\"%@\", \"%@\",\"%@\")",[dict valueForKey:@"startDate"],[dict valueForKey:@"endDate"],[dict valueForKey:@"currentDate"]];
+        
+        const char *insert_stmt = [insertSQL UTF8String];
+        
+        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE)
+        {
+            NSLog(@"New Record Created");
+        }
+        else {
+            if(SQLITE_DONE != sqlite3_step(statement))
+                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
+            NSLog(@"error for insertig data into database NO");
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(exerciseDB);
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.scrollView setContentSize:CGSizeMake(320, 699)];
     self.navigationItem.title=@"Planera en plusvecka";
+    run = 0;
+    
+
+    
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
         UIImage *image = [UIImage imageNamed:@"tillbaka1.png"];
@@ -70,7 +118,7 @@
         [okBtn setImage:image forState:UIControlStateNormal];
         [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
         
-        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:okBtn];
         
     }
     else {
@@ -81,7 +129,7 @@
         [okBtn setBackgroundImage:image forState:UIControlStateNormal];
         [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
         
-        self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,6 +162,21 @@
     databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
     
     const char *dbpath = [databasePath UTF8String];
+    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS SUB2DINAVECKOR (id INTEGER PRIMARY KEY AUTOINCREMENT,startDate TEXT,endDate TEXT,currentDate TEXT)";
+        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+        {
+            NSLog(@"Failed to create database");
+        }
+        sqlite3_close(exerciseDB);
+        
+    } else {
+        NSLog(@"Failed to open/create database");
+    }
+    
+
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
@@ -138,10 +201,32 @@
         NSLog(@"Failed to open/create database");
     }
     // Do any additional setup after loading the view from its nib.
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (run == 0) {
+        [self weekDB:[NSDate date]];
+        NSString *startDate = [self dateFromStringForSaving:[self.weekArray objectAtIndex:0]];
+        NSString *endDate = [self dateFromStringForSaving:[self.weekArray objectAtIndex:6]];
+        NSString *currentDate = [self dateFromStringForSaving:[NSDate date]];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+        [dict setValue:startDate forKey:@"startDate"];
+        [dict setValue:endDate forKey:@"endDate"];
+        [dict setValue:currentDate forKey:@"currentDate"];
+        [self databaseInsertWeek:dict];
+        run ++;
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    
+
+    
+    
     if (isPopup) {
         isPopup = NO;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -156,21 +241,20 @@
                                   NSLog(@"Modal view closed.");
                               }];
     }else{
-    self.dataArray = [[NSMutableArray alloc]init];
-    self.sub1EventsArray = [[NSMutableArray alloc]init];
-    self.totalArray = [[NSMutableArray alloc]init];
-   /* for (int i =0; i <[[self.scrollView subviews] count]; i++) {
-        
-        UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
-        if ([btn isKindOfClass:[UIButton class]]) {
-            [btn setTitle:@"" forState:UIControlStateNormal];
-            [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
-        }
-    }*/
-    [self week:[selectedDictionary valueForKey:kStartDate]];
-    [self getData];
-    [self displayButton];
-    [self getSub2SettingsData];
+        self.dataArray = [[NSMutableArray alloc]init];
+        self.sub1EventsArray = [[NSMutableArray alloc]init];
+        self.totalArray = [[NSMutableArray alloc]init];
+        /* for (int i =0; i <[[self.scrollView subviews] count]; i++) {
+         UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
+         if ([btn isKindOfClass:[UIButton class]]) {
+         [btn setTitle:@"" forState:UIControlStateNormal];
+         [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+         }
+         }*/
+        [self week:[selectedDictionary valueForKey:kStartDate]];
+        [self getData];
+        [self displayButton];
+        [self getSub2SettingsData];
     }
 }
 
@@ -186,12 +270,12 @@
         if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
         {
             
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
                 NSString *Id = [NSString stringWithFormat:@"%d",sqlite3_column_int(statement,0)];
                 NSString *value = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
                 NSString *totalValue = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
                 sub2Settings = [[NSMutableDictionary alloc]init];
-                [sub2Settings setValue:Id  forKey:@"id"];
+                [sub2Settings setValue:Id forKey:@"id"];
                 [sub2Settings setValue:value forKey:@"value"];
                 [sub2Settings setValue:totalValue forKey:@"totalvalue"];
             }
@@ -229,17 +313,17 @@
             btn.layer.borderColor = [UIColor clearColor].CGColor;
             btn.layer.borderWidth = 1.0f;
             
-           
+            
             NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
             
             NSLog(@"btag is :%i",[btag intValue]);
             
-            NSString *subString1 =  [btag substringFromIndex:1];
+            NSString *subString1 = [btag substringFromIndex:1];
             
             NSLog(@"subString1 is :%i",[subString1 intValue]);
             
-           NSString *subString = [subString1 substringToIndex:subString1.length-1];
-
+            NSString *subString = [subString1 substringToIndex:subString1.length-1];
+            
             NSLog(@"subString is :%i",[subString intValue]);
             
             NSString *whichString = [subString1 substringFromIndex:subString1.length-1];
@@ -276,11 +360,11 @@
                             CALayer *layer = [CALayer layer];
                             
                             if ([[tempDict objectForKey:kStatus] isEqualToString:@"+"]) {
-                                layer.backgroundColor = [UIColor colorWithRed:109.0/255.0 green:169.0/255.0 blue:88.0/255.0 alpha:1.0].CGColor;                            }else if ([[tempDict objectForKey:kStatus ] isEqualToString:@"-"]) {
+                                layer.backgroundColor = [UIColor colorWithRed:109.0/255.0 green:169.0/255.0 blue:88.0/255.0 alpha:1.0].CGColor; }else if ([[tempDict objectForKey:kStatus ] isEqualToString:@"-"]) {
                                     layer.backgroundColor = [UIColor colorWithRed:202.0/255.0 green:84.0/255.0 blue:25.0/255.0 alpha:1.0].CGColor;
-                            }else if ([[tempDict objectForKey:kStatus] isEqualToString:@"Neutral"]){
-                                layer.backgroundColor = [UIColor colorWithRed:196.0/255.0 green:196.0/255.0 blue:196.0/255.0 alpha:1.0].CGColor;
-                            }
+                                }else if ([[tempDict objectForKey:kStatus] isEqualToString:@"Neutral"]){
+                                    layer.backgroundColor = [UIColor colorWithRed:196.0/255.0 green:196.0/255.0 blue:196.0/255.0 alpha:1.0].CGColor;
+                                }
                             
                             NSString *lastTag = nil;
                             int firstTa = [[startArray objectAtIndex:0] intValue];
@@ -295,9 +379,9 @@
                             }
                             UIButton *lastBtn = (UIButton *)[self.scrollView viewWithTag:[lastTag intValue]];
                             CGRect frame = CGRectMake(btn.frame.origin.x, btn.frame.origin.y+([[startArray objectAtIndex:1] intValue]/2), btn.frame.size.width,(lastBtn.frame.origin.y - btn.frame.origin.y - btn.frame.size.height)+([[endArray objectAtIndex:1] intValue]/2)+(btn.frame.size.height-([[startArray objectAtIndex:1] intValue]/2)));
-
+                            
                             layer.frame = frame;
-                            layer.zPosition  = 10;
+                            layer.zPosition = 10;
                             NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
                             int c = [tag1 intValue] +1;
                             while (c < [[array objectAtIndex:1] intValue] && c > [tag1 intValue]) {
@@ -310,7 +394,7 @@
                             }
                             CATextLayer *label = [[CATextLayer alloc] init];
                             [label setFont:@"Helvetica"];
-
+                            
                             [label setFontSize:12];
                             [label setFrame:CGRectMake(0, (frame.size.height/2)-10, frame.size.width, 20)];
                             [label setString:[tempDict objectForKey:kEventDes]];
@@ -364,7 +448,7 @@
                             UIButton *lastBtn = (UIButton *)[self.scrollView viewWithTag:[lastTag intValue]];
                             CGRect frame = CGRectMake(btn.frame.origin.x, btn.frame.origin.y+([[startArray objectAtIndex:1] intValue]/2), btn.frame.size.width,(lastBtn.frame.origin.y - btn.frame.origin.y - btn.frame.size.height)+([[endArray objectAtIndex:1] intValue]/2)+(btn.frame.size.height-([[startArray objectAtIndex:1] intValue]/2)));
                             layer.frame = frame;
-                            layer.zPosition  = 100;
+                            layer.zPosition = 100;
                             NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
                             int c = [tag1 intValue] +1;
                             while (c < [[array objectAtIndex:1] intValue] && c > [tag1 intValue]) {
@@ -387,7 +471,7 @@
                             [self.scrollView.layer insertSublayer:layer atIndex:0];
                         }
                     }
-            
+                    
                     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
                     
                     longPressGesture.minimumPressDuration = 1.0;
@@ -398,107 +482,92 @@
     }
 }
 
-   /* for (int i =0; i <[[self.scrollView subviews] count]; i++) {
-    
-        UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
-        if ([btn isKindOfClass:[UIButton class]]) {
-            NSMutableArray *layArray = [btn.layer.sublayers mutableCopy];
-            for (CALayer *sublay in layArray) {
-                if ([sublay.name isEqualToString:@"sub2"]) {
-                    [sublay removeFromSuperlayer];
-                }
-            }
-            NSString *statusString = nil;
-            NSDate *date=nil;
-            NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-            NSString *subString1 =  [btag substringFromIndex:1];
-            NSString *subString = [subString1 substringToIndex:subString1.length-1];
-            NSString *whichString = [subString1 substringFromIndex:subString1.length-1];
-            
-            NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-            if ([s intValue] == 1) {
-                date = [self.weekdays objectAtIndex:0];
-                
-            }else if ([s intValue] == 2) {
-                date = [self.weekdays objectAtIndex:1];
-                
-            }else if ([s intValue] == 3){
-                date = [self.weekdays objectAtIndex:2];
-                
-            }else if ([s intValue] == 4) {
-                date = [self.weekdays objectAtIndex:3];
-                
-            }else if ([s intValue] == 5) {
-                date = [self.weekdays objectAtIndex:4];
-                
-            }else if ([s intValue] == 6) {
-                date = [self.weekdays objectAtIndex:5];
-                
-            }else if ([s intValue] == 7) {
-                date = [self.weekdays objectAtIndex:6];
-            }
-            
-            NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
-            if ([whichString isEqualToString:@"1"]) {
-                for (int g =0; g<[sub1EventsArray count]; g++) {
-                    NSMutableDictionary *tempDict = [sub1EventsArray objectAtIndex:g];
-                    if ([[tempDict valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]){
-                        
-                        if ([[tempDict valueForKey:kStatus] isEqualToString:@"+"]){
-                            statusString = @"+";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
-                            statusString = @"-";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
-                            statusString = @"Neutral";
-                        }
-                        
-                        [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
-                     
-                    }
-                }
-            }else{
-                for (int g =0; g<[dataArray count]; g++) {
-                    NSMutableDictionary *tempDict = [dataArray objectAtIndex:g];
-                    if ([[tempDict valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]){
-                        
-                        if ([[tempDict valueForKey:kStatus] isEqualToString:@"+"]){
-                            statusString = @"+";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
-                            statusString = @"-";
-                        }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
-                            statusString = @"Neutral";
-                        }
-                        
-                        [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
-                        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-                        
-                        longPressGesture.minimumPressDuration = 1.0;
-                        [btn addGestureRecognizer:longPressGesture];
-                    }
-                }
-            }
-            CALayer *layer =[CALayer layer];
-            CALayer *layer1 = [CALayer layer];
-            layer.name = @"sub2";
-            layer1.name = @"sub2";
-            layer.backgroundColor = [UIColor colorWithRed:168.0f/255.0f green:168.0f/255.0f blue:168.0f/255.0f alpha:1.0].CGColor;
-            layer.frame = CGRectMake(0, 0, 1, btn.frame.size.height);
-            layer1.backgroundColor = [UIColor colorWithRed:168.0f/255.0f green:168.0f/255.0f blue:168.0f/255.0f alpha:1.0].CGColor;
-            layer1.frame = CGRectMake(btn.frame.size.width-1, 0, 1, btn.frame.size.height);
-            [btn.layer addSublayer:layer];
-            [btn.layer addSublayer:layer1];
-            if ([statusString isEqualToString:@"+"]) {
-                [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
-            }else if ([statusString isEqualToString:@"-"]){
-                [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
-            }else if ([statusString isEqualToString:@"Neutral"]){
-                [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
-            }else {
-                [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
-                [btn setTitle:@"" forState:UIControlStateNormal];
-            }
-        }
-    }*/
+/* for (int i =0; i <[[self.scrollView subviews] count]; i++) {
+ UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
+ if ([btn isKindOfClass:[UIButton class]]) {
+ NSMutableArray *layArray = [btn.layer.sublayers mutableCopy];
+ for (CALayer *sublay in layArray) {
+ if ([sublay.name isEqualToString:@"sub2"]) {
+ [sublay removeFromSuperlayer];
+ }
+ }
+ NSString *statusString = nil;
+ NSDate *date=nil;
+ NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+ NSString *subString1 = [btag substringFromIndex:1];
+ NSString *subString = [subString1 substringToIndex:subString1.length-1];
+ NSString *whichString = [subString1 substringFromIndex:subString1.length-1];
+ NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
+ if ([s intValue] == 1) {
+ date = [self.weekdays objectAtIndex:0];
+ }else if ([s intValue] == 2) {
+ date = [self.weekdays objectAtIndex:1];
+ }else if ([s intValue] == 3){
+ date = [self.weekdays objectAtIndex:2];
+ }else if ([s intValue] == 4) {
+ date = [self.weekdays objectAtIndex:3];
+ }else if ([s intValue] == 5) {
+ date = [self.weekdays objectAtIndex:4];
+ }else if ([s intValue] == 6) {
+ date = [self.weekdays objectAtIndex:5];
+ }else if ([s intValue] == 7) {
+ date = [self.weekdays objectAtIndex:6];
+ }
+ NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+ if ([whichString isEqualToString:@"1"]) {
+ for (int g =0; g<[sub1EventsArray count]; g++) {
+ NSMutableDictionary *tempDict = [sub1EventsArray objectAtIndex:g];
+ if ([[tempDict valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]){
+ if ([[tempDict valueForKey:kStatus] isEqualToString:@"+"]){
+ statusString = @"+";
+ }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
+ statusString = @"-";
+ }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+ statusString = @"Neutral";
+ }
+ [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
+ }
+ }
+ }else{
+ for (int g =0; g<[dataArray count]; g++) {
+ NSMutableDictionary *tempDict = [dataArray objectAtIndex:g];
+ if ([[tempDict valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]){
+ if ([[tempDict valueForKey:kStatus] isEqualToString:@"+"]){
+ statusString = @"+";
+ }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
+ statusString = @"-";
+ }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
+ statusString = @"Neutral";
+ }
+ [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
+ UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+ longPressGesture.minimumPressDuration = 1.0;
+ [btn addGestureRecognizer:longPressGesture];
+ }
+ }
+ }
+ CALayer *layer =[CALayer layer];
+ CALayer *layer1 = [CALayer layer];
+ layer.name = @"sub2";
+ layer1.name = @"sub2";
+ layer.backgroundColor = [UIColor colorWithRed:168.0f/255.0f green:168.0f/255.0f blue:168.0f/255.0f alpha:1.0].CGColor;
+ layer.frame = CGRectMake(0, 0, 1, btn.frame.size.height);
+ layer1.backgroundColor = [UIColor colorWithRed:168.0f/255.0f green:168.0f/255.0f blue:168.0f/255.0f alpha:1.0].CGColor;
+ layer1.frame = CGRectMake(btn.frame.size.width-1, 0, 1, btn.frame.size.height);
+ [btn.layer addSublayer:layer];
+ [btn.layer addSublayer:layer1];
+ if ([statusString isEqualToString:@"+"]) {
+ [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
+ }else if ([statusString isEqualToString:@"-"]){
+ [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
+ }else if ([statusString isEqualToString:@"Neutral"]){
+ [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
+ }else {
+ [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
+ [btn setTitle:@"" forState:UIControlStateNormal];
+ }
+ }
+ }*/
 
 -(NSString*)dateFromStringCal:(NSDate*)date {
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -517,7 +586,7 @@
     
     
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString1 =  [btag substringFromIndex:1];
+    NSString *subString1 = [btag substringFromIndex:1];
     NSString *subString = [subString1 substringToIndex:subString1.length-1];
     NSString *whichString = [subString1 substringFromIndex:subString1.length-1];
     
@@ -530,7 +599,7 @@
     buttonString = [[tm objectAtIndex:0] retain];
     
     CGPoint touchPoint = [touch locationInView:self.scrollView];
-
+    
     for (CALayer *layer in self.scrollView.layer.sublayers) {
         if ([layer containsPoint:[self.scrollView.layer convertPoint:touchPoint toLayer:layer]] && btn.layer != layer) {
             NSLog(@"data ---%d",[layer.name intValue]);
@@ -551,7 +620,7 @@
                 hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
                 isExist = YES;
                 raderaBtn.enabled =YES;
-
+                
             }else{
                 isSub2 = YES;
                 for (int q= 0; q<[dataArray count]; q++) {
@@ -600,10 +669,10 @@
     {
         UIButton *btn = (UIButton*)[gesture view];
         NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-        //NSString *subString1 =  [btag substringFromIndex:1];
+        //NSString *subString1 = [btag substringFromIndex:1];
         //NSString *subString = [subString1 substringToIndex:subString1.length-1];
         NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-    
+        
         BOOL isExist = NO;
         NSDate *date=nil;
         
@@ -629,11 +698,8 @@
         if (!isExist) {
             NSLog(@"not -----$$$$$ %@",btn.layer.name);
             /*eventDesTextView.text = @"";
-             
              hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-             
              hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-             
              raderaBtn.enabled = NO;
              editIndexValue= nil;*/
             
@@ -642,58 +708,43 @@
 }
 
 /*- (void)longPress:(UIGestureRecognizer *)gesture{
-    
-    
-    if (gesture.state == UIGestureRecognizerStateBegan)
-    {
-        
-        UIButton *btn = (UIButton*)[gesture view];
-        NSDate *date=nil;
-        NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-        NSString *subString1 =  [btag substringFromIndex:1];
-        NSString *subString = [subString1 substringToIndex:subString1.length-1];
-        NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-        if ([s intValue] == 1) {
-            date = [self.weekdays objectAtIndex:0];
-            
-        }else if ([s intValue] == 2) {
-            date = [self.weekdays objectAtIndex:1];
-            
-        }else if ([s intValue] == 3){
-            date = [self.weekdays objectAtIndex:2];
-            
-        }else if ([s intValue] == 4) {
-            date = [self.weekdays objectAtIndex:3];
-            
-        }else if ([s intValue] == 5) {
-            date = [self.weekdays objectAtIndex:4];
-            
-        }else if ([s intValue] == 6) {
-            date = [self.weekdays objectAtIndex:5];
-            
-        }else if ([s intValue] == 7) {
-            date = [self.weekdays objectAtIndex:6];
-        }
-        
-        NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
-        
-        buttonString = [[tm objectAtIndex:0] retain];
-        
-        for (int q= 0; q<[dataArray count]; q++) {
-            NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-            
-            if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-                editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Radera",nil];
-                
-                [alert show];
-                [alert release];
-                break;
-            }
-        }
-        
-    }
-}*/
+ if (gesture.state == UIGestureRecognizerStateBegan)
+ {
+ UIButton *btn = (UIButton*)[gesture view];
+ NSDate *date=nil;
+ NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+ NSString *subString1 = [btag substringFromIndex:1];
+ NSString *subString = [subString1 substringToIndex:subString1.length-1];
+ NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
+ if ([s intValue] == 1) {
+ date = [self.weekdays objectAtIndex:0];
+ }else if ([s intValue] == 2) {
+ date = [self.weekdays objectAtIndex:1];
+ }else if ([s intValue] == 3){
+ date = [self.weekdays objectAtIndex:2];
+ }else if ([s intValue] == 4) {
+ date = [self.weekdays objectAtIndex:3];
+ }else if ([s intValue] == 5) {
+ date = [self.weekdays objectAtIndex:4];
+ }else if ([s intValue] == 6) {
+ date = [self.weekdays objectAtIndex:5];
+ }else if ([s intValue] == 7) {
+ date = [self.weekdays objectAtIndex:6];
+ }
+ NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+ buttonString = [[tm objectAtIndex:0] retain];
+ for (int q= 0; q<[dataArray count]; q++) {
+ NSMutableDictionary *temp = [dataArray objectAtIndex:q];
+ if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
+ editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
+ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:[temp valueForKey:kEventDes] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Radera",nil];
+ [alert show];
+ [alert release];
+ break;
+ }
+ }
+ }
+ }*/
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
@@ -729,7 +780,7 @@
         if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
         {
             
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
                 NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
                 NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
                 NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
@@ -755,7 +806,7 @@
         if (sqlite3_prepare_v2(exerciseDB, query_stmt1, -1, &statement, NULL) == SQLITE_OK)
         {
             
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
                 NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
                 NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
                 NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
@@ -793,7 +844,7 @@
         if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
         {
             
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
                 NSString *totalid = [NSString stringWithFormat:@"%d",sqlite3_column_int(statement,0)];
                 NSString *date = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
                 NSString *total = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
@@ -828,7 +879,7 @@
         NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:_date options:0];
         [self.weekdays addObject:newDate1];
     }
-	[self updateScreens];
+    [self updateScreens];
 }
 
 
@@ -839,23 +890,23 @@
 
 
 -(IBAction)franTidigareAction:(id)sender{
-    [ASDepthModalViewController dismiss]; 
+    [ASDepthModalViewController dismiss];
     isPopup = YES;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
             //if (!tidigeraController) {
-                tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController" bundle:nil];
-           // }
+            tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController" bundle:nil];
+            // }
         }else{
-           // if (!tidigeraController) {
-                tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController_iPhone4" bundle:nil];
-           // }
+            // if (!tidigeraController) {
+            tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController_iPhone4" bundle:nil];
+            // }
         }
     }
     else{
         //if (!tidigeraController) {
-            tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController_iPad" bundle:nil];
-       // }
+        tidigeraController = [[PlusveckaTidigeraViewController alloc] initWithNibName:@"PlusveckaTidigeraViewController_iPad" bundle:nil];
+        // }
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:eventDesTextView.text forKey:@"eventDes"];
@@ -869,18 +920,18 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
             //if (!forslagController) {
-                forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController" bundle:nil];
-           // }
+            forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController" bundle:nil];
+            // }
         }else{
             //if (!forslagController) {
-                forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController_iPhone4" bundle:nil];
+            forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController_iPhone4" bundle:nil];
             //}
         }
     }
     else{
         //if (!forslagController) {
-            forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController_iPad" bundle:nil];
-       // }
+        forslagController = [[PlusveckaForslagViewController alloc] initWithNibName:@"PlusveckaForslagViewController_iPad" bundle:nil];
+        // }
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:eventDesTextView.text forKey:@"eventDes"];
@@ -892,19 +943,19 @@
 -(void)settButtonClicked {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-           // if (!settingsView) {
-                settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView" bundle:nil];
-           // }
+            // if (!settingsView) {
+            settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView" bundle:nil];
+            // }
         }else{
-           // if (!settingsView) {
-                settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView_iPhone4" bundle:nil];
-           // }
+            // if (!settingsView) {
+            settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView_iPhone4" bundle:nil];
+            // }
         }
     }
     else{
-       // if (!settingsView) {
-            settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView_iPad" bundle:nil];
-       // }
+        // if (!settingsView) {
+        settingsView = [[PlusveckaSettingsView alloc] initWithNibName:@"PlusveckaSettingsView_iPad" bundle:nil];
+        // }
     }
     settingsView.totalArray = totalArray;
     settingsView.sub2EventsArray = dataArray;
@@ -918,10 +969,10 @@
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease];
     NSArray *weekdaySymbols = [dateFormatter shortWeekdaySymbols];
     
-	for (int i =0; i < [self.weekdays count]; i++) {
+    for (int i =0; i < [self.weekdays count]; i++) {
         
         NSDate *date = [self.weekdays objectAtIndex:i];
-		
+        
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *weekdayComponents =[gregorian components:NSWeekdayCalendarUnit fromDate:date];
         NSInteger weekday = [weekdayComponents weekday];
@@ -963,101 +1014,102 @@
     return dateString;
 }
 
+
+-(NSString*)dateFromStringForSaving:(NSDate*)date {
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+
 /*-(void)emptyCell:(id)sender {
-    UIButton *btn = (UIButton*)sender;
-    NSDate *date=nil;
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString1 =  [btag substringFromIndex:1];
-    NSString *subString = [subString1 substringToIndex:subString1.length-1];
-    NSString *whichString = [subString1 substringFromIndex:subString1.length-1];
-    
-    
-    NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-    if ([s intValue] == 1) {
-        date = [self.weekdays objectAtIndex:0];
-        
-    }else if ([s intValue] == 2) {
-        date = [self.weekdays objectAtIndex:1];
-        
-    }else if ([s intValue] == 3){
-        date = [self.weekdays objectAtIndex:2];
-    }else if ([s intValue] == 4) {
-        date = [self.weekdays objectAtIndex:3];
-        
-    }else if ([s intValue] == 5) {
-        date = [self.weekdays objectAtIndex:4];
-        
-    }else if ([s intValue] == 6) {
-        date = [self.weekdays objectAtIndex:5];
-        
-    }else if ([s intValue] == 7) {
-        date = [self.weekdays objectAtIndex:6];
-    }
-    NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
-    buttonString = [[tm objectAtIndex:0] retain];
-    BOOL isExit = NO;
-    if ([whichString isEqualToString:@"1"]) {
-        isSub2 = NO;
-        for (int g =0; g<[sub1EventsArray count]; g++) {
-            NSMutableDictionary *temp = [sub1EventsArray objectAtIndex:g];
-            if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-                editIndexValue = [[NSString stringWithFormat:@"%i",g] retain];
-                NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-                NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-                eventDesTextView.text = [temp valueForKey:kEventDes];
-                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-                mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
-                mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
-                isExit = YES;
-                raderaBtn.enabled = YES;
-            }
-//            else {
-//                isExit = NO;
-//            }
-        }
-    }else{
-        isSub2 = YES;
-    for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-            mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
-            mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
-            isExit = YES;
-            raderaBtn.enabled = YES;
-        }
-//        else {
-//            isExit = NO;
-//        }
-    }
-    }
-    if (!isExit) {
-        eventDesTextView.text = @"";
-        currentStatuBtn=@"Neutral";
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        mintsTextField1.text = [NSString stringWithFormat:@"00"];
-        mintsTextField2.text = [NSString stringWithFormat:@"00"];
-        raderaBtn.enabled = NO;
-    }
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
-}*/
+ UIButton *btn = (UIButton*)sender;
+ NSDate *date=nil;
+ NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
+ NSString *subString1 = [btag substringFromIndex:1];
+ NSString *subString = [subString1 substringToIndex:subString1.length-1];
+ NSString *whichString = [subString1 substringFromIndex:subString1.length-1];
+ NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
+ if ([s intValue] == 1) {
+ date = [self.weekdays objectAtIndex:0];
+ }else if ([s intValue] == 2) {
+ date = [self.weekdays objectAtIndex:1];
+ }else if ([s intValue] == 3){
+ date = [self.weekdays objectAtIndex:2];
+ }else if ([s intValue] == 4) {
+ date = [self.weekdays objectAtIndex:3];
+ }else if ([s intValue] == 5) {
+ date = [self.weekdays objectAtIndex:4];
+ }else if ([s intValue] == 6) {
+ date = [self.weekdays objectAtIndex:5];
+ }else if ([s intValue] == 7) {
+ date = [self.weekdays objectAtIndex:6];
+ }
+ NSArray *tm = [[self dateFromString:date] componentsSeparatedByString:@" "];
+ buttonString = [[tm objectAtIndex:0] retain];
+ BOOL isExit = NO;
+ if ([whichString isEqualToString:@"1"]) {
+ isSub2 = NO;
+ for (int g =0; g<[sub1EventsArray count]; g++) {
+ NSMutableDictionary *temp = [sub1EventsArray objectAtIndex:g];
+ if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
+ editIndexValue = [[NSString stringWithFormat:@"%i",g] retain];
+ NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
+ NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
+ eventDesTextView.text = [temp valueForKey:kEventDes];
+ hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+ hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+ mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
+ mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
+ isExit = YES;
+ raderaBtn.enabled = YES;
+ }
+ // else {
+ // isExit = NO;
+ // }
+ }
+ }else{
+ isSub2 = YES;
+ for (int q= 0; q<[dataArray count]; q++) {
+ NSMutableDictionary *temp = [dataArray objectAtIndex:q];
+ if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
+ editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
+ NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
+ NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
+ eventDesTextView.text = [temp valueForKey:kEventDes];
+ hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+ hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+ mintsTextField1.text = [NSString stringWithFormat:@"%@",[sDA objectAtIndex:1]];
+ mintsTextField2.text = [NSString stringWithFormat:@"%@",[eDA objectAtIndex:1]];
+ isExit = YES;
+ raderaBtn.enabled = YES;
+ }
+ // else {
+ // isExit = NO;
+ // }
+ }
+ }
+ if (!isExit) {
+ eventDesTextView.text = @"";
+ currentStatuBtn=@"Neutral";
+ hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+ hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+ mintsTextField1.text = [NSString stringWithFormat:@"00"];
+ mintsTextField2.text = [NSString stringWithFormat:@"00"];
+ raderaBtn.enabled = NO;
+ }
+ ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+ [ASDepthModalViewController presentView:self.popupView
+ backgroundColor:nil
+ options:style
+ completionHandler:^{
+ NSLog(@"Modal view closed.");
+ }];
+ }*/
 
 -(IBAction)closeButtonClicked:(id)sender
 {
-   [ASDepthModalViewController dismiss]; 
+    [ASDepthModalViewController dismiss];
 }
 
 -(IBAction)okButtonClicked:(id)sender
@@ -1093,7 +1145,7 @@
         
         //[self displayButton];
         
-        [self  databaseInsert];
+        [self databaseInsert];
     }
 }
 
@@ -1245,10 +1297,10 @@
         {
             if (sqlite3_step(statement) == SQLITE_ROW)
             {
-                isFind  = YES;
+                isFind = YES;
                 
             } else {
-                isFind  =  NO;
+                isFind = NO;
             }
             sqlite3_finalize(statement);
         }
@@ -1331,7 +1383,7 @@
     NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
     [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
     NSString* str = [formatter stringFromDate:[NSDate date]];
-
+    
     
     const char *dbpath = [databasePath UTF8String];
     
@@ -1457,7 +1509,7 @@
                             backgroundColor:nil
                                     options:style
                           completionHandler:^{
-
+                              
                           }];
 }
 
@@ -1472,19 +1524,19 @@
     NSString *index = [btnTag substringFromIndex:btnTag.length-1];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 480) {
-           // if (!dayView) {
-                dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView" bundle:nil];
-           // }
+            // if (!dayView) {
+            dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView" bundle:nil];
+            // }
         }else{
-           // if (!dayView) {
-                dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPhone4" bundle:nil];
-           // }
+            // if (!dayView) {
+            dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPhone4" bundle:nil];
+            // }
         }
     }
     else{
-       // if (!dayView) {
-            dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPad" bundle:nil];
-       // }
+        // if (!dayView) {
+        dayView = [[PlusveckaDayView alloc]initWithNibName:@"PlusveckaDayView_iPad" bundle:nil];
+        // }
     }
     dayView.totalArray = totalArray;
     dayView.sub1EventsArray = sub1EventsArray;
@@ -1500,7 +1552,7 @@
 -(IBAction)statusButtonClicked:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
-
+    
     
     switch (btn.tag) {
         case 1:

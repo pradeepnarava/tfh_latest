@@ -27,6 +27,7 @@
 
 @property (nonatomic, strong) PlusveckaForslagViewController *forslagController;
 @property (nonatomic, strong) PlusveckaTidigeraViewController *tidigeraController;
+@property (nonatomic, strong) NSMutableArray *weekArray;
 @property (nonatomic,strong) PlusveckaSettingsView *settingsView;
 @property (nonatomic, strong) PlusveckaDayView *dayView;
 @property (nonatomic,copy) NSDate *week;

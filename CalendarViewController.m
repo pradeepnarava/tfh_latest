@@ -252,6 +252,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [self getDataSub1EventsCount];
     [self checkEventStoreAccessForCalendar];
     [self getDataSub1Events];
+    [self displayButton];
     [self getDataSub1Total];
 
 }
@@ -1287,7 +1288,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
             NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
             NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
-            [temp setValue:eventDesTextView.text forKey:kEventDes];
+            
+            const char *utfString = [eventDesTextView.text UTF8String];
+            NSString * finalEncodedString = [NSString stringWithUTF8String:utfString];
+            
+            [temp setValue:finalEncodedString forKey:kEventDes];
             [temp setValue:startDate forKey:kStartDate];
             [temp setValue:endDate forKey:kEndDate];
             [temp setValue:dayTime forKey:kDayTime];
@@ -1301,8 +1306,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             if (!currentStatuBtn)
                 currentStatuBtn = @"Neutral";
             
+            const char *utfString = [eventDesTextView.text UTF8String];
+            NSString * finalEncodedString = [NSString stringWithUTF8String:utfString];
+            
             [temp setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
-            [temp setValue:eventDesTextView.text forKey:kEventDes];
+            [temp setValue:finalEncodedString forKey:kEventDes];
             [temp setValue:startDate forKey:kStartDate];
             [temp setValue:endDate forKey:kEndDate];
             [temp setValue:dayTime forKey:kDayTime];
@@ -1697,7 +1705,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     {
         NSInteger subId = [[recordsDic valueForKey:kSub1Id] integerValue];
         
-        NSString *query=[NSString stringWithFormat:@"UPDATE SUB1EVENT SET date='%@', startDate='%@', endDate='%@', status='%@', dayDate='%@', eventDescription='%@' WHERE subId='%d'",str, [recordsDic valueForKey:kStartDate],[recordsDic valueForKey:kEndDate],[recordsDic valueForKey:kStatus],[recordsDic valueForKey:kDayTime],[recordsDic valueForKey:kEventDes],subId];
+        NSString *query=[NSString stringWithFormat:@"UPDATE SUB1EVENT SET date='%@', startDate='%@', endDate='%@', status='%@', dayDate='%@', eventDescription='%s' WHERE subId='%d'",str, [recordsDic valueForKey:kStartDate],[recordsDic valueForKey:kEndDate],[recordsDic valueForKey:kStatus],[recordsDic valueForKey:kDayTime],[[recordsDic valueForKey:kEventDes] UTF8String],subId];
         
         const char *del_stmt = [query UTF8String];
         
