@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CalendarViewController">
             <connections>
+                <outlet property="buttonNegative" destination="862" id="cgj-6g-QrN"/>
+                <outlet property="buttonNeutral" destination="863" id="owx-c9-4ns"/>
+                <outlet property="buttonPlus" destination="864" id="T3p-MP-N2c"/>
                 <outlet property="eventDesTextView" destination="861" id="934"/>
                 <outlet property="friButton5" destination="421" id="452"/>
                 <outlet property="hoursTextField1" destination="865" id="878"/>
@@ -2548,7 +2551,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="966">
-                    <rect key="frame" x="280" y="-12" width="30" height="31"/>
+                    <rect key="frame" x="267" y="0.0" width="30" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="closebutton.png">

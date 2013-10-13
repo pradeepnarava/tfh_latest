@@ -12,6 +12,7 @@
 @interface PlusveckaCalenderViewController ()
 {
     int run;
+    NSDictionary * mainDictionary;
 }
 
 @property (nonatomic, strong) NSString *currentDateBtn,*tabValue;
@@ -70,13 +71,14 @@
         [comps1 setDay:+i];
         [comps1 setHour:0];
         NSCalendar *calendar1 = [NSCalendar currentCalendar];
-        NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:[NSDate date] options:0];
+        NSDate *newDate1 = [calendar1 dateByAddingComponents:comps1 toDate:[mainDictionary objectForKey:@"startDate"] options:0];
         [self.weekArray addObject:newDate1];
     }
 }
 
 -(void)databaseInsertWeek:(NSDictionary *)dict{
     const char *dbpath = [databasePath UTF8String];
+    mainDictionary =  dict;
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
@@ -225,6 +227,8 @@
     [super viewWillAppear:YES];
     
 
+    
+    
     
     
     if (isPopup) {
@@ -610,6 +614,18 @@
                 
                 editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
                 currentStatuBtn = [temp valueForKey:kStatus];
+                
+                if ([currentStatuBtn isEqualToString:@"+"]) {
+                    [self.buttonPlus setHighlighted:YES];
+                }
+                else if ([currentStatuBtn isEqualToString:@"-"]) {
+                    [self.buttonNegative setHighlighted:YES];
+                }
+                else if ( [[currentStatuBtn lowercaseString] isEqualToString:@"neutral"]) {
+                    [self.buttonNeutral setHighlighted:YES];
+                }
+                
+                
                 NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
                 NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
                 eventDesTextView.text = [temp valueForKey:kEventDes];
@@ -1633,4 +1649,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    [_buttonPlus release];
+    [_buttonNeutral release];
+    [_buttonNegative release];
+    [super dealloc];
+}
+- (void)viewDidUnload {
+    [self setButtonPlus:nil];
+    [self setButtonNeutral:nil];
+    [self setButtonNegative:nil];
+    [super viewDidUnload];
+}
 @end

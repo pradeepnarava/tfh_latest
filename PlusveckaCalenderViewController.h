@@ -45,6 +45,10 @@
 @property (nonatomic, retain) NSString *buttonString;
 @property (nonatomic, retain) NSString *editIndexValue,*editTotalValue,*dateIndexValue;
 @property (nonatomic,strong) NSMutableDictionary *sub2Settings;
+/////////////////////////
+@property (retain, nonatomic) IBOutlet UIButton *buttonPlus;
+@property (retain, nonatomic) IBOutlet UIButton *buttonNeutral;
+@property (retain, nonatomic) IBOutlet UIButton *buttonNegative;
 
 
 -(NSString*)dateFromStringCal:(NSDate*)date;

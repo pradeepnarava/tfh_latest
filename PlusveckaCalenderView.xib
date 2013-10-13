@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlusveckaCalenderViewController">
             <connections>
+                <outlet property="buttonNegative" destination="9" id="0C9-iu-gxO"/>
+                <outlet property="buttonNeutral" destination="10" id="yWI-HK-ut6"/>
+                <outlet property="buttonPlus" destination="11" id="wfc-Y9-omU"/>
                 <outlet property="eventDesTextView" destination="8" id="1428"/>
                 <outlet property="friButton5" destination="1088" id="1407"/>
                 <outlet property="hoursTextField1" destination="12" id="1424"/>
