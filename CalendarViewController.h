@@ -49,9 +49,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *raderaBtn;
 @property (nonatomic, strong) NSMutableArray *dataArray,*weekdays,*totalDataArray,*dataArrayCount;
 
-@property (retain, nonatomic) IBOutlet UIButton *buttonPlus;
-@property (retain, nonatomic) IBOutlet UIButton *buttonNeutral;
-@property (retain, nonatomic) IBOutlet UIButton *buttonNegative;
 
 
 /////////*************** Calendar Events from iPhone Calendar *************//////////////

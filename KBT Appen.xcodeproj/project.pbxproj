@@ -15,6 +15,12 @@
 		1E82CD0317EE82C600E500FD /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFD17EE82C600E500FD /* Icon-72.png */; };
 		1E82CD0417EE82C600E500FD /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFE17EE82C600E500FD /* Icon-Small@2x.png */; };
 		1E82CD0517EE82C600E500FD /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E82CCFF17EE82C600E500FD /* Icon-Small.png */; };
+		240083D9180EF6CA00E8B915 /* CalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240083D1180EF6CA00E8B915 /* CalendarView_iPhone4.xib */; };
+		240083DA180EF6CA00E8B915 /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240083D2180EF6CA00E8B915 /* CalendarView.xib */; };
+		240083DB180EF6CA00E8B915 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240083D4180EF6CA00E8B915 /* CalendarViewController.m */; };
+		240083DC180EF6CA00E8B915 /* DayCalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240083D5180EF6CA00E8B915 /* DayCalendarView_iPhone4.xib */; };
+		240083DD180EF6CA00E8B915 /* DayCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240083D6180EF6CA00E8B915 /* DayCalendarView.xib */; };
+		240083DE180EF6CA00E8B915 /* DayCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240083D8180EF6CA00E8B915 /* DayCalendarViewController.m */; };
 		2401C2E01792F8080081BFEA /* setting_alarm_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2DF1792F8080081BFEA /* setting_alarm_button.png */; };
 		2401C2EE1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */; };
 		2401C2F0179313900081BFEA /* Registreringsvecka_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */; };
@@ -45,12 +51,6 @@
 		2456C5B71795AD1000F36A2F /* ASDepthModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2456C5B41795AD1000F36A2F /* ASDepthModalViewController.m */; };
 		2456C5B81795AD1000F36A2F /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 2456C5B61795AD1000F36A2F /* UIImage+Blur.m */; };
 		2456C5BA1795AD2100F36A2F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2456C5B91795AD2100F36A2F /* Accelerate.framework */; };
-		24618DE717A4DAFC00D3D08B /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24618DE017A4DAFC00D3D08B /* CalendarViewController.m */; };
-		24618DE817A4DAFC00D3D08B /* CalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE117A4DAFC00D3D08B /* CalendarView.xib */; };
-		24618DE917A4DAFC00D3D08B /* CalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE217A4DAFC00D3D08B /* CalendarView_iPhone4.xib */; };
-		24618DEA17A4DAFC00D3D08B /* DayCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24618DE417A4DAFC00D3D08B /* DayCalendarViewController.m */; };
-		24618DEB17A4DAFC00D3D08B /* DayCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE517A4DAFC00D3D08B /* DayCalendarView.xib */; };
-		24618DEC17A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24618DE617A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib */; };
 		2473B6FB17D2FC7E00A465B5 /* LUncheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6F817D2FC7E00A465B5 /* LUncheck.png */; };
 		2473B6FC17D2FC7E00A465B5 /* LChecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6F917D2FC7E00A465B5 /* LChecked@2x.png */; };
 		2473B6FD17D2FC7E00A465B5 /* LChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 2473B6FA17D2FC7E00A465B5 /* LChecked.png */; };
@@ -374,6 +374,14 @@
 		1E82CCFD17EE82C600E500FD /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		1E82CCFE17EE82C600E500FD /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		1E82CCFF17EE82C600E500FD /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		240083D1180EF6CA00E8B915 /* CalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView_iPhone4.xib; sourceTree = "<group>"; };
+		240083D2180EF6CA00E8B915 /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
+		240083D3180EF6CA00E8B915 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		240083D4180EF6CA00E8B915 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		240083D5180EF6CA00E8B915 /* DayCalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView_iPhone4.xib; sourceTree = "<group>"; };
+		240083D6180EF6CA00E8B915 /* DayCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView.xib; sourceTree = "<group>"; };
+		240083D7180EF6CA00E8B915 /* DayCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayCalendarViewController.h; sourceTree = "<group>"; };
+		240083D8180EF6CA00E8B915 /* DayCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayCalendarViewController.m; sourceTree = "<group>"; };
 		2401C2DF1792F8080081BFEA /* setting_alarm_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_alarm_button.png; sourceTree = "<group>"; };
 		2401C2ED1793133A0081BFEA /* Beteendeaktivering_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Beteendeaktivering_iPhone4.xib; sourceTree = "<group>"; };
 		2401C2EF179313900081BFEA /* Registreringsvecka_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Registreringsvecka_iPhone4.xib; sourceTree = "<group>"; };
@@ -409,14 +417,6 @@
 		2456C5B51795AD1000F36A2F /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
 		2456C5B61795AD1000F36A2F /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
 		2456C5B91795AD2100F36A2F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		24618DDF17A4DAFC00D3D08B /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
-		24618DE017A4DAFC00D3D08B /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
-		24618DE117A4DAFC00D3D08B /* CalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView.xib; sourceTree = "<group>"; };
-		24618DE217A4DAFC00D3D08B /* CalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarView_iPhone4.xib; sourceTree = "<group>"; };
-		24618DE317A4DAFC00D3D08B /* DayCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayCalendarViewController.h; sourceTree = "<group>"; };
-		24618DE417A4DAFC00D3D08B /* DayCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayCalendarViewController.m; sourceTree = "<group>"; };
-		24618DE517A4DAFC00D3D08B /* DayCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView.xib; sourceTree = "<group>"; };
-		24618DE617A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayCalendarView_iPhone4.xib; sourceTree = "<group>"; };
 		2473B6F817D2FC7E00A465B5 /* LUncheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LUncheck.png; sourceTree = "<group>"; };
 		2473B6F917D2FC7E00A465B5 /* LChecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LChecked@2x.png"; sourceTree = "<group>"; };
 		2473B6FA17D2FC7E00A465B5 /* LChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LChecked.png; sourceTree = "<group>"; };
@@ -1286,14 +1286,14 @@
 				248BF53817AAC6A600556BF8 /* RegiDinaveckarDayCalendarViewController.m */,
 				248BF53517AAC6A600556BF8 /* RegiDinaveckarDayCalendarView_iPhone4.xib */,
 				248BF53617AAC6A600556BF8 /* RegiDinaveckarDayCalendarView.xib */,
-				24618DDF17A4DAFC00D3D08B /* CalendarViewController.h */,
-				24618DE017A4DAFC00D3D08B /* CalendarViewController.m */,
-				24618DE117A4DAFC00D3D08B /* CalendarView.xib */,
-				24618DE217A4DAFC00D3D08B /* CalendarView_iPhone4.xib */,
-				24618DE317A4DAFC00D3D08B /* DayCalendarViewController.h */,
-				24618DE417A4DAFC00D3D08B /* DayCalendarViewController.m */,
-				24618DE517A4DAFC00D3D08B /* DayCalendarView.xib */,
-				24618DE617A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib */,
+				240083D3180EF6CA00E8B915 /* CalendarViewController.h */,
+				240083D4180EF6CA00E8B915 /* CalendarViewController.m */,
+				240083D1180EF6CA00E8B915 /* CalendarView_iPhone4.xib */,
+				240083D2180EF6CA00E8B915 /* CalendarView.xib */,
+				240083D7180EF6CA00E8B915 /* DayCalendarViewController.h */,
+				240083D8180EF6CA00E8B915 /* DayCalendarViewController.m */,
+				240083D5180EF6CA00E8B915 /* DayCalendarView_iPhone4.xib */,
+				240083D6180EF6CA00E8B915 /* DayCalendarView.xib */,
 				24B54E2717907D0700AAA236 /* SettingRegistViewController.h */,
 				24B54E2817907D0700AAA236 /* SettingRegistViewController.m */,
 				24F8BD2A17E0CBE600748366 /* SettingRegistView.xib */,
@@ -1652,6 +1652,7 @@
 				5EF0E2B1173409A90016A59D /* tanefallor.html in Resources */,
 				5EF0E2B2173409A90016A59D /* tanke.html in Resources */,
 				5EF0E2B3173409A90016A59D /* tankefallar.html in Resources */,
+				240083DD180EF6CA00E8B915 /* DayCalendarView.xib in Resources */,
 				5EF0E2B4173409A90016A59D /* Tankefallor.html in Resources */,
 				5EEFD1701737BD21001E0E25 /* Interoceptivexponering.xib in Resources */,
 				5EA9C624173CFAC900C6E426 /* popupbg.png in Resources */,
@@ -1742,6 +1743,7 @@
 				5EF72839175F78BC00FE46F7 /* tillbakabutton.png in Resources */,
 				5EF7283A175F78BC00FE46F7 /* topbar4.png in Resources */,
 				5EF7283C175F8F0B00FE46F7 /* TankefallorViewController_iPad.xib in Resources */,
+				240083DC180EF6CA00E8B915 /* DayCalendarView_iPhone4.xib in Resources */,
 				D84FDFB917661B5D00AD1D78 /* DateSelectingViewController.xib in Resources */,
 				D82DF59F1768500800B92E24 /* Livskompassen_iPad.xib in Resources */,
 				D82DF5A11768512500B92E24 /* ListOfKompass_iPad.xib in Resources */,
@@ -1797,6 +1799,7 @@
 				5EEE81EB177C92010009598F /* button.png in Resources */,
 				5EEE8206177C9C020009598F /* övningar-button-purple@2x.png in Resources */,
 				5EEE8207177C9C020009598F /* övningar-button-green@2x.png in Resources */,
+				240083DA180EF6CA00E8B915 /* CalendarView.xib in Resources */,
 				5EEE8208177C9C020009598F /* övningar-button-blue@2x.png in Resources */,
 				5EEE8209177C9C020009598F /* övningar-beteendeövningar-background@2x.png in Resources */,
 				5EEE820A177C9C020009598F /* övningar-exponeringsövningar-background@2x.png in Resources */,
@@ -1858,6 +1861,7 @@
 				5EBEAA9F17996C0700679AA4 /* PlusveckaDinaveckar.xib in Resources */,
 				24BDD498179AD0E000BEDACC /* settings_digital_input.png in Resources */,
 				24BDD49A179B0D3200BEDACC /* SettingRegistView_iPhone4.xib in Resources */,
+				240083D9180EF6CA00E8B915 /* CalendarView_iPhone4.xib in Resources */,
 				5E88C5DE179BDE470054DC92 /* PlusveckaDinaveckar_iPhone4.xib in Resources */,
 				5E88C5E3179BE42F0054DC92 /* PlusveckaDinaveckarView.xib in Resources */,
 				5E88C5E5179BE5D40054DC92 /* PlusveckaDinaveckarView_iPhone4.xib in Resources */,
@@ -1869,10 +1873,6 @@
 				249F9963179D9E5F00D60B10 /* RegistreringDinaveckaView_iPhone4.xib in Resources */,
 				5E262A1F17A01D7300E1EE56 /* DinaveckarCell.xib in Resources */,
 				5E262A2117A01E9A00E1EE56 /* date-background.png in Resources */,
-				24618DE817A4DAFC00D3D08B /* CalendarView.xib in Resources */,
-				24618DE917A4DAFC00D3D08B /* CalendarView_iPhone4.xib in Resources */,
-				24618DEB17A4DAFC00D3D08B /* DayCalendarView.xib in Resources */,
-				24618DEC17A4DAFC00D3D08B /* DayCalendarView_iPhone4.xib in Resources */,
 				1E82CA8118032D3700671BB0 /* beep-5.wav in Resources */,
 				24B93F4217A98DAE003CBD86 /* RegiDinaveckarCalendarView_iPhone4.xib in Resources */,
 				24B93F4317A98DAE003CBD86 /* RegiDinaveckarCalendarView.xib in Resources */,
@@ -1939,6 +1939,7 @@
 				5EF0E2CA17340F540016A59D /* PMCalendarController.m in Sources */,
 				5EF0E2CB17340F540016A59D /* PMCalendarView.m in Sources */,
 				5EF0E2CC17340F540016A59D /* PMDimmingView.m in Sources */,
+				240083DB180EF6CA00E8B915 /* CalendarViewController.m in Sources */,
 				5EF0E2CD17340F540016A59D /* PMPeriod.m in Sources */,
 				5EF0E2CE17340F540016A59D /* PMSelectionView.m in Sources */,
 				5EEFD16F1737BD21001E0E25 /* Interoceptivexponering.m in Sources */,
@@ -1951,6 +1952,7 @@
 				5EED2B04173E69E600CF77B3 /* MAGridView.m in Sources */,
 				5EED2B07173E69F500CF77B3 /* TapDetectingView.m in Sources */,
 				5EF8F6741740DE8700D9CD5E /* ListOfKompass.m in Sources */,
+				240083DE180EF6CA00E8B915 /* DayCalendarViewController.m in Sources */,
 				5EF7ECD11743C7B4004D0EDD /* DinKompass.m in Sources */,
 				5E9ECF701746745D00A894D0 /* EditLivskompass.m in Sources */,
 				5EF4F09017479A85003F68B2 /* ShowEventsBO.m in Sources */,
@@ -1969,8 +1971,6 @@
 				5E88C5EE179BEC3E0054DC92 /* PlusveckaSettingsView.m in Sources */,
 				249F995F179D9DB500D60B10 /* RegistreringDinaveckarViewController.m in Sources */,
 				5E262A1D17A01D5800E1EE56 /* DinaveckarCell.m in Sources */,
-				24618DE717A4DAFC00D3D08B /* CalendarViewController.m in Sources */,
-				24618DEA17A4DAFC00D3D08B /* DayCalendarViewController.m in Sources */,
 				24B93F4417A98DAE003CBD86 /* RegiDinaveckarCalendarViewController.m in Sources */,
 				248BF53B17AAC6A600556BF8 /* RegiDinaveckarDayCalendarViewController.m in Sources */,
 				24BFDE2A17AD88990072DEEA /* UtvarderingVC.m in Sources */,

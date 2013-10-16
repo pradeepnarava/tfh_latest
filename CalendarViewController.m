@@ -252,7 +252,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [self getDataSub1EventsCount];
     [self checkEventStoreAccessForCalendar];
     [self getDataSub1Events];
-    [self displayButton];
     [self getDataSub1Total];
 
 }
@@ -399,9 +398,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(void)dealloc {
     [dataArray release];
     [totalDataArray release];
-    [_buttonPlus release];
-    [_buttonNeutral release];
-    [_buttonNegative release];
     [super dealloc];
 }
 
@@ -461,11 +457,11 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                         CALayer *layer = [CALayer layer];
                         
                         if ([[dict objectForKey:kStatus] isEqualToString:@"+"]) {
-                            layer.backgroundColor = [UIColor colorWithRed:109.0/255.0 green:169.0/255.0 blue:88.0/255.0 alpha:1.0].CGColor;
+                            layer.backgroundColor = [UIColor greenColor].CGColor;
                         }else if ([[dict objectForKey:kStatus ] isEqualToString:@"-"]) {
-                            layer.backgroundColor = [UIColor colorWithRed:202.0/255.0 green:84.0/255.0 blue:25.0/255.0 alpha:1.0].CGColor;
+                            layer.backgroundColor = [UIColor redColor].CGColor;
                         }else if ([[dict objectForKey:kStatus] isEqualToString:@"Neutral"]){
-                            layer.backgroundColor = [UIColor colorWithRed:196.0/255.0 green:196.0/255.0 blue:196.0/255.0 alpha:1.0].CGColor;
+                            layer.backgroundColor = [UIColor darkGrayColor].CGColor;
                         }else {
                             [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
                             [btn setTitle:@"" forState:UIControlStateNormal];
@@ -608,21 +604,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSLog(@"data ---%d",[layer.name intValue]);
             NSMutableDictionary *temp = [dataArray objectAtIndex:[layer.name intValue]];
             
-            
-            NSLog(@"%@",temp);
                 editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
                 currentStatuBtn = [temp valueForKey:kStatus];
-            
-            if ([currentStatuBtn isEqualToString:@"+"]) {
-                [self.buttonPlus setHighlighted:YES];
-            }
-            else if ([currentStatuBtn isEqualToString:@"-"]) {
-                [self.buttonNegative setHighlighted:YES];
-            }
-            else if ( [[currentStatuBtn lowercaseString] isEqualToString:@"neutral"]) {
-                [self.buttonNeutral setHighlighted:YES];
-            }
-            
                 NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
                 NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
                 eventDesTextView.text = [temp valueForKey:kEventDes];
@@ -646,11 +629,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
         
         hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
-        
-        [self.buttonNegative setHighlighted:NO];
-        [self.buttonNeutral setHighlighted:NO];
-        [self.buttonPlus setHighlighted:NO];
         
         raderaBtn.enabled = NO;
         editIndexValue= nil;
@@ -1309,15 +1287,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
             NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
             NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
-            
-//            const char *utfString = [eventDesTextView.text UTF8String];
-//            NSString * finalEncodedString = [NSString stringWithUTF8String:utfString];
-            
-            
-            
-            NSString *correctString = [NSString stringWithCString:[eventDesTextView.text cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
-            
-            [temp setValue:correctString forKey:kEventDes];
+            [temp setValue:eventDesTextView.text forKey:kEventDes];
             [temp setValue:startDate forKey:kStartDate];
             [temp setValue:endDate forKey:kEndDate];
             [temp setValue:dayTime forKey:kDayTime];
@@ -1331,13 +1301,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             if (!currentStatuBtn)
                 currentStatuBtn = @"Neutral";
             
-//            const char *utfString = [eventDesTextView.text UTF8String];
-//            NSString * finalEncodedString = [NSString stringWithUTF8String:utfString];
-            
-            NSString *correctString = [NSString stringWithCString:[eventDesTextView.text cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
-            
             [temp setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
-            [temp setValue:correctString forKey:kEventDes];
+            [temp setValue:eventDesTextView.text forKey:kEventDes];
             [temp setValue:startDate forKey:kStartDate];
             [temp setValue:endDate forKey:kEndDate];
             [temp setValue:dayTime forKey:kDayTime];
@@ -1732,7 +1697,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     {
         NSInteger subId = [[recordsDic valueForKey:kSub1Id] integerValue];
         
-        NSString *query=[NSString stringWithFormat:@"UPDATE SUB1EVENT SET date='%@', startDate='%@', endDate='%@', status='%@', dayDate='%@', eventDescription='%s' WHERE subId='%d'",str, [recordsDic valueForKey:kStartDate],[recordsDic valueForKey:kEndDate],[recordsDic valueForKey:kStatus],[recordsDic valueForKey:kDayTime],[[recordsDic valueForKey:kEventDes] UTF8String],subId];
+        NSString *query=[NSString stringWithFormat:@"UPDATE SUB1EVENT SET date='%@', startDate='%@', endDate='%@', status='%@', dayDate='%@', eventDescription='%@' WHERE subId='%d'",str, [recordsDic valueForKey:kStartDate],[recordsDic valueForKey:kEndDate],[recordsDic valueForKey:kStatus],[recordsDic valueForKey:kDayTime],[recordsDic valueForKey:kEventDes],subId];
         
         const char *del_stmt = [query UTF8String];
         
@@ -2001,10 +1966,4 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewDidUnload {
-    [self setButtonPlus:nil];
-    [self setButtonNeutral:nil];
-    [self setButtonNegative:nil];
-    [super viewDidUnload];
-}
 @end
