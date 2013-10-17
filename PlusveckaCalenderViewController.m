@@ -258,7 +258,7 @@
         [self week:[selectedDictionary valueForKey:kStartDate]];
         [self getData];
         [self displayButton];
-        [self getSub2SettingsData];
+        //[self getSub2SettingsData];
     }
 }
 

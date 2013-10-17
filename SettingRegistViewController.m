@@ -545,9 +545,9 @@ int tagValue;
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:lblTitle];
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone	 target:self action:@selector(dismissActionSheet)];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Avbryt" style:UIBarButtonItemStyleDone	 target:self action:@selector(dismissActionSheet)];
     
-    UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(applyTime)];
+    UIBarButtonItem *applyButton = [[UIBarButtonItem alloc] initWithTitle:@"Klar" style:UIBarButtonItemStyleDone target:self action:@selector(applyTime)];
     
     
     UIBarButtonItem *flexibleSpace1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];

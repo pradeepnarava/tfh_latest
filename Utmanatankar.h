@@ -35,14 +35,14 @@
     NSString *SelectedDate;
     UITableViewCell *cell;
     
-    IBOutlet UIView *questionView1,*questionView2,*questionView3,*questionView4,*questionView5,*questionView6;
+    IBOutlet UIView *questionView1,*questionView2,*questionView3,*questionView4,*questionView4_1,*questionView5,*questionView6;
     
     IBOutlet UIView *Label1Popup;
     IBOutlet UIButton *raderaButton;
     
     
     //Gopal
-    UILabel *regLabel1,*regLabel2,*regLabel3,*regLabel4,*regLabel5,*regLabel6,*regLabel7,*regLabel8;
+    UILabel *regLabel1,*regLabel2,*regLabel3,*regLabel4,*regLabel5,*regLabel6,*regLabel7,*regLabel8,*regLabel4_1;
     UIButton *regButton1,*regButton2,*regButton3,*regButton4,*regButton5,*regButton6,*regButton7,*regButton8;
     
     
@@ -52,7 +52,7 @@
 @property (nonatomic, retain) NSMutableArray *registreraTankars;
 
 //Gopal ******
-@property(nonatomic, retain)IBOutlet UILabel *regLabel1,*regLabel2,*regLabel3,*regLabel4,*regLabel5,*regLabel6,*regLabel7,*regLabel8;
+@property(nonatomic, retain)IBOutlet UILabel *regLabel1,*regLabel2,*regLabel3,*regLabel4,*regLabel5,*regLabel6,*regLabel7,*regLabel8,*regLabel4_1;
 @property(nonatomic, retain)IBOutlet UIButton *regButton1,*regButton2,*regButton3,*regButton4,*regButton5,*regButton6,*regButton7,*regButton8;
 ///Gopal **********
 
@@ -65,6 +65,7 @@
 @property(nonatomic, retain)IBOutlet UILabel *quesitonLabel2;
 @property(nonatomic, retain)IBOutlet UILabel *quesitonLabel3;
 @property(nonatomic, retain)IBOutlet UILabel *quesitonLabel4;
+@property(nonatomic, retain)IBOutlet UILabel *quesitonLabel4_1;
 @property(nonatomic, retain)IBOutlet UILabel *questionLabel5;
 @property(nonatomic, retain)IBOutlet UILabel *questionLabel6;
 
