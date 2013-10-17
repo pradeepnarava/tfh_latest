@@ -216,7 +216,7 @@
                 [but addGestureRecognizer:longPressGesture];
             }
         }
-
+ 
         if ([statusString isEqualToString:@"+"]) {
             [but setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
         }else if ([statusString isEqualToString:@"-"]){
