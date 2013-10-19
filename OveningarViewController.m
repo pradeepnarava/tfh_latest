@@ -7,7 +7,7 @@
 //
 
 #import "OveningarViewController.h"
-
+#import "MTPopupWindow.h"
 @interface OveningarViewController ()
 
 @end
@@ -182,5 +182,9 @@
     
     [self.navigationController pushViewController:lsp animated:YES];
 }
+-(IBAction)mainlabelalert:(id)sender{
+    [MTPopupWindow showWindowWithHTMLFile:@"Registreratankar.html" insideView:self.view];
+}
+
 
 @end

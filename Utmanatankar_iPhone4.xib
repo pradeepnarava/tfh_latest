@@ -18,13 +18,15 @@
                 <outlet property="quesitonLabel1" destination="38" id="499"/>
                 <outlet property="quesitonLabel2" destination="63" id="500"/>
                 <outlet property="quesitonLabel3" destination="89" id="501"/>
-                <outlet property="quesitonLabel4" destination="120" id="502"/>
+                <outlet property="quesitonLabel4" destination="nEa-VO-nM0" id="FMs-WR-y9O"/>
+                <outlet property="quesitonLabel4_1" destination="JhM-G7-VW4" id="X7h-xI-YIK"/>
                 <outlet property="questionLabel5" destination="140" id="504"/>
                 <outlet property="questionLabel6" destination="163" id="503"/>
                 <outlet property="questionView1" destination="483" id="531"/>
                 <outlet property="questionView2" destination="478" id="530"/>
                 <outlet property="questionView3" destination="473" id="529"/>
                 <outlet property="questionView4" destination="468" id="528"/>
+                <outlet property="questionView4_1" destination="adX-Jy-9Xk" id="uXy-DK-WIq"/>
                 <outlet property="questionView5" destination="458" id="527"/>
                 <outlet property="questionView6" destination="488" id="526"/>
                 <outlet property="raderaButton" destination="407" id="451"/>
@@ -311,29 +313,34 @@
                             <rect key="frame" x="7" y="611" width="302" height="81"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="120">
-                            <rect key="frame" x="20" y="613" width="278" height="79"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JhM-G7-VW4">
+                            <rect key="frame" x="32" y="615" width="90" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <attributedString key="attributedText">
-                                <fragment content="4. ">
-                                    <attributes>
-                                        <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                    </attributes>
-                                </fragment>
                                 <fragment content="Dina motbevis">
                                     <attributes>
+                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" paragraphSpacing="10" headIndent="36" defaultTabInterval="36">
+                                            <tabStops>
+                                                <textTab alignment="left" location="11"/>
+                                                <textTab alignment="left" location="36"/>
+                                            </tabStops>
+                                        </paragraphStyle>
                                         <integer key="NSUnderline" value="1"/>
-                                        <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </attributes>
                                 </fragment>
-                                <fragment content=" - Vilka argument talar emot att din tanke stämmer? Här kan du använda de ">
+                            </attributedString>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nEa-VO-nM0">
+                            <rect key="frame" x="20" y="613" width="278" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <attributedString key="attributedText">
+                                <fragment content="4.                          - Vilka argument talar emot att din tanke stämmer? Här kan du använda de ">
                                     <attributes>
-                                        <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                     </attributes>
@@ -348,9 +355,9 @@
                                 </fragment>
                                 <fragment content=" som presenterades i läsdelen.">
                                     <attributes>
-                                        <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>
@@ -978,7 +985,7 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="questionCloseBtn3:" destination="-1" eventType="touchUpInside" id="535"/>
+                                        <action selector="questionCloseBtn3:" destination="-1" eventType="touchUpInside" id="tJR-ly-tRx"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -1029,8 +1036,57 @@ Här kan du, om du vill, använda dig av ”Strategier för att utmana negativa 
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="adX-Jy-9Xk">
+                            <rect key="frame" x="6" y="654" width="308" height="365"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="definitionpopup.png" id="DMN-es-s9Z">
+                                    <rect key="frame" x="5" y="0.0" width="303" height="365"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gYZ-18-6a1">
+                                    <rect key="frame" x="41" y="57" width="210" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <attributedString key="attributedText">
+                                        <fragment content="Dina motbevis">
+                                            <attributes>
+                                                <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
+                                                    <tabStops/>
+                                                </paragraphStyle>
+                                                <integer key="NSUnderline" value="1"/>
+                                                <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="Fei-0L-Iaa">
+                                    <rect key="frame" x="20" y="82" width="259" height="259"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <string key="text">Här ska du skriva ner det som talar emot din negativa automatiska tanke. Om din NAT är ” Om jag går på festen kommer jag att få ångest och göra bort mig” så kan motbevisen vara: ”Jag var på fest förra helgen, det gick bra”, ”Idag känner jag mig ganska pigg och lite sugen på fest”. Om din NAT istället är ”Alla tycker att jag är så himla värdelös på jobbet” så kan motbevisen vara: ”Jag är inte bra på allt, men vissa saker är jag faktiskt bra på” eller ”Jag är inte snabbast på det jag gör, men jag gör det noggrant och mina arbetskamrater tycker om mig”.
+Här kan du, om du vill, använda dig av ”Strategier för att utmana negativa tankar”.</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6M8-je-GLR">
+                                    <rect key="frame" x="278" y="38" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <state key="normal" image="closebutton.png">
+                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
-                                        <action selector="questionCloseBtn4:" destination="-1" eventType="touchUpInside" id="534"/>
+                                        <action selector="questionCloseBtn4:" destination="-1" eventType="touchUpInside" id="mMq-fA-saX"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -1065,8 +1121,7 @@ Här kan du, om du vill, använda dig av ”Strategier för att utmana negativa 
                                     <rect key="frame" x="20" y="82" width="259" height="259"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <string key="text">Innehåller din NAT någon tankefälla?
-Ibland innehåller en NAT en tankefälla, som vi har berättat om tidigare. Ifall din NAT innehåller en eller fler tankefällor kan du ange det här, annars kan du lämna det här fältet tomt.</string>
+                                    <mutableString key="text">•	”Allt eller inget”-tänkande:Du tänker på allting som svart eller vitt. Antingen har du lyckats eller så har du misslyckats. Det finns ingenting däremellan. •	Katastrofiering (siarens misstag):Du överdriver sannolikheten för att negativa saker ska inträffa. Banala saker blir stora problem som orsakar ångest eller nedstämdhet.•	Diskvalificering:Du tillåter dig inte att känna dig stolt eller nöjd med saker som du lyckats med, eftersom du alltid hittar saker som gör prestationen mindre värd.•	Att tänka med känslorna:Du tolkar dina känslor som sanningar. Du använder dina känslor som bevis och blandar ihop känslor med verkligheten. •	Etikettering:Du sätter etiketter på dig själv, till exempel genom att inte göra skillnad på ett misslyckande och din personlighet. •	Förstora eller förminska:Du förstorar negativa saker som sker och förminskar det positiva. •	Mentalt filter:Du ser en liten detalj på bekostnad av helheten. En enda negativ sak påverkar hela din bild av verkligheten.•	Tankeläsning:Du har en förutfattad mening om vad folk tycker om dig, du tycker dig kunna se att folk tycker illa om dig eller tycker att du är en svag person.•	Övergeneralisering:Du drar generella slutsatser av enstaka negativa händelser, och tycker dig därför se ett negativt mönster i ditt liv.•	Personalisering:Du tänker att du bär skulden för yttre händelser som du egentligen inte har något ansvar för. •	Måste och bordeDu har en bestämd åsikt om hur saker och ting ska vara och hur du och andra ska bete sig. Du använder ofta ord som ”måste”, ”borde”, ”ska”, ”alltid” och ”aldrig”.</mutableString>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
@@ -1150,17 +1205,50 @@ Ibland innehåller en NAT en tankefälla, som vi har berättat om tidigare. Ifal
     <resources>
         <image name="background-ipone5.png" width="640" height="1136"/>
         <image name="bbutton.png" width="138" height="60"/>
+        <image name="bbutton.png" width="138" height="60"/>
+        <image name="bbutton.png" width="138" height="60"/>
+        <image name="bbutton.png" width="138" height="60"/>
+        <image name="blargebutton.png" width="486" height="82"/>
         <image name="blargebutton.png" width="486" height="82"/>
         <image name="bottom.png" width="640" height="271"/>
         <image name="closebutton.png" width="30" height="30"/>
+        <image name="closebutton.png" width="30" height="30"/>
+        <image name="closebutton.png" width="30" height="30"/>
+        <image name="closebutton.png" width="30" height="30"/>
+        <image name="closebutton.png" width="30" height="30"/>
+        <image name="closebutton.png" width="30" height="30"/>
+        <image name="closebutton.png" width="30" height="30"/>
+        <image name="closebutton.png" width="30" height="30"/>
         <image name="definitionpopup.ipad.png" width="450" height="328"/>
+        <image name="definitionpopup.png" width="627" height="457"/>
+        <image name="definitionpopup.png" width="627" height="457"/>
+        <image name="definitionpopup.png" width="627" height="457"/>
+        <image name="definitionpopup.png" width="627" height="457"/>
+        <image name="definitionpopup.png" width="627" height="457"/>
         <image name="definitionpopup.png" width="627" height="457"/>
         <image name="läsdel.png" width="114" height="29"/>
         <image name="popup6.png" width="640" height="739"/>
         <image name="radera.png" width="138" height="60"/>
         <image name="scrollbottom.png" width="640" height="520"/>
         <image name="unchecked.png" width="30" height="29"/>
+        <image name="unchecked.png" width="30" height="29"/>
+        <image name="unchecked.png" width="30" height="29"/>
+        <image name="unchecked.png" width="30" height="29"/>
+        <image name="unchecked.png" width="30" height="29"/>
+        <image name="unchecked.png" width="30" height="29"/>
+        <image name="unchecked.png" width="30" height="29"/>
+        <image name="unchecked.png" width="30" height="29"/>
         <image name="utmanatext.png" width="610" height="222"/>
+        <image name="utmanatext.png" width="610" height="222"/>
+        <image name="utmanatext.png" width="610" height="222"/>
+        <image name="utmanatext.png" width="610" height="222"/>
+        <image name="utmanatext.png" width="610" height="222"/>
+        <image name="utmanatext.png" width="610" height="222"/>
+        <image name="utmanatitle.png" width="628" height="126"/>
+        <image name="utmanatitle.png" width="628" height="126"/>
+        <image name="utmanatitle.png" width="628" height="126"/>
+        <image name="utmanatitle.png" width="628" height="126"/>
+        <image name="utmanatitle.png" width="628" height="126"/>
         <image name="utmanatitle.png" width="628" height="126"/>
     </resources>
 </document>

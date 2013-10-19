@@ -266,8 +266,6 @@ int s=0;
      [MTPopupWindow showWindowWithHTMLFile:@"Registreratankar.html" insideView:self.view];
 }
 
-
-
 -(IBAction)natalert:(id)sender{
   
     
