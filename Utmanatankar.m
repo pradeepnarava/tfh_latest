@@ -20,14 +20,14 @@ int y=0;
 @end
 
 @implementation Utmanatankar
-@synthesize  regTankerLabel,strategier,quesitonLabel1,quesitonLabel2,quesitonLabel3,quesitonLabel4,questionLabel5,questionLabel6,c1,c2,c3,c4,c5,c6;
+@synthesize  regTankerLabel,strategier,quesitonLabel1,quesitonLabel2,quesitonLabel3,quesitonLabel4,quesitonLabel4_1,questionLabel5,questionLabel6,c1,c2,c3,c4,c5,c6;
 @synthesize listexercise3,tableview,list_exercise3,isSaved;
 //Gopal
 @synthesize selectedRegistreraTankars;
 @synthesize registreraTankars;
 
 //Gopal
-@synthesize regButton1,regButton2,regButton3,regButton4,regButton5,regButton6,regButton7,regButton8,regLabel1,regLabel2,regLabel3,regLabel4,regLabel5,regLabel6,regLabel7,regLabel8;
+@synthesize regButton1,regButton2,regButton3,regButton4,regButton5,regButton6,regButton7,regButton8,regLabel1,regLabel2,regLabel3,regLabel4,regLabel5,regLabel6,regLabel7,regLabel8,regLabel4_1;
 
 NSArray *pArray;
 
@@ -217,6 +217,7 @@ NSArray *pArray;
     questionView2.hidden = YES;
     questionView3.hidden = YES;
     questionView4.hidden = YES;
+    questionView4_1.hidden = YES;
     questionView5.hidden = YES;
     questionView6.hidden = YES;
     
@@ -294,6 +295,11 @@ NSArray *pArray;
     UITapGestureRecognizer *tapGesture9 =
     [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap6:)] autorelease];
     [questionLabel6 addGestureRecognizer:tapGesture9];
+    
+    regLabel4_1.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture4_1 =
+    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap4_1:)] autorelease];
+    [regLabel4_1 addGestureRecognizer:tapGesture4_1];
     
     NSString *docsDir;
     NSArray *dirPaths;
@@ -458,11 +464,21 @@ NSArray *pArray;
 }
 //4.
 -(void)questionTap4:(id)sender {
-    questionView4.hidden = NO;
+    questionView4_1.hidden = NO;
 }
 
 -(IBAction)questionCloseBtn4:(id)sender{
-    questionView4.hidden =YES;
+    questionView4_1.hidden =YES;
+}
+
+//6.
+-(void)questionTap4_1:(id)sender {
+    questionView4.hidden = NO;
+}
+
+//6.
+-(IBAction)questionCloseBtn4_1:(id)sender {
+    questionView4.hidden = YES;
 }
 
 

@@ -52,6 +52,7 @@
 
 
 /////////*************** Calendar Events from iPhone Calendar *************//////////////
+
 ///Calendar Event from iPhone Default Calendar
 @property (nonatomic, strong) EKEventStore *eventStore;
 
@@ -61,11 +62,15 @@
 // Array of all events happening within the next 24 hours
 @property (nonatomic, strong) NSMutableArray *eventsList;
 
+/////*********************///////////////////////////////////////
 
+////////********** New Registreringsvecka **********//////
+@property (nonatomic,assign)int newRowId;
 
--(void)checkEventStoreAccessForCalendar;
--(void)requestCalendarAccess;
--(void)accessGrantedForCalendar;
+//////////
+- (void)checkEventStoreAccessForCalendar;
+- (void)requestCalendarAccess;
+- (void)accessGrantedForCalendar;
 - (void)fetchEvents;
 
 
@@ -87,39 +92,41 @@
 ///Calendar Weeks
 - (NSDate *)firstDayOfWeekFromDate:(NSDate *)date;
 - (void)week:(NSDate *)date;
--(NSString*)dateFromStringCal:(NSDate*)date;
+- (NSString*)dateFromStringCal:(NSDate*)date;
 
 //************************ GOPAL *****************////
--(void)displayButton;
--(void)databaseInsert;
--(void)getDataSub1Events;
--(void)getDataSub1Total;
--(void)databaseInsertTotal;
--(UIView*)popupView;
+- (void)displayButton;
+- (void)databaseInsert;
+- (void)getDataSub1Events;
+- (void)getDataSub1Total;
+- (void)databaseInsertTotal;
+- (UIView*)popupView;
 
--(void)empty:(id)sender;
--(void)empty1:(id)sender;
--(void)empty2:(id)sender;
--(void)empty3:(id)sender;
--(void)empty4:(id)sender;
--(void)empty5:(id)sender;
--(void)empty6:(id)sender;
+/*- (void)empty:(id)sender;
+- (void)empty1:(id)sender;
+- (void)empty2:(id)sender;
+- (void)empty3:(id)sender;
+- (void)empty4:(id)sender;
+- (void)empty5:(id)sender;
+- (void)empty6:(id)sender;
+ 
+ //Sub1Events
+ - (BOOL)findContact:(NSNumber*)questionId;
+ - (void)updateIntDatabase:(NSDictionary*)recordsDic;
+ - (void)insertIntoDatabase:(NSDictionary*)recordDic;
+ - (void)deleteRecord:(NSDictionary*)deleDic;
 
+*/
 
--(IBAction)raderaButtonClicked:(id)sender;
--(void)raderaClicked:(id)sender;
--(IBAction)okButtonClicked:(id)sender;
+- (IBAction)raderaButtonClicked:(id)sender;
+- (void)raderaClicked:(id)sender;
+- (IBAction)okButtonClicked:(id)sender;
 
-//Sub1Events
-- (BOOL)findContact:(NSNumber*)questionId;
--(void)updateIntDatabase:(NSDictionary*)recordsDic;
--(void)insertIntoDatabase:(NSDictionary*)recordDic;
--(void)deleteRecord:(NSDictionary*)deleDic;
 
 //Sub1Totals
 - (BOOL)findContactTotal:(NSNumber*)questionId;
--(void)updateIntDatabaseT:(NSDictionary*)updateDic;
--(void)insertIntoDatabaseT:(NSDictionary*)recordDic;
--(void)deleteRecordT:(NSDictionary*)deleDic;
+- (void)updateIntDatabaseT:(NSDictionary*)updateDic;
+- (void)insertIntoDatabaseT:(NSDictionary*)recordDic;
+- (void)deleteRecordT:(NSDictionary*)deleDic;
 
 @end

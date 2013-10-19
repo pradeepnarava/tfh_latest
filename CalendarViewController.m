@@ -11,6 +11,9 @@
 #import "ASDepthModalViewController.h"
 #import "DayCalendarViewController.h"
 
+#import "Events.h"
+#import "DataBaseHelper.h"
+
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
 #define kStatus    @"status"
@@ -37,6 +40,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 
 @implementation CalendarViewController
 
+@synthesize newRowId;
+
+/****///
 @synthesize dayView;
 @synthesize scrollView;
 @synthesize settingRegViewCntrl;
@@ -77,10 +83,10 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     return self;
 }
 
+#pragma mark UITextView Delegate Methods
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
     }
@@ -90,6 +96,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     return 0;
 }
 
+#pragma mark View Life Cycle
 
 - (void)viewDidLoad
 {
@@ -128,7 +135,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
-
+    
     UIImage *image = [UIImage imageNamed:@"setting_alarm_button.png"];
     UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [okBtn setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
@@ -137,40 +144,6 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     
     [self week:[NSDate date]];
-    
-    NSString *docsDir;
-    NSArray *dirPaths;
-    
-    // Get the documents directory
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    docsDir = [dirPaths objectAtIndex:0];
-    
-    // Build the path to the database file
-    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
-    
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        char *errMsg;
-        const char *sql_stmt = "CREATE TABLE IF NOT EXISTS SUB1EVENT (id INTEGER PRIMARY KEY AUTOINCREMENT,subId TEXT,date TEXT,startDate TEXT,endDate TEXT,status TEXT,dayDate TEXT,eventDescription TEXT)";
-        const char *sql_stmt1 = "CREATE TABLE IF NOT EXISTS SUB1TOTAL (id INTEGER PRIMARY KEY AUTOINCREMENT,subTId TEXT,date TEXT,total TEXT)";
-        
-        if (sqlite3_exec(exerciseDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
-        {
-            NSLog(@"Failed to create database");
-        }
-        if (sqlite3_exec(exerciseDB, sql_stmt1, NULL, NULL, &errMsg)!=SQLITE_OK) {
-            NSLog(@"Failed to create total database");
-        }
-        sqlite3_close(exerciseDB);
-        
-    } else {
-        NSLog(@"Failed to open/create database");
-    }
-    
-    
     
     if (isEventNotify) {
         NSDate *date = [self.weekdays objectAtIndex:0];
@@ -199,75 +172,39 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                                   NSLog(@"Modal view closed.");
                               }];
     }
+    self.eventStore = [[EKEventStore alloc] init];
+    self.dataArray = [[NSMutableArray alloc]init];
+    [self checkEventStoreAccessForCalendar];
 }
 
 
-
--(void)getDataSub1EventsCount {
-    
-    dataArrayCount = [[NSMutableArray alloc] init];
-    
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1EVENT"];
-        
-        const char *query_stmt = [querySQL UTF8String];
-        
-        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
-        {
-            
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
-                NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
-                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
-                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
-                NSString *status = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 5)];
-                NSString *daytime = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 6)];
-                NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 7)];
-                
-                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
-                [itemDict setValue:subId forKey:kSub1Id];
-                [itemDict setValue:startDate forKey:kStartDate];
-                [itemDict setValue:endDate forKey:kEndDate];
-                [itemDict setValue:status forKey:kStatus];
-                [itemDict setValue:daytime forKey:kDayTime];
-                [itemDict setValue:eventDescription forKey:kEventDes];
-                
-                [dataArrayCount addObject:itemDict];
-            }
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
-    
-}
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    self.eventStore = [[EKEventStore alloc] init];
-    self.dataArray = [[NSMutableArray alloc]init];
-    self.totalDataArray = [[NSMutableArray alloc] init];
     
-    [self getDataSub1EventsCount];
-    [self checkEventStoreAccessForCalendar];
-    [self getDataSub1Events];
-    [self getDataSub1Total];
-
+    if (!self.dataArray) {
+        self.dataArray = [[NSMutableArray alloc]init];
+        [self displayButton];
+    }
 }
 
-/*-(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    // Check whether we are authorized to access Calendar
-    [self checkEventStoreAccessForCalendar];
-}*/
+
+- (void)viewWillDisappear:(BOOL)animated{
+}
+
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+    self.dataArray = nil;
+    
+}
+
+
 
 
 #pragma mark -
 #pragma mark Access Calendar
 
-// Check the authorization status of our application for Calendar
 -(void)checkEventStoreAccessForCalendar
 {
     EKAuthorizationStatus status = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
@@ -319,89 +256,85 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 // This method is called when the user has granted permission to Calendar
 -(void)accessGrantedForCalendar
 {
-
     self.defaultCalendar = self.eventStore.defaultCalendarForNewEvents;
-
     [self fetchEvents];
-    
-    
 }
 
 // Fetch all events happening in the next 24 hours
+//1. Create the end date components
+//2. We will only search the default calendar for our events
+//3. Create the predicate
+//4. Fetch all events that match the predicate
+
 - (void)fetchEvents
 {
-    
     NSDate *startDate = [NSDate date];
     NSDate *endDate   = [NSDate distantFuture];
-    //Create the end date components
+    
     NSDateComponents *tomorrowDateComponents = [[NSDateComponents alloc] init];
     tomorrowDateComponents.day = 1;
-	
     //NSDate *endDate = [[NSCalendar currentCalendar] dateByAddingComponents:tomorrowDateComponents
-                                                                   // toDate:startDate
-                                                                   //options:0];
-	// We will only search the default calendar for our events
+    // toDate:startDate
+    //options:0];
+	
 	NSArray *calendarArray = [NSArray arrayWithObject:self.defaultCalendar];
     
-    // Create the predicate
 	NSPredicate *predicate = [self.eventStore predicateForEventsWithStartDate:startDate
                                                                       endDate:endDate
                                                                     calendars:calendarArray];
-	
-	// Fetch all events that match the predicate
+    
 	NSMutableArray *events = [NSMutableArray arrayWithArray:[self.eventStore eventsMatchingPredicate:predicate]];
     NSLog(@"%i",[events count]);
     
-    
     for (int i =0; i < [events count]; i++) {
-        NSMutableDictionary *calEvent = [[NSMutableDictionary alloc] init];
-        
+        Events *evntTemp = [[Events alloc] init];
         NSString *star = [self dateFromStringCal:[[events objectAtIndex:i]  valueForKey:kStartDate]];
         NSString *end = [self dateFromStringCal:[[events objectAtIndex:i]  valueForKey:kEndDate]];
-        
         NSArray *strA = [star componentsSeparatedByString:@" "];
         NSArray *endA = [end componentsSeparatedByString:@" "];
-        
         NSArray *s = [[strA objectAtIndex:1] componentsSeparatedByString:@":"];
         NSString *startDate = [NSString stringWithFormat:@"%@",[strA objectAtIndex:1]];
         NSString *endDate =[NSString stringWithFormat:@"%@",[endA objectAtIndex:1]];
         NSString *dayTime = [NSString stringWithFormat:@"%@ %i",[strA objectAtIndex:0],[[s objectAtIndex:0]intValue]+1];
-
         NSLog(@"%@ %@ %@",dayTime, startDate, endDate);
         
+        evntTemp.startDate = startDate;
+        evntTemp.endDate = endDate;
+        evntTemp.status = @"Neutral";
+        evntTemp.dayTime =dayTime;
+        evntTemp.eventDes = [[events objectAtIndex:i] valueForKey:@"title"];
+        evntTemp.newRowId = newRowId;
+        [dataArray addObject:evntTemp];
         
-        [calEvent setValue:[NSNumber numberWithInt:[dataArrayCount count]+1] forKey:kSub1Id];
-        [calEvent setValue:[[events objectAtIndex:i] valueForKey:@"title"] forKey:kEventDes];
-        [calEvent setValue:startDate forKey:kStartDate];
-        [calEvent setValue:endDate forKey:kEndDate];
-        [calEvent setValue:dayTime forKey:kDayTime];
-        [calEvent setValue:@"Neutral" forKey:kStatus];
-        [dataArrayCount addObject:calEvent];
-        [self insertIntoDatabase:calEvent];
+       
+        /*BOOL succes = [[DataBaseHelper sharedDatasource] saveDBEventDate:@"" start:startDate end:endDate stus:@"Neutral" dayDate:dayTime desc:[[events objectAtIndex:i] valueForKey:@"title"] newRI:newRowId];
+        
+        if (!succes) {
+            NSLog(@"Failed to insert data");
+        }else {
+            [self getDataSub1Events];
+        }*/
     }
+    [self displayButton];
 }
 
-
-
--(void)viewDidDisappear:(BOOL)animated {
- 
+- (void)getDataSub1Events {
     
+    //dataArray = [[[DataBaseHelper sharedDatasource] findEvents] mutableCopy];
+    
+    //[self displayButton];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
- 
-    self.dataArray = nil;
-    self.totalDataArray = nil;
-}
+
 
 
 -(void)dealloc {
-    [dataArray release];
-    [totalDataArray release];
     [super dealloc];
+    [dataArray release];
+    [eventStore release];
 }
 
-//Sön,Mån,Tis,Ons,Tors,Fre,Lör
+//Sön,Mån,Tis,Ons,Tors,Fre,Lör -- Sun, Mon, Tue, Wed, Thr, Fri, Sat
 
 -(void)displayButton {
     
@@ -439,8 +372,8 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
             NSString *tag = [[NSString stringWithFormat:@"%d",btn.tag] substringFromIndex:1];
             
             for (int p=0; p < [dataArray count]; p++) {
-                NSMutableDictionary *dict = [dataArray objectAtIndex:p];
-                NSString *dayTime = [dict objectForKey:kDayTime];
+                Events *dict = [dataArray objectAtIndex:p];
+                NSString *dayTime = dict.dayTime;
                 NSArray *array = [dayTime componentsSeparatedByString:@" "];
                 NSString *date = [array objectAtIndex:0];
                 
@@ -448,19 +381,19 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                 
                 if ([[tm objectAtIndex:0] isEqualToString:date]) {
                     
-                    NSArray *startArray = [[dict objectForKey:kStartDate] componentsSeparatedByString:@":"];
-                    NSArray *endArray = [[dict objectForKey:kEndDate] componentsSeparatedByString:@":"];
+                    NSArray *startArray = [dict.startDate componentsSeparatedByString:@":"];
+                    NSArray *endArray = [dict.endDate componentsSeparatedByString:@":"];
                     
                     
                     if ([tag intValue] == [[array objectAtIndex:1] intValue]) {
                         
                         CALayer *layer = [CALayer layer];
                         
-                        if ([[dict objectForKey:kStatus] isEqualToString:@"+"]) {
+                        if ([dict.status isEqualToString:@"+"]) {
                             layer.backgroundColor = [UIColor greenColor].CGColor;
-                        }else if ([[dict objectForKey:kStatus ] isEqualToString:@"-"]) {
+                        }else if ([dict.status isEqualToString:@"-"]) {
                             layer.backgroundColor = [UIColor redColor].CGColor;
-                        }else if ([[dict objectForKey:kStatus] isEqualToString:@"Neutral"]){
+                        }else if ([dict.status isEqualToString:@"Neutral"]){
                             layer.backgroundColor = [UIColor darkGrayColor].CGColor;
                         }else {
                             [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
@@ -495,7 +428,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                         [label setFont:@"Helvetica"];
                         [label setFontSize:12];
                         [label setFrame:CGRectMake(0, (frame.size.height/2)-10, frame.size.width, 20)];
-                        [label setString:[dict objectForKey:kEventDes]];
+                        [label setString:dict.eventDes];
                         [label setAlignmentMode:kCAAlignmentCenter];
                         [label setForegroundColor:[[UIColor blackColor] CGColor]];
                         layer.name = [NSString stringWithFormat:@"%d",p];
@@ -508,132 +441,42 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }
 }
 
-    /*for (int i =0; i <[[self.scrollView subviews] count]; i++) {
-     
-     UIButton *btn = [[self.scrollView subviews] objectAtIndex:i];
-     if ([btn isKindOfClass:[UIButton class]]) {
-     
-     NSString *statusString = nil;
-     NSDate *date=nil;
-     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-     NSString *subString =  [btag substringFromIndex:1];
-     
-     NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-     
-     
-     if ([s intValue] == 1) {
-     date = [self.weekdays objectAtIndex:0];
-     
-     }else if ([s intValue] == 2) {
-     date = [self.weekdays objectAtIndex:1];
-     
-     }else if ([s intValue] == 3){
-     date = [self.weekdays objectAtIndex:2];
-     
-     }else if ([s intValue] == 4) {
-     date = [self.weekdays objectAtIndex:3];
-     
-     }else if ([s intValue] == 5) {
-     date = [self.weekdays objectAtIndex:4];
-     
-     }else if ([s intValue] == 6) {
-     date = [self.weekdays objectAtIndex:5];
-     
-     }else if ([s intValue] == 7) {
-     date = [self.weekdays objectAtIndex:6];
-     }
-     
-     NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-     
-     for (int g =0; g<[dataArray count]; g++) {
-     NSMutableDictionary *tempDict = [dataArray objectAtIndex:g];
-     if ([[tempDict valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]){
-     
-     if ([[tempDict valueForKey:kStatus] isEqualToString:@"+"]){
-     statusString = @"+";
-     }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"-"]){
-     statusString = @"-";
-     }else if ([[tempDict valueForKey:kStatus] isEqualToString:@"Neutral"]){
-     statusString = @"Neutral";
-     }
-     
-     [btn setTitle:[tempDict valueForKey:kEventDes] forState:UIControlStateNormal];
-     
-     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-     
-     longPressGesture.minimumPressDuration = 1.0;
-     [btn addGestureRecognizer:longPressGesture];
-     }
-     }
-     
-     if ([statusString isEqualToString:@"+"]) {
-     [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_positive.png"] forState:UIControlStateNormal];
-     }else if ([statusString isEqualToString:@"-"]){
-     [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_negative.png"] forState:UIControlStateNormal];
-     }else if ([statusString isEqualToString:@"Neutral"]){
-     [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"] forState:UIControlStateNormal];
-     }else {
-     [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
-     [btn setTitle:@"" forState:UIControlStateNormal];
-     }
-     }
-     }*/
-
-
-
 
 
 -(void)touchBegan:(UIControl*)c withEvent:(UIEvent*)ev {
     UIButton *btn = (UIButton*)c;
     UITouch *touch = [[ev allTouches] anyObject];
     BOOL isExist = NO;
-    NSDate *date=nil;
-    
     NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
     NSString *subString =  [btag substringFromIndex:1];
-    
-    date = [self.weekdays objectAtIndex:[[btag substringToIndex:1] intValue]-1];
-    
+    NSDate *date = [self.weekdays objectAtIndex:[[btag substringToIndex:1] intValue]-1];
     NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    
     buttonString = [[tm objectAtIndex:0] retain];
-    
     CGPoint touchPoint = [touch locationInView:self.scrollView];
     for (CALayer *layer in self.scrollView.layer.sublayers) {
         if ([layer containsPoint:[self.scrollView.layer convertPoint:touchPoint toLayer:layer]] && btn.layer != layer) {
             NSLog(@"data ---%d",[layer.name intValue]);
-            NSMutableDictionary *temp = [dataArray objectAtIndex:[layer.name intValue]];
+            Events *temp = [dataArray objectAtIndex:[layer.name intValue]];
             
-                editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
-                currentStatuBtn = [temp valueForKey:kStatus];
-                NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-                NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-                eventDesTextView.text = [temp valueForKey:kEventDes];
-                
-                hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-                
-                
-                hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-                
-                
-           
-                raderaBtn.enabled =YES;
-           
+            editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
+            currentStatuBtn = temp.status;
+            NSArray *sDA = [temp.startDate componentsSeparatedByString:@":"];
+            NSArray *eDA = [temp.endDate componentsSeparatedByString:@":"];
+            
+            eventDesTextView.text = temp.eventDes;
+            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
+            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
+            raderaBtn.enabled =YES;
             isExist = YES;
         }
     }
     if (!isExist) {
         NSLog(@"not -----$$$$$ %@",btn.layer.name);
         eventDesTextView.text = @"";
-        
         hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        
         hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
         raderaBtn.enabled = NO;
         editIndexValue= nil;
-        
-        
     }
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     [ASDepthModalViewController presentView:self.popupView
@@ -643,543 +486,44 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                               NSLog(@"Modal view closed.");
                           }];
 }
-
-   
-   
-    /*for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            currentStatuBtn = [temp valueForKey:kStatus];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            
-            
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-            
-            
-            isExist = YES;
-            raderaBtn.enabled =YES;
-        }
-    }
-    if (!isExist) {
-        eventDesTextView.text = @"";
-        
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
-        raderaBtn.enabled = NO;
-        editIndexValue= nil;
-        
-    }*/
-
-
 
 
 - (void)longPress:(UIGestureRecognizer *)gesture{
     
     if (gesture.state == UIGestureRecognizerStateBegan)
     {
-    
         UIButton *btn = (UIButton*)[gesture view];
         BOOL isExist = NO;
-        NSDate *date=nil;
-        
         NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-        //NSString *subString =  [btag substringFromIndex:1];
-        
-        NSLog(@"-----$$$$$ %i",[[btag substringToIndex:1] intValue]);
-        
-        date = [self.weekdays objectAtIndex:[[btag substringToIndex:1] intValue]-1];
-        
+        NSDate *date = [self.weekdays objectAtIndex:[[btag substringToIndex:1] intValue]-1];
         NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-        
         buttonString = [[tm objectAtIndex:0] retain];
-        
         CGPoint touchPoint = [gesture locationInView:self.scrollView];
         for (CALayer *layer in self.scrollView.layer.sublayers) {
             if ([layer containsPoint:[self.scrollView.layer convertPoint:touchPoint toLayer:layer]] && btn.layer != layer) {
                 editIndexValue = [[NSString stringWithFormat:@"%i",[layer.name intValue]] retain];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"KBT" message:@"Är du säker på att du vill radera aktiviteten?" delegate:self cancelButtonTitle:@"Avbryt" otherButtonTitles:@"Radera",nil];
-                
                 [alert show];
                 [alert release];
                 break;
-                
                 isExist = YES;
             }
         }
         if (!isExist) {
             NSLog(@"not -----$$$$$ %@",btn.layer.name);
             /*eventDesTextView.text = @"";
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-            
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-            
-            raderaBtn.enabled = NO;
-            editIndexValue= nil;*/
-        
-        }
-        
-    }
-}
-
-        /*UIButton *btn = (UIButton*)[gesture view];
-        NSDate *date=nil;
-        
-        NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-        NSString *subString =  [btag substringFromIndex:1];
-        NSString *s = [NSString stringWithFormat:@"%c",[btag characterAtIndex:0]];
-        if ([s intValue] == 1) {
-            date = [self.weekdays objectAtIndex:0];
-            
-        }else if ([s intValue] == 2) {
-            date = [self.weekdays objectAtIndex:1];
-            
-        }else if ([s intValue] == 3){
-            date = [self.weekdays objectAtIndex:2];
-            
-        }else if ([s intValue] == 4) {
-            date = [self.weekdays objectAtIndex:3];
-            
-        }else if ([s intValue] == 5) {
-            date = [self.weekdays objectAtIndex:4];
-            
-        }else if ([s intValue] == 6) {
-            date = [self.weekdays objectAtIndex:5];
-            
-        }else if ([s intValue] == 7) {
-            date = [self.weekdays objectAtIndex:6];
-        }
-        
-        NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-        
-        buttonString = [[tm objectAtIndex:0] retain];
-        
-        for (int q= 0; q<[dataArray count]; q++) {
-            NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-            
-            if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-                editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-         
-            }
-        }*/
-
-
-
-
-
-
-/*-(void)empty:(id)sender {
-    
-    UIButton *btn = (UIButton*)sender;
-    
-    
-    NSDate *date=nil;
-    date = [self.weekdays objectAtIndex:0];
-    
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString =  [btag substringFromIndex:1];
-    
-    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    
-    buttonString = [[tm objectAtIndex:0] retain];
-    BOOL isExit=NO;
-    for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            currentStatuBtn = [temp valueForKey:kStatus];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            
-            
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-            
-            
-            isExit = YES;
-            raderaBtn.enabled =YES;
+             hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
+             hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
+             raderaBtn.enabled = NO;
+             editIndexValue= nil;*/
         }
     }
-    if (!isExit) {
-        eventDesTextView.text = @"";
-        
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
-        raderaBtn.enabled = NO;
-        editIndexValue= nil;
-        
-    }
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
 }
 
 
 
--(void)empty1:(id)sender {
-    
-    UIButton *btn = (UIButton*)sender;
-    NSDate *date=nil;
-    date = [self.weekdays objectAtIndex:1];
-    
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString =  [btag substringFromIndex:1];
-    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    
-    buttonString = [[tm objectAtIndex:0] retain];
-    BOOL isExit=NO;
-    for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            
-            currentStatuBtn = [temp valueForKey:kStatus];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-
-            isExit = YES;
-            raderaBtn.enabled =YES;
-        }
-    }
-    
-    if (!isExit) {
-        eventDesTextView.text = @"";
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-
-        raderaBtn.enabled = NO;
-        editIndexValue= nil;
-    }
-    
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
-}
 
 
--(void)empty2:(id)sender {
-    
-    UIButton *btn = (UIButton*)sender;
-    NSDate *date=nil;
-    date = [self.weekdays objectAtIndex:2];
-    
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString =  [btag substringFromIndex:1];
-    
-    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    
-    buttonString = [[tm objectAtIndex:0] retain];
-    BOOL isExit=NO;
-    for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            
-            currentStatuBtn = [temp valueForKey:kStatus];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-            
-            
-            isExit = YES;
-            raderaBtn.enabled =YES;
-        }
-    }
-    if (!isExit) {
-        eventDesTextView.text = @"";
-        
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
-        raderaBtn.enabled = NO;
-        editIndexValue= nil;
-    }
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
-    
-}
-
-
--(void)empty3:(id)sender {
-    UIButton *btn = (UIButton*)sender;
-    NSDate *date=nil;
-    
-    date = [self.weekdays objectAtIndex:3];
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString =  [btag substringFromIndex:1];
-    
-    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    
-    buttonString = [[tm objectAtIndex:0] retain];
-    BOOL isExit=NO;
-    for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            
-            currentStatuBtn = [temp valueForKey:kStatus];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-            
-            
-            isExit = YES;
-            raderaBtn.enabled =YES;
-        }
-    }
-    if (!isExit) {
-        eventDesTextView.text = @"";
-        
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
-        raderaBtn.enabled =NO;
-        editIndexValue= nil;
-    }
-    
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
-    
-}
-    
-    
--(void)empty4:(id)sender {
-    UIButton *btn = (UIButton*)sender;
-    NSDate *date=nil;
-    date = [self.weekdays objectAtIndex:4];
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString =  [btag substringFromIndex:1];
-    
-    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    
-    buttonString = [[tm objectAtIndex:0] retain];
-    BOOL isExit=NO;
-    for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            currentStatuBtn = [temp valueForKey:kStatus];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-            
-            isExit = YES;
-            raderaBtn.enabled =YES;
-        }
-    }
-    if (!isExit) {
-        eventDesTextView.text = @"";
-        
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
-        raderaBtn.enabled = NO;
-        editIndexValue= nil;
-    }
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
-    
-}
-
-
--(void)empty5:(id)sender {
-    UIButton *btn = (UIButton*)sender;
-    NSDate *date=nil;
-    date = [self.weekdays objectAtIndex:5];
-    
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString =  [btag substringFromIndex:1];
-    
-    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    
-    buttonString = [[tm objectAtIndex:0] retain];
-    BOOL isExit=NO;
-    for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            currentStatuBtn = [temp valueForKey:kStatus];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-            
-            
-            isExit = YES;
-            raderaBtn.enabled =YES;
-        }
-    }
-    if (!isExit) {
-        eventDesTextView.text = @"";
-        
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
-        raderaBtn.enabled = NO;
-        editIndexValue= nil;
-    }
-    
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
-    
-}
-
-
--(void)empty6:(id)sender {
-    UIButton *btn = (UIButton*)sender;
-    NSDate *date=nil;
-    date = [self.weekdays objectAtIndex:6];
-    
-    NSString *btag = [NSString stringWithFormat:@"%i",btn.tag];
-    NSString *subString =  [btag substringFromIndex:1];
-    NSArray *tm = [[self dateFromStringCal:date] componentsSeparatedByString:@" "];
-    buttonString = [[tm objectAtIndex:0] retain];
-    BOOL isExit=NO;
-    for (int q= 0; q<[dataArray count]; q++) {
-        NSMutableDictionary *temp = [dataArray objectAtIndex:q];
-        
-        if ([[temp valueForKey:kDayTime] isEqualToString:[NSString stringWithFormat:@"%@ %i",[tm objectAtIndex:0],[subString intValue]]]) {
-            editIndexValue = [[NSString stringWithFormat:@"%i",q] retain];
-            currentStatuBtn = [temp valueForKey:kStatus];
-            NSArray *sDA = [[temp valueForKey:kStartDate] componentsSeparatedByString:@":"];
-            NSArray *eDA = [[temp valueForKey:kEndDate] componentsSeparatedByString:@":"];
-            eventDesTextView.text = [temp valueForKey:kEventDes];
-            
-            hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[[sDA objectAtIndex:0] intValue]];
-            
-            hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[[eDA objectAtIndex:0] intValue]];
-            
-            
-            isExit = YES;
-            raderaBtn.enabled =YES;
-        }
-    }
-    if (!isExit) {
-        eventDesTextView.text = @"";
-        
-        hoursTextField1.text = [NSString stringWithFormat:@"%.2i",[subString intValue]-1];
-        
-        hoursTextField2.text = [NSString stringWithFormat:@"%.2i",[hoursTextField1.text intValue]+1];
-        
-        raderaBtn.enabled = NO;
-        editIndexValue= nil;
-    }
-    
-    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
-    [ASDepthModalViewController presentView:self.popupView
-                            backgroundColor:nil
-                                    options:style
-                          completionHandler:^{
-                              NSLog(@"Modal view closed.");
-                          }];
-    
-}*/
-
-
--(void)getDataSub1Events {
-    
-    const char *dbpath = [databasePath UTF8String];
-
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1EVENT"];
-        
-        const char *query_stmt = [querySQL UTF8String];
-        
-        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
-        {
-            
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
-                NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
-                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
-                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
-                NSString *status = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 5)];
-                NSString *daytime = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 6)];
-                NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 7)];
-        
-                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
-                [itemDict setValue:subId forKey:kSub1Id];
-                [itemDict setValue:startDate forKey:kStartDate];
-                [itemDict setValue:endDate forKey:kEndDate];
-                [itemDict setValue:status forKey:kStatus];
-                [itemDict setValue:daytime forKey:kDayTime];
-                [itemDict setValue:eventDescription forKey:kEventDes];
-                
-                [dataArray addObject:itemDict];
-            }
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
-
-    [self displayButton];
-}
 
 
 -(void)getDataSub1Total
@@ -1222,7 +566,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     return dateString;
 }
 
-
+#pragma mark Back Button
 
 -(void)backButon  {
     
@@ -1258,14 +602,12 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(BOOL)findSameTime {
     
     BOOL isTime = NO;
-    
     NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
-    
     NSLog(@"%@",buttonString);
     for (int i = 0; i < [dataArray count]; i++) {
-        NSDictionary *tem = [dataArray objectAtIndex:i];
-        NSArray *tm = [[tem valueForKey:kDayTime] componentsSeparatedByString:@" "];
-        if ([[tem valueForKey:kStartDate] isEqualToString:startDate] && [[tm objectAtIndex:0] isEqualToString:buttonString]){
+        Events *tem = [dataArray objectAtIndex:i];
+        NSArray *tm = [tem.dayTime componentsSeparatedByString:@" "];
+        if ([tem.startDate isEqualToString:startDate] && [[tm objectAtIndex:0] isEqualToString:buttonString]){
             isTime =  YES;
         }
     }
@@ -1283,40 +625,44 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     }else {
         [ASDepthModalViewController dismiss];
         if (editIndexValue) {
-            NSMutableDictionary *temp = [dataArray objectAtIndex:[editIndexValue intValue]];
+            Events *temp = [dataArray objectAtIndex:[editIndexValue intValue]];
             NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
             NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
             NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
-            [temp setValue:eventDesTextView.text forKey:kEventDes];
-            [temp setValue:startDate forKey:kStartDate];
-            [temp setValue:endDate forKey:kEndDate];
-            [temp setValue:dayTime forKey:kDayTime];
-            [temp setValue:currentStatuBtn forKey:kStatus];
+            temp.eventDes = eventDesTextView.text;
+            temp.startDate = startDate;
+            temp.endDate = endDate;
+            temp.dayTime = dayTime;
+            temp.status = currentStatuBtn;
+            temp.newRowId = newRowId;
         }else {
-        
-            NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+            
+            Events *temp = [[Events alloc] init];
+            
             NSString *startDate = [NSString stringWithFormat:@"%@:%@",hoursTextField1.text,mintsTextField1.text];
             NSString *endDate =[NSString stringWithFormat:@"%@:%@",hoursTextField2.text,mintsTextField2.text];
             NSString *dayTime = [NSString stringWithFormat:@"%@ %i",buttonString,[hoursTextField1.text intValue]+1];
             if (!currentStatuBtn)
                 currentStatuBtn = @"Neutral";
             
-            [temp setValue:[NSNumber numberWithInt:[dataArray count]+1] forKey:kSub1Id];
-            [temp setValue:eventDesTextView.text forKey:kEventDes];
-            [temp setValue:startDate forKey:kStartDate];
-            [temp setValue:endDate forKey:kEndDate];
-            [temp setValue:dayTime forKey:kDayTime];
-            [temp setValue:currentStatuBtn forKey:kStatus];
+            temp.eventDes = eventDesTextView.text;
+            temp.startDate = startDate;
+            temp.endDate = endDate;
+            temp.dayTime = dayTime;
+            temp.status = currentStatuBtn;
+            temp.newRowId = newRowId;
             [dataArray addObject:temp];
         }
+        
         editIndexValue = nil;
+        [self displayButton];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // The user has granted access to their Calendar; let's populate our UI with all events occuring in the next 24 hours.
+            [self  databaseInsert];
+        });
         
-        
-        [self  databaseInsert];
     }
 }
-
-
 
 
 
@@ -1586,7 +932,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         [gregorian release];
         
         NSString *weeday =[weekdaySymbols objectAtIndex:weekday-1];
-        NSLog(@"weekday is %@",weeday);
+
         switch (i) {
             case 0:
                 
@@ -1631,168 +977,31 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
 -(IBAction)raderaButtonClicked:(id)sender {
     [ASDepthModalViewController dismiss];
     [self raderaClicked:nil];
-    
 }
 
 
 
 -(void)raderaClicked:(id)sender {
     
-    
     if (editIndexValue) {
-       NSDictionary *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
+       Events *deleDict = [dataArray objectAtIndex:[editIndexValue intValue]];
         [dataArray removeObject:deleDict];
-        [self deleteRecord:deleDict];
+        BOOL success = [[DataBaseHelper sharedDatasource] deleteDBEvent:deleDict.rowId];
+        NSLog(@"event delete successfully %d",success);
     }
     editIndexValue = nil;
-    
-    
 }
 
 
 #pragma mark -- DataBase Methods
 
-- (BOOL)findContact:(NSNumber*)questionId
-{
-    const char *dbpath = [databasePath UTF8String];
-    
-    BOOL isFind = NO;
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        
-        NSInteger sub1ID = [questionId integerValue];
-        
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT subId FROM SUB1EVENT WHERE subId=\"%d\"", sub1ID];
-        
-        const char *query_stmt = [querySQL UTF8String];
-        
-        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
-        {
-            if (sqlite3_step(statement) == SQLITE_ROW)
-            {
-                isFind  = YES;
-                
-            } else {
-                isFind  =  NO;
-            }
-            sqlite3_finalize(statement);
-        }
-        sqlite3_close(exerciseDB);
-    }
-    
-    return isFind;
-}
-
--(void)updateIntDatabase:(NSDictionary*)recordsDic {
-    
-    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
-    NSString* str = [formatter stringFromDate:[NSDate date]];
-    
-    
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSInteger subId = [[recordsDic valueForKey:kSub1Id] integerValue];
-        
-        NSString *query=[NSString stringWithFormat:@"UPDATE SUB1EVENT SET date='%@', startDate='%@', endDate='%@', status='%@', dayDate='%@', eventDescription='%@' WHERE subId='%d'",str, [recordsDic valueForKey:kStartDate],[recordsDic valueForKey:kEndDate],[recordsDic valueForKey:kStatus],[recordsDic valueForKey:kDayTime],[recordsDic valueForKey:kEventDes],subId];
-        
-        const char *del_stmt = [query UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, &statement, NULL);
-        
-        if (sqlite3_step(statement) == SQLITE_DONE)
-        {
-            NSLog(@"Updated");
-
-        }else {
-            NSLog(@"Failed to Update");
-            if(SQLITE_DONE != sqlite3_step(statement))
-                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
-        }
-        
-        sqlite3_finalize(statement);
-        
-    }
-    sqlite3_close(exerciseDB);
-}
-
-
-
--(void)insertIntoDatabase:(NSDictionary*)recordDic {
-    
-    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"MMM d YYYY HH:mm:ss"];
-    NSString* str = [formatter stringFromDate:[NSDate date]];
-    
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSInteger subId = [[recordDic valueForKey:kSub1Id] integerValue];
-        
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB1EVENT (subId,date,startDate,endDate,status,dayDate,eventDescription) VALUES (\"%d\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\", \"%@\")",subId,str,[recordDic valueForKey:kStartDate],[recordDic valueForKey:kEndDate],[recordDic valueForKey:kStatus],[recordDic valueForKey:kDayTime],[recordDic valueForKey:kEventDes]];
-        
-        const char *insert_stmt = [insertSQL UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
-        if (sqlite3_step(statement) == SQLITE_DONE)
-        {
-            NSLog(@"New Record Created");
-        }
-        else {
-            if(SQLITE_DONE != sqlite3_step(statement))
-                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
-            NSLog(@"error for insertig data into database NO");
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
-    
-    //[self getDataSub1Events];
-}
-
-
--(void)deleteRecord:(NSDictionary*)deleDic {
-    
-    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
-        
-        NSInteger subId = [[deleDic valueForKey:kSub1Id] integerValue];
-        
-        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB1EVENT WHERE subId='%d'",subId];
-        
-        const char *del_stmt = [sql UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
-        
-        if (sqlite3_step(statement) == SQLITE_ROW) {
-            
-            NSLog(@"sss");
-            
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
-}
-
-
-
 -(void)databaseInsert {
     
-    for (int i = 0; i < [dataArray count]; i++) {
-        
-        NSDictionary *dataDic = [dataArray objectAtIndex:i];
-        
-        if ([self findContact:[dataDic valueForKey:kSub1Id]]) {
-            NSLog(@"Updating");
-            [self updateIntDatabase:dataDic];
-        }else {
-            NSLog(@"New Record");
-            [self insertIntoDatabase:dataDic];
-        }
-    }
+    Events *dataDic = [dataArray lastObject];
+    NSLog(@"New Record");
+    BOOL success = [[DataBaseHelper sharedDatasource] saveDBEventDate:@"" start:dataDic.startDate end:dataDic.endDate stus:dataDic.status dayDate:dataDic.dayTime desc:dataDic.eventDes newRI:newRowId];
+    NSLog(@"%d",success);
+    
 }
 
 

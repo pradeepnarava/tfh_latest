@@ -861,11 +861,18 @@ int s=0;
     // Dispose of any resources that can be recreated.
 }
 -(IBAction)Closelistofdates:(id)sender{
+    if ([sender tag] == 0) {
+        PopupView1.hidden=YES;
+    }
+    else if ([sender tag] == 1) {
+        PopupView2.hidden=YES;
+    }
+    else if ([sender tag] == 2) {
+        PopupView3.hidden=YES;
+    }
     listofdates.hidden = YES;
       scroll.scrollEnabled = YES;
-    PopupView1.hidden=YES;
-     PopupView3.hidden=YES;
-     PopupView2.hidden=YES;
+    
     NSLog(@"value of s%@",[listexercise1 objectAtIndex:s]);
 }
 - (void)dealloc {

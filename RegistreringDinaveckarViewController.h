@@ -9,25 +9,22 @@
 
 
 #import <UIKit/UIKit.h>
-#import <sqlite3.h>
 #import "DinaveckarCell.h"
 
-@class RegiDinaveckarCalendarViewController;
+@class RegiDinaveckarCalendarViewController,DataBaseHelper,NewRegistrering;
 
 @interface RegistreringDinaveckarViewController : UIViewController
-{
-    sqlite3 *exerciseDB;
-    NSString *databasePath;
-    sqlite3_stmt  *statement;
-}
 
-@property (nonatomic,strong) IBOutlet UITableView *table;
-@property (nonatomic,strong) NSMutableArray *dataArray,*sub1EventsArray;
+
+@property (nonatomic, strong) IBOutlet UITableView *table;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, retain) RegiDinaveckarCalendarViewController *regiDinaCalVC;
 
-
-- (void)deleteRecord:(NSDictionary*)deleDic;
 - (IBAction)submitButtonAction:(id)sender;
+- (void)getData;
 
+-(NSDate*)dateFromString:(NSString*)date;
+-(NSString*)yearStringFromDate:(NSDate*)date;
+-(NSString*)monthStringFromDate:(NSDate*)date;
 
 @end

@@ -17,6 +17,7 @@
     NSString *databasePath;
     sqlite3_stmt  *statement;
 }
+
 @property (nonatomic, strong) NSMutableArray *weekArray;
 @property (nonatomic, strong) CalendarViewController *calendarView;
 @property (nonatomic, strong) RegistreringDinaveckarViewController *regDinaveckarView;

@@ -95,6 +95,15 @@
         
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
         
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [button setBackgroundImage:[UIImage imageNamed:@"setting_alarm_button.png"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(settButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        button.frame = CGRectMake(0, 0, 30, 30);
+        
+        UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+        self.navigationItem.rightBarButtonItem = rightButton;
+        
     }
     else {
         

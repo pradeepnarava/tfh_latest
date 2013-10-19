@@ -2,7 +2,7 @@
 //  Registreringsvecka.m
 //  Välkommen till TFH-appen
 //
-//  Created by Mohammed Abdul Majeed on 5/3/13.
+//  Created by Gopal on 5/3/13.
 //  Copyright (c) 2013 brilliance. All rights reserved.
 //
 
@@ -11,7 +11,10 @@
 #import "CalendarViewController.h"
 #import "RegistreringDinaveckarViewController.h"
 
+#import "DataBaseHelper.h"
+
 @interface Registreringsvecka ()
+
 @end
 
 @implementation Registreringsvecka
@@ -49,7 +52,7 @@
         [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
-    NSString *docsDir;
+   /* NSString *docsDir;
     NSArray *dirPaths;
     
     // Get the documents directory
@@ -75,7 +78,7 @@
     } else {
         NSLog(@"Failed to open/create database");
     }
-
+*/
     // Do any additional setup after loading the view from its nib.
     [super viewDidLoad];
 }
@@ -86,41 +89,50 @@
     [super viewWillAppear:YES];
 }
 
+#pragma mark BackButton
+
 -(void)backButon {
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 
+#pragma mark Button Actions
+
 -(IBAction)sub1button:(id)sender {
+    
     NSString *startDate = [self dateFromString:[self.weekArray objectAtIndex:0]];
     NSString *endDate = [self dateFromString:[self.weekArray objectAtIndex:6]];
     NSString *currentDate = [self dateFromString:[NSDate date]];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-    [dict setValue:startDate forKey:@"startDate"];
-    [dict setValue:endDate forKey:@"endDate"];
-    [dict setValue:currentDate forKey:@"currentDate"];
-    [self databaseInsertWeek:dict];
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        if ([[UIScreen mainScreen] bounds].size.height > 480) {
-            if (!calendarView) {
-                calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView" bundle:nil];
-            }
-        }else{
-            if (!calendarView) {
-                calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPhone4" bundle:nil];
-            }
-        }
-    }
-    else{
-        if (!calendarView) {
-            calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPad" bundle:nil];
-        }
-    }
-    calendarView.isEventNotify = NO;
-    calendarView.isTotalNotify = NO;
+    BOOL success;
     
-    [self.navigationController pushViewController:calendarView animated:YES];
+    success = [[DataBaseHelper sharedDatasource] saveDBstart:startDate end:endDate curDate:currentDate checked:@"NO"];
+    if (success) {
+
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            if ([[UIScreen mainScreen] bounds].size.height > 480) {
+                if (!calendarView) {
+                    calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView" bundle:nil];
+                }
+            }else{
+                if (!calendarView) {
+                    calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPhone4" bundle:nil];
+                }
+            }
+        }
+        else{
+            if (!calendarView) {
+                calendarView = [[CalendarViewController alloc]initWithNibName:@"CalendarView_iPad" bundle:nil];
+            }
+        }
+        calendarView.isEventNotify = NO;
+        calendarView.isTotalNotify = NO;
+       
+        calendarView.newRowId = [[DataBaseHelper sharedDatasource] newRowId];
+        [self.navigationController pushViewController:calendarView animated:YES];
+    }
+    else {
+        NSLog(@"Failed to open table");
+    }
 }
 
 
@@ -131,31 +143,6 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
-}
-
-
--(void)databaseInsertWeek:(NSDictionary *)dict{
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB1DINAVECKOR (startDate,endDate,currentDate) VALUES (\"%@\", \"%@\",\"%@\")",[dict valueForKey:@"startDate"],[dict valueForKey:@"endDate"],[dict valueForKey:@"currentDate"]];
-        
-        const char *insert_stmt = [insertSQL UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, insert_stmt, -1, &statement, NULL);
-        if (sqlite3_step(statement) == SQLITE_DONE)
-        {
-            NSLog(@"New Record Created");
-        }
-        else {
-            if(SQLITE_DONE != sqlite3_step(statement))
-                NSLog(@"Error while updating. %s", sqlite3_errmsg(exerciseDB));
-            NSLog(@"error for insertig data into database NO");
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
 }
 
 
@@ -188,6 +175,7 @@
 }
 
 
+#pragma mark getting week Days
 
 - (void)week:(NSDate *)_date {
     self.weekArray = [[NSMutableArray alloc] init];
@@ -205,13 +193,14 @@
 }
 
 
+#pragma mark Sub2 Functionality
 
 -(void)databaseInsertTotal:(NSDictionary *)dict{
     const char *dbpath = [databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
     {
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO SUB2D2NAVECKOR (startDate,endDate,currentDate) VALUES (\"%@\", \"%@\",\"%@\")",[dict valueForKey:@"startDate"],[dict valueForKey:@"endDate"],[dict valueForKey:@"currentDate"]];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO SUB2D2NAVECKOR (startDate,endDate,currentDate) VALUES (\"%@\", \"%@\",\"%@\")",[dict valueForKey:@"startDate"],[dict valueForKey:@"endDate"],[dict valueForKey:@"currentDate"]];
         
         const char *insert_stmt = [insertSQL UTF8String];
         
@@ -229,6 +218,7 @@
     }
     sqlite3_close(exerciseDB);
 }
+
 
 
 

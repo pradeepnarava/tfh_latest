@@ -8,6 +8,9 @@
 
 #import "RegistreringDinaveckarViewController.h"
 #import "RegiDinaveckarCalendarViewController.h"
+#import "DataBaseHelper.h"
+#import "Events.h"
+#import "NewRegistrering.h"
 
 #define kStartDate @"startDate"
 #define kEndDate   @"endDate"
@@ -20,14 +23,13 @@
 #define kCurrentDate  @"currentDate"
 #define kId    @"id"
 
-
 @interface RegistreringDinaveckarViewController ()
 
 @end
 
 
 @implementation RegistreringDinaveckarViewController
-@synthesize dataArray,table,sub1EventsArray;
+@synthesize dataArray,table;
 @synthesize regiDinaCalVC;
 
 
@@ -63,36 +65,28 @@
         [okBtn addTarget:self action:@selector(backButon) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:okBtn];
     }
-    
-    NSString *docsDir;
-    NSArray *dirPaths;
-    
-    // Get the documents directory
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    docsDir = [dirPaths objectAtIndex:0];
-    
-    // Build the path to the database file
-    databasePath = [[NSString alloc] initWithString: [docsDir stringByAppendingPathComponent: @"exerciseDB.db"]];
-	// Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    dataArray = [[NSMutableArray alloc]init];
-    sub1EventsArray = [[NSMutableArray alloc]init];
+    [super viewWillAppear:animated];
+    if (!self.dataArray) {
+         self.dataArray = [[NSMutableArray alloc]init];
+    }
+   
     [self getData];
-    [super viewWillAppear:YES];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     
-    self.dataArray = nil;
-    self.sub1EventsArray = nil;
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    self.dataArray = nil;
+}
 
 -(void)dealloc {
     [dataArray release];
-    [sub1EventsArray release];
     [super dealloc];
 }
 
@@ -101,114 +95,34 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
-
-
-
-
 /////////////////////////////Gopalakrishna******??????????????
 
-
-
--(void)getSub2events{
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1EVENT"];
-        
-        const char *query_stmt = [querySQL UTF8String];
-        
-        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
-        {
-            
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
-                NSString *subId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,1)];
-                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
-                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 4)];
-                NSString *status = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 5)];
-                NSString *daytime = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 6)];
-                NSString *eventDescription = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 7)];
-                
-                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
-                [itemDict setValue:subId forKey:kSub1Id];
-                [itemDict setValue:startDate forKey:kStartDate];
-                [itemDict setValue:endDate forKey:kEndDate];
-                [itemDict setValue:status forKey:kStatus];
-                [itemDict setValue:daytime forKey:kDayTime];
-                [itemDict setValue:eventDescription forKey:kEventDes];
-                
-                [sub1EventsArray addObject:itemDict];
-            }
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
-}
-
-
 -(void)getData {
-    const char *dbpath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbpath, &exerciseDB) == SQLITE_OK)
-    {
-        NSString *querySQL = [NSString stringWithFormat: @"SELECT * FROM SUB1DINAVECKOR"];
-        
-        const char *query_stmt = [querySQL UTF8String];
-        
-        if (sqlite3_prepare_v2(exerciseDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
-        {
-            
-            while  (sqlite3_step(statement) == SQLITE_ROW) {
-                NSString *weekId = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement,0)];
-                NSString *startDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 1)];
-                NSString *endDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 2)];
-                NSString *currentDate = [NSString stringWithFormat:@"%s",sqlite3_column_text(statement, 3)];
-                
-                NSDate *startDat = [self dateFromString:startDate];
-                NSDate *endDat = [self dateFromString:endDate];
-                NSMutableDictionary *itemDict = [[NSMutableDictionary alloc]init];
-                [itemDict setValue:weekId forKey:kId];
-                [itemDict setValue:startDat forKey:kStartDate];
-                [itemDict setValue:endDat forKey:kEndDate];
-                [itemDict setValue:currentDate forKey:kCurrentDate];
-                [itemDict setValue:@"F" forKey:kSelected];
-                [dataArray addObject:itemDict];
-            }
-        }
-        [table reloadData];
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
-    
-    [self getSub2events];
+    dataArray = [[[DataBaseHelper sharedDatasource] getnewRegisVecka] mutableCopy];
+    [table reloadData];
 }
-
-
 
 - (IBAction)submitButtonAction:(id)sender {
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSMutableDictionary *selectedDict = [[NSMutableDictionary alloc]init];
+    NewRegistrering *selectedDict = [[NewRegistrering alloc] init];
     for (int k=0; k<[dataArray count]; k++) {
-        NSMutableDictionary *dict = [dataArray objectAtIndex:k];
-        if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
+        NewRegistrering *dict = [dataArray objectAtIndex:k];
+        if ([dict.uncheck isEqualToString:@"YES"]) {
             selectedDict = dict;
-            [self deleteDinaveckorRecord:selectedDict];
             break;
         }
     }
     BOOL isExist = NO;
     for (int p=0; p<[dataArray count]; p++) {
-        NSMutableDictionary *dict = [dataArray objectAtIndex:p];
-        if (dict!=selectedDict&&[[formatter stringFromDate:[dict valueForKey:kStartDate]] isEqualToString:[formatter stringFromDate:[selectedDict valueForKey:kStartDate]]]&&[[formatter stringFromDate:[dict valueForKey:kEndDate]] isEqualToString:[formatter stringFromDate:[selectedDict valueForKey:kEndDate]]]) {
+        NewRegistrering *dict = [dataArray objectAtIndex:p];
+        if (dict!=selectedDict&&[[formatter stringFromDate:[self dateFromString:dict.startDate]] isEqualToString:[formatter stringFromDate:[self dateFromString:selectedDict.startDate]]]&&[[formatter stringFromDate:[self dateFromString:dict.endDate]] isEqualToString:[formatter stringFromDate:[self dateFromString:dict.endDate]]]) {
             isExist = YES;
         }
     }
@@ -242,6 +156,7 @@
     NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
 }
+
 -(NSString*)monthStringFromDate:(NSDate*)date{
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"d/M"];
@@ -249,63 +164,13 @@
     return dateString;
 }
 
--(void)deleteRecord:(NSDictionary*)deleDic {
-    
-    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
-        
-        NSInteger subId = [[deleDic valueForKey:kSub1Id] integerValue];
-        
-        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB1EVENT WHERE sub2Id='%d'",subId];
-        
-        const char *del_stmt = [sql UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
-        
-        if (sqlite3_step(statement) == SQLITE_ROW) {
-            
-            NSLog(@"sss");
-            
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
-}
 
-
--(void)deleteDinaveckorRecord:(NSDictionary*)deleDic {
-    
-    if (sqlite3_open([databasePath UTF8String], &exerciseDB) == SQLITE_OK) {
-        
-        NSInteger subId = [[deleDic valueForKey:kId] integerValue];
-        
-        NSString *sql = [NSString stringWithFormat: @"DELETE FROM SUB1DINAVECKOR WHERE id='%d'",subId];
-        
-        const char *del_stmt = [sql UTF8String];
-        
-        sqlite3_prepare_v2(exerciseDB, del_stmt, -1, & statement, NULL);
-        
-        if (sqlite3_step(statement) == SQLITE_ROW) {
-            
-            NSLog(@"sss");
-            
-        }
-        sqlite3_finalize(statement);
-    }
-    sqlite3_close(exerciseDB);
-}
-
-
+#pragma mark UITableViewDatasource Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [dataArray count];
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 38.0f;
-}
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -315,37 +180,37 @@
     
     if (cell == nil) {
         NSArray *objects =[[NSBundle mainBundle] loadNibNamed:@"DinaveckarCell" owner:self options:nil];
-        
         for (id object in objects) {
             if ([object isKindOfClass:[DinaveckarCell class]]) {
-                
                 cell = (DinaveckarCell*)object;
             }
         }
     }
-    cell.selectedBackgroundView = [[UIView alloc]init];
+    
+    //cell.selectedBackgroundView = [[UIView alloc]init];
     cell.cellBtn.tag = indexPath.row;
-    NSMutableDictionary *dict = [dataArray objectAtIndex:indexPath.row];
-    if ([[dict valueForKey:kSelected] isEqualToString:@"T"]) {
+    NewRegistrering *newReg = [dataArray objectAtIndex:indexPath.row];
+    if ([newReg.uncheck isEqualToString:@"YES"]) {
         [cell.cellBtn setImage:[UIImage imageNamed:@"checked.png"] forState:UIControlStateNormal];
-        //cell.cellBtn.backgroundColor = [UIColor blueColor];
     }
     else{
         [cell.cellBtn setImage:[UIImage imageNamed:@"unchecked.png"] forState:UIControlStateNormal];
-        //cell.cellBtn.backgroundColor = [UIColor whiteColor];
     }
+    
     [cell.cellBtn addTarget:self action:@selector(cellButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    NSString *yearLabel1 = [self yearStringFromDate:[dict valueForKey:kStartDate]];
-    NSString *yearLabel2 = [self yearStringFromDate:[dict valueForKey:kEndDate]];
+    NSString *yearLabel1 = [self yearStringFromDate:[self dateFromString:newReg.startDate]];
+    NSString *yearLabel2 = [self yearStringFromDate:[self dateFromString:newReg.endDate]];
     if([yearLabel1 isEqualToString:yearLabel2]){
-        cell.cellLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel1];
+        cell.cellLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",[self monthStringFromDate:[self dateFromString:newReg.startDate]],[self monthStringFromDate:[self dateFromString:newReg.endDate]],yearLabel1];
     }else{
-        cell.cellLabel.text = [NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[self monthStringFromDate:[dict valueForKey:kStartDate]],yearLabel1,[self monthStringFromDate:[dict valueForKey:kEndDate]],yearLabel2];
+        cell.cellLabel.text = [NSString stringWithFormat:@"%@ (%@) - %@ (%@)",[self monthStringFromDate:[self dateFromString:newReg.startDate]],yearLabel1,[self monthStringFromDate:[self dateFromString:newReg.endDate]],yearLabel2];
     }
     cell.cellLabel.highlightedTextColor = [UIColor grayColor];
+    
     return cell;
 }
 
+#pragma mark UITableViewDelegate Methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -366,23 +231,21 @@
         }
     }
     
-    regiDinaCalVC.selectedDictionary = [dataArray objectAtIndex:indexPath.row];
+    regiDinaCalVC.registreringObj = [dataArray objectAtIndex:indexPath.row];
+    
     [self.navigationController pushViewController:regiDinaCalVC animated:YES];
 }
 
 
-
-
--(void)cellButtonClicked:(id)sender{
+-(void)cellButtonClicked:(id)sender {
     for (int j=0; j<[dataArray count]; j++) {
-        NSMutableDictionary *dict = [dataArray objectAtIndex:j];
+        NewRegistrering *dict = [dataArray objectAtIndex:j];
         if (j==[sender tag]) {
-            [dict setValue:@"T" forKey:kSelected];
+            dict.uncheck = @"YES";
         }else{
-            [dict setValue:@"F" forKey:kSelected];
+            dict.uncheck = @"NO";
         }
     }
-    
     [table reloadData];
 }
 
