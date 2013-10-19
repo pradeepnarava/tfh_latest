@@ -453,7 +453,6 @@ NSArray *pArray;
     questionView2.hidden =YES;
 }
 
-
 //3.
 -(void)questionTap3:(id)sender {
     questionView3.hidden = NO;

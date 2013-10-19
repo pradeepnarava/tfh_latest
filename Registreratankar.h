@@ -38,6 +38,7 @@
     NSMutableArray *exercise1_list;
 }
 
+-(IBAction)mainlabelalert:(id)sender;
 
 @property(nonatomic,retain) IBOutlet UITableView *tableView;
 @property(nonatomic,retain) NSMutableArray *listexercise1;

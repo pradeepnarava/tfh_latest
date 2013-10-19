@@ -18,13 +18,14 @@
                 <outlet property="quesitonLabel1" destination="124" id="198"/>
                 <outlet property="quesitonLabel2" destination="126" id="199"/>
                 <outlet property="quesitonLabel3" destination="127" id="200"/>
-                <outlet property="quesitonLabel4" destination="128" id="201"/>
+                <outlet property="quesitonLabel4" destination="5m5-WW-BBv" id="hIw-Wu-27D"/>
+                <outlet property="quesitonLabel4_1" destination="128" id="6zC-WL-dDE"/>
                 <outlet property="questionLabel5" destination="130" id="203"/>
                 <outlet property="questionLabel6" destination="129" id="202"/>
                 <outlet property="questionView1" destination="160" id="209"/>
                 <outlet property="questionView2" destination="165" id="208"/>
                 <outlet property="questionView3" destination="170" id="207"/>
-                <outlet property="questionView4" destination="175" id="206"/>
+                <outlet property="questionView4_1" destination="175" id="wgj-2q-TEJ"/>
                 <outlet property="questionView5" destination="180" id="205"/>
                 <outlet property="questionView6" destination="185" id="204"/>
                 <outlet property="raderaButton" destination="39" id="99"/>
@@ -279,7 +280,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="128">
-                            <rect key="frame" x="80" y="747" width="611" height="59"/>
+                            <rect key="frame" x="80" y="743" width="611" height="59"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <attributedString key="attributedText">
@@ -298,9 +299,29 @@
                                         <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </attributes>
                                 </fragment>
-                                <fragment content=" - Vilka argument talar emot att din tanke stämmer? Här kan du använda de ">
+                                <fragment content=" - ">
                                     <attributes>
                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5m5-WW-BBv">
+                            <rect key="frame" x="80" y="752" width="611" height="59"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <attributedString key="attributedText">
+                                <fragment content="                                            ">
+                                    <attributes>
+                                        <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="Vilka argument talar emot att din tanke stämmer? Här kan du använda de ">
+                                    <attributes>
                                         <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                     </attributes>
@@ -315,9 +336,9 @@
                                 </fragment>
                                 <fragment content=" som presenterades i läsdelen.">
                                     <attributes>
-                                        <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>

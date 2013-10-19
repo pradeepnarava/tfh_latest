@@ -82,6 +82,11 @@
 -(IBAction)newbutton:(id)sender;
 -(IBAction)nextbutton:(id)sender;
 -(IBAction)labelalert:(id)sender;
+-(IBAction)questionCloseBtn1:(id)sender;
+-(IBAction)questionCloseBtn2:(id)sender;
+-(IBAction)questionCloseBtn3:(id)sender;
+-(IBAction)questionCloseBtn4:(id)sender;
+-(IBAction)questionCloseBtn4_1:(id)sender;
 
 -(void)getDataFromtheRegistreratanker;
 
