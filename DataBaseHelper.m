@@ -295,6 +295,7 @@ static sqlite3_stmt *statement = nil;
             [tempEvent addObject:event];
         }
     }
+    
     sqlite3_finalize(statement);
 
     return tempEvent;
@@ -311,7 +312,7 @@ static sqlite3_stmt *statement = nil;
     
     if (sqlite3_prepare_v2(database,query_stmt, -1, &statement, NULL) == SQLITE_OK)
     {
-        if (sqlite3_step(statement) == SQLITE_ROW)
+        while(sqlite3_step(statement) == SQLITE_ROW)
         {
             int rowId = sqlite3_column_int(statement, 0);
             char *startDateChar = (char *)sqlite3_column_text(statement, 2);
@@ -338,10 +339,7 @@ static sqlite3_stmt *statement = nil;
             
             [resultArray addObject:event];
         }
-        else{
-            NSLog(@"Not found");
-            return nil;
-        }
+        
         sqlite3_reset(statement);
     }
     

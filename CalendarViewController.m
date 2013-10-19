@@ -394,7 +394,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                         }else if ([dict.status isEqualToString:@"-"]) {
                             layer.backgroundColor = [UIColor redColor].CGColor;
                         }else if ([dict.status isEqualToString:@"Neutral"]){
-                            layer.backgroundColor = [UIColor darkGrayColor].CGColor;
+                            layer.backgroundColor = [UIColor lightGrayColor].CGColor;
                         }else {
                             [btn setBackgroundImage:[UIImage imageNamed:@"kalendar_cell_empty.png"] forState:UIControlStateNormal];
                             [btn setTitle:@"" forState:UIControlStateNormal];
@@ -655,7 +655,9 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
         }
         
         editIndexValue = nil;
+       
         [self displayButton];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             // The user has granted access to their Calendar; let's populate our UI with all events occuring in the next 24 hours.
             [self  databaseInsert];
@@ -999,7 +1001,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
     
     Events *dataDic = [dataArray lastObject];
     NSLog(@"New Record");
-    BOOL success = [[DataBaseHelper sharedDatasource] saveDBEventDate:@"" start:dataDic.startDate end:dataDic.endDate stus:dataDic.status dayDate:dataDic.dayTime desc:dataDic.eventDes newRI:newRowId];
+    BOOL success = [[DataBaseHelper sharedDatasource] saveDBEventDate:@"" start:dataDic.startDate end:dataDic.endDate stus:dataDic.status dayDate:dataDic.dayTime desc:dataDic.eventDes newRI:dataDic.newRowId];
     NSLog(@"%d",success);
     
 }

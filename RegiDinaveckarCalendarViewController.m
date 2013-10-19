@@ -293,7 +293,7 @@ static const unsigned int DAYS_IN_WEEK                        = 7;
                             layer.backgroundColor = [UIColor redColor].CGColor;
                            // layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_negative.png"]].CGColor;
                         }else if ([dict.status isEqualToString:@"Neutral"]){
-                            layer.backgroundColor = [UIColor darkGrayColor].CGColor;
+                            layer.backgroundColor = [UIColor lightGrayColor].CGColor;
                             //layer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"kalendar_cell_emptycell_neutral.png"]].CGColor;
                         }
                         
