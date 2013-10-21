@@ -1773,12 +1773,12 @@ NSString *omrade2choosenName=@"";
     }
     else
     {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"There are no saved entries."
-                                                     delegate:self
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-        [alert show];
-        [alert release];
+//        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Alert message" message:@"There are no saved entries."
+//                                                     delegate:self
+//                                            cancelButtonTitle:@"OK"
+//                                            otherButtonTitles:nil];
+//        [alert show];
+//        [alert release];
     }
 }
 

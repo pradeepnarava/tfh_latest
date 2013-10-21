@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -532,6 +532,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="282">
                             <rect key="frame" x="17" y="1306" width="280" height="43"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="Tidigare Formulär" backgroundImage="blargebutton.png">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1002,18 +1003,7 @@
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="470">
                                     <rect key="frame" x="41" y="57" width="210" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <attributedString key="attributedText">
-                                        <fragment content="Dina motbevis">
-                                            <attributes>
-                                                <font key="NSFont" size="15" name="HelveticaNeue-Bold"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36">
-                                                    <tabStops/>
-                                                </paragraphStyle>
-                                                <integer key="NSUnderline" value="1"/>
-                                                <color key="NSUnderlineColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                    <attributedString key="attributedText"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="469">
@@ -1121,7 +1111,41 @@ Här kan du, om du vill, använda dig av ”Strategier för att utmana negativa 
                                     <rect key="frame" x="20" y="82" width="259" height="259"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <mutableString key="text">•	”Allt eller inget”-tänkande:Du tänker på allting som svart eller vitt. Antingen har du lyckats eller så har du misslyckats. Det finns ingenting däremellan. •	Katastrofiering (siarens misstag):Du överdriver sannolikheten för att negativa saker ska inträffa. Banala saker blir stora problem som orsakar ångest eller nedstämdhet.•	Diskvalificering:Du tillåter dig inte att känna dig stolt eller nöjd med saker som du lyckats med, eftersom du alltid hittar saker som gör prestationen mindre värd.•	Att tänka med känslorna:Du tolkar dina känslor som sanningar. Du använder dina känslor som bevis och blandar ihop känslor med verkligheten. •	Etikettering:Du sätter etiketter på dig själv, till exempel genom att inte göra skillnad på ett misslyckande och din personlighet. •	Förstora eller förminska:Du förstorar negativa saker som sker och förminskar det positiva. •	Mentalt filter:Du ser en liten detalj på bekostnad av helheten. En enda negativ sak påverkar hela din bild av verkligheten.•	Tankeläsning:Du har en förutfattad mening om vad folk tycker om dig, du tycker dig kunna se att folk tycker illa om dig eller tycker att du är en svag person.•	Övergeneralisering:Du drar generella slutsatser av enstaka negativa händelser, och tycker dig därför se ett negativt mönster i ditt liv.•	Personalisering:Du tänker att du bär skulden för yttre händelser som du egentligen inte har något ansvar för. •	Måste och bordeDu har en bestämd åsikt om hur saker och ting ska vara och hur du och andra ska bete sig. Du använder ofta ord som ”måste”, ”borde”, ”ska”, ”alltid” och ”aldrig”.</mutableString>
+                                    <string key="text">•	”Allt eller inget”-tänkande:
+
+Du tänker på allting som svart eller vitt. Antingen har du lyckats eller så har du misslyckats. Det finns ingenting däremellan. 
+•	Katastrofiering (siarens misstag):
+
+Du överdriver sannolikheten för att negativa saker ska inträffa. Banala saker blir stora problem som orsakar ångest eller nedstämdhet.
+•	Diskvalificering:
+
+Du tillåter dig inte att känna dig stolt eller nöjd med saker som du lyckats med, eftersom du alltid hittar saker som gör prestationen mindre värd.
+•	Att tänka med känslorna:
+
+Du tolkar dina känslor som sanningar. Du använder dina känslor som bevis och blandar ihop känslor med verkligheten. 
+•	Etikettering:
+
+Du sätter etiketter på dig själv, till exempel genom att inte göra skillnad på ett misslyckande och din personlighet. 
+•	Förstora eller förminska:
+
+Du förstorar negativa saker som sker och förminskar det positiva. 
+•	Mentalt filter:
+
+Du ser en liten detalj på bekostnad av helheten. En enda negativ sak påverkar hela din bild av verkligheten.
+•	Tankeläsning:
+
+Du har en förutfattad mening om vad folk tycker om dig, du tycker dig kunna se att folk tycker illa om dig eller tycker att du är en svag person.
+•	Övergeneralisering:
+
+Du drar generella slutsatser av enstaka negativa händelser, och tycker dig därför se ett negativt mönster i ditt liv.
+•	Personalisering:
+
+Du tänker att du bär skulden för yttre händelser som du egentligen inte har något ansvar för. 
+
+•	Måste och borde
+
+Du har en bestämd åsikt om hur saker och ting ska vara och hur du och andra ska bete sig. Du använder ofta ord som ”måste”, ”borde”, ”ska”, ”alltid” och ”aldrig”.
+</string>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 </textView>
@@ -1205,50 +1229,17 @@ Här kan du, om du vill, använda dig av ”Strategier för att utmana negativa 
     <resources>
         <image name="background-ipone5.png" width="640" height="1136"/>
         <image name="bbutton.png" width="138" height="60"/>
-        <image name="bbutton.png" width="138" height="60"/>
-        <image name="bbutton.png" width="138" height="60"/>
-        <image name="bbutton.png" width="138" height="60"/>
-        <image name="blargebutton.png" width="486" height="82"/>
         <image name="blargebutton.png" width="486" height="82"/>
         <image name="bottom.png" width="640" height="271"/>
         <image name="closebutton.png" width="30" height="30"/>
-        <image name="closebutton.png" width="30" height="30"/>
-        <image name="closebutton.png" width="30" height="30"/>
-        <image name="closebutton.png" width="30" height="30"/>
-        <image name="closebutton.png" width="30" height="30"/>
-        <image name="closebutton.png" width="30" height="30"/>
-        <image name="closebutton.png" width="30" height="30"/>
-        <image name="closebutton.png" width="30" height="30"/>
         <image name="definitionpopup.ipad.png" width="450" height="328"/>
-        <image name="definitionpopup.png" width="627" height="457"/>
-        <image name="definitionpopup.png" width="627" height="457"/>
-        <image name="definitionpopup.png" width="627" height="457"/>
-        <image name="definitionpopup.png" width="627" height="457"/>
-        <image name="definitionpopup.png" width="627" height="457"/>
         <image name="definitionpopup.png" width="627" height="457"/>
         <image name="läsdel.png" width="114" height="29"/>
         <image name="popup6.png" width="640" height="739"/>
         <image name="radera.png" width="138" height="60"/>
         <image name="scrollbottom.png" width="640" height="520"/>
         <image name="unchecked.png" width="30" height="29"/>
-        <image name="unchecked.png" width="30" height="29"/>
-        <image name="unchecked.png" width="30" height="29"/>
-        <image name="unchecked.png" width="30" height="29"/>
-        <image name="unchecked.png" width="30" height="29"/>
-        <image name="unchecked.png" width="30" height="29"/>
-        <image name="unchecked.png" width="30" height="29"/>
-        <image name="unchecked.png" width="30" height="29"/>
         <image name="utmanatext.png" width="610" height="222"/>
-        <image name="utmanatext.png" width="610" height="222"/>
-        <image name="utmanatext.png" width="610" height="222"/>
-        <image name="utmanatext.png" width="610" height="222"/>
-        <image name="utmanatext.png" width="610" height="222"/>
-        <image name="utmanatext.png" width="610" height="222"/>
-        <image name="utmanatitle.png" width="628" height="126"/>
-        <image name="utmanatitle.png" width="628" height="126"/>
-        <image name="utmanatitle.png" width="628" height="126"/>
-        <image name="utmanatitle.png" width="628" height="126"/>
-        <image name="utmanatitle.png" width="628" height="126"/>
         <image name="utmanatitle.png" width="628" height="126"/>
     </resources>
 </document>

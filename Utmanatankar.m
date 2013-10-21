@@ -39,8 +39,6 @@ NSArray *pArray;
     }
     return self;
 }
-
-
 #pragma mark TextViewDelegate Methods
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -283,8 +281,14 @@ NSArray *pArray;
     
     quesitonLabel4.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture7 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap4:)] autorelease];
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap4:)];
     [quesitonLabel4 addGestureRecognizer:tapGesture7];
+    
+    
+    quesitonLabel4_1.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture4_1 =
+    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap4_1:)];
+    [quesitonLabel4_1 addGestureRecognizer:tapGesture4_1];
     
     questionLabel5.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture8 =
@@ -296,10 +300,7 @@ NSArray *pArray;
     [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap6:)] autorelease];
     [questionLabel6 addGestureRecognizer:tapGesture9];
     
-    regLabel4_1.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapGesture4_1 =
-    [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(questionTap4_1:)] autorelease];
-    [regLabel4_1 addGestureRecognizer:tapGesture4_1];
+    
     
     NSString *docsDir;
     NSArray *dirPaths;
@@ -462,20 +463,21 @@ NSArray *pArray;
     questionView3.hidden =YES;
 }
 //4.
--(void)questionTap4:(id)sender {
+-(void)questionTap4:(id)sender
+{
     questionView4_1.hidden = NO;
 }
 
 -(IBAction)questionCloseBtn4:(id)sender{
-    questionView4_1.hidden =YES;
+    questionView4.hidden =YES;
 }
 
-//6.
+//4.
 -(void)questionTap4_1:(id)sender {
     questionView4.hidden = NO;
 }
 
-//6.
+//4.
 -(IBAction)questionCloseBtn4_1:(id)sender {
     questionView4.hidden = YES;
 }

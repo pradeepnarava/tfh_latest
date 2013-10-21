@@ -845,6 +845,7 @@
                     <rect key="frame" x="17" y="755" width="287" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="Tidigare Kompass" backgroundImage="largebuttonipad.png">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1267,7 +1268,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Kl:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="929">
-                    <rect key="frame" x="122" y="278" width="37" height="21"/>
+                    <rect key="frame" x="120" y="314" width="37" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1289,17 +1290,17 @@
                     </connections>
                 </button>
                 <segmentedControl autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="bBp-RD-mHT">
-                    <rect key="frame" x="22" y="194" width="280" height="29"/>
+                    <rect key="frame" x="20" y="194" width="286" height="29"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.64498745440000005" alpha="1" colorSpace="calibratedWhite"/>
                     <segments>
-                        <segment title="Mon"/>
-                        <segment title="Tue"/>
-                        <segment title="Wed"/>
-                        <segment title="Thu"/>
-                        <segment title="Fri"/>
-                        <segment title="Sat"/>
-                        <segment title="Sun"/>
+                        <segment title="Ma" width="45"/>
+                        <segment title="Tis"/>
+                        <segment title="Ons"/>
+                        <segment title="Tor"/>
+                        <segment title="Fre"/>
+                        <segment title="Lor"/>
+                        <segment title="So" width="40"/>
                     </segments>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -1307,7 +1308,7 @@
                     </connections>
                 </segmentedControl>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wV5-96-itq">
-                    <rect key="frame" x="149" y="274" width="58" height="30"/>
+                    <rect key="frame" x="147" y="309" width="58" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" backgroundImage="settings_digital_input.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1322,20 +1323,66 @@
     </objects>
     <resources>
         <image name="background-ipone5.png" width="640" height="1136"/>
+        <image name="background-ipone5.png" width="640" height="1136"/>
+        <image name="background-ipone5.png" width="640" height="1136"/>
+        <image name="bbutton.png" width="138" height="60"/>
+        <image name="bbutton.png" width="138" height="60"/>
+        <image name="bbutton.png" width="138" height="60"/>
+        <image name="bbutton.png" width="138" height="60"/>
         <image name="bbutton.png" width="138" height="60"/>
         <image name="bottom.png" width="640" height="271"/>
         <image name="button-off.png" width="108" height="60"/>
         <image name="button-on.png" width="108" height="60"/>
         <image name="largebuttonipad.png" width="972" height="162"/>
         <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-text.png" width="486" height="66"/>
+        <image name="område-title.png" width="486" height="66"/>
+        <image name="område-title.png" width="486" height="66"/>
+        <image name="område-title.png" width="486" height="66"/>
         <image name="område-title.png" width="486" height="66"/>
         <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-text.png" width="206" height="66"/>
+        <image name="område2-title.png" width="206" height="66"/>
         <image name="område2-title.png" width="206" height="66"/>
         <image name="övningsbeskrivning.png" width="360" height="60"/>
         <image name="radera.png" width="138" height="60"/>
         <image name="rate-text.png" width="128" height="66"/>
+        <image name="rate-text.png" width="128" height="66"/>
+        <image name="rate-text.png" width="128" height="66"/>
+        <image name="rate-text.png" width="128" height="66"/>
+        <image name="rate-title.png" width="128" height="66"/>
         <image name="rate-title.png" width="128" height="66"/>
         <image name="settings_digital_input.png" width="99" height="31"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
+        <image name="uncheck.png" width="32" height="32"/>
         <image name="uncheck.png" width="32" height="32"/>
     </resources>
 </document>
